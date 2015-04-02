@@ -209,7 +209,7 @@ namespace HaloOnlineTagTool
 				var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
 				var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
 				var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-				var unknown3 = reader.ReadUInt32();                         // 0x20 uint32 unknown
+				var classId = reader.ReadUInt32();                         // 0x20 uint32 class stringid
 				var totalHeaderSize = CalculateHeaderSize(numDependencies, numFixups);
 
 				// Construct the tag object
@@ -224,7 +224,7 @@ namespace HaloOnlineTagTool
 					Size = totalSize - totalHeaderSize,
 					Checksum = unknown1,
 					Unknown2 = unknown2,
-					Unknown3 = unknown3
+					ClassId = classId
 				};
 				_tags.Add(tag);
 
@@ -280,7 +280,7 @@ namespace HaloOnlineTagTool
 			writer.Write(tag.Class.Value);
 			writer.Write(tag.ParentClass.Value);
 			writer.Write(tag.GrandparentClass.Value);
-			writer.Write(tag.Unknown3);
+			writer.Write(tag.ClassId);
 
 			// Write dependencies
 			foreach (var dependency in tag.Dependencies)

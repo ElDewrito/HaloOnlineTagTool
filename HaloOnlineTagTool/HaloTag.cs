@@ -42,6 +42,11 @@ namespace HaloOnlineTagTool
 		public MagicNumber GrandparentClass { get; set; }
 
 		/// <summary>
+		/// Gets or sets the stringID for the tag's class.
+		/// </summary>
+		public uint ClassId { get; set; }
+
+		/// <summary>
 		/// Gets the offset of the tag's data, including its header.
 		/// </summary>
 		public uint Offset { get; internal set; }
@@ -65,8 +70,6 @@ namespace HaloOnlineTagTool
 		/// Always zero?
 		/// </summary>
 		public uint Unknown2 { get; set; }
-
-		public uint Unknown3 { get; set; }
 
 		/// <summary>
 		/// Gets the indexes of tags that this tag depends on.
