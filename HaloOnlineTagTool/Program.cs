@@ -13,21 +13,35 @@ namespace HaloOnlineTagTool
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Halo Online Tag Tool [{0}]", Assembly.GetExecutingAssembly().GetName().Version);
-			Console.WriteLine("Written by Shockfire");
-			Console.WriteLine();
-			Console.WriteLine("Please report any bugs and feature requests at");
-			Console.WriteLine("<https://gitlab.com/Shockfire/HaloOnlineTagTool/issues>.");
-			Console.WriteLine();
-
+			// Get the file path from the first argument
+			// If no argument is given, load tags.dat
 			var filePath = (args.Length > 0) ? args[0] : "tags.dat";
-			
-			Console.Write("Reading...");
+
+			// If there are extra arguments, use them to automatically execute a command
+			List<string> autoexecCommand = null;
+			if (args.Length > 1)
+				autoexecCommand = args.Skip(1).ToList();
+
+			if (autoexecCommand == null)
+			{
+				Console.WriteLine("Halo Online Tag Tool [{0}]", Assembly.GetExecutingAssembly().GetName().Version);
+				Console.WriteLine("Written by Shockfire");
+				Console.WriteLine();
+				Console.WriteLine("Please report any bugs and feature requests at");
+				Console.WriteLine("<https://gitlab.com/Shockfire/HaloOnlineTagTool/issues>.");
+				Console.WriteLine();
+
+				Console.Write("Reading...");
+			}
+
+			// Load the tag cache
 			var fileName = Path.GetFileName(filePath);
 			TagCache cache;
 			using (var stream = File.OpenRead(filePath))
 				cache = new TagCache(stream);
-			Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
+
+			if (autoexecCommand == null)
+				Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
 
 			// Create command dictionary
 			var commandDict = new List<Command>
@@ -42,6 +56,14 @@ namespace HaloOnlineTagTool
 			}.ToDictionary(c => c.Name);
 			var helpCommand = new HelpCommand(commandDict);
 			commandDict[helpCommand.Name] = helpCommand;
+
+			// If autoexecuting a command, just run it and return
+			if (autoexecCommand != null)
+			{
+				if (!ExecuteCommand(commandDict, cache, filePath, autoexecCommand))
+					Console.Error.WriteLine("Unrecognized command: {0}", autoexecCommand[0]);
+				return;
+			}
 			
 			Console.WriteLine("Enter \"help\" to list available commands. Enter \"exit\" to quit.");
 			while (true)
@@ -67,14 +89,7 @@ namespace HaloOnlineTagTool
 				}
 
 				// Try to execute it
-				Command command;
-				if (commandDict.TryGetValue(commandArgs[0], out command))
-				{
-					commandArgs.RemoveAt(0);
-					using (var stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite))
-						ExecuteCommand(command, cache, stream, commandArgs);
-				}
-				else
+				if (!ExecuteCommand(commandDict, cache, filePath, commandArgs))
 				{
 					Console.Error.WriteLine("Unrecognized command: {0}", commandArgs[0]);
 					Console.Error.WriteLine("Use \"help\" to list available commands.");
@@ -88,6 +103,24 @@ namespace HaloOnlineTagTool
 					Console.WriteLine("Wrote output to {0}.", redirectFile);
 				}
 			}
+		}
+
+		private static bool ExecuteCommand(Dictionary<string, Command> commands, TagCache cache, string filePath, List<string> commandAndArgs)
+		{
+			if (commandAndArgs.Count == 0)
+				return true;
+
+			// Look up the command
+			Command command;
+			if (!commands.TryGetValue(commandAndArgs[0], out command))
+				return false;
+
+			// Open tags.dat as R/W and then execute the command
+			commandAndArgs.RemoveAt(0);
+			using (var stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite))
+				ExecuteCommand(command, cache, stream, commandAndArgs);
+
+			return true;
 		}
 
 		private static void ExecuteCommand(Command command, TagCache cache, Stream stream, List<string> args)
