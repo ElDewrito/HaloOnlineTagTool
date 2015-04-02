@@ -93,7 +93,7 @@ namespace HaloOnlineTagTool
 			// Adjust fixups before injecting the data
 			using (var reader = new BinaryReader(new MemoryStream(data)))
 			{
-				foreach (var fixup in tag.Fixups)
+				foreach (var fixup in tag.DataFixups)
 				{
 					reader.BaseStream.Position = fixup.WriteOffset;
 					fixup.TargetOffset = reader.ReadUInt32() - FixupPointerBase;
@@ -143,7 +143,7 @@ namespace HaloOnlineTagTool
 			if (headerSize < relativeCompareOffset)
 			{
 				tag.Size = (uint)(tag.Size + sizeDelta);
-				foreach (var fixup in tag.Fixups)
+				foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
 				{
 					if (fixup.WriteOffset + headerSize >= relativeCompareOffset)
 						fixup.WriteOffset = (uint)(fixup.WriteOffset + sizeDelta);
@@ -200,17 +200,18 @@ namespace HaloOnlineTagTool
 
 				// Read header
 				reader.BaseStream.Position = _headerOffsets[i];
-				var unknown1 = reader.ReadUInt32();                         // 0x00 uint32 checksum?
+				var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum?
 				var totalSize = reader.ReadUInt32();                        // 0x04 uint32 total size
 				var numDependencies = reader.ReadInt16();                   // 0x08 int16  dependencies count
-				var numFixups = reader.ReadInt16();                         // 0x0A int16  fixups count
-				var unknown2 = reader.ReadUInt32();                         // 0x0C uint32 unknown
+				var numDataFixups = reader.ReadInt16();                     // 0x0A int16  data fixup count
+				var numResourceFixups = reader.ReadInt16();                 // 0x0C int16  resource fixup count
+				reader.BaseStream.Position += 2;                            // 0x0E int16  (padding)
 				var mainStructOffset = reader.ReadUInt32();                 // 0x10 uint32 main struct offset
 				var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
 				var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
 				var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-				var classId = reader.ReadUInt32();                         // 0x20 uint32 class stringid
-				var totalHeaderSize = CalculateHeaderSize(numDependencies, numFixups);
+				var classId = reader.ReadUInt32();                          // 0x20 uint32 class stringid
+				var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
 
 				// Construct the tag object
 				var tag = new HaloTag
@@ -222,8 +223,7 @@ namespace HaloOnlineTagTool
 					MainStructOffset = mainStructOffset - totalHeaderSize,
 					Offset = _headerOffsets[i] + totalHeaderSize,
 					Size = totalSize - totalHeaderSize,
-					Checksum = unknown1,
-					Unknown2 = unknown2,
+					Checksum = checksum,
 					ClassId = classId
 				};
 				_tags.Add(tag);
@@ -233,24 +233,42 @@ namespace HaloOnlineTagTool
 					tag.Dependencies.Add(reader.ReadInt32());
 
 				// Read fixup pointers
-				var fixupOffsets = new uint[numFixups];
-				for (var j = 0; j < numFixups; j++)
-					fixupOffsets[j] = reader.ReadUInt32();
-				for (var j = 0; j < numFixups; j++)
-				{
-					// Adjust the fixup offset and then seek to it and read and adjust the target
-					var fixupOffset = fixupOffsets[j] - FixupPointerBase;
-					reader.BaseStream.Position = _headerOffsets[i] + fixupOffset;
-					var targetOffset = reader.ReadUInt32() - FixupPointerBase;
+				var dataFixupPointers = new uint[numDataFixups];
+				for (var j = 0; j < numDataFixups; j++)
+					dataFixupPointers[j] = reader.ReadUInt32();
+				var resourceFixupPointers = new uint[numResourceFixups];
+				for (var j = 0; j < numResourceFixups; j++)
+					resourceFixupPointers[j] = reader.ReadUInt32();
 
-					// Add the fixup with the offsets adjusted to be from the start of the tag's data
-					tag.Fixups.Add(new TagFixup
-					{
-						WriteOffset = fixupOffset - totalHeaderSize,
-						TargetOffset = targetOffset - totalHeaderSize
-					});
-				}
+				// Process fixups
+				foreach (var fixup in dataFixupPointers)
+					tag.DataFixups.Add(ReadFixup(reader, fixup, _headerOffsets[i], totalHeaderSize));
+				foreach (var fixup in resourceFixupPointers)
+					tag.ResourceFixups.Add(ReadFixup(reader, fixup, _headerOffsets[i], totalHeaderSize));
 			}
+		}
+
+		/// <summary>
+		/// Reads fixup information from a fixup pointer.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		/// <param name="pointer">The pointer.</param>
+		/// <param name="headerOffset">The offset of the tag's header.</param>
+		/// <param name="headerSize">The size of the tag's header.</param>
+		/// <returns>The read fixup information.</returns>
+		private static TagFixup ReadFixup(BinaryReader reader, uint pointer, uint headerOffset, uint headerSize)
+		{
+			// Adjust the fixup pointer and then seek to it and read and adjust the target
+			var fixupOffset = pointer - FixupPointerBase;
+			reader.BaseStream.Position = headerOffset + fixupOffset;
+			var targetOffset = reader.ReadUInt32() - FixupPointerBase;
+
+			// Adjust the offsets to be from the start of the tag's data
+			return new TagFixup
+			{
+				WriteOffset = fixupOffset - headerSize,
+				TargetOffset = targetOffset - headerSize
+			};
 		}
 
 		/// <summary>
@@ -261,7 +279,7 @@ namespace HaloOnlineTagTool
 		private void UpdateTagHeader(BinaryWriter writer, HaloTag tag)
 		{
 			// Resize the header if necessary
-			var newHeaderSize = CalculateHeaderSize(tag.Dependencies.Count, tag.Fixups.Count);
+			var newHeaderSize = CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
 			var oldHeaderSize = GetHeaderSize(tag);
 			if (newHeaderSize > oldHeaderSize)
 				ResizeTag(writer.BaseStream, tag, oldHeaderSize, (int)newHeaderSize - (int)oldHeaderSize, InsertType.Before);
@@ -273,9 +291,10 @@ namespace HaloOnlineTagTool
 			writer.BaseStream.Position = newHeaderOffset;
 			writer.Write(tag.Checksum);
 			writer.Write(tag.Size + newHeaderSize);
-			writer.Write((ushort)tag.Dependencies.Count);
-			writer.Write((ushort)tag.Fixups.Count);
-			writer.Write(tag.Unknown2);
+			writer.Write((short)tag.Dependencies.Count);
+			writer.Write((short)tag.DataFixups.Count);
+			writer.Write((short)tag.ResourceFixups.Count);
+			writer.Write((short)0);
 			writer.Write(tag.MainStructOffset + newHeaderSize);
 			writer.Write(tag.Class.Value);
 			writer.Write(tag.ParentClass.Value);
@@ -287,7 +306,7 @@ namespace HaloOnlineTagTool
 				writer.Write(dependency);
 
 			// Write fixup pointers
-			foreach (var fixup in tag.Fixups)
+			foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
 				writer.Write(fixup.WriteOffset + newHeaderSize + FixupPointerBase);
 		}
 
@@ -301,7 +320,7 @@ namespace HaloOnlineTagTool
 		{
 			using (var writer = new BinaryWriter(new MemoryStream(data)))
 			{
-				foreach (var fixup in tag.Fixups)
+				foreach (var fixup in tag.DataFixups)
 				{
 					writer.BaseStream.Position = fixup.WriteOffset;
 					writer.Write(newBase + fixup.TargetOffset + FixupPointerBase);
@@ -316,8 +335,8 @@ namespace HaloOnlineTagTool
 		/// <param name="tag">The tag.</param>
 		private static void UpdateTagFixups(BinaryWriter writer, HaloTag tag)
 		{
-			var totalHeaderSize = CalculateHeaderSize(tag.Dependencies.Count, tag.Fixups.Count);
-			foreach (var fixup in tag.Fixups)
+			var totalHeaderSize = CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
+			foreach (var fixup in tag.DataFixups)
 			{
 				writer.BaseStream.Position = tag.Offset + fixup.WriteOffset;
 				writer.Write(fixup.TargetOffset + totalHeaderSize + FixupPointerBase);
@@ -373,12 +392,13 @@ namespace HaloOnlineTagTool
 		/// Calculates the size of a tag header.
 		/// </summary>
 		/// <param name="numRequiredTags">The number of required tags.</param>
-		/// <param name="numFixups">The number of fixups.</param>
-		/// <returns></returns>
-		private static uint CalculateHeaderSize(int numRequiredTags, int numFixups)
+		/// <param name="numDataFixups">The number of fixups.</param>
+		/// <param name="numResourceFixups">The number of resource fixups.</param>
+		/// <returns>The size of the tag header.</returns>
+		private static uint CalculateHeaderSize(int numRequiredTags, int numDataFixups, int numResourceFixups)
 		{
 			// After the static header, there's 4 bytes per required tag index and 4 bytes per fixup pointer
-			return (uint)(TagHeaderSize + numRequiredTags * 4 + numFixups * 4);
+			return (uint)(TagHeaderSize + numRequiredTags * 4 + numDataFixups * 4 + numResourceFixups * 4);
 		}
 	}
 

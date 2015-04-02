@@ -18,7 +18,8 @@ namespace HaloOnlineTagTool
 		public HaloTag()
 		{
 			Dependencies = new HashSet<int>();
-			Fixups = new List<TagFixup>();
+			DataFixups = new List<TagFixup>();
+			ResourceFixups = new List<TagFixup>();
 		}
 
 		/// <summary>
@@ -67,19 +68,19 @@ namespace HaloOnlineTagTool
 		public uint Checksum { get; set; }
 
 		/// <summary>
-		/// Always zero?
-		/// </summary>
-		public uint Unknown2 { get; set; }
-
-		/// <summary>
 		/// Gets the indexes of tags that this tag depends on.
 		/// </summary>
 		public HashSet<int> Dependencies { get; private set; }
 
 		/// <summary>
-		/// Gets the tag's fixups.
+		/// Gets the tag's data fixups.
 		/// </summary>
-		public List<TagFixup> Fixups { get; private set; }
+		public List<TagFixup> DataFixups { get; private set; }
+
+		/// <summary>
+		/// Gets the tag's resource fixups.
+		/// </summary>
+		public List<TagFixup> ResourceFixups { get; private set; } 
 	}
 
 	/// <summary>
