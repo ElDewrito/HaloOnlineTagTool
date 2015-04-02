@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HaloOnlineTagTool.Commands
+{
+	/// <summary>
+	/// Base class for a tag manipulation command.
+	/// </summary>
+	abstract class Command
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Command"/> class.
+		/// </summary>
+		/// <param name="name">The command's name.</param>
+		/// <param name="description">The command's description.</param>
+		/// <param name="usage">The command's usage string.</param>
+		/// <param name="helpMessage">The command's help message.</param>
+		protected Command(string name, string description, string usage, string helpMessage)
+		{
+			Name = name;
+			Description = description;
+			Usage = usage;
+			HelpMessage = helpMessage;
+		}
+
+		/// <summary>
+		/// Gets the command's name.
+		/// </summary>
+		public string Name { get; private set; }
+
+		/// <summary>
+		/// Gets the command's description.
+		/// </summary>
+		public string Description { get; private set; }
+
+		/// <summary>
+		/// Gets the command's usage string.
+		/// </summary>
+		public string Usage { get; private set; }
+
+		/// <summary>
+		/// Gets the command's help message.
+		/// </summary>
+		public string HelpMessage { get; private set; }
+
+		/// <summary>
+		/// Executes the command.
+		/// </summary>
+		/// <param name="cache">The tag cache to execute on.</param>
+		/// <param name="stream">The stream to execute on.</param>
+		/// <param name="args">The command arguments.</param>
+		/// <returns><c>true</c> if the command's arguments were valid.</returns>
+		public abstract bool Execute(TagCache cache, Stream stream, List<string> args);
+	}
+}
