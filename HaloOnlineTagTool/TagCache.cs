@@ -93,10 +93,19 @@ namespace HaloOnlineTagTool
 			// Adjust fixups before injecting the data
 			using (var reader = new BinaryReader(new MemoryStream(data)))
 			{
-				foreach (var fixup in tag.DataFixups)
+				for (var i = 0; i < tag.DataFixups.Count; i++)
 				{
+					var fixup = tag.DataFixups[i];
 					reader.BaseStream.Position = fixup.WriteOffset;
-					fixup.TargetOffset = reader.ReadUInt32() - FixupPointerBase;
+					var newPointer = reader.ReadUInt32();
+					if (newPointer == 0)
+					{
+						// Pointer was nulled - removed it
+						tag.DataFixups.RemoveAt(i);
+						i--;
+						continue;
+					}
+					fixup.TargetOffset = newPointer - FixupPointerBase;
 				}
 			}
 			RebasePointers(tag, data, GetHeaderSize(tag));
