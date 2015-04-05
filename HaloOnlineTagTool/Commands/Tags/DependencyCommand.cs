@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HaloOnlineTagTool.Commands
+namespace HaloOnlineTagTool.Commands.Tags
 {
 	/// <summary>
 	/// Command for managing tag dependencies.
 	/// </summary>
 	class DependencyCommand : Command
 	{
-		public DependencyCommand() : base(
+		private readonly TagCache _cache;
+		private readonly Stream _stream;
+
+		public DependencyCommand(TagCache cache, Stream stream) : base(
+			CommandFlags.None,
+
 			"dep",
 			"Manage tag loading",
 			
@@ -30,13 +32,15 @@ namespace HaloOnlineTagTool.Commands
 			"To add dependencies to a map, use the \"map\" command to get its scenario tag\n" +
 			"index and then add dependencies to the scenario tag.")
 		{
+			_cache = cache;
+			_stream = stream;
 		}
 
-		public override bool Execute(TagCache cache, Stream stream, List<string> args)
+		public override bool Execute(List<string> args)
 		{
 			if (args.Count < 2)
 				return false;
-			var tag = ArgumentParser.ParseTagIndex(cache, args[1]);
+			var tag = ArgumentParser.ParseTagIndex(_cache, args[1]);
 			if (tag == null)
 				return false;
 
@@ -44,20 +48,20 @@ namespace HaloOnlineTagTool.Commands
 			{
 				case "add":
 				case "remove":
-					return ExecuteAddRemove(cache, stream, tag, args);
+					return ExecuteAddRemove(tag, args);
 				case "list":
 				case "listall":
-					return ExecuteList(cache, stream, tag, (args[0] == "listall"));
+					return ExecuteList(tag, (args[0] == "listall"));
 				default:
 					return false;
 			}
 		}
 
-		private static bool ExecuteAddRemove(TagCache cache, Stream stream, HaloTag tag, List<string> args)
+		private bool ExecuteAddRemove(HaloTag tag, List<string> args)
 		{
 			if (args.Count < 3)
 				return false;
-			var dependencies = args.Skip(2).Select(a => ArgumentParser.ParseTagIndex(cache, a)).ToList();
+			var dependencies = args.Skip(2).Select(a => ArgumentParser.ParseTagIndex(_cache, a)).ToList();
 			if (dependencies.Count == 0 || dependencies.Any(d => d == null))
 				return false;
 			if (args[0] == "add")
@@ -69,7 +73,6 @@ namespace HaloOnlineTagTool.Commands
 					else
 						Console.Error.WriteLine("Tag {0:X8} already depends on tag {1:X8}.", tag.Index, dependency.Index);
 				}
-				cache.UpdateTag(stream, tag);
 			}
 			else
 			{
@@ -80,12 +83,12 @@ namespace HaloOnlineTagTool.Commands
 					else
 						Console.Error.WriteLine("Tag {0:X8} does not depend on tag {1:X8}.", tag.Index, dependency.Index);
 				}
-				cache.UpdateTag(stream, tag);
 			}
+			_cache.UpdateTag(_stream, tag);
 			return true;
 		}
 
-		private static bool ExecuteList(TagCache cache, Stream stream, HaloTag tag, bool all)
+		private bool ExecuteList(HaloTag tag, bool all)
 		{
 			if (tag.Dependencies.Count == 0)
 			{
@@ -94,9 +97,9 @@ namespace HaloOnlineTagTool.Commands
 			}
 			IEnumerable<HaloTag> dependencies;
 			if (all)
-				dependencies = cache.Tags.FindDependencies(tag);
+				dependencies = _cache.Tags.FindDependencies(tag);
 			else
-				dependencies = tag.Dependencies.Where(i => cache.Tags.Contains(i)).Select(i => cache.Tags[i]);
+				dependencies = tag.Dependencies.Where(i => _cache.Tags.Contains(i)).Select(i => _cache.Tags[i]);
 			TagPrinter.PrintTagsShort(dependencies);
 			return true;
 		}

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands;
+using HaloOnlineTagTool.Commands.Tags;
 
 namespace HaloOnlineTagTool
 {
@@ -30,37 +31,25 @@ namespace HaloOnlineTagTool
 				Console.WriteLine("Please report any bugs and feature requests at");
 				Console.WriteLine("<https://gitlab.com/Shockfire/HaloOnlineTagTool/issues>.");
 				Console.WriteLine();
-
 				Console.Write("Reading...");
 			}
 
 			// Load the tag cache
-			var fileName = Path.GetFileName(filePath);
-			TagCache cache;
-			using (var stream = File.OpenRead(filePath))
-				cache = new TagCache(stream);
+			var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			var cache = new TagCache(stream);
 
 			if (autoexecCommand == null)
 				Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
 
-			// Create command dictionary
-			var commandDict = new List<Command>
-			{
-				new DependencyCommand(),
-				new ListCommand(),
-				new InfoCommand(),
-				new ExtractCommand(),
-				new ImportCommand(),
-				new InsertCommand(),
-				new MapCommand()
-			}.ToDictionary(c => c.Name);
-			var helpCommand = new HelpCommand(commandDict);
-			commandDict[helpCommand.Name] = helpCommand;
+			// Create command context
+			var contextStack = new CommandContextStack();
+			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, stream, filePath);
+			contextStack.Push(tagsContext);
 
 			// If autoexecuting a command, just run it and return
 			if (autoexecCommand != null)
 			{
-				if (!ExecuteCommand(commandDict, cache, filePath, autoexecCommand))
+				if (!ExecuteCommand(contextStack.Context, autoexecCommand))
 					Console.Error.WriteLine("Unrecognized command: {0}", autoexecCommand[0]);
 				return;
 			}
@@ -70,10 +59,10 @@ namespace HaloOnlineTagTool
 			{
 				// Read and parse a command
 				Console.WriteLine();
-				Console.Write("{0}> ", fileName);
+				Console.Write("{0}> ", contextStack.GetPath());
 				var commandLine = Console.ReadLine();
 				string redirectFile;
-				var commandArgs = ParseCommand(commandLine, out redirectFile);
+				var commandArgs = ArgumentParser.ParseCommand(commandLine, out redirectFile);
 				if (commandArgs.Count == 0)
 					continue;
 				if (commandArgs[0] == "exit" || commandArgs[0] == "quit")
@@ -89,7 +78,7 @@ namespace HaloOnlineTagTool
 				}
 
 				// Try to execute it
-				if (!ExecuteCommand(commandDict, cache, filePath, commandArgs))
+				if (!ExecuteCommand(contextStack.Context, commandArgs))
 				{
 					Console.Error.WriteLine("Unrecognized command: {0}", commandArgs[0]);
 					Console.Error.WriteLine("Use \"help\" to list available commands.");
@@ -105,86 +94,32 @@ namespace HaloOnlineTagTool
 			}
 		}
 
-		private static bool ExecuteCommand(Dictionary<string, Command> commands, TagCache cache, string filePath, List<string> commandAndArgs)
+		private static bool ExecuteCommand(CommandContext context, List<string> commandAndArgs)
 		{
 			if (commandAndArgs.Count == 0)
 				return true;
 
 			// Look up the command
-			Command command;
-			if (!commands.TryGetValue(commandAndArgs[0], out command))
+			var command = context.GetCommand(commandAndArgs[0]);
+			if (command == null)
 				return false;
 
-			// Open tags.dat as R/W and then execute the command
+			// Execute it
 			commandAndArgs.RemoveAt(0);
-			using (var stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite))
-				ExecuteCommand(command, cache, stream, commandAndArgs);
-
+			ExecuteCommand(command, commandAndArgs);
 			return true;
 		}
 
-		private static void ExecuteCommand(Command command, TagCache cache, Stream stream, List<string> args)
+		private static void ExecuteCommand(Command command, List<string> args)
 		{
-			if (command.Execute(cache, stream, args))
+			if (command.Execute(args))
 				return;
-
 			Console.Error.WriteLine("{0}: {1}", command.Name, command.Description);
 			Console.Error.WriteLine();
 			Console.Error.WriteLine("Usage:");
 			Console.Error.WriteLine("{0}", command.Usage);
 			Console.Error.WriteLine();
 			Console.Error.WriteLine("Use \"help {0}\" for more information.", command.Name);
-		}
-
-		private static List<string> ParseCommand(string command, out string redirectFile)
-		{
-			var results = new List<string>();
-			var currentArg = new StringBuilder();
-			var partStart = -1;
-			var quoted = false;
-			var redirectStart = -1;
-			redirectFile = null;
-			for (var i = 0; i < command.Length; i++)
-			{
-				switch (command[i])
-				{
-					case '>':
-						if (quoted)
-							goto default; // Treat like a normal char when quoted
-						redirectStart = (partStart != -1) ? results.Count + 1 : results.Count;
-						goto case ' '; // Treat like a space
-					case ' ':
-						if (quoted)
-							goto default; // Treat like a normal char when quoted
-						if (partStart != -1)
-							currentArg.Append(command.Substring(partStart, i - partStart));
-						if (currentArg.Length > 0)
-							results.Add(currentArg.ToString());
-						currentArg.Clear();
-						partStart = -1;
-						break;
-					case '"':
-						quoted = !quoted;
-						if (partStart != -1)
-							currentArg.Append(command.Substring(partStart, i - partStart));
-						partStart = -1;
-						break;
-					default:
-						if (partStart == -1)
-							partStart = i;
-						break;
-				}
-			}
-			if (partStart != -1)
-				currentArg.Append(command.Substring(partStart));
-			if (currentArg.Length > 0)
-				results.Add(currentArg.ToString());
-			if (redirectStart >= 0 && redirectStart < results.Count)
-			{
-				redirectFile = string.Join(" ", results.Skip(redirectStart));
-				results.RemoveRange(redirectStart, results.Count - redirectStart);
-			}
-			return results;
 		}
 	}
 }

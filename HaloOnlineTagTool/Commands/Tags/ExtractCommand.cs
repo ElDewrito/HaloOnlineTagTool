@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HaloOnlineTagTool.Commands
+namespace HaloOnlineTagTool.Commands.Tags
 {
 	class ExtractCommand : Command
 	{
-		public ExtractCommand() : base(
+		private readonly TagCache _cache;
+		private readonly Stream _stream;
+
+		public ExtractCommand(TagCache cache, Stream stream) : base(
+			CommandFlags.Inherit,
+
 			"extract",
 			"Extract a tag to a file",
 			
@@ -20,18 +21,20 @@ namespace HaloOnlineTagTool.Commands
 			"Note that the tag's header will not be extracted.\n" +
 			"Use other commands to manipulate the tag's header in a safe manner.")
 		{
+			_cache = cache;
+			_stream = stream;
 		}
 
-		public override bool Execute(TagCache cache, Stream stream, List<string> args)
+		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 2)
 				return false;
-			var tag = ArgumentParser.ParseTagIndex(cache, args[0]);
+			var tag = ArgumentParser.ParseTagIndex(_cache, args[0]);
 			if (tag == null)
 				return false;
 			var file = args[1];
 
-			var data = cache.ExtractTag(stream, tag);
+			var data = _cache.ExtractTag(_stream, tag);
 			using (var outStream = File.Open(file, FileMode.Create, FileAccess.Write))
 			{
 				outStream.Write(data, 0, data.Length);

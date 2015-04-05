@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HaloOnlineTagTool.Commands
+namespace HaloOnlineTagTool.Commands.Tags
 {
 	class InfoCommand : Command
 	{
-		public InfoCommand() : base(
+		private readonly TagCache _cache;
+
+		public InfoCommand(TagCache cache) : base(
+			CommandFlags.Inherit,
+
 			"info",
 			"Get information about a tag",
 
@@ -18,13 +17,14 @@ namespace HaloOnlineTagTool.Commands
 
 			"Displays detailed information about a tag.")
 		{
+			_cache = cache;
 		}
 
-		public override bool Execute(TagCache cache, Stream stream, List<string> args)
+		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 1)
 				return false;
-			var tag = ArgumentParser.ParseTagIndex(cache, args[0]);
+			var tag = ArgumentParser.ParseTagIndex(_cache, args[0]);
 			if (tag == null)
 				return false;
 

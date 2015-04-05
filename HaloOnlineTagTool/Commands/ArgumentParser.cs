@@ -9,6 +9,57 @@ namespace HaloOnlineTagTool.Commands
 {
 	static class ArgumentParser
 	{
+		public static List<string> ParseCommand(string command, out string redirectFile)
+		{
+			var results = new List<string>();
+			var currentArg = new StringBuilder();
+			var partStart = -1;
+			var quoted = false;
+			var redirectStart = -1;
+			redirectFile = null;
+			for (var i = 0; i < command.Length; i++)
+			{
+				switch (command[i])
+				{
+					case '>':
+						if (quoted)
+							goto default; // Treat like a normal char when quoted
+						redirectStart = (partStart != -1) ? results.Count + 1 : results.Count;
+						goto case ' '; // Treat like a space
+					case ' ':
+						if (quoted)
+							goto default; // Treat like a normal char when quoted
+						if (partStart != -1)
+							currentArg.Append(command.Substring(partStart, i - partStart));
+						if (currentArg.Length > 0)
+							results.Add(currentArg.ToString());
+						currentArg.Clear();
+						partStart = -1;
+						break;
+					case '"':
+						quoted = !quoted;
+						if (partStart != -1)
+							currentArg.Append(command.Substring(partStart, i - partStart));
+						partStart = -1;
+						break;
+					default:
+						if (partStart == -1)
+							partStart = i;
+						break;
+				}
+			}
+			if (partStart != -1)
+				currentArg.Append(command.Substring(partStart));
+			if (currentArg.Length > 0)
+				results.Add(currentArg.ToString());
+			if (redirectStart >= 0 && redirectStart < results.Count)
+			{
+				redirectFile = string.Join(" ", results.Skip(redirectStart));
+				results.RemoveRange(redirectStart, results.Count - redirectStart);
+			}
+			return results;
+		}
+
 		public static HaloTag ParseTagIndex(TagCache cache, string arg)
 		{
 			int tagIndex;

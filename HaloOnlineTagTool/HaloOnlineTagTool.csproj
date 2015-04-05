@@ -42,15 +42,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ArgumentParser.cs" />
-    <Compile Include="Commands\DependencyCommand.cs" />
+    <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
+    <Compile Include="Commands\CommandContextStack.cs" />
+    <Compile Include="Commands\Tags\DependencyCommand.cs" />
     <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\ExtractCommand.cs" />
-    <Compile Include="Commands\HelpCommand.cs" />
-    <Compile Include="Commands\ImportCommand.cs" />
-    <Compile Include="Commands\InfoCommand.cs" />
-    <Compile Include="Commands\InsertCommand.cs" />
-    <Compile Include="Commands\ListCommand.cs" />
-    <Compile Include="Commands\MapCommand.cs" />
+    <Compile Include="Commands\Tags\ExtractCommand.cs" />
+    <Compile Include="Commands\Core\HelpCommand.cs" />
+    <Compile Include="Commands\Tags\ImportCommand.cs" />
+    <Compile Include="Commands\Tags\InfoCommand.cs" />
+    <Compile Include="Commands\Tags\InsertCommand.cs" />
+    <Compile Include="Commands\Tags\ListCommand.cs" />
+    <Compile Include="Commands\Tags\MapCommand.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
@@ -64,6 +67,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

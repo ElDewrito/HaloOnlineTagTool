@@ -10,6 +10,8 @@ namespace HaloOnlineTagTool.Commands
 	class MapCommand : Command
 	{
 		public MapCommand() : base(
+			CommandFlags.Inherit,
+
 			"map",
 			"Get information about a map",
 			
@@ -22,7 +24,7 @@ namespace HaloOnlineTagTool.Commands
 		{
 		}
 
-		public override bool Execute(TagCache cache, Stream stream, List<string> args)
+		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 1)
 				return false;

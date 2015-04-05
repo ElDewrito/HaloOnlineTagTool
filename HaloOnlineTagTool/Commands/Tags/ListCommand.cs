@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace HaloOnlineTagTool.Commands
+namespace HaloOnlineTagTool.Commands.Tags
 {
 	class ListCommand : Command
 	{
-		public ListCommand() : base(
+		private readonly TagCache _cache;
+
+		public ListCommand(TagCache cache) : base(
+			CommandFlags.Inherit,
+
 			"list",
 			"List tags",
 			
@@ -20,19 +21,20 @@ namespace HaloOnlineTagTool.Commands
 			"Tags which inherit from the given classes will also be printed.\n" +
 			"If no class is specified, all tags in the file will be listed.")
 		{
+			_cache = cache;
 		}
 
-		public override bool Execute(TagCache cache, Stream stream, List<string> args)
+		public override bool Execute(List<string> args)
 		{
-			var searchClasses = ArgumentParser.ParseTagClasses(cache, args);
+			var searchClasses = ArgumentParser.ParseTagClasses(_cache, args);
 			if (searchClasses == null)
 				return false;
 
 			HaloTag[] tags;
 			if (args.Count > 0)
-				tags = cache.Tags.FindAllByClasses(searchClasses).ToArray();
+				tags = _cache.Tags.FindAllByClasses(searchClasses).ToArray();
 			else
-				tags = cache.Tags.Where(t => t != null).ToArray();
+				tags = _cache.Tags.Where(t => t != null).ToArray();
 
 			if (tags.Length == 0)
 			{
