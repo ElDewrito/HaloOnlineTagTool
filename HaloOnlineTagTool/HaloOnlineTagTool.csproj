@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Tags\EditCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
     <Compile Include="Commands\CommandContextStack.cs" />
     <Compile Include="Commands\Tags\DependencyCommand.cs" />
@@ -54,15 +55,35 @@
     <Compile Include="Commands\Tags\InsertCommand.cs" />
     <Compile Include="Commands\Tags\ListCommand.cs" />
     <Compile Include="Commands\Tags\MapCommand.cs" />
+    <Compile Include="Commands\Vfsl\VfslContextFactory.cs" />
+    <Compile Include="Commands\Vfsl\VfslExtractCommand.cs" />
+    <Compile Include="Commands\Vfsl\VfslImportCommand.cs" />
+    <Compile Include="Commands\Vfsl\VfslListCommand.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\TagDeserializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serialization\TagElementAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Serialization\TagSerializer.cs" />
+    <Compile Include="Serialization\TagStructureAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StreamUtil.cs" />
     <Compile Include="TagList.cs" />
     <Compile Include="TagCache.cs" />
     <Compile Include="HaloTag.cs" />
     <Compile Include="TagPrinter.cs" />
+    <Compile Include="TagStructures\CacheFileGlobalTags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\VFilesList.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -85,6 +85,29 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Removes bytes from a stream, moving everything after the bytes to the current position and decreasing the stream length.
+		/// </summary>
+		/// <param name="stream">The stream to remove bytes from.</param>
+		/// <param name="size">The number of bytes to remove.</param>
+		/// <exception cref="System.ArgumentException">The size of the data to remove must be >= 0</exception>
+		public static void Remove(Stream stream, int size)
+		{
+			if (size == 0)
+				return;
+			if (size < 0)
+				throw new ArgumentException("The size of the data to remove must be >= 0");
+
+			var startPos = stream.Position;
+			if (startPos + size >= stream.Length)
+			{
+				stream.SetLength(startPos);
+				return;
+			}
+			Copy(stream, startPos + size, startPos, stream.Length - startPos - size);
+			stream.SetLength(stream.Length - size);
+		}
+
+		/// <summary>
 		/// Fills a section of a stream with a repeating byte.
 		/// </summary>
 		/// <param name="stream">The stream to fill a section of.</param>

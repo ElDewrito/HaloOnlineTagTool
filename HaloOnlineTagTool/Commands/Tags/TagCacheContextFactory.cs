@@ -16,6 +16,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new InsertCommand(cache, stream));
 			context.AddCommand(new ListCommand(cache));
 			context.AddCommand(new MapCommand());
+			context.AddCommand(new EditCommand(stack, cache, stream));
 			return context;
 		}
 	}

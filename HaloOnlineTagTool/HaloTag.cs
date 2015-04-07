@@ -80,7 +80,29 @@ namespace HaloOnlineTagTool
 		/// <summary>
 		/// Gets the tag's resource fixups.
 		/// </summary>
-		public List<TagFixup> ResourceFixups { get; private set; } 
+		public List<TagFixup> ResourceFixups { get; private set; }
+
+		/// <summary>
+		/// Determines whether the tag is an instance of a given tag class identifier.
+		/// </summary>
+		/// <param name="tagClass">The tag class.</param>
+		/// <returns><c>true</c> if the tag is an instance of the given class identifier.</returns>
+		public bool IsClass(MagicNumber tagClass)
+		{
+			if (tagClass.Value == -1)
+				return false;
+			return (Class == tagClass || ParentClass == tagClass || GrandparentClass == tagClass);
+		}
+
+		/// <summary>
+		/// Determines whether the tag is an instance of a given tag class identifier.
+		/// </summary>
+		/// <param name="className">A 4-character string representing the tag class, e.g. "scnr".</param>
+		/// <returns><c>true</c> if the tag is an instance of the given class identifier.</returns>
+		public bool IsClass(string className)
+		{
+			return IsClass(new MagicNumber(className));
+		}
 	}
 
 	/// <summary>

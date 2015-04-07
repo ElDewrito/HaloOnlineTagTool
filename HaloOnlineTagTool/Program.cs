@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
+using HaloOnlineTagTool.Serialization;
+using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool
 {
@@ -35,7 +37,7 @@ namespace HaloOnlineTagTool
 			}
 
 			// Load the tag cache
-			var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			var stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 			var cache = new TagCache(stream);
 
 			if (autoexecCommand == null)
@@ -65,8 +67,14 @@ namespace HaloOnlineTagTool
 				var commandArgs = ArgumentParser.ParseCommand(commandLine, out redirectFile);
 				if (commandArgs.Count == 0)
 					continue;
+
+				// If "exit" or "quit" is given, pop the current context
 				if (commandArgs[0] == "exit" || commandArgs[0] == "quit")
-					break;
+				{
+					if (!contextStack.Pop())
+						break; // No more contexts - quit
+					continue;
+				}
 
 				// Handle redirection
 				var oldOut = Console.Out;

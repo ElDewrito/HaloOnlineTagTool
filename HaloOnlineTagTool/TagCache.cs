@@ -70,8 +70,8 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
-		/// Overwrites all of a tag's data, including its header, expanding it as necessary.
-		/// Any pointers in the tag will be adjusted automatically.
+		/// Overwrites a tag's data, not including its header.
+		/// Any pointers in the data to write will be adjusted to be relative to the start of the tag's header.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="tag">The tag to overwrite.</param>
@@ -80,15 +80,6 @@ namespace HaloOnlineTagTool
 		{
 			if (tag == null)
 				throw new ArgumentNullException("tag");
-			var headerSize = GetHeaderSize(tag);
-			if (tag.Size < data.Length)
-			{
-				// New data is too big - need to resize the tag
-				ResizeTag(stream, tag, headerSize + tag.Size, data.Length - (int)tag.Size, InsertType.Before);
-				var writer = new BinaryWriter(stream);
-				UpdateTagHeader(writer, tag);
-				UpdateTagOffsets(writer);
-			}
 			
 			// Adjust fixups before injecting the data
 			using (var reader = new BinaryReader(new MemoryStream(data)))
@@ -110,62 +101,92 @@ namespace HaloOnlineTagTool
 			}
 			RebasePointers(tag, data, GetHeaderSize(tag));
 
-			// Write the data
+			// Resize the tag and write the data
+			ResizeTagData(stream, tag, (uint)data.Length);
 			stream.Position = tag.Offset;
 			stream.Write(data, 0, data.Length);
 		}
 
 		/// <summary>
-		/// Inserts data into a tag and then updates it.
+		/// Inserts or removes data in a tag and then updates it if necessary.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="tag">The tag.</param>
 		/// <param name="insertOffset">The offset, from the start of the tag's data, to insert data at.</param>
-		/// <param name="sizeDelta">The size of the data to insert (currently must be positive).</param>
-		/// <param name="type">The type of resize to perform. See <see cref="InsertType"/>.</param>
-		public void ResizeTagData(Stream stream, HaloTag tag, uint insertOffset, int sizeDelta, InsertType type)
+		/// <param name="sizeDelta">The size of the data to insert or remove. If positive, data will be inserted. If negative, data will be removed.</param>
+		/// <param name="origin">The type of resize to perform. See <see cref="InsertOrigin"/>.</param>
+		public void InsertTagData(Stream stream, HaloTag tag, uint insertOffset, int sizeDelta, InsertOrigin origin)
 		{
 			if (tag == null)
 				throw new ArgumentNullException("tag");
-			ResizeTag(stream, tag, insertOffset + GetHeaderSize(tag), sizeDelta, type);
+			if (sizeDelta == 0)
+				return;
+			ResizeTag(stream, tag, insertOffset + GetHeaderSize(tag), sizeDelta, origin, ResizeMode.Insert);
 			UpdateTag(stream, tag);
 		}
 
 		/// <summary>
-		/// Inserts data into a tag.
+		/// Resizes a tag's data.
+		/// </summary>
+		/// <param name="stream">The stream to write to.</param>
+		/// <param name="tag">The tag.</param>
+		/// <param name="newSize">The new size of the tag's data.</param>
+		public void ResizeTagData(Stream stream, HaloTag tag, uint newSize)
+		{
+			if (tag == null)
+				throw new ArgumentNullException("tag");
+			if (newSize == tag.Size)
+				return;
+
+			// Resize at the end of the tag
+			var headerSize = GetHeaderSize(tag);
+			ResizeTag(stream, tag, headerSize + tag.Size, (int)(newSize - tag.Size), InsertOrigin.Before, ResizeMode.Resize);
+
+			// Update only the header and tag offset table - a full update isn't needed
+			var writer = new BinaryWriter(stream);
+			UpdateTagHeader(writer, tag);
+			UpdateTagOffsets(writer);
+		}
+
+		/// <summary>
+		/// Inserts or removes data in a tag.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="tag">The tag.</param>
 		/// <param name="insertOffset">The offset, from the start of the tag's header, to insert data at.</param>
-		/// <param name="sizeDelta">The size of the data to insert (currently must be positive).</param>
-		/// <param name="type">The type of resize to perform. See <see cref="InsertType"/>.</param>
-		private void ResizeTag(Stream stream, HaloTag tag, uint insertOffset, int sizeDelta, InsertType type)
+		/// <param name="sizeDelta">The size of the data to insert or remove. If positive, data will be inserted. If negative, data will be removed.</param>
+		/// <param name="origin">The type of resize to perform. See <see cref="InsertOrigin"/>.</param>
+		/// <param name="mode">The resize mode. See <see cref="ResizeMode"/>.</param>
+		private void ResizeTag(Stream stream, HaloTag tag, uint insertOffset, int sizeDelta, InsertOrigin origin, ResizeMode mode)
 		{
 			if (sizeDelta == 0)
 				return;
-			if (sizeDelta < 0)
-				throw new ArgumentException("sizeDelta must be positive for now"); // i'm lazy
 
-			// If the tag data is being resized, correct relative offsets to account for inserted data
 			var headerSize = GetHeaderSize(tag);
-			var relativeCompareOffset = (type == InsertType.Before) ? insertOffset : insertOffset + 1; // hack
-			if (headerSize < relativeCompareOffset)
+			if (sizeDelta < 0 && ((origin == InsertOrigin.Before && -sizeDelta > insertOffset) || (origin == InsertOrigin.After && insertOffset + -sizeDelta > headerSize + tag.Size)))
+				throw new ArgumentException("Cannot remove more bytes than there are available in the tag");
+
+			// In insertion mode, correct relative offsets to account for inserted data
+			if (mode == ResizeMode.Insert)
 			{
-				tag.Size = (uint)(tag.Size + sizeDelta);
-				foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
+				var relativeCompareOffset = (origin == InsertOrigin.Before) ? insertOffset : insertOffset + 1; // hack
+				if (headerSize < relativeCompareOffset)
 				{
-					if (fixup.WriteOffset + headerSize >= relativeCompareOffset)
-						fixup.WriteOffset = (uint)(fixup.WriteOffset + sizeDelta);
-					if (fixup.TargetOffset + headerSize >= relativeCompareOffset)
-						fixup.TargetOffset = (uint)(fixup.TargetOffset + sizeDelta);
+					foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
+					{
+						if (fixup.WriteOffset + headerSize >= relativeCompareOffset)
+							fixup.WriteOffset = (uint)(fixup.WriteOffset + sizeDelta);
+						if (fixup.TargetOffset + headerSize >= relativeCompareOffset)
+							fixup.TargetOffset = (uint)(fixup.TargetOffset + sizeDelta);
+					}
+					if (tag.MainStructOffset + headerSize >= relativeCompareOffset)
+						tag.MainStructOffset = (uint)(tag.MainStructOffset + sizeDelta);
 				}
-				if (tag.MainStructOffset + headerSize >= relativeCompareOffset)
-					tag.MainStructOffset = (uint)(tag.MainStructOffset + sizeDelta);
 			}
 
 			// Correct tag offsets
 			var absoluteOffset = _headerOffsets[tag.Index] + insertOffset;
-			var absoluteCompareOffset = (type == InsertType.Before) ? absoluteOffset : absoluteOffset + 1; // hack
+			var absoluteCompareOffset = (origin == InsertOrigin.Before) ? absoluteOffset : absoluteOffset + 1; // hack
 			for (var i = 0; i < _tags.Count; i++)
 			{
 				if (_tags[i] == null)
@@ -176,9 +197,31 @@ namespace HaloOnlineTagTool
 					_tags[i].Offset = (uint)(_tags[i].Offset + sizeDelta);
 			}
 
-			// Insert the data
+			// Insert/remove the data
+			tag.Size = (uint)(tag.Size + sizeDelta);
+			if (sizeDelta < 0 && origin == InsertOrigin.Before)
+				absoluteOffset = (uint)(absoluteOffset + sizeDelta);
 			stream.Position = absoluteOffset;
-			StreamUtil.Insert(stream, sizeDelta, 0);
+			if (sizeDelta > 0)
+				StreamUtil.Insert(stream, sizeDelta, 0);
+			else
+				StreamUtil.Remove(stream, -sizeDelta);
+		}
+
+		/// <summary>
+		/// Tag resizing modes.
+		/// </summary>
+		private enum ResizeMode
+		{
+			/// <summary>
+			/// The tag will only be resized and relative pointers in it will not be adjusted.
+			/// </summary>
+			Resize,
+
+			/// <summary>
+			/// Relative pointers in the tag will be adjusted to account for inserted or removed data.
+			/// </summary>
+			Insert
 		}
 
 		/// <summary>
@@ -291,7 +334,7 @@ namespace HaloOnlineTagTool
 			var newHeaderSize = CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
 			var oldHeaderSize = GetHeaderSize(tag);
 			if (newHeaderSize > oldHeaderSize)
-				ResizeTag(writer.BaseStream, tag, oldHeaderSize, (int)newHeaderSize - (int)oldHeaderSize, InsertType.Before);
+				ResizeTag(writer.BaseStream, tag, 0, (int)newHeaderSize - (int)oldHeaderSize, InsertOrigin.After, ResizeMode.Insert);
 
 			// Write the tag header
 			// See TagCacheReader for more info on this layout
@@ -412,17 +455,19 @@ namespace HaloOnlineTagTool
 	}
 
 	/// <summary>
-	/// Data insertion methods.
+	/// Data insertion origins, relative to the insertion/removal offset.
 	/// </summary>
-	public enum InsertType
+	public enum InsertOrigin
 	{
 		/// <summary>
 		/// Any pointers which point to the offset being inserted at will be adjusted.
+		/// If removing, data before the given offset will be removed.
 		/// </summary>
 		Before,
 
 		/// <summary>
 		/// Any pointers which point to the offset being pointed at will not be adjusted.
+		/// If removing, data starting from the given offset will be removed.
 		/// </summary>
 		After
 	}

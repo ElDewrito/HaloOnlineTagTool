@@ -44,11 +44,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 			if (!uint.TryParse(args[2], NumberStyles.HexNumber, null, out size))
 				return false;
-			var type = InsertType.Before;
+			var type = InsertOrigin.Before;
 			if (args.Count == 4)
 			{
 				if (args[3] == "after")
-					type = InsertType.After;
+					type = InsertOrigin.After;
 				else
 					return false;
 			}
@@ -57,7 +57,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				Console.Error.WriteLine("Offset cannot be greater than tag size (0x{0:X}).", tag.Size);
 				return true;
 			}
-			_cache.ResizeTagData(_stream, tag, offset, (int)size, type);
+			_cache.InsertTagData(_stream, tag, offset, (int)size, type);
 			Console.WriteLine("Inserted 0x{0:X} bytes at offset 0x{1:X}.", size, offset);
 			return true;
 		}

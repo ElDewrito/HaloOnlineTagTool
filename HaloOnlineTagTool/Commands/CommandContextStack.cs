@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.Commands
 		public bool Pop()
 		{
 			_contextStack.Pop();
-			return (_contextStack.Count == 0);
+			return (_contextStack.Count != 0);
 		}
 	}
 }
