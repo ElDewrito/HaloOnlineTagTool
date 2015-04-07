@@ -91,7 +91,7 @@ namespace HaloOnlineTagTool.Serialization
 			if (valueInfo.Offset >= 0)
 				reader.BaseStream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = reader.BaseStream.Position;
-			property.SetValue(instance, DeserializeValue(reader, property.PropertyType));
+			property.SetValue(instance, DeserializeValue(reader, valueInfo, property.PropertyType));
 			if (valueInfo.Size > 0)
 				reader.BaseStream.Position = startOffset + valueInfo.Size; // Honor the value's size if it has one set
 		}
@@ -100,13 +100,14 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a value.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeValue(BinaryReader reader, Type valueType)
+		private object DeserializeValue(BinaryReader reader, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueType.IsPrimitive)
 				return DeserializePrimitiveValue(reader, valueType);
-			return DeserializeComplexValue(reader, valueType);
+			return DeserializeComplexValue(reader, valueInfo, valueType);
 		}
 
 		/// <summary>
@@ -151,9 +152,10 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a complex value.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeComplexValue(BinaryReader reader, Type valueType)
+		private object DeserializeComplexValue(BinaryReader reader, TagElementAttribute valueInfo, Type valueType)
 		{
 			// string = ASCII string
 			if (valueType == typeof(string))
@@ -167,6 +169,11 @@ namespace HaloOnlineTagTool.Serialization
 			// TODO: Allow other types to be in data references, since sometimes they can point to a structure
 			if (valueType == typeof(byte[]))
 				return DeserializeDataReference(reader);
+
+			// Non-byte array = Inline array
+			// TODO: Define more clearly in general what constitutes a data reference and what doesn't
+			if (valueType.IsArray)
+				return DeserializeInlineArray(reader, valueInfo, valueType);
 
 			// List = Tag block
 			if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
@@ -199,7 +206,7 @@ namespace HaloOnlineTagTool.Serialization
 			reader.BaseStream.Position = pointer - 0x40000000;
 			for (var i = 0; i < count; i++)
 			{
-				var element = DeserializeValue(reader, elementType);
+				var element = DeserializeValue(reader, null, elementType);
 				addMethod.Invoke(result, new[] { element });
 			}
 			reader.BaseStream.Position = startOffset + 0xC;
@@ -242,6 +249,27 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
+		/// Deserializes an inline array.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
+		/// <param name="valueType">The type of the value to deserialize.</param>
+		/// <returns>The deserialized array.</returns>
+		private Array DeserializeInlineArray(BinaryReader reader, TagElementAttribute valueInfo, Type valueType)
+		{
+			if (valueInfo == null || valueInfo.Count == 0)
+				throw new ArgumentException("Cannot deserialize an inline array with no count set");
+
+			// Create the array and read the elements in order
+			var elementCount = valueInfo.Count;
+			var elementType = valueType.GetElementType();
+			var result = Array.CreateInstance(elementType, elementCount);
+			for (var i = 0; i < elementCount; i++)
+				result.SetValue(DeserializeValue(reader, null, elementType), i);
+			return result;
+		}
+
+		/// <summary>
 		/// Deserializes a null-terminated ASCII string.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
@@ -249,6 +277,7 @@ namespace HaloOnlineTagTool.Serialization
 		private static string DeserializeString(BinaryReader reader)
 		{
 			// Keep reading until a null terminator is found
+			// TODO: Fix this for UTF-8 strings
 			var result = new StringBuilder();
 			while (true)
 			{

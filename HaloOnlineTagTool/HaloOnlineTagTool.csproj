@@ -56,11 +56,14 @@
     <Compile Include="Commands\Tags\InsertCommand.cs" />
     <Compile Include="Commands\Tags\ListCommand.cs" />
     <Compile Include="Commands\Tags\MapCommand.cs" />
+    <Compile Include="Commands\Unic\UnicContextFactory.cs" />
+    <Compile Include="Commands\Unic\UnicListCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslContextFactory.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractAllCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslImportCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslListCommand.cs" />
+    <Compile Include="GameLanguage.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="TagStructures\CacheFileGlobalTags.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TagStructures\MultilingualUnicodeStringList.cs" />
     <Compile Include="TagStructures\VFilesList.cs">
       <SubType>Code</SubType>
     </Compile>

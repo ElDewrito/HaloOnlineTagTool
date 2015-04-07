@@ -86,5 +86,26 @@ namespace HaloOnlineTagTool.Commands
 			var searchClasses = classNames.Select(a => ParseTagClass(cache, a)).ToList();
 			return (searchClasses.Any(c => c.Value == -1)) ? null : searchClasses;
 		}
+
+		public static bool ParseLanguage(string name, out GameLanguage result)
+		{
+			return _languages.TryGetValue(name, out result);
+		}
+
+		private static readonly Dictionary<string, GameLanguage> _languages = new Dictionary<string, GameLanguage>
+		{
+			{"english", GameLanguage.English},
+			{"japanese", GameLanguage.Japanese},
+			{"german", GameLanguage.German},
+			{"french", GameLanguage.French},
+			{"spanish", GameLanguage.Spanish},
+			{"mexican", GameLanguage.Mexican},
+			{"italian", GameLanguage.Italian},
+			{"korean", GameLanguage.Korean},
+			{"chinese-trad", GameLanguage.ChineseTraditional},
+			{"chinese-simp", GameLanguage.ChineseSimplified},
+			{"portuguese", GameLanguage.Portuguese},
+			{"russian", GameLanguage.Russian}
+		};
 	}
 }

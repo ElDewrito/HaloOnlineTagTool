@@ -28,5 +28,10 @@ namespace HaloOnlineTagTool.Serialization
 		/// If this is 0 (default), then the size will be inferred from the value type.
 		/// </summary>
 		public uint Size { get; set; }
+
+		/// <summary>
+		/// If the value is an inline array, sets the number of elements in the array.
+		/// </summary>
+		public int Count { get; set; }
 	}
 }

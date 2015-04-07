@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Commands.Unic;
 using HaloOnlineTagTool.Commands.Vfsl;
 using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
@@ -29,7 +30,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"this command will make special tag-specific commands available\n" +
 			"which can be used to edit or view the data in the tag.\n" +
 			"\n" +
-			"Currently-supported tag types: vfsl")
+			"Currently-supported tag types: vfsl, unic")
 		{
 			_stack = stack;
 			_cache = cache;
@@ -50,6 +51,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 				case "vfsl":
 					EditVfslTag(tag);
 					break;
+				case "unic":
+					EditUnicTag(tag);
+					break;
 				default:
 					Console.Error.WriteLine("Tag type \"" + tag.Class + "\" is not supported.");
 					return true;
@@ -66,6 +70,15 @@ namespace HaloOnlineTagTool.Commands.Tags
 			using (var stream = _fileInfo.OpenRead())
 				vfsl = _deserializer.Deserialize<VFilesList>(stream, tag);
 			var context = VfslContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, vfsl);
+			_stack.Push(context);
+		}
+
+		private void EditUnicTag(HaloTag tag)
+		{
+			MultilingualUnicodeStringList unic;
+			using (var stream = _fileInfo.OpenRead())
+				unic = _deserializer.Deserialize<MultilingualUnicodeStringList>(stream, tag);
+			var context = UnicContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, unic);
 			_stack.Push(context);
 		}
 	}

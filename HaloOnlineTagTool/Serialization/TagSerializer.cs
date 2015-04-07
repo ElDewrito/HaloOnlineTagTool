@@ -108,7 +108,7 @@ namespace HaloOnlineTagTool.Serialization
 				block.Stream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = block.Stream.Position;
 			var val = property.GetValue(instance);
-			SerializeValue(tag, tagStream, block, val, property.PropertyType);
+			SerializeValue(tag, tagStream, block, val, valueInfo, property.PropertyType);
 			if (valueInfo.Size > 0)
 				block.Stream.Position = startOffset + valueInfo.Size;
 		}
@@ -120,13 +120,14 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="val">The value.</param>
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, Type valueType)
+		private void SerializeValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueType.IsPrimitive)
 				SerializePrimitiveValue(block.Writer, val, valueType);
 			else
-				SerializeComplexValue(tag, tagStream, block, val, valueType);
+				SerializeComplexValue(tag, tagStream, block, val, valueInfo, valueType);
 		}
 
 		/// <summary>
@@ -184,8 +185,9 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="val">The value.</param>
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeComplexValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, Type valueType)
+		private void SerializeComplexValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueType == typeof(string))
 				SerializeString(block.Writer, (string)val);
@@ -193,6 +195,8 @@ namespace HaloOnlineTagTool.Serialization
 				SerializeTagReference(tag, block.Writer, (HaloTag)val);
 			else if (valueType == typeof(byte[]))
 				SerializeDataReference(tagStream, block, (byte[])val);
+			else if (valueType.IsArray)
+				SerializeInlineArray(tag, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
 				SerializeTagBlock(tag, tagStream, block, val, valueType);
 			else
@@ -263,6 +267,27 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
+		/// Serializes an inline array.
+		/// </summary>
+		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
+		/// <param name="block">The temporary block to write incomplete tag data to.</param>
+		/// <param name="data">The array.</param>
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
+		private void SerializeInlineArray(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, Array data, TagElementAttribute valueInfo)
+		{
+			if (valueInfo == null || valueInfo.Count == 0)
+				throw new ArgumentException("Cannot serialize an inline array with no count set");
+			if (data == null || data.Length != valueInfo.Count)
+				throw new ArgumentException("Array length does not match the fixed count of " + valueInfo.Count);
+
+			// Serialize each element into the current block
+			var elementType = data.GetType().GetElementType();
+			foreach (var elem in data)
+				SerializeValue(tag, tagStream, block, elem, null, elementType);
+		}
+
+		/// <summary>
 		/// Serializes a tag block.
 		/// </summary>
 		/// <param name="tag">The tag currently being serialized.</param>
@@ -293,7 +318,7 @@ namespace HaloOnlineTagTool.Serialization
 			var enumerableList = (System.Collections.IEnumerable)list;
 			var valueType = listType.GenericTypeArguments[0];
 			foreach (var val in enumerableList)
-				SerializeValue(tag, tagStream, tagBlock, val, valueType);
+				SerializeValue(tag, tagStream, tagBlock, val, null, valueType);
 
 			// Finalize the block and write the tag block reference
 			writer.Write(listCount);
