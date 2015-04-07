@@ -244,11 +244,11 @@ namespace HaloOnlineTagTool.Serialization
 			if (data != null && data.Length > 0)
 			{
 				// The block has data - write it out to the tag
-				Align(tagStream, DefaultBlockAlign);
+				StreamUtil.Align(tagStream, DefaultBlockAlign);
 				offset = (uint)tagStream.Position;
 				size = (uint)data.Length;
 				tagStream.Write(data, 0, data.Length);
-				Align(tagStream, DefaultBlockAlign);
+				StreamUtil.Align(tagStream, DefaultBlockAlign);
 			}
 
 			// Write the reference data
@@ -302,19 +302,6 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
-		/// Aligns the position of a stream to a power of two, padding the stream with zeroes.
-		/// </summary>
-		/// <param name="stream">The stream.</param>
-		/// <param name="align">The power of two to align to.</param>
-		private static void Align(Stream stream, int align)
-		{
-			var currentPos = stream.Position;
-			var alignedPos = (currentPos + align - 1) & ~(align - 1);
-			if (alignedPos > currentPos)
-				StreamUtil.Fill(stream, 0, (int)(alignedPos - currentPos));
-		}
-
-		/// <summary>
 		/// An incomplete block of tag data which is not ready to be written to a tag.
 		/// </summary>
 		private class TemporaryBlock
@@ -350,10 +337,10 @@ namespace HaloOnlineTagTool.Serialization
 			public uint Finalize(HaloTag tag, Stream tagStream)
 			{
 				// Write the data out, aligning the offset and size
-				Align(tagStream, DefaultBlockAlign);
+				StreamUtil.Align(tagStream, DefaultBlockAlign);
 				var dataOffset = (uint)tagStream.Position;
 				tagStream.Write(Stream.GetBuffer(), 0, (int)Stream.Length);
-				Align(tagStream, DefaultBlockAlign);
+				StreamUtil.Align(tagStream, DefaultBlockAlign);
 
 				// Adjust fixups and add them to the tag
 				tag.DataFixups.AddRange(_fixups.Select(f => new TagFixup

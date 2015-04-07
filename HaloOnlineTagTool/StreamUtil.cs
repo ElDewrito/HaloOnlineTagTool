@@ -139,5 +139,18 @@ namespace HaloOnlineTagTool
 				pos += bufferSize;
 			}
 		}
+
+		/// <summary>
+		/// Aligns the position of a stream to a power of two, padding the stream with zeroes.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="align">The power of two to align to.</param>
+		public static void Align(Stream stream, int align)
+		{
+			var currentPos = stream.Position;
+			var alignedPos = (currentPos + align - 1) & ~(align - 1);
+			if (alignedPos > currentPos)
+				StreamUtil.Fill(stream, 0, (int)(alignedPos - currentPos));
+		}
 	}
 }
