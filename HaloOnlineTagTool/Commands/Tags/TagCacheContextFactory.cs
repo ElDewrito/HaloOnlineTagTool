@@ -10,6 +10,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var context = new CommandContext(null, fileInfo.Name);
 			context.AddCommand(new HelpCommand(stack));
 			context.AddCommand(new DependencyCommand(cache, fileInfo));
+			context.AddCommand(new FixupCommand(cache, fileInfo));
 			context.AddCommand(new ExtractCommand(cache, fileInfo));
 			context.AddCommand(new ImportCommand(cache, fileInfo));
 			context.AddCommand(new InfoCommand(cache));

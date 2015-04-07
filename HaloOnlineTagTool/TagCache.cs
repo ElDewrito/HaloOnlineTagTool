@@ -167,10 +167,11 @@ namespace HaloOnlineTagTool
 				throw new ArgumentException("Cannot remove more bytes than there are available in the tag");
 
 			// In insertion mode, correct relative offsets to account for inserted data
-			if (mode == ResizeMode.Insert)
+			var relativeCompareOffset = (origin == InsertOrigin.Before) ? insertOffset : insertOffset + 1; // hack
+			if (headerSize < relativeCompareOffset)
 			{
-				var relativeCompareOffset = (origin == InsertOrigin.Before) ? insertOffset : insertOffset + 1; // hack
-				if (headerSize < relativeCompareOffset)
+				tag.Size = (uint)(tag.Size + sizeDelta);
+				if (mode == ResizeMode.Insert)
 				{
 					foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
 					{
@@ -198,7 +199,6 @@ namespace HaloOnlineTagTool
 			}
 
 			// Insert/remove the data
-			tag.Size = (uint)(tag.Size + sizeDelta);
 			if (sizeDelta < 0 && origin == InsertOrigin.Before)
 				absoluteOffset = (uint)(absoluteOffset + sizeDelta);
 			stream.Position = absoluteOffset;
