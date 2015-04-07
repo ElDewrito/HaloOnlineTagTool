@@ -7,9 +7,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	class ImportCommand : Command
 	{
 		private readonly TagCache _cache;
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 
-		public ImportCommand(TagCache cache, Stream stream) : base(
+		public ImportCommand(TagCache cache, FileInfo _fileInfo) : base(
 			CommandFlags.None,
 
 			"import",
@@ -21,7 +21,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"If the data is too large, the tag will be expanded as necessary.")
 		{
 			_cache = cache;
-			_stream = stream;
+			this._fileInfo = _fileInfo;
 		}
 
 		public override bool Execute(List<string> args)
@@ -39,7 +39,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 				data = new byte[inStream.Length];
 				inStream.Read(data, 0, data.Length);
 			}
-			_cache.OverwriteTag(_stream, tag, data);
+			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+				_cache.OverwriteTag(stream, tag, data);
 			Console.WriteLine("Imported 0x{0:X} bytes.", data.Length);
 			return true;
 		}

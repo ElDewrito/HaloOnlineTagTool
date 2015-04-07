@@ -14,10 +14,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 	{
 		private readonly CommandContextStack _stack;
 		private readonly TagCache _cache;
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 		private readonly TagDeserializer _deserializer;
 
-		public EditCommand(CommandContextStack stack, TagCache cache, Stream stream) : base(
+		public EditCommand(CommandContextStack stack, TagCache cache, FileInfo fileInfo) : base(
 			CommandFlags.None,
 
 			"edit",
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			_stack = stack;
 			_cache = cache;
-			_stream = stream;
+			_fileInfo = fileInfo;
 			_deserializer = new TagDeserializer(cache);
 		}
 
@@ -62,8 +62,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private void EditVfslTag(HaloTag tag)
 		{
-			var vfsl = _deserializer.Deserialize<VFilesList>(_stream, tag);
-			var context = VfslContextFactory.Create(_stack.Context, _stream, _cache, tag, vfsl);
+			VFilesList vfsl;
+			using (var stream = _fileInfo.OpenRead())
+				vfsl = _deserializer.Deserialize<VFilesList>(stream, tag);
+			var context = VfslContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, vfsl);
 			_stack.Push(context);
 		}
 	}

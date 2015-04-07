@@ -11,12 +11,12 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 {
 	class VfslImportCommand : Command
 	{
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 		private readonly TagSerializer _serializer;
 		private readonly HaloTag _tag;
 		private readonly VFilesList _list;
 
-		public VfslImportCommand(Stream stream, TagSerializer serializer, HaloTag tag, VFilesList list) : base(
+		public VfslImportCommand(FileInfo fileInfo, TagSerializer serializer, HaloTag tag, VFilesList list) : base(
 			CommandFlags.None,
 			
 			"import",
@@ -26,7 +26,7 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 			
 			"Replaces a file stored in the tag. The tag will be resized as necessary.")
 		{
-			_stream = stream;
+			_fileInfo = fileInfo;
 			_serializer = serializer;
 			_tag = tag;
 			_list = list;
@@ -55,7 +55,8 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 				return true;
 			}
 			_list.Replace(file, data);
-			_serializer.Serialize(_stream, _tag, _list);
+			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+				_serializer.Serialize(stream, _tag, _list);
 			Console.WriteLine("Imported 0x{0:X} bytes.", data.Length);
 			return true;
 		}

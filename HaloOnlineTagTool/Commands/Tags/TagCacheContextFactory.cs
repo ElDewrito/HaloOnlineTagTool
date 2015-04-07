@@ -5,18 +5,18 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	static class TagCacheContextFactory
 	{
-		public static CommandContext Create(CommandContextStack stack, TagCache cache, Stream stream, string path)
+		public static CommandContext Create(CommandContextStack stack, TagCache cache, FileInfo fileInfo)
 		{
-			var context = new CommandContext(null, Path.GetFileName(path));
+			var context = new CommandContext(null, fileInfo.Name);
 			context.AddCommand(new HelpCommand(stack));
-			context.AddCommand(new DependencyCommand(cache, stream));
-			context.AddCommand(new ExtractCommand(cache, stream));
-			context.AddCommand(new ImportCommand(cache, stream));
+			context.AddCommand(new DependencyCommand(cache, fileInfo));
+			context.AddCommand(new ExtractCommand(cache, fileInfo));
+			context.AddCommand(new ImportCommand(cache, fileInfo));
 			context.AddCommand(new InfoCommand(cache));
-			context.AddCommand(new InsertCommand(cache, stream));
+			context.AddCommand(new InsertCommand(cache, fileInfo));
 			context.AddCommand(new ListCommand(cache));
 			context.AddCommand(new MapCommand());
-			context.AddCommand(new EditCommand(stack, cache, stream));
+			context.AddCommand(new EditCommand(stack, cache, fileInfo));
 			return context;
 		}
 	}

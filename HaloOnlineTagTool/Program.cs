@@ -37,15 +37,17 @@ namespace HaloOnlineTagTool
 			}
 
 			// Load the tag cache
-			var stream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-			var cache = new TagCache(stream);
+			var fileInfo = new FileInfo(filePath);
+			TagCache cache;
+			using (var stream = fileInfo.Open(FileMode.Open, FileAccess.Read))
+				cache = new TagCache(stream);
 
 			if (autoexecCommand == null)
 				Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
 
 			// Create command context
 			var contextStack = new CommandContextStack();
-			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, stream, filePath);
+			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, fileInfo);
 			contextStack.Push(tagsContext);
 
 			// If autoexecuting a command, just run it and return

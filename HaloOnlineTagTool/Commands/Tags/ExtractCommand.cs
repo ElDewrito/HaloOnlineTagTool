@@ -7,9 +7,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	class ExtractCommand : Command
 	{
 		private readonly TagCache _cache;
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 
-		public ExtractCommand(TagCache cache, Stream stream) : base(
+		public ExtractCommand(TagCache cache, FileInfo fileInfo) : base(
 			CommandFlags.Inherit,
 
 			"extract",
@@ -22,7 +22,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Use other commands to manipulate the tag's header in a safe manner.")
 		{
 			_cache = cache;
-			_stream = stream;
+			_fileInfo = fileInfo;
 		}
 
 		public override bool Execute(List<string> args)
@@ -34,7 +34,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 			var file = args[1];
 
-			var data = _cache.ExtractTag(_stream, tag);
+			byte[] data;
+			using (var stream = _fileInfo.OpenRead())
+				data = _cache.ExtractTag(stream, tag);
 			using (var outStream = File.Open(file, FileMode.Create, FileAccess.Write))
 			{
 				outStream.Write(data, 0, data.Length);

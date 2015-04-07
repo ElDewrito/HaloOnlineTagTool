@@ -8,9 +8,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	class InsertCommand : Command
 	{
 		private readonly TagCache _cache;
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 
-		public InsertCommand(TagCache cache, Stream stream) : base(
+		public InsertCommand(TagCache cache, FileInfo fileInfo) : base(
 			CommandFlags.None,
 
 			"insert",
@@ -28,7 +28,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"adjusted. Useful for inserting data at the beginning of a tag or tag block.")
 		{
 			_cache = cache;
-			_stream = stream;
+			_fileInfo = fileInfo;
 		}
 
 		public override bool Execute(List<string> args)
@@ -57,7 +57,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 				Console.Error.WriteLine("Offset cannot be greater than tag size (0x{0:X}).", tag.Size);
 				return true;
 			}
-			_cache.InsertTagData(_stream, tag, offset, (int)size, type);
+			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+				_cache.InsertTagData(stream, tag, offset, (int)size, type);
 			Console.WriteLine("Inserted 0x{0:X} bytes at offset 0x{1:X}.", size, offset);
 			return true;
 		}

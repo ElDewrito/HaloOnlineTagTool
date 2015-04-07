@@ -11,9 +11,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	class DependencyCommand : Command
 	{
 		private readonly TagCache _cache;
-		private readonly Stream _stream;
+		private readonly FileInfo _fileInfo;
 
-		public DependencyCommand(TagCache cache, Stream stream) : base(
+		public DependencyCommand(TagCache cache, FileInfo fileInfo) : base(
 			CommandFlags.None,
 
 			"dep",
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"index and then add dependencies to the scenario tag.")
 		{
 			_cache = cache;
-			_stream = stream;
+			_fileInfo = fileInfo;
 		}
 
 		public override bool Execute(List<string> args)
@@ -84,7 +84,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 						Console.Error.WriteLine("Tag {0:X8} does not depend on tag {1:X8}.", tag.Index, dependency.Index);
 				}
 			}
-			_cache.UpdateTag(_stream, tag);
+			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+				_cache.UpdateTag(stream, tag);
 			return true;
 		}
 
