@@ -70,6 +70,23 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Reads a tag's data from the file, including its header.
+		/// </summary>
+		/// <param name="stream">The stream to read from.</param>
+		/// <param name="tag">The tag to read.</param>
+		/// <returns>The data that was read.</returns>
+		public byte[] ExtractTagWithHeader(Stream stream, HaloTag tag)
+		{
+			if (tag == null)
+				throw new ArgumentNullException("tag");
+			var headerSize = GetHeaderSize(tag);
+			stream.Position = tag.Offset - headerSize;
+			var result = new byte[tag.Size + headerSize];
+			stream.Read(result, 0, result.Length);
+			return result;
+		}
+
+		/// <summary>
 		/// Overwrites a tag's data, not including its header.
 		/// Any pointers in the data to write will be adjusted to be relative to the start of the tag's header.
 		/// </summary>
@@ -105,6 +122,33 @@ namespace HaloOnlineTagTool
 			ResizeTagData(stream, tag, (uint)data.Length);
 			stream.Position = tag.Offset;
 			stream.Write(data, 0, data.Length);
+		}
+
+		/// <summary>
+		/// Overwrites a tag's data, including its header.
+		/// </summary>
+		/// <param name="stream">The stream to write to.</param>
+		/// <param name="tag">The tag to overwrite.</param>
+		/// <param name="data">The data to overwrite the tag with.</param>
+		/// <exception cref="System.ArgumentNullException">tag</exception>
+		public void OverwriteTagWithHeader(Stream stream, HaloTag tag, byte[] data)
+		{
+			if (tag == null)
+				throw new ArgumentNullException("tag");
+
+			// Ensure the data fits
+			var oldHeaderSize = GetHeaderSize(tag);
+			var oldTagSize = oldHeaderSize + tag.Size;
+			ResizeTag(stream, tag, oldTagSize, (int)(data.Length - oldTagSize), InsertOrigin.Before, ResizeMode.Resize);
+			
+			// Write the data
+			stream.Position = _headerOffsets[tag.Index];
+			stream.Write(data, 0, data.Length);
+
+			// Re-parse it and update tag offsets
+			stream.Position = _headerOffsets[tag.Index];
+			ReadTagHeader(new BinaryReader(stream), tag);
+			UpdateTagOffsets(new BinaryWriter(stream));
 		}
 
 		/// <summary>
@@ -250,54 +294,62 @@ namespace HaloOnlineTagTool
 					continue;
 				}
 
-				// Read header
 				reader.BaseStream.Position = _headerOffsets[i];
-				var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum?
-				var totalSize = reader.ReadUInt32();                        // 0x04 uint32 total size
-				var numDependencies = reader.ReadInt16();                   // 0x08 int16  dependencies count
-				var numDataFixups = reader.ReadInt16();                     // 0x0A int16  data fixup count
-				var numResourceFixups = reader.ReadInt16();                 // 0x0C int16  resource fixup count
-				reader.BaseStream.Position += 2;                            // 0x0E int16  (padding)
-				var mainStructOffset = reader.ReadUInt32();                 // 0x10 uint32 main struct offset
-				var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
-				var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
-				var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-				var classId = reader.ReadUInt32();                          // 0x20 uint32 class stringid
-				var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
-
-				// Construct the tag object
 				var tag = new HaloTag
 				{
-					Index = i,
-					Class = tagClass,
-					ParentClass = parentClass,
-					GrandparentClass = grandparentClass,
-					MainStructOffset = mainStructOffset - totalHeaderSize,
-					Offset = _headerOffsets[i] + totalHeaderSize,
-					Size = totalSize - totalHeaderSize,
-					Checksum = checksum,
-					ClassId = classId
+					Index = i
 				};
 				_tags.Add(tag);
-
-				// Read dependencies
-				for (var j = 0; j < numDependencies; j++)
-					tag.Dependencies.Add(reader.ReadInt32());
-
-				// Read fixup pointers
-				var dataFixupPointers = new uint[numDataFixups];
-				for (var j = 0; j < numDataFixups; j++)
-					dataFixupPointers[j] = reader.ReadUInt32();
-				var resourceFixupPointers = new uint[numResourceFixups];
-				for (var j = 0; j < numResourceFixups; j++)
-					resourceFixupPointers[j] = reader.ReadUInt32();
-
-				// Process fixups
-				foreach (var fixup in dataFixupPointers)
-					tag.DataFixups.Add(ReadFixup(reader, fixup, _headerOffsets[i], totalHeaderSize));
-				foreach (var fixup in resourceFixupPointers)
-					tag.ResourceFixups.Add(ReadFixup(reader, fixup, _headerOffsets[i], totalHeaderSize));
+				ReadTagHeader(reader, tag);
 			}
+		}
+
+		private static void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
+		{
+			var headerOffset = (uint)reader.BaseStream.Position;
+			var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum?
+			var totalSize = reader.ReadUInt32();                        // 0x04 uint32 total size
+			var numDependencies = reader.ReadInt16();                   // 0x08 int16  dependencies count
+			var numDataFixups = reader.ReadInt16();                     // 0x0A int16  data fixup count
+			var numResourceFixups = reader.ReadInt16();                 // 0x0C int16  resource fixup count
+			reader.BaseStream.Position += 2;                            // 0x0E int16  (padding)
+			var mainStructOffset = reader.ReadUInt32();                 // 0x10 uint32 main struct offset
+			var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
+			var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
+			var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
+			var classId = reader.ReadUInt32();                          // 0x20 uint32 class stringid
+			var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
+
+			// Update the tag object
+			resultTag.Class = tagClass;
+			resultTag.ParentClass = parentClass;
+			resultTag.GrandparentClass = grandparentClass;
+			resultTag.MainStructOffset = mainStructOffset - totalHeaderSize;
+			resultTag.Offset = headerOffset + totalHeaderSize;
+			resultTag.Size = totalSize - totalHeaderSize;
+			resultTag.Checksum = checksum;
+			resultTag.ClassId = classId;
+
+			// Read dependencies
+			resultTag.Dependencies.Clear();
+			for (var j = 0; j < numDependencies; j++)
+				resultTag.Dependencies.Add(reader.ReadInt32());
+
+			// Read fixup pointers
+			var dataFixupPointers = new uint[numDataFixups];
+			for (var j = 0; j < numDataFixups; j++)
+				dataFixupPointers[j] = reader.ReadUInt32();
+			var resourceFixupPointers = new uint[numResourceFixups];
+			for (var j = 0; j < numResourceFixups; j++)
+				resourceFixupPointers[j] = reader.ReadUInt32();
+
+			// Process fixups
+			resultTag.DataFixups.Clear();
+			resultTag.ResourceFixups.Clear();
+			foreach (var fixup in dataFixupPointers)
+				resultTag.DataFixups.Add(ReadFixup(reader, fixup, headerOffset, totalHeaderSize));
+			foreach (var fixup in resourceFixupPointers)
+				resultTag.ResourceFixups.Add(ReadFixup(reader, fixup, headerOffset, totalHeaderSize));
 		}
 
 		/// <summary>
@@ -368,7 +420,7 @@ namespace HaloOnlineTagTool
 		/// <param name="tag">The tag.</param>
 		/// <param name="data">The data.</param>
 		/// <param name="newBase">The new base offset to use.</param>
-		private void RebasePointers(HaloTag tag, byte[] data, uint newBase)
+		private static void RebasePointers(HaloTag tag, byte[] data, uint newBase)
 		{
 			using (var writer = new BinaryWriter(new MemoryStream(data)))
 			{
