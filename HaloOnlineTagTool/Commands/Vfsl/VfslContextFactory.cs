@@ -18,6 +18,7 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 			context.AddCommand(new VfslExtractCommand(vfsl));
 			context.AddCommand(new VfslExtractAllCommand(vfsl));
 			context.AddCommand(new VfslImportCommand(fileInfo, new TagSerializer(cache), tag, vfsl));
+			context.AddCommand(new VfslImportAllCommand(fileInfo, new TagSerializer(cache), tag, vfsl));
 			return context;
 		}
 	}

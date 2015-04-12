@@ -61,6 +61,7 @@
     <Compile Include="Commands\Vfsl\VfslContextFactory.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractAllCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractCommand.cs" />
+    <Compile Include="Commands\Vfsl\VfslImportAllCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslImportCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslListCommand.cs" />
     <Compile Include="GameLanguage.cs" />
