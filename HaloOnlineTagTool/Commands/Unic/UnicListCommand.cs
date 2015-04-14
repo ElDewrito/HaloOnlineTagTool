@@ -10,8 +10,9 @@ namespace HaloOnlineTagTool.Commands.Unic
 	class UnicListCommand : Command
 	{
 		private readonly MultilingualUnicodeStringList _unic;
+		private readonly StringIdCache _stringIds;
 
-		public UnicListCommand(MultilingualUnicodeStringList unic) : base(
+		public UnicListCommand(MultilingualUnicodeStringList unic, StringIdCache stringIds) : base(
 			CommandFlags.Inherit,
 
 			"list",
@@ -29,6 +30,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 		{
 			// TODO: Can we dynamically generate the language list from the dictionary in ArgumentParser?
 			_unic = unic;
+			_stringIds = stringIds;
 		}
 
 		public override bool Execute(List<string> args)
@@ -51,10 +53,8 @@ namespace HaloOnlineTagTool.Commands.Unic
 					continue;
 				strings.Add(new DisplayString
 				{
-					StringId = localizedString.StringId,
-					StringIdDisplay = string.Format("0x{0:X}", localizedString.StringId),
-					StringIdStr = localizedString.StringIdStr,
-					String = str,
+					StringId = _stringIds.GetString(localizedString.StringId),
+					String = str
 				});
 			}
 			if (strings.Count == 0)
@@ -62,34 +62,18 @@ namespace HaloOnlineTagTool.Commands.Unic
 				Console.WriteLine("No strings found.");
 				return true;
 			}
-			strings.Sort((a, b) => a.StringId.CompareTo(b.StringId));
+			strings.Sort((a, b) => String.Compare(a.StringId, b.StringId, StringComparison.Ordinal));
 
-			var stringIdWidth = strings.Max(s => s.StringIdDisplay.Length);
-			var stringIdStrWidth = strings.Max(s => s.StringIdStr.Length);
-			if (stringIdStrWidth > 0)
-			{
-				// Three column format
-				var format = string.Format("{{0,-{0}}}  {{1,-{1}}}  {{2}}", stringIdWidth, stringIdStrWidth);
-				foreach (var str in strings)
-					Console.WriteLine(format, str.StringIdDisplay, str.StringIdStr, str.String);
-			}
-			else
-			{
-				// Two column format
-				var format = string.Format("{{0,-{0}}}  {{1}}", stringIdWidth);
-				foreach (var str in strings)
-					Console.Write(format, str.StringIdDisplay, str.String);
-			}
+			var stringIdWidth = strings.Max(s => s.StringId.Length);
+			var format = string.Format("{{0,-{0}}}  {{1}}", stringIdWidth);
+			foreach (var str in strings)
+				Console.WriteLine(format, str.StringId, str.String);
 			return true;
 		}
 
 		private class DisplayString
 		{
-			public int StringId { get; set; }
-
-			public string StringIdDisplay { get; set; }
-
-			public string StringIdStr { get; set; }
+			public string StringId { get; set; }
 
 			public string String { get; set; }
 		}

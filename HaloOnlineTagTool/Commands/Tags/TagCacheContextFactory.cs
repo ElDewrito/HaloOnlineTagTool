@@ -5,7 +5,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	static class TagCacheContextFactory
 	{
-		public static CommandContext Create(CommandContextStack stack, TagCache cache, FileInfo fileInfo)
+		public static CommandContext Create(CommandContextStack stack, TagCache cache, FileInfo fileInfo, StringIdCache stringIds)
 		{
 			var context = new CommandContext(null, fileInfo.Name);
 			context.AddCommand(new HelpCommand(stack));
@@ -17,7 +17,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new InsertCommand(cache, fileInfo));
 			context.AddCommand(new ListCommand(cache));
 			context.AddCommand(new MapCommand());
-			context.AddCommand(new EditCommand(stack, cache, fileInfo));
+			context.AddCommand(new EditCommand(stack, cache, fileInfo, stringIds));
+			if (stringIds != null)
+				context.AddCommand(new StringIdCommand(stringIds));
 			return context;
 		}
 	}

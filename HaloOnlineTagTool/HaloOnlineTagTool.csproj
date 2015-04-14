@@ -45,6 +45,7 @@
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Tags\EditCommand.cs" />
     <Compile Include="Commands\Tags\FixupCommand.cs" />
+    <Compile Include="Commands\Tags\StringIdCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
     <Compile Include="Commands\CommandContextStack.cs" />
     <Compile Include="Commands\Tags\DependencyCommand.cs" />
@@ -80,6 +81,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StreamUtil.cs" />
+    <Compile Include="StringIdCache.cs" />
     <Compile Include="TagList.cs" />
     <Compile Include="TagCache.cs" />
     <Compile Include="HaloTag.cs" />

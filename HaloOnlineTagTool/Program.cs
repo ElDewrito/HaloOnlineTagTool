@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool
 				Console.WriteLine("Please report any bugs and feature requests at");
 				Console.WriteLine("<https://gitlab.com/Shockfire/HaloOnlineTagTool/issues>.");
 				Console.WriteLine();
-				Console.Write("Reading...");
+				Console.Write("Reading tags...");
 			}
 
 			// Load the tag cache
@@ -43,11 +43,31 @@ namespace HaloOnlineTagTool
 				cache = new TagCache(stream);
 
 			if (autoexecCommand == null)
+			{
 				Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
+				Console.Write("Reading stringIDs...");
+			}
+
+			// Load stringIDs
+			var stringIdPath = Path.Combine(fileInfo.DirectoryName ?? "", "string_ids.dat");
+			StringIdCache stringIds = null;
+			try
+			{
+				using (var stream = File.OpenRead(stringIdPath))
+					stringIds = new StringIdCache(stream);
+			}
+			catch (IOException)
+			{
+				Console.Error.WriteLine("Warning: unable to open string_ids.dat!");
+				Console.Error.WriteLine("Commands which require stringID values will be unavailable.");
+			}
+
+			if (autoexecCommand == null && stringIds != null)
+				Console.WriteLine("{0} strings loaded.", stringIds.Strings.Count);
 
 			// Create command context
 			var contextStack = new CommandContextStack();
-			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, fileInfo);
+			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, fileInfo, stringIds);
 			contextStack.Push(tagsContext);
 
 			// If autoexecuting a command, just run it and return
@@ -58,6 +78,7 @@ namespace HaloOnlineTagTool
 				return;
 			}
 			
+			Console.WriteLine();
 			Console.WriteLine("Enter \"help\" to list available commands. Enter \"exit\" to quit.");
 			while (true)
 			{

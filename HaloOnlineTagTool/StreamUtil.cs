@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace HaloOnlineTagTool
 {
@@ -150,7 +151,7 @@ namespace HaloOnlineTagTool
 			var currentPos = stream.Position;
 			var alignedPos = (currentPos + align - 1) & ~(align - 1);
 			if (alignedPos > currentPos)
-				StreamUtil.Fill(stream, 0, (int)(alignedPos - currentPos));
+				Insert(stream, (int)(alignedPos - currentPos), 0);
 		}
 	}
 }
