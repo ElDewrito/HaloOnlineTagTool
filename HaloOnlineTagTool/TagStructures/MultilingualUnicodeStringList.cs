@@ -1,8 +1,10 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -37,11 +39,45 @@ namespace HaloOnlineTagTool.TagStructures
 			if (offset < 0 || offset >= Data.Length)
 				return null; // String not available
 
-			// Figure out the size of the string in bytes by scanning for a null terminator
+			var length = GetStringLength(offset);
+			return Encoding.UTF8.GetString(Data, offset, length);
+		}
+
+		/// <summary>
+		/// Sets the value of a string for a given language.
+		/// </summary>
+		/// <param name="str">The string.</param>
+		/// <param name="language">The language.</param>
+		/// <param name="newValue">The new value. Can be <c>null</c>.</param>
+		public void SetString(LocalizedString str, GameLanguage language, string newValue)
+		{
+			// Replace the string
+			var offset = str.Offsets[(int)language];
+			if (offset < 0 || offset >= Data.Length)
+				offset = Data.Length; // Add the string at the end
+			var oldLength = GetStringLength(offset);
+			var bytes = (newValue != null) ? Encoding.UTF8.GetBytes(newValue) : new byte[0];
+			Data = ArrayUtil.Replace(Data, offset, oldLength, bytes);
+			
+			// Update string offsets
+			str.Offsets[(int)language] = (bytes.Length > 0) ? offset : -1;
+			var sizeDelta = bytes.Length - oldLength;
+			foreach (var adjustStr in Strings)
+			{
+				for (var i = 0; i < adjustStr.Offsets.Length; i++)
+				{
+					if (adjustStr.Offsets[i] > offset)
+						adjustStr.Offsets[i] += sizeDelta;
+				}
+			}
+		}
+
+		private int GetStringLength(int offset)
+		{
 			var endOffset = offset;
 			while (endOffset < Data.Length && Data[endOffset] != 0)
 				endOffset++;
-			return Encoding.UTF8.GetString(Data, offset, endOffset - offset);
+			return endOffset - offset;
 		}
 	}
 
@@ -51,6 +87,15 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Size = 0x54)]
 	public class LocalizedString
 	{
+		public LocalizedString()
+		{
+			StringId = -1;
+			StringIdStr = "";
+			Offsets = new int[12];
+			for (var i = 0; i < Offsets.Length; i++)
+				Offsets[i] = -1;
+		}
+
 		/// <summary>
 		/// Gets or sets the string's stringID.
 		/// </summary>

@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			CommandFlags.Inherit,
 
 			"stringid",
-			"Look up or find string_id values",
+			"Look up or find stringID values",
 
 			"stringid get <id>\n" +
 			"stringid list [filter]",

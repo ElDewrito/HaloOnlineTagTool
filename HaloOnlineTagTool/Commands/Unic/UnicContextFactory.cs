@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Unic
@@ -15,7 +16,10 @@ namespace HaloOnlineTagTool.Commands.Unic
 		{
 			var context = new CommandContext(parent, string.Format("{0:X8}.unic", tag.Index));
 			if (stringIds != null)
+			{
 				context.AddCommand(new UnicListCommand(unic, stringIds));
+				context.AddCommand(new UnicSetCommand(fileInfo, new TagSerializer(cache), tag, unic, stringIds));
+			}
 			return context;
 		}
 	}

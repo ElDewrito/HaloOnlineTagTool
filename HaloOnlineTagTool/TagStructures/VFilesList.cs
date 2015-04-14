@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -57,21 +58,9 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <param name="newData">The data to replace it with.</param>
 		public void Replace(VFileInfo file, byte[] newData)
 		{
-			// Allocate a new buffer
+			// Replace the file's data in the data array
 			var sizeDelta = newData.Length - file.Size;
-			var newBuffer = new byte[Data.Length + sizeDelta];
-
-			// Copy over bytes before the file
-			Buffer.BlockCopy(Data, 0, newBuffer, 0, file.Offset);
-
-			// Copy over the new file data
-			Buffer.BlockCopy(newData, 0, newBuffer, file.Offset, newData.Length);
-
-			// Copy over the bytes after the file
-			var oldEndOffset = file.Offset + file.Size;
-			var newEndOffset = file.Offset + newData.Length;
-			Buffer.BlockCopy(Data, oldEndOffset, newBuffer, newEndOffset, Data.Length - oldEndOffset);
-			Data = newBuffer;
+			Data = ArrayUtil.Replace(Data, file.Offset, file.Size, newData);
 
 			// Adjust file offsets
 			foreach (var adjustFile in Files)

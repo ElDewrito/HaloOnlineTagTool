@@ -15,12 +15,41 @@ namespace HaloOnlineTagTool.Commands
 			var currentArg = new StringBuilder();
 			var partStart = -1;
 			var quoted = false;
+			var escape = false;
 			var redirectStart = -1;
 			redirectFile = null;
 			for (var i = 0; i < command.Length; i++)
 			{
+				if (escape)
+				{
+					char ch;
+					switch (command[i])
+					{
+						case 'n':
+							ch = '\n';
+							break;
+						case 'r':
+							ch = '\r';
+							break;
+						case 't':
+							ch = '\t';
+							break;
+						default:
+							ch = command[i];
+							break;
+					}
+					if (partStart != -1)
+						currentArg.Append(command.Substring(partStart, i - partStart - 1));
+					currentArg.Append(ch);
+					partStart = -1;
+					escape = false;
+					continue;
+				}
 				switch (command[i])
 				{
+					case '\\':
+						escape = true;
+						break;
 					case '>':
 						if (quoted)
 							goto default; // Treat like a normal char when quoted

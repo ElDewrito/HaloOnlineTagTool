@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\LocalizedStringPrinter.cs" />
     <Compile Include="Commands\Tags\EditCommand.cs" />
+    <Compile Include="Commands\Tags\ListStringsCommand.cs" />
     <Compile Include="Commands\Tags\FixupCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
@@ -59,12 +61,14 @@
     <Compile Include="Commands\Tags\MapCommand.cs" />
     <Compile Include="Commands\Unic\UnicContextFactory.cs" />
     <Compile Include="Commands\Unic\UnicListCommand.cs" />
+    <Compile Include="Commands\Unic\UnicSetCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslContextFactory.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractAllCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslExtractCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslImportAllCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslImportCommand.cs" />
     <Compile Include="Commands\Vfsl\VfslListCommand.cs" />
+    <Compile Include="Common\ArrayUtil.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Options.cs" />
@@ -85,7 +89,7 @@
     <Compile Include="TagList.cs" />
     <Compile Include="TagCache.cs" />
     <Compile Include="HaloTag.cs" />
-    <Compile Include="TagPrinter.cs" />
+    <Compile Include="Commands\TagPrinter.cs" />
     <Compile Include="TagStructures\CacheFileGlobalTags.cs">
       <SubType>Code</SubType>
     </Compile>

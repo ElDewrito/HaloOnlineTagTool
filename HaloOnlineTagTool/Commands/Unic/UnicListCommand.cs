@@ -42,40 +42,13 @@ namespace HaloOnlineTagTool.Commands.Unic
 				return false;
 			var filter = (args.Count == 2) ? args[1] : null;
 
-			// Load each matching string into a list and sort them by stringID
-			var strings = new List<DisplayString>();
-			foreach (var localizedString in _unic.Strings)
-			{
-				var str = _unic.GetString(localizedString, language);
-				if (str == null)
-					continue;
-				if (filter != null && !str.Contains(filter))
-					continue;
-				strings.Add(new DisplayString
-				{
-					StringId = _stringIds.GetString(localizedString.StringId),
-					String = str
-				});
-			}
-			if (strings.Count == 0)
-			{
-				Console.WriteLine("No strings found.");
-				return true;
-			}
-			strings.Sort((a, b) => String.Compare(a.StringId, b.StringId, StringComparison.Ordinal));
-
-			var stringIdWidth = strings.Max(s => s.StringId.Length);
-			var format = string.Format("{{0,-{0}}}  {{1}}", stringIdWidth);
-			foreach (var str in strings)
-				Console.WriteLine(format, str.StringId, str.String);
+			var strings = LocalizedStringPrinter.PrepareForDisplay(_unic, _stringIds, _unic.Strings, language, filter);
+			if (strings.Count > 0)
+				LocalizedStringPrinter.PrintStrings(strings);
+			else
+				Console.Error.WriteLine("No strings found.");
+			
 			return true;
-		}
-
-		private class DisplayString
-		{
-			public string StringId { get; set; }
-
-			public string String { get; set; }
 		}
 	}
 }

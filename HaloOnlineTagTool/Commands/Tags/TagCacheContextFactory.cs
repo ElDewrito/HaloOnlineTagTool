@@ -19,7 +19,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new MapCommand());
 			context.AddCommand(new EditCommand(stack, cache, fileInfo, stringIds));
 			if (stringIds != null)
+			{
 				context.AddCommand(new StringIdCommand(stringIds));
+				context.AddCommand(new ListStringsCommand(cache, fileInfo, stringIds));
+			}
 			return context;
 		}
 	}
