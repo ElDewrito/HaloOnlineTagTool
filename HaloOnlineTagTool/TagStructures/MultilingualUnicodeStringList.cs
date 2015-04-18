@@ -57,6 +57,13 @@ namespace HaloOnlineTagTool.TagStructures
 				offset = Data.Length; // Add the string at the end
 			var oldLength = GetStringLength(offset);
 			var bytes = (newValue != null) ? Encoding.UTF8.GetBytes(newValue) : new byte[0];
+			if (bytes.Length > 0 && offset == Data.Length)
+			{
+				// If it's a new string, null-terminate it
+				var nullTerminated = new byte[bytes.Length + 1];
+				Buffer.BlockCopy(bytes, 0, nullTerminated, 0, bytes.Length);
+				bytes = nullTerminated;
+			}
 			Data = ArrayUtil.Replace(Data, offset, oldLength, bytes);
 			
 			// Update string offsets
