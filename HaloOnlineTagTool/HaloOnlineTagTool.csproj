@@ -94,6 +94,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TagStructures\MultilingualUnicodeStringList.cs" />
+    <Compile Include="TagStructures\MultiplayerGlobals.cs" />
     <Compile Include="TagStructures\VFilesList.cs">
       <SubType>Code</SubType>
     </Compile>
