@@ -15,41 +15,12 @@ namespace HaloOnlineTagTool.Commands
 			var currentArg = new StringBuilder();
 			var partStart = -1;
 			var quoted = false;
-			var escape = false;
 			var redirectStart = -1;
 			redirectFile = null;
 			for (var i = 0; i < command.Length; i++)
 			{
-				if (escape)
-				{
-					char ch;
-					switch (command[i])
-					{
-						case 'n':
-							ch = '\n';
-							break;
-						case 'r':
-							ch = '\r';
-							break;
-						case 't':
-							ch = '\t';
-							break;
-						default:
-							ch = command[i];
-							break;
-					}
-					if (partStart != -1)
-						currentArg.Append(command.Substring(partStart, i - partStart - 1));
-					currentArg.Append(ch);
-					partStart = -1;
-					escape = false;
-					continue;
-				}
 				switch (command[i])
 				{
-					case '\\':
-						escape = true;
-						break;
 					case '>':
 						if (quoted)
 							goto default; // Treat like a normal char when quoted
@@ -119,6 +90,46 @@ namespace HaloOnlineTagTool.Commands
 		public static bool ParseLanguage(string name, out GameLanguage result)
 		{
 			return _languages.TryGetValue(name, out result);
+		}
+
+		public static string Unescape(string str)
+		{
+			var result = new StringBuilder();
+			var escape = false;
+			foreach (var ch in str)
+			{
+				if (!escape)
+				{
+					if (ch == '\\')
+						escape = true;
+					else
+						result.Append(ch);
+					continue;
+				}
+				escape = false;
+				switch (ch)
+				{
+					case 'n':
+						result.Append('\n');
+						break;
+					case 'r':
+						result.Append('\r');
+						break;
+					case 't':
+						result.Append('\t');
+						break;
+					case 'q':
+						result.Append('"');
+						break;
+					case '\\':
+						result.Append('\\');
+						break;
+					default:
+						result.Append(ch);
+						break;
+				}
+			}
+			return result.ToString();
 		}
 
 		private static readonly Dictionary<string, GameLanguage> _languages = new Dictionary<string, GameLanguage>

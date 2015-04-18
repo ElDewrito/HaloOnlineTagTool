@@ -59,6 +59,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 				Console.Error.WriteLine("Failed to resolve the stringID.");
 				return true;
 			}
+			var newValue = ArgumentParser.Unescape(args[2]);
 
 			// Look up or create a localized string entry
 			var localizedStr = _unic.Strings.FirstOrDefault(s => s.StringId == stringId);
@@ -72,7 +73,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 			}
 
 			// Save the tag data
-			_unic.SetString(localizedStr, language, args[2]);
+			_unic.SetString(localizedStr, language, newValue);
 			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
 				_tagSerializer.Serialize(stream, _tag, _unic);
 
