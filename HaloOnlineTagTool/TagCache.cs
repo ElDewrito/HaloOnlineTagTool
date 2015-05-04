@@ -152,6 +152,50 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Adds a tag to the file.
+		/// </summary>
+		/// <param name="stream">The stream to write to.</param>
+		/// <param name="data">The tag data. Must include the header.</param>
+		/// <returns>The new tag.</returns>
+		public HaloTag AddTag(Stream stream, byte[] data)
+		{
+			// Push back the data at the end of the file and write the tag in after the last tag
+			var newTagOffset = GetTagDataEndOffset();
+			StreamUtil.Copy(stream, newTagOffset, newTagOffset + data.Length, stream.Length - newTagOffset);
+			stream.Position = newTagOffset;
+			stream.Write(data, 0, data.Length);
+
+			// Create an object for the tag and add it to the tag list
+			var tagIndex = _tags.Count;
+			var newTag = new HaloTag { Index = tagIndex };
+			_headerOffsets.Add(newTagOffset);
+			_tags.Add(newTag);
+
+			// Read the tag's header from the stream
+			stream.Position = newTagOffset;
+			ReadTagHeader(new BinaryReader(stream), newTag);
+
+			// Update the tag offset table
+			UpdateTagOffsets(new BinaryWriter(stream));
+			return newTag;
+		}
+
+		/// <summary>
+		/// Duplicates a tag.
+		/// </summary>
+		/// <param name="stream">The stream to write to.</param>
+		/// <param name="tag">The tag to duplicate.</param>
+		/// <returns>The new tag.</returns>
+		public HaloTag DuplicateTag(Stream stream, HaloTag tag)
+		{
+			if (tag == null)
+				throw new ArgumentNullException("tag");
+
+			// Just extract the tag and add it back
+			return AddTag(stream, ExtractTagWithHeader(stream, tag));
+		}
+
+		/// <summary>
 		/// Inserts or removes data in a tag and then updates it if necessary.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
@@ -448,21 +492,29 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Gets the tag data end offset.
+		/// </summary>
+		/// <returns>The offset of the first byte past the last tag in the file, or 0 if there are no tags in the file.</returns>
+		private uint GetTagDataEndOffset()
+		{
+			// Assume the tags are sorted by offset
+			var lastTag = Tags.LastOrDefault(t => (t != null));
+			return (lastTag != null) ? lastTag.Offset + lastTag.Size : 0;
+		}
+
+		/// <summary>
 		/// Updates the tag offset table in the file.
 		/// </summary>
 		/// <param name="writer">The stream to write to.</param>
 		private void UpdateTagOffsets(BinaryWriter writer)
 		{
-			var lastTag = Tags.LastOrDefault(t => (t != null));
-			if (lastTag == null)
+			var offsetTableOffset = GetTagDataEndOffset();
+			if (offsetTableOffset == 0)
 			{
 				// No tags
 				UpdateFileHeader(writer, 0);
 				return;
 			}
-
-			// The offset table always comes after the last tag
-			var offsetTableOffset = lastTag.Offset + lastTag.Size;
 			writer.BaseStream.Position = offsetTableOffset;
 			foreach (var offset in _headerOffsets)
 				writer.Write(offset);
