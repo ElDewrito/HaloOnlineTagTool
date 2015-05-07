@@ -45,7 +45,7 @@ namespace HaloOnlineTagTool
 		/// <summary>
 		/// Gets or sets the stringID for the tag's class.
 		/// </summary>
-		public uint ClassId { get; set; }
+		public int ClassId { get; set; }
 
 		/// <summary>
 		/// Gets the offset of the tag's data, including its header.

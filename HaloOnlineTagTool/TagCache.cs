@@ -19,6 +19,7 @@ namespace HaloOnlineTagTool
 		private const uint FixupPointerBase = 0x40000000;
 
 		private readonly List<HaloTag> _tags = new List<HaloTag>();
+		private readonly HashSet<MagicNumber> _tagClasses = new HashSet<MagicNumber>(); 
 		private readonly List<uint> _headerOffsets = new List<uint>();
 
 		/// <summary>
@@ -35,6 +36,24 @@ namespace HaloOnlineTagTool
 		/// Gets the tags in the file.
 		/// </summary>
 		public TagList Tags { get; private set; }
+
+		/// <summary>
+		/// Gets the tag classes in the file.
+		/// </summary>
+		public IEnumerable<MagicNumber> TagClasses
+		{
+			get { return _tagClasses; }
+		}
+
+		/// <summary>
+		/// Determines whether or not a tag with the given class exists.
+		/// </summary>
+		/// <param name="tagClass">The tag class.</param>
+		/// <returns><c>true</c> if a tag with the given class exists.</returns>
+		public bool ContainsClass(MagicNumber tagClass)
+		{
+			return _tagClasses.Contains(tagClass);
+		}
 
 		/// <summary>
 		/// Saves any changes made to a tag's properties.
@@ -348,7 +367,7 @@ namespace HaloOnlineTagTool
 			}
 		}
 
-		private static void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
+		private void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
 		{
 			var headerOffset = (uint)reader.BaseStream.Position;
 			var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum?
@@ -361,10 +380,11 @@ namespace HaloOnlineTagTool
 			var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
 			var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
 			var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-			var classId = reader.ReadUInt32();                          // 0x20 uint32 class stringid
+			var classId = reader.ReadInt32();                           // 0x20 uint32 class stringid
 			var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
 
 			// Update the tag object
+			_tagClasses.Add(tagClass);
 			resultTag.Class = tagClass;
 			resultTag.ParentClass = parentClass;
 			resultTag.GrandparentClass = grandparentClass;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Serialization
 {
@@ -38,7 +39,7 @@ namespace HaloOnlineTagTool.Serialization
 			// Clear out the tag
 			tag.Dependencies.Clear();
 			tag.DataFixups.Clear();
-			tag.ResourceFixups.Clear(); // TODO: Implement resource fixups
+			tag.ResourceFixups.Clear();
 
 			// Serialize the structure to a temporary block
 			var tagStream = new MemoryStream();
@@ -50,6 +51,7 @@ namespace HaloOnlineTagTool.Serialization
 			var data = new byte[tagStream.Length];
 			Buffer.BlockCopy(tagStream.GetBuffer(), 0, data, 0, (int)tagStream.Length);
 			_cache.OverwriteTag(stream, tag, data);
+			_cache.UpdateTag(stream, tag);
 		}
 
 		/// <summary>
@@ -189,10 +191,14 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueType">Type of the value.</param>
 		private void SerializeComplexValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
-			if (valueType == typeof(string))
+			if (valueType.IsEnum)
+				SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
+			else if (valueType == typeof(string))
 				SerializeString(block.Writer, (string)val);
 			else if (valueType == typeof(HaloTag))
 				SerializeTagReference(tag, block.Writer, (HaloTag)val);
+			else if (valueType == typeof(ResourceReference))
+				SerializeResourceReference(tag, tagStream, block, (ResourceReference)val);
 			else if (valueType == typeof(byte[]))
 				SerializeDataReference(tagStream, block, (byte[])val);
 			else if (valueType.IsArray)
@@ -327,11 +333,36 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
+		/// Serializes a resource reference.
+		/// </summary>
+		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
+		/// <param name="block">The temporary block to write incomplete tag data to.</param>
+		/// <param name="resource">The resource reference to serialize.</param>
+		private void SerializeResourceReference(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, ResourceReference resource)
+		{
+			var writer = block.Writer;
+			if (resource == null)
+			{
+				writer.Write(0);
+				return;
+			}
+
+			// Serialize the reference data to a temporary block
+			var resourceBlock = new TemporaryBlock();
+			SerializeStruct(tag, tagStream, resourceBlock, resource);
+
+			// Finalize the block and write the pointer
+			block.WriteResourcePointer(resourceBlock.Finalize(tag, tagStream));
+		}
+
+		/// <summary>
 		/// An incomplete block of tag data which is not ready to be written to a tag.
 		/// </summary>
 		private class TemporaryBlock
 		{
 			private readonly List<TagFixup> _fixups = new List<TagFixup>(); 
+			private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
 
 			public TemporaryBlock()
 			{
@@ -345,12 +376,18 @@ namespace HaloOnlineTagTool.Serialization
 			/// <param name="targetOffset">The target offset of the pointer.</param>
 			public void WritePointer(uint targetOffset)
 			{
-				_fixups.Add(new TagFixup
-				{
-					TargetOffset = targetOffset,
-					WriteOffset = (uint)Stream.Position
-				});
+				_fixups.Add(MakeFixup(targetOffset));
 				Writer.Write(targetOffset + 0x40000000);
+			}
+
+			/// <summary>
+			/// Writes a resource pointer to the current position in the block and adds a fixup for it.
+			/// </summary>
+			/// <param name="targetOffset">The target offset of the pointer.</param>
+			public void WriteResourcePointer(uint targetOffset)
+			{
+				_resourceFixups.Add(MakeFixup(targetOffset));
+				WritePointer(targetOffset);
 			}
 
 			/// <summary>
@@ -368,11 +405,8 @@ namespace HaloOnlineTagTool.Serialization
 				StreamUtil.Align(tagStream, DefaultBlockAlign);
 
 				// Adjust fixups and add them to the tag
-				tag.DataFixups.AddRange(_fixups.Select(f => new TagFixup
-				{
-					TargetOffset = f.TargetOffset,
-					WriteOffset = dataOffset + f.WriteOffset
-				}));
+				tag.DataFixups.AddRange(_fixups.Select(f => FinalizeFixup(f, dataOffset)));
+				tag.ResourceFixups.AddRange(_resourceFixups.Select(f => FinalizeFixup(f, dataOffset)));
 				return dataOffset;
 			}
 
@@ -385,6 +419,35 @@ namespace HaloOnlineTagTool.Serialization
 			/// Gets or sets the writer for the block's stream.
 			/// </summary>
 			public BinaryWriter Writer { get; private set; }
+
+			/// <summary>
+			/// Makes a fixup which will be written to the current offset and will point to a target offset.
+			/// </summary>
+			/// <param name="targetOffset">The target offset.</param>
+			/// <returns>The fixup.</returns>
+			private TagFixup MakeFixup(uint targetOffset)
+			{
+				return new TagFixup
+				{
+					TargetOffset = targetOffset,
+					WriteOffset = (uint)Stream.Position
+				};
+			}
+
+			/// <summary>
+			/// Finalizes a fixup, adding to its write offset.
+			/// </summary>
+			/// <param name="fixup">The fixup.</param>
+			/// <param name="dataOffset">The data offset.</param>
+			/// <returns>The finalized fixup.</returns>
+			private static TagFixup FinalizeFixup(TagFixup fixup, uint dataOffset)
+			{
+				return new TagFixup
+				{
+					TargetOffset = fixup.TargetOffset,
+					WriteOffset = dataOffset + fixup.WriteOffset
+				};
+			}
 		}
 	}
 }

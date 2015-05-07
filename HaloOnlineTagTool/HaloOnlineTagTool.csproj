@@ -41,11 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis\DataReferenceGuess.cs" />
+    <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
+    <Compile Include="Analysis\ITagLayoutWriter.cs" />
+    <Compile Include="Analysis\LayoutGuessWriter.cs" />
+    <Compile Include="Analysis\ResourceReferenceGuess.cs" />
+    <Compile Include="Analysis\TagAnalyzer.cs" />
+    <Compile Include="Analysis\TagBlockGuess.cs" />
+    <Compile Include="Analysis\ITagElementGuess.cs" />
+    <Compile Include="Analysis\MemoryMap.cs" />
+    <Compile Include="Analysis\TagLayoutGuess.cs" />
+    <Compile Include="Analysis\TagReferenceGuess.cs" />
+    <Compile Include="Analysis\TagStructureClassWriter.cs" />
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\LocalizedStringPrinter.cs" />
     <Compile Include="Commands\Tags\DuplicateTagCommand.cs" />
     <Compile Include="Commands\Tags\EditCommand.cs" />
+    <Compile Include="Commands\Tags\GenerateLayoutsCommand.cs" />
     <Compile Include="Commands\Tags\ListStringsCommand.cs" />
     <Compile Include="Commands\Tags\FixupCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
@@ -91,12 +104,397 @@
     <Compile Include="TagCache.cs" />
     <Compile Include="HaloTag.cs" />
     <Compile Include="Commands\TagPrinter.cs" />
+    <Compile Include="TagStructures\Achievements.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\AiDialogueGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\AiGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Antenna.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\AreaScreenEffect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ArmorSounds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\BeamSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Bink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Biped.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Bitmap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\BreakableSurface.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TagStructures\CacheFileGlobalTags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\CameraFxSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\CameraTrack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Camo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Character.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ChocolateMountainNew.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ChudAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ChudDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ChudGlobalsDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ChudWidgetParallaxData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Cloth.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\CollisionDamage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\CollisionModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ColorTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ContrailSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Crate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Creature.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\DamageEffect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\DamageResponseDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\DecalSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\DecoratorSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\DeviceMachine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Dialogue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Effect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\EffectGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\EffectScenery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Equipment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Flock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Formation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GameEngineSettingsDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GameProgression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GfxTexturesList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GlobalPixelShader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Globals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GlobalVertexShader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiBitmapWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiButtonKeyDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiDatasourceDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiGroupWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiListWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiModelWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiScreenWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiSkinDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiTextWidgetDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetAnimationCollectionDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetColorAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetPositionAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetRotationAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetScaleAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetSpriteAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\GuiWidgetTextureCoordinateAnimationDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\InputGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\LensFlare.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Light.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\LightVolumeSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\MaterialEffects.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Model.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ModelAnimationGraph.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Muffin.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TagStructures\MultilingualUnicodeStringList.cs" />
     <Compile Include="TagStructures\MultiplayerGlobals.cs" />
+    <Compile Include="TagStructures\MultiplayerVariantSettingsInterfaceDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Particle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ParticleModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ParticlePhysics.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\PerformanceThrottles.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\PhysicsModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\PixelShader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\PodiumSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\PointPhysics.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Projectile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RasterizerCacheFileGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RasterizerGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RenderMethodDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RenderMethodOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RenderMethodTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RenderModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\RenderWaterRipple.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ResourceReference.cs" />
+    <Compile Include="TagStructures\SandboxTextValuePairDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Scenario.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ScenarioLightmap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ScenarioLightmapBspData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ScenarioStructureBsp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Scenery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Shader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderDecal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderFoliage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderHalogram.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderTerrain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderWater.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShaderZonly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\ShieldImpact.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SkyAtmParameters.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Sound.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundClasses.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundDialogueConstants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundEffectCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundEffectTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundEnvironment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundGlobalPropagation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundLooping.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundMix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundScenery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SoundUiSounds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SquadTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\StructureDesign.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Style.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\SurvivalModeGlobals.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\TextureRenderList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\TextValuePairDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\UserInterfaceGlobalsDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\UserInterfaceSharedGlobalsDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\UserInterfaceSoundsDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Vehicle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\VertexShader.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TagStructures\VFilesList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\VisionMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Weapon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagStructures\Wind.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

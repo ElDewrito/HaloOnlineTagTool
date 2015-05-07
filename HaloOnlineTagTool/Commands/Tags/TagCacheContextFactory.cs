@@ -23,6 +23,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			{
 				context.AddCommand(new StringIdCommand(stringIds));
 				context.AddCommand(new ListStringsCommand(cache, fileInfo, stringIds));
+				context.AddCommand(new GenerateLayoutsCommand(cache, fileInfo, stringIds));
 			}
 			return context;
 		}
