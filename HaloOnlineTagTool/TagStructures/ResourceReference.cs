@@ -101,7 +101,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public ResourceLocationFlags LocationFlags { get; set; }
 
 		// Not 100% sure on this
-		// -1 = uncompressed
+		// -1 = uncompressed?
 		[TagElement]
 		public sbyte CompressionType { get; set; }
 
@@ -112,7 +112,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Index { get; set; }
 
 		/// <summary>
-		/// Gets or sets the size of the compressed resource data.
+		/// Gets or sets the total size of the compressed resource data, including chunk headers.
 		/// </summary>
 		[TagElement]
 		public uint CompressedSize { get; set; }
