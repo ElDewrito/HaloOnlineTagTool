@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 			if (stringIds != null)
 			{
 				context.AddCommand(new UnicListCommand(unic, stringIds));
-				context.AddCommand(new UnicSetCommand(fileInfo, new TagSerializer(cache), tag, unic, stringIds));
+				context.AddCommand(new UnicSetCommand(fileInfo, cache, tag, unic, stringIds));
 			}
 			return context;
 		}

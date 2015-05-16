@@ -7,56 +7,39 @@ using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using HaloOnlineTagTool.TagStructures;
+using HaloOnlineTagTool.Resources;
 
 namespace HaloOnlineTagTool.Serialization
 {
 	/// <summary>
 	/// Deserializes tag data into objects by using reflection.
 	/// </summary>
-	public class TagDeserializer
+	public static class TagDeserializer
 	{
-		private readonly TagCache _cache;
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TagDeserializer"/> class.
+		/// Deserializes tag data into an object.
 		/// </summary>
-		/// <param name="cache">The tag cache to use.</param>
-		public TagDeserializer(TagCache cache)
-		{
-			_cache = cache;
-		}
-
-		/// <summary>
-		/// Reads a tag from a tag cache file and deserializes it into an object.
-		/// </summary>
-		/// <typeparam name="T">The type of object to deserialize the tag as.</typeparam>
-		/// <param name="stream">The tag cache stream.</param>
-		/// <param name="tag">The tag to read.</param>
+		/// <typeparam name="T">The type of object to deserialize the tag data as.</typeparam>
+		/// <param name="context">The serialization context to use.</param>
 		/// <returns>The object that was read.</returns>
-		public T Deserialize<T>(Stream stream, HaloTag tag)
+		public static T Deserialize<T>(ISerializationContext context)
 		{
 			// TODO: Add support for tag inheritance
-
-			// Extract the tag data and open a memory stream on it
-			var data = _cache.ExtractTag(stream, tag);
-			using (var reader = new BinaryReader(new MemoryStream(data)))
-			{
-				reader.BaseStream.Position = tag.MainStructOffset;
-				return (T)DeserializeStruct(reader, tag, typeof(T), new HashSet<uint>());
-			}
+			var reader = context.BeginDeserialize();
+			var result = (T)DeserializeStruct(reader, context, typeof(T));
+			context.EndDeserialize(result);
+			return result;
 		}
 
 		/// <summary>
 		/// Deserializes a structure.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
-		/// <param name="tag">The tag that the structure belongs to.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="structType">The type of the structure to deserialize.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <returns>The deserialized structure.</returns>
 		/// <exception cref="System.InvalidOperationException">Target type must have TagStructureAttribute</exception>
-		private object DeserializeStruct(BinaryReader reader, HaloTag tag, Type structType, HashSet<uint> fixupCoverage)
+		private static object DeserializeStruct(BinaryReader reader, ISerializationContext context, Type structType)
 		{
 			// Get the TagStructureAttribute associated with the target type
 			var structAttrib = structType.GetCustomAttributes(typeof(TagStructureAttribute), false).FirstOrDefault() as TagStructureAttribute;
@@ -68,18 +51,9 @@ namespace HaloOnlineTagTool.Serialization
 			var properties = structType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			var instance = Activator.CreateInstance(structType);
 			foreach (var property in properties)
-				DeserializeProperty(reader, tag, instance, structAttrib, property, baseOffset, fixupCoverage);
+				DeserializeProperty(reader, context, instance, structAttrib, property, baseOffset);
 			if (structAttrib.Size > 0)
 				reader.BaseStream.Position = baseOffset + structAttrib.Size;
-
-#if DEBUG
-		    var endOffset = reader.BaseStream.Position;
-		    foreach (var fixup in tag.DataFixups)
-		    {
-		        if (fixup.WriteOffset >= baseOffset && fixup.WriteOffset < endOffset && !fixupCoverage.Contains(fixup.WriteOffset))
-                    Debug.WriteLine("FIXUP COVERAGE: Missed fixup at 0x{0:X} in {1} (0x{2:X} - 0x{3:X})", fixup.WriteOffset - baseOffset, structType.ToString(), baseOffset, endOffset);
-		    }
-#endif
 
 			return instance;
 		}
@@ -88,13 +62,13 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a property of a structure.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="instance">The instance to store the property to.</param>
 		/// <param name="structInfo">The structure information.</param>
 		/// <param name="property">The property.</param>
 		/// <param name="baseOffset">The offset of the start of the structure.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property is outside of its structure</exception>
-		private void DeserializeProperty(BinaryReader reader, HaloTag tag, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset, HashSet<uint> fixupCoverage)
+		private static void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset)
 		{
 			// Get the property's TagValueAttribute
 			var valueInfo = property.GetCustomAttributes(typeof(TagElementAttribute), false).FirstOrDefault() as TagElementAttribute;
@@ -107,7 +81,7 @@ namespace HaloOnlineTagTool.Serialization
 			if (valueInfo.Offset >= 0)
 				reader.BaseStream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = reader.BaseStream.Position;
-			property.SetValue(instance, DeserializeValue(reader, tag, valueInfo, property.PropertyType, fixupCoverage));
+			property.SetValue(instance, DeserializeValue(reader, context, valueInfo, property.PropertyType));
 			if (valueInfo.Size > 0)
 				reader.BaseStream.Position = startOffset + valueInfo.Size; // Honor the value's size if it has one set
 		}
@@ -116,15 +90,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a value.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeValue(BinaryReader reader, HaloTag tag, TagElementAttribute valueInfo, Type valueType, HashSet<uint> fixupCoverage)
+		private static object DeserializeValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueType.IsPrimitive)
 				return DeserializePrimitiveValue(reader, valueType);
-			return DeserializeComplexValue(reader, tag, valueInfo, valueType, fixupCoverage);
+			return DeserializeComplexValue(reader, context, valueInfo, valueType);
 		}
 
 		/// <summary>
@@ -169,12 +143,17 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a complex value.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeComplexValue(BinaryReader reader, HaloTag tag, TagElementAttribute valueInfo, Type valueType, HashSet<uint> fixupCoverage)
+		private static object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
+			// Indirect objects
+			// TODO: Remove ResourceReference hax, the Indirect flag wasn't available when I generated the tag structures
+			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
+				return DeserializeIndirectValue(reader, context, valueType);
+
 			// enum = Enum type
 			if (valueType.IsEnum)
 				return DeserializePrimitiveValue(reader, valueType.GetEnumUnderlyingType());
@@ -185,38 +164,38 @@ namespace HaloOnlineTagTool.Serialization
 
 			// HaloTag = Tag reference
 			if (valueType == typeof(HaloTag))
-				return DeserializeTagReference(reader);
+				return DeserializeTagReference(reader, context);
 
-			// ResourceReference = Resource reference
-			if (valueType == typeof(ResourceReference))
-				return DeserializeResourceReference(reader, tag, fixupCoverage);
+			// ResourceAddress = Resource address
+			if (valueType == typeof(ResourceAddress))
+				return new ResourceAddress(reader.ReadUInt32());
 
 			// Byte array = Data reference
 			// TODO: Allow other types to be in data references, since sometimes they can point to a structure
 			if (valueType == typeof(byte[]))
-				return DeserializeDataReference(reader, fixupCoverage);
+				return DeserializeDataReference(reader, context);
 
 			// Non-byte array = Inline array
 			// TODO: Define more clearly in general what constitutes a data reference and what doesn't
 			if (valueType.IsArray)
-				return DeserializeInlineArray(reader, tag, valueInfo, valueType, fixupCoverage);
+				return DeserializeInlineArray(reader, context, valueInfo, valueType);
 
 			// List = Tag block
 			if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-				return DeserializeTagBlock(reader, tag, valueType, fixupCoverage);
+				return DeserializeTagBlock(reader, context, valueType);
 
 			// Assume the value is a structure
-			return DeserializeStruct(reader, tag, valueType, fixupCoverage);
+			return DeserializeStruct(reader, context, valueType);
 		}
 
 		/// <summary>
 		/// Deserializes a tag block (list of values).
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <returns>The deserialized tag block.</returns>
-		private object DeserializeTagBlock(BinaryReader reader, HaloTag tag, Type valueType, HashSet<uint> fixupCoverage)
+		private static object DeserializeTagBlock(BinaryReader reader, ISerializationContext context, Type valueType)
 		{
 			var elementType = valueType.GenericTypeArguments[0];
 			var result = Activator.CreateInstance(valueType);
@@ -224,7 +203,6 @@ namespace HaloOnlineTagTool.Serialization
 			// Read count and offset
 			var startOffset = reader.BaseStream.Position;
 			var count = reader.ReadInt32();
-		    fixupCoverage.Add((uint)reader.BaseStream.Position);
 			var pointer = reader.ReadUInt32();
 			if (count == 0 || pointer == 0)
 			{
@@ -235,10 +213,10 @@ namespace HaloOnlineTagTool.Serialization
 
 			// Read each value
 			var addMethod = valueType.GetMethod("Add");
-			reader.BaseStream.Position = pointer - 0x40000000;
+			reader.BaseStream.Position = context.AddressToOffset((uint)startOffset + 4, pointer);
 			for (var i = 0; i < count; i++)
 			{
-				var element = DeserializeValue(reader, tag, null, elementType, new HashSet<uint>());
+				var element = DeserializeValue(reader, context, null, elementType);
 				addMethod.Invoke(result, new[] { element });
 			}
 			reader.BaseStream.Position = startOffset + 0xC;
@@ -246,23 +224,23 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
-		/// Deserializes a resource reference.
+		/// Deserializes a value which is pointed to by an address.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
-		/// <param name="tag">The tag.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
-		/// <returns>The deserialized resource reference.</returns>
-		private object DeserializeResourceReference(BinaryReader reader, HaloTag tag, HashSet<uint> fixupCoverage)
+		/// <param name="context">The serialization context to use.</param>
+		/// <param name="valueType">The type of the value to deserialize.</param>
+		/// <returns>The deserialized value.</returns>
+		private static object DeserializeIndirectValue(BinaryReader reader, ISerializationContext context, Type valueType)
 		{
-			// Resource references are just a pointer to a ResourceReference structure
-			fixupCoverage.Add((uint)reader.BaseStream.Position);
+			// Read the pointer
 			var pointer = reader.ReadUInt32();
 			if (pointer == 0)
-				return null; // Null resource reference
+				return null; // Null object
 
+			// Seek to it and read the object
 			var nextOffset = reader.BaseStream.Position;
-			reader.BaseStream.Position = pointer - 0x40000000;
-			var result = DeserializeStruct(reader, tag, typeof(ResourceReference), new HashSet<uint>());
+			reader.BaseStream.Position = context.AddressToOffset((uint)nextOffset - 4, pointer);
+			var result = DeserializeValue(reader, context, null, valueType);
 			reader.BaseStream.Position = nextOffset;
 			return result;
 		}
@@ -271,27 +249,27 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a tag reference.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <returns>The deserialized tag reference.</returns>
-		private HaloTag DeserializeTagReference(BinaryReader reader)
+		private static HaloTag DeserializeTagReference(BinaryReader reader, ISerializationContext context)
 		{
 			reader.BaseStream.Position += 0xC; // Skip the class name and zero bytes, it's not important
 			var index = reader.ReadInt32();
-			return (index >= 0 && index < _cache.Tags.Count) ? _cache.Tags[index] : null;
+			return context.GetTagByIndex(index);
 		}
 
 		/// <summary>
 		/// Deserializes a data reference.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <returns>The deserialized data reference.</returns>
-		private static byte[] DeserializeDataReference(BinaryReader reader, HashSet<uint> fixupCoverage)
+		private static byte[] DeserializeDataReference(BinaryReader reader, ISerializationContext context)
 		{
 			// Read size and pointer
 			var startOffset = reader.BaseStream.Position;
 			var size = reader.ReadInt32();
 			reader.BaseStream.Position = startOffset + 0xC;
-		    fixupCoverage.Add((uint)reader.BaseStream.Position);
 			var pointer = reader.ReadUInt32();
 			if (pointer == 0)
 			{
@@ -302,7 +280,7 @@ namespace HaloOnlineTagTool.Serialization
 
 			// Read the data
 			var result = new byte[size];
-			reader.BaseStream.Position = pointer - 0x40000000;
+			reader.BaseStream.Position = context.AddressToOffset((uint)startOffset + 0xC, pointer);
 			reader.Read(result, 0, size);
 			reader.BaseStream.Position = startOffset + 0x14;
 			return result;
@@ -312,11 +290,11 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes an inline array.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
-		/// <param name="fixupCoverage">Fixup coverage information.</param>
 		/// <returns>The deserialized array.</returns>
-		private Array DeserializeInlineArray(BinaryReader reader, HaloTag tag, TagElementAttribute valueInfo, Type valueType, HashSet<uint> fixupCoverage)
+		private static Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot deserialize an inline array with no count set");
@@ -326,7 +304,7 @@ namespace HaloOnlineTagTool.Serialization
 			var elementType = valueType.GetElementType();
 			var result = Array.CreateInstance(elementType, elementCount);
 			for (var i = 0; i < elementCount; i++)
-				result.SetValue(DeserializeValue(reader, tag, null, elementType, fixupCoverage), i);
+				result.SetValue(DeserializeValue(reader, context, null, elementType), i);
 			return result;
 		}
 

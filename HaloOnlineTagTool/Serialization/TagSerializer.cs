@@ -5,64 +5,46 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using HaloOnlineTagTool.TagStructures;
+using HaloOnlineTagTool.Resources;
 
 namespace HaloOnlineTagTool.Serialization
 {
 	/// <summary>
 	/// Serializes classes into tag data by using reflection.
 	/// </summary>
-	public class TagSerializer
+	public static class TagSerializer
 	{
 		private const int DefaultBlockAlign = 4;
 
-		private readonly TagCache _cache;
-
 		/// <summary>
-		/// Initializes a new instance of the <see cref="TagSerializer"/> class.
-		/// </summary>
-		/// <param name="cache">The tag cache that will be used.</param>
-		public TagSerializer(TagCache cache)
-		{
-			_cache = cache;
-		}
-
-		/// <summary>
-		/// Serializes a structure into a tag, overwriting it.
+		/// Serializes a tag structure into a context.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="stream">The stream.</param>
-		/// <param name="tag">The tag.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStructure">The tag structure.</param>
-		public void Serialize<T>(Stream stream, HaloTag tag, T tagStructure)
+		public static void Serialize<T>(ISerializationContext context, T tagStructure)
 		{
-			// Clear out the tag
-			tag.Dependencies.Clear();
-			tag.DataFixups.Clear();
-			tag.ResourceFixups.Clear();
-
-			// Serialize the structure to a temporary block
+			// Serialize the structure to a data block
+			context.BeginSerialize();
 			var tagStream = new MemoryStream();
-			var structBlock = new TemporaryBlock();
-			SerializeStruct(tag, tagStream, structBlock, tagStructure);
+			var structBlock = context.CreateBlock();
+			SerializeStruct(context, tagStream, structBlock, tagStructure);
 
-			// Finalize the block and write all of the tag data out to the tag
-			tag.MainStructOffset = structBlock.Finalize(tag, tagStream);
-			var data = new byte[tagStream.Length];
-			Buffer.BlockCopy(tagStream.GetBuffer(), 0, data, 0, (int)tagStream.Length);
-			_cache.OverwriteTag(stream, tag, data);
-			_cache.UpdateTag(stream, tag);
+			// Finalize the block and write all of the tag data out
+			var mainStructOffset = structBlock.Finalize(tagStream);
+			var data = tagStream.ToArray();
+			context.EndSerialize(data, mainStructOffset);
 		}
 
 		/// <summary>
 		/// Serializes a structure into a temporary memory block.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="structure">The structure to serialize.</param>
 		/// <exception cref="System.InvalidOperationException">Structure type must have TagStructureAttribute</exception>
-		private void SerializeStruct(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object structure)
+		private static void SerializeStruct(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object structure)
 		{
 			// Get the TagStructureAttribute associated with the structure type
 			var structType = structure.GetType();
@@ -74,7 +56,7 @@ namespace HaloOnlineTagTool.Serialization
 			var properties = structType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			var baseOffset = block.Stream.Position;
 			foreach (var property in properties)
-				SerializeProperty(tag, tagStream, block, structure, structAttrib, property, baseOffset);
+				SerializeProperty(context, tagStream, block, structure, structAttrib, property, baseOffset);
 
 			// Honor the struct size if it's defined
 			if (structAttrib.Size > 0)
@@ -88,7 +70,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes a property.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="instance">The object that the property belongs to.</param>
@@ -96,7 +78,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="property">The property.</param>
 		/// <param name="baseOffset">The base offset of the structure from the start of its block.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property \ + property.Name + \ is outside of its structure</exception>
-		private void SerializeProperty(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset)
+		private static void SerializeProperty(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset)
 		{
 			// Get the property's TagValueAttribute
 			var valueInfo = property.GetCustomAttributes(typeof(TagElementAttribute), false).FirstOrDefault() as TagElementAttribute;
@@ -110,7 +92,7 @@ namespace HaloOnlineTagTool.Serialization
 				block.Stream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = block.Stream.Position;
 			var val = property.GetValue(instance);
-			SerializeValue(tag, tagStream, block, val, valueInfo, property.PropertyType);
+			SerializeValue(context, tagStream, block, val, valueInfo, property.PropertyType);
 			if (valueInfo.Size > 0)
 				block.Stream.Position = startOffset + valueInfo.Size;
 		}
@@ -118,18 +100,23 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes a value.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private static void SerializeValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
+			// Call the data block's PreSerialize callback to determine if the value should be mutated
+			val = block.PreSerialize(valueInfo, val);
+			if (val != null)
+				valueType = val.GetType(); // TODO: Fix hax
+
 			if (valueType.IsPrimitive)
 				SerializePrimitiveValue(block.Writer, val, valueType);
 			else
-				SerializeComplexValue(tag, tagStream, block, val, valueInfo, valueType);
+				SerializeComplexValue(context, tagStream, block, val, valueInfo, valueType);
 		}
 
 		/// <summary>
@@ -183,30 +170,32 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes a complex value.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeComplexValue(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private static void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
-			if (valueType.IsEnum)
+			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
+				SerializeIndirectValue(context, tagStream, block, val, valueType);
+			else if (valueType.IsEnum)
 				SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
 			else if (valueType == typeof(string))
 				SerializeString(block.Writer, (string)val);
 			else if (valueType == typeof(HaloTag))
-				SerializeTagReference(tag, block.Writer, (HaloTag)val);
-			else if (valueType == typeof(ResourceReference))
-				SerializeResourceReference(tag, tagStream, block, (ResourceReference)val);
+				SerializeTagReference(block.Writer, (HaloTag)val);
+			else if (valueType == typeof(ResourceAddress))
+				block.Writer.Write(((ResourceAddress)val).Value);
 			else if (valueType == typeof(byte[]))
 				SerializeDataReference(tagStream, block, (byte[])val);
 			else if (valueType.IsArray)
-				SerializeInlineArray(tag, tagStream, block, (Array)val, valueInfo);
+				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-				SerializeTagBlock(tag, tagStream, block, val, valueType);
+				SerializeTagBlock(context, tagStream, block, val, valueType);
 			else
-				SerializeStruct(tag, tagStream, block, val);
+				SerializeStruct(context, tagStream, block, val);
 		}
 
 		/// <summary>
@@ -224,15 +213,10 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes a tag reference.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
 		/// <param name="writer">The writer to write to.</param>
 		/// <param name="referencedTag">The referenced tag.</param>
-		private void SerializeTagReference(HaloTag tag, BinaryWriter writer, HaloTag referencedTag)
+		private static void SerializeTagReference(BinaryWriter writer, HaloTag referencedTag)
 		{
-			// Add the tag as a dependency of the current tag
-			if (referencedTag != null)
-				tag.Dependencies.Add(referencedTag.Index);
-
 			// Write the reference out
 			writer.Write((referencedTag != null) ? referencedTag.Class.Value : -1);
 			writer.Write(0);
@@ -246,7 +230,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="data">The data.</param>
-		private void SerializeDataReference(MemoryStream tagStream, TemporaryBlock block, byte[] data)
+		private static void SerializeDataReference(MemoryStream tagStream, IDataBlock block, byte[] data)
 		{
 			var writer = block.Writer;
 			uint offset = 0;
@@ -266,7 +250,7 @@ namespace HaloOnlineTagTool.Serialization
 			writer.Write(0);
 			writer.Write(0);
 			if (size > 0)
-				block.WritePointer(offset);
+				block.WritePointer(offset, typeof(byte[]));
 			else
 				writer.Write(0);
 			writer.Write(0);
@@ -275,12 +259,12 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes an inline array.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="data">The array.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
-		private void SerializeInlineArray(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, Array data, TagElementAttribute valueInfo)
+		private static void SerializeInlineArray(ISerializationContext context, MemoryStream tagStream, IDataBlock block, Array data, TagElementAttribute valueInfo)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot serialize an inline array with no count set");
@@ -290,18 +274,18 @@ namespace HaloOnlineTagTool.Serialization
 			// Serialize each element into the current block
 			var elementType = data.GetType().GetElementType();
 			foreach (var elem in data)
-				SerializeValue(tag, tagStream, block, elem, null, elementType);
+				SerializeValue(context, tagStream, block, elem, null, elementType);
 		}
 
 		/// <summary>
 		/// Serializes a tag block.
 		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
+		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="list">The list of values in the tag block.</param>
 		/// <param name="listType">Type of the list.</param>
-		private void SerializeTagBlock(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, object list, Type listType)
+		private static void SerializeTagBlock(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType)
 		{
 			var writer = block.Writer;
 			var listCount = 0;
@@ -319,135 +303,34 @@ namespace HaloOnlineTagTool.Serialization
 				return;
 			}
 
-			// Serialize each value in the list to a temporary block
-			var tagBlock = new TemporaryBlock();
+			// Serialize each value in the list to a data block
+			var tagBlock = context.CreateBlock();
 			var enumerableList = (System.Collections.IEnumerable)list;
 			var valueType = listType.GenericTypeArguments[0];
 			foreach (var val in enumerableList)
-				SerializeValue(tag, tagStream, tagBlock, val, null, valueType);
+				SerializeValue(context, tagStream, tagBlock, val, null, valueType);
 
 			// Finalize the block and write the tag block reference
 			writer.Write(listCount);
-			block.WritePointer(tagBlock.Finalize(tag, tagStream));
+			block.WritePointer(tagBlock.Finalize(tagStream), listType);
 			writer.Write(0);
 		}
 
-		/// <summary>
-		/// Serializes a resource reference.
-		/// </summary>
-		/// <param name="tag">The tag currently being serialized.</param>
-		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
-		/// <param name="block">The temporary block to write incomplete tag data to.</param>
-		/// <param name="resource">The resource reference to serialize.</param>
-		private void SerializeResourceReference(HaloTag tag, MemoryStream tagStream, TemporaryBlock block, ResourceReference resource)
+		private static void SerializeIndirectValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, Type valueType)
 		{
 			var writer = block.Writer;
-			if (resource == null)
+			if (val == null)
 			{
 				writer.Write(0);
 				return;
 			}
 
-			// Serialize the reference data to a temporary block
-			var resourceBlock = new TemporaryBlock();
-			SerializeStruct(tag, tagStream, resourceBlock, resource);
+			// Serialize the value to a temporary block
+			var valueBlock = context.CreateBlock();
+			SerializeValue(context, tagStream, valueBlock, val, null, valueType);
 
 			// Finalize the block and write the pointer
-			block.WriteResourcePointer(resourceBlock.Finalize(tag, tagStream));
-		}
-
-		/// <summary>
-		/// An incomplete block of tag data which is not ready to be written to a tag.
-		/// </summary>
-		private class TemporaryBlock
-		{
-			private readonly List<TagFixup> _fixups = new List<TagFixup>(); 
-			private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
-
-			public TemporaryBlock()
-			{
-				Stream = new MemoryStream();
-				Writer = new BinaryWriter(Stream);
-			}
-
-			/// <summary>
-			/// Writes a pointer to the current position in the block and adds a fixup for it.
-			/// </summary>
-			/// <param name="targetOffset">The target offset of the pointer.</param>
-			public void WritePointer(uint targetOffset)
-			{
-				_fixups.Add(MakeFixup(targetOffset));
-				Writer.Write(targetOffset + 0x40000000);
-			}
-
-			/// <summary>
-			/// Writes a resource pointer to the current position in the block and adds a fixup for it.
-			/// </summary>
-			/// <param name="targetOffset">The target offset of the pointer.</param>
-			public void WriteResourcePointer(uint targetOffset)
-			{
-				_resourceFixups.Add(MakeFixup(targetOffset));
-				WritePointer(targetOffset);
-			}
-
-			/// <summary>
-			/// Finalizes the block, writing it out to a tag and adding the block's fixups to the tag.
-			/// </summary>
-			/// <param name="tag">The tag.</param>
-			/// <param name="tagStream">The tag stream.</param>
-			/// <returns>The offset of the block within the tag data.</returns>
-			public uint Finalize(HaloTag tag, Stream tagStream)
-			{
-				// Write the data out, aligning the offset and size
-				StreamUtil.Align(tagStream, DefaultBlockAlign);
-				var dataOffset = (uint)tagStream.Position;
-				tagStream.Write(Stream.GetBuffer(), 0, (int)Stream.Length);
-				StreamUtil.Align(tagStream, DefaultBlockAlign);
-
-				// Adjust fixups and add them to the tag
-				tag.DataFixups.AddRange(_fixups.Select(f => FinalizeFixup(f, dataOffset)));
-				tag.ResourceFixups.AddRange(_resourceFixups.Select(f => FinalizeFixup(f, dataOffset)));
-				return dataOffset;
-			}
-
-			/// <summary>
-			/// Gets or sets the block's stream.
-			/// </summary>
-			public MemoryStream Stream { get; private set; }
-
-			/// <summary>
-			/// Gets or sets the writer for the block's stream.
-			/// </summary>
-			public BinaryWriter Writer { get; private set; }
-
-			/// <summary>
-			/// Makes a fixup which will be written to the current offset and will point to a target offset.
-			/// </summary>
-			/// <param name="targetOffset">The target offset.</param>
-			/// <returns>The fixup.</returns>
-			private TagFixup MakeFixup(uint targetOffset)
-			{
-				return new TagFixup
-				{
-					TargetOffset = targetOffset,
-					WriteOffset = (uint)Stream.Position
-				};
-			}
-
-			/// <summary>
-			/// Finalizes a fixup, adding to its write offset.
-			/// </summary>
-			/// <param name="fixup">The fixup.</param>
-			/// <param name="dataOffset">The data offset.</param>
-			/// <returns>The finalized fixup.</returns>
-			private static TagFixup FinalizeFixup(TagFixup fixup, uint dataOffset)
-			{
-				return new TagFixup
-				{
-					TargetOffset = fixup.TargetOffset,
-					WriteOffset = dataOffset + fixup.WriteOffset
-				};
-			}
+			block.WritePointer(valueBlock.Finalize(tagStream), valueType);
 		}
 	}
 }

@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,18 +94,26 @@
     <Compile Include="Common\ArrayUtil.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="MagicNumber.cs" />
-    <Compile Include="Options.cs" />
     <Compile Include="ProcessMemoryStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceCache.cs" />
-    <Compile Include="ResourceDataManager.cs" />
+    <Compile Include="Resources\Bitmaps\BitmapFlags.cs" />
+    <Compile Include="Resources\Bitmaps\BitmapFormat.cs" />
+    <Compile Include="Resources\Bitmaps\BitmapType.cs" />
+    <Compile Include="Resources\Geometry\PrimitiveType.cs" />
+    <Compile Include="Resources\Geometry\VertexFormat.cs" />
+    <Compile Include="Resources\ResourceCache.cs" />
+    <Compile Include="Resources\ResourceDataManager.cs" />
+    <Compile Include="Serialization\IDataBlock.cs" />
+    <Compile Include="Serialization\ISerializationContext.cs" />
+    <Compile Include="Serialization\ResourceSerializationContext.cs" />
     <Compile Include="Serialization\TagDeserializer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Serialization\TagElementAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Serialization\TagSerializationContext.cs" />
     <Compile Include="Serialization\TagSerializer.cs" />
     <Compile Include="Serialization\TagStructureAttribute.cs">
       <SubType>Code</SubType>
@@ -381,7 +390,13 @@
     <Compile Include="TagStructures\RenderWaterRipple.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TagStructures\ResourceReference.cs" />
+    <Compile Include="Resources\Bitmaps\BitmapTextureResourceDefinition.cs" />
+    <Compile Include="Resources\D3DPointer.cs" />
+    <Compile Include="Resources\Geometry\RenderGeometryResourceDefinition.cs" />
+    <Compile Include="Resources\ResourceAddress.cs" />
+    <Compile Include="Resources\ResourceDataReference.cs" />
+    <Compile Include="Resources\ResourceReference.cs" />
+    <Compile Include="Resources\Sounds\SoundResourceDefinition.cs" />
     <Compile Include="TagStructures\SandboxTextValuePairDefinition.cs">
       <SubType>Code</SubType>
     </Compile>

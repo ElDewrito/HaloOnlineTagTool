@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LZ4;
 
-namespace HaloOnlineTagTool
+namespace HaloOnlineTagTool.Resources
 {
 	// TODO: Come up with a common class for managing .dat files
 

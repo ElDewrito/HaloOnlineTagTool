@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.Commands.Unic
 	class UnicSetCommand : Command
 	{
 		private readonly FileInfo _fileInfo;
-		private readonly TagSerializer _tagSerializer;
+		private readonly TagCache _cache;
 		private readonly HaloTag _tag;
 		private readonly MultilingualUnicodeStringList _unic;
 		private readonly StringIdCache _stringIds;
 
-		public UnicSetCommand(FileInfo fileInfo, TagSerializer serializer, HaloTag tag, MultilingualUnicodeStringList unic, StringIdCache stringIds) : base(
+		public UnicSetCommand(FileInfo fileInfo, TagCache cache, HaloTag tag, MultilingualUnicodeStringList unic, StringIdCache stringIds) : base(
 			CommandFlags.None,
 
 			"set",
@@ -30,7 +30,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 			"If the string does not exist, it will be added.")
 		{
 			_fileInfo = fileInfo;
-			_tagSerializer = serializer;
+			_cache = cache;
 			_tag = tag;
 			_unic = unic;
 			_stringIds = stringIds;
@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 			// Save the tag data
 			_unic.SetString(localizedStr, language, newValue);
 			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
-				_tagSerializer.Serialize(stream, _tag, _unic);
+				TagSerializer.Serialize(new TagSerializationContext(stream, _cache, _tag), _unic);
 
 			if (added)
 				Console.WriteLine("String added successfully.");

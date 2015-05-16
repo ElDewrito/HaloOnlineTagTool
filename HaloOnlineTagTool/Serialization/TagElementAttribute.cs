@@ -10,7 +10,7 @@ namespace HaloOnlineTagTool.Serialization
 	/// Attribute for automatically-serializable values in a tag.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
-	class TagElementAttribute : Attribute
+	public class TagElementAttribute : Attribute
 	{
 		public TagElementAttribute()
 		{
@@ -33,5 +33,22 @@ namespace HaloOnlineTagTool.Serialization
 		/// If the value is an inline array, sets the number of elements in the array.
 		/// </summary>
 		public int Count { get; set; }
+
+		/// <summary>
+		/// Gets or sets flags for the tag element.
+		/// </summary>
+		public TagElementFlags Flags { get; set; }
+	}
+
+	/// <summary>
+	/// Tag element flags.
+	/// </summary>
+	[Flags]
+	public enum TagElementFlags
+	{
+		/// <summary>
+		/// The tag element is a pointer to a structure.
+		/// </summary>
+		Indirect = 1 << 0
 	}
 }

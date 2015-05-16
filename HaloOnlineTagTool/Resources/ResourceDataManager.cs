@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HaloOnlineTagTool.TagStructures;
 
-namespace HaloOnlineTagTool
+namespace HaloOnlineTagTool.Resources
 {
 	/// <summary>
 	/// Manages resource caches and extracting/injecting resource data.

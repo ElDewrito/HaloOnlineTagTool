@@ -46,12 +46,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var filter = (args.Count == 2) ? args[1] : null;
 
 			var found = false;
-			var deserializer = new TagDeserializer(_cache);
 			using (var stream = _fileInfo.OpenRead())
 			{
 				foreach (var unicTag in _cache.Tags.FindAllByClass("unic"))
 				{
-					var unic = deserializer.Deserialize<MultilingualUnicodeStringList>(stream, unicTag);
+					var unic = TagDeserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, unicTag));
 					var strings = LocalizedStringPrinter.PrepareForDisplay(unic, _stringIds, unic.Strings, language, filter);
 					if (strings.Count == 0)
 						continue;

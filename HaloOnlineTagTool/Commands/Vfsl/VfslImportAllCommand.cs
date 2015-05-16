@@ -12,11 +12,11 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 	class VfslImportAllCommand : Command
 	{
 		private readonly FileInfo _fileInfo;
-		private readonly TagSerializer _serializer;
+		private readonly TagCache _cache;
 		private readonly HaloTag _tag;
 		private readonly VFilesList _list;
 
-		public VfslImportAllCommand(FileInfo fileInfo, TagSerializer serializer, HaloTag tag, VFilesList list) : base(
+		public VfslImportAllCommand(FileInfo fileInfo, TagCache cache, HaloTag tag, VFilesList list) : base(
 			CommandFlags.None,
 			
 			"importall",
@@ -28,7 +28,7 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 			"If no directory is specified, files will be loaded from the current directory.")
 		{
 			_fileInfo = fileInfo;
-			_serializer = serializer;
+			_cache = cache;
 			_tag = tag;
 			_list = list;
 		}
@@ -56,7 +56,7 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 				imported++;
 			}
 			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
-				_serializer.Serialize(stream, _tag, _list);
+				TagSerializer.Serialize(new TagSerializationContext(stream, _cache, _tag), _list);
 			Console.WriteLine("Imported {0} files.", imported);
 			return true;
 		}

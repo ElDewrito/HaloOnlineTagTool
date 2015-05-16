@@ -16,7 +16,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private readonly CommandContextStack _stack;
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
-		private readonly TagDeserializer _deserializer;
 		private readonly StringIdCache _stringIds;
 
 		public EditCommand(CommandContextStack stack, TagCache cache, FileInfo fileInfo, StringIdCache stringIds) : base(
@@ -36,7 +35,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 			_stack = stack;
 			_cache = cache;
 			_fileInfo = fileInfo;
-			_deserializer = new TagDeserializer(cache);
 			_stringIds = stringIds;
 		}
 
@@ -70,7 +68,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			VFilesList vfsl;
 			using (var stream = _fileInfo.OpenRead())
-				vfsl = _deserializer.Deserialize<VFilesList>(stream, tag);
+				vfsl = TagDeserializer.Deserialize<VFilesList>(new TagSerializationContext(stream, _cache, tag));
 			var context = VfslContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, vfsl);
 			_stack.Push(context);
 		}
@@ -79,7 +77,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			MultilingualUnicodeStringList unic;
 			using (var stream = _fileInfo.OpenRead())
-				unic = _deserializer.Deserialize<MultilingualUnicodeStringList>(stream, tag);
+				unic = TagDeserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, tag));
 			var context = UnicContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, unic, _stringIds);
 			_stack.Push(context);
 		}
