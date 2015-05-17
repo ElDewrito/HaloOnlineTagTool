@@ -52,7 +52,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public List<TagBlock4> Unknown64 { get; set; }
 		[TagElement]
-		public List<TagBlock6> Unknown70 { get; set; }
+		public List<Image> Images { get; set; }
 		[TagElement]
 		public int Unknown7C { get; set; }
 		[TagElement]
@@ -70,7 +70,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown98 { get; set; }
 		[TagElement]
-		public List<TagBlock7> Unknown9C { get; set; }
+		public List<BitmapResource> Resources { get; set; }
 		[TagElement]
 		public int UnknownA8 { get; set; }
 		[TagElement]
@@ -223,12 +223,14 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x30)]
-		public class TagBlock6
+		public class Image
 		{
 			[TagElement]
-			public int Unknown0 { get; set; }
+			public int Signature { get; set; }
 			[TagElement]
-			public int Unknown4 { get; set; }
+			public short Width { get; set; }
+			[TagElement]
+			public short Height { get; set; }
 			[TagElement]
 			public int Unknown8 { get; set; }
 			[TagElement]
@@ -252,10 +254,10 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x8)]
-		public class TagBlock7
+		public class BitmapResource
 		{
 			[TagElement]
-			public ResourceReference Unknown0 { get; set; }
+			public ResourceReference Resource { get; set; }
 			[TagElement]
 			public int Unknown4 { get; set; }
 		}

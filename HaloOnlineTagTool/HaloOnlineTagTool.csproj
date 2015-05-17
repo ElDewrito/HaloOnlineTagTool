@@ -67,6 +67,7 @@
     <Compile Include="Commands\Tags\AddressCommand.cs" />
     <Compile Include="Commands\Tags\DuplicateTagCommand.cs" />
     <Compile Include="Commands\Tags\EditCommand.cs" />
+    <Compile Include="Commands\Tags\ExtractBitmapsCommand.cs" />
     <Compile Include="Commands\Tags\GenerateLayoutsCommand.cs" />
     <Compile Include="Commands\Tags\ListStringsCommand.cs" />
     <Compile Include="Commands\Tags\FixupCommand.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="ProcessMemoryStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Bitmaps\BitmapDdsExtractor.cs" />
     <Compile Include="Resources\Bitmaps\BitmapFlags.cs" />
     <Compile Include="Resources\Bitmaps\BitmapFormat.cs" />
     <Compile Include="Resources\Bitmaps\BitmapType.cs" />

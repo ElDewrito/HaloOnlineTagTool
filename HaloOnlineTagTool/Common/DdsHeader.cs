@@ -33,12 +33,12 @@ namespace HaloOnlineTagTool.Common
 		public uint Height { get; set; }
 
 		/// <summary>
-		/// For uncompressed textures, gets or sets the pitch of the texture in bytes.
+		/// For uncompressed textures, gets or sets the pitch of the texture in bytes. Can be 0.
 		/// </summary>
 		public uint Pitch { get; set; }
 
 		/// <summary>
-		/// For compressed textures, gets or sets the total size of the texture in bytes.
+		/// For compressed textures, gets or sets the total size of the texture in bytes. Can be 0.
 		/// </summary>
 		public uint LinearSize { get; set; }
 
@@ -170,7 +170,7 @@ namespace HaloOnlineTagTool.Common
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <exception cref="System.InvalidOperationException">Thrown if an error occurs while saving.</exception>
-		public void Write(Stream stream)
+		public void WriteTo(Stream stream)
 		{
 			var writer = new BinaryWriter(stream);
 			writer.Write(DdsFourCc.FromString("DDS "));
@@ -292,18 +292,23 @@ namespace HaloOnlineTagTool.Common
 			// Read FourCC code (optional)
 			var fourCc = reader.ReadUInt32();
 			if ((flags & DdsFormatFlags.FourCc) != 0)
+			{
 				FourCc = fourCc;
+				reader.BaseStream.Position += 20; // Skip masks
+			}
+			else
+			{
+				// Read RGB masks
+				BitsPerPixel = reader.ReadUInt32();
+				RBitMask = reader.ReadUInt32();
+				GBitMask = reader.ReadUInt32();
+				BBitMask = reader.ReadUInt32();
 
-			// Read RGB masks
-			BitsPerPixel = reader.ReadUInt32();
-			RBitMask = reader.ReadUInt32();
-			GBitMask = reader.ReadUInt32();
-			BBitMask = reader.ReadUInt32();
-
-			// Read alpha mask (optional)
-			var alphaMask = reader.ReadUInt32();
-			if ((flags & DdsFormatFlags.AlphaPixels) != 0)
-				ABitMask = alphaMask;
+				// Read alpha mask (optional)
+				var alphaMask = reader.ReadUInt32();
+				if ((flags & DdsFormatFlags.AlphaPixels) != 0)
+					ABitMask = alphaMask;
+			}
 		}
 
 		private void WriteDdsPixelFormat(BinaryWriter writer)
@@ -334,6 +339,9 @@ namespace HaloOnlineTagTool.Common
 					break;
 				case DdsFormatType.Luminance:
 					flags = DdsFormatFlags.Luminance;
+					break;
+				case DdsFormatType.Other:
+					flags = DdsFormatFlags.FourCc;
 					break;
 				default:
 					throw new InvalidOperationException("Unrecognized FormatType: " + FormatType);
@@ -480,7 +488,12 @@ namespace HaloOnlineTagTool.Common
 		/// <summary>
 		/// The texture only contains an alpha channel.
 		/// </summary>
-		Alpha
+		Alpha,
+
+		/// <summary>
+		/// The format should be determined by the texture's FourCC code or the D3D10 format.
+		/// </summary>
+		Other
 	}
 
 	/// <summary>
