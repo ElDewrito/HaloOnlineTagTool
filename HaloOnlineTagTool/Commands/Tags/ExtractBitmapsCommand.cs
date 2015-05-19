@@ -48,8 +48,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			}
 			catch
 			{
-				Console.Error.WriteLine("Unable to load the resource .dat files.");
-				Console.Error.WriteLine("Make sure that they all exist and are valid.");
+				Console.WriteLine("Unable to load the resource .dat files.");
+				Console.WriteLine("Make sure that they all exist and are valid.");
 				return true;
 			}
 
@@ -78,7 +78,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 								((bitmap.Images.Count > 1) ? i.ToString() : tag.Index.ToString("X8")) + ".dds");
 							using (var outStream = File.Open(outPath, FileMode.Create, FileAccess.Write))
 							{
-								extractor.ExtractDds(bitmap.Resources[i], outStream);
+								extractor.ExtractDds(bitmap, i, outStream);
 							}
 						}
 						count++;

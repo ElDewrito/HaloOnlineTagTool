@@ -12,6 +12,8 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 	[Flags]
 	public enum BitmapFlags : ushort
 	{
+		None = 0,
+
 		Unknown0 = 1 << 0,
 
 		/// <summary>

@@ -286,6 +286,8 @@ namespace HaloOnlineTagTool.Common
 				FormatType = DdsFormatType.Yuv;
 			else if ((flags & DdsFormatFlags.Luminance) != 0)
 				FormatType = DdsFormatType.Luminance;
+			else if ((flags & DdsFormatFlags.FourCc) != 0)
+				FormatType = DdsFormatType.Other;
 			else
 				throw new InvalidOperationException("Invalid DDS file: invalid DDS_PIXELFORMAT flags");
 

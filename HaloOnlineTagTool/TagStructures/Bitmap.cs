@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Resources;
+using HaloOnlineTagTool.Resources.Bitmaps;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -232,17 +233,35 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagElement]
 			public short Height { get; set; }
 			[TagElement]
-			public int Unknown8 { get; set; }
+			public sbyte Depth { get; set; }
 			[TagElement]
-			public int UnknownC { get; set; }
+			public sbyte Unknown9 { get; set; }
 			[TagElement]
-			public int Unknown10 { get; set; }
+			public BitmapType Type { get; set; }
 			[TagElement]
-			public int Unknown14 { get; set; }
+			public sbyte UnusedB { get; set; }
 			[TagElement]
-			public int Unknown18 { get; set; }
+			public BitmapFormat Format { get; set; }
 			[TagElement]
-			public int Unknown1C { get; set; }
+			public sbyte UnusedD { get; set; }
+			[TagElement]
+			public BitmapFlags Flags { get; set; }
+			[TagElement]
+			public short OriginX { get; set; }
+			[TagElement]
+			public short OriginY { get; set; }
+			[TagElement]
+			public sbyte MipmapCount { get; set; }
+			[TagElement]
+			public sbyte Unknown15 { get; set; }
+			[TagElement]
+			public sbyte Unknown16 { get; set; }
+			[TagElement]
+			public sbyte Unknown17 { get; set; }
+			[TagElement]
+			public int DataOffset { get; set; }
+			[TagElement]
+			public int DataSize { get; set; }
 			[TagElement]
 			public int Unknown20 { get; set; }
 			[TagElement]
