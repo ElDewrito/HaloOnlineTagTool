@@ -71,7 +71,7 @@ namespace HaloOnlineTagTool.Resources
 
 			var cache = GetCache(resource);
 			using (var stream = cache.File.OpenRead())
-				cache.Cache.Decompress(stream, resource.Index, resource.DecompressedSize, outStream);
+				cache.Cache.Decompress(stream, resource.Index, resource.CompressedSize, outStream);
 		}
 
 		/// <summary>

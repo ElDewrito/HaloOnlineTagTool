@@ -21,6 +21,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new DuplicateTagCommand(cache, fileInfo));
 			context.AddCommand(new AddressCommand());
 			context.AddCommand(new ExtractBitmapsCommand(cache, fileInfo));
+			context.AddCommand(new ResourceDataCommand());
 			if (stringIds != null)
 			{
 				context.AddCommand(new StringIdCommand(stringIds));

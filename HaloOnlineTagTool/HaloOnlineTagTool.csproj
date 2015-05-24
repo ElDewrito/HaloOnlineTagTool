@@ -73,6 +73,7 @@
     <Compile Include="Commands\Tags\GenerateLayoutsCommand.cs" />
     <Compile Include="Commands\Tags\ListStringsCommand.cs" />
     <Compile Include="Commands\Tags\FixupCommand.cs" />
+    <Compile Include="Commands\Tags\ResourceDataCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
     <Compile Include="Commands\CommandContextStack.cs" />

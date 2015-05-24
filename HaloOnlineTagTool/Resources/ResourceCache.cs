@@ -38,30 +38,35 @@ namespace HaloOnlineTagTool.Resources
 		/// </summary>
 		/// <param name="inStream">The stream open on the resource cache.</param>
 		/// <param name="resourceIndex">The index of the resource to decompress.</param>
-		/// <param name="decompressedSize">Total size of the decompressed resource.</param>
+		/// <param name="compressedSize">Total size of the compressed data, including chunk headers.</param>
 		/// <param name="outStream">The stream to write the decompressed resource data to.</param>
-		public void Decompress(Stream inStream, int resourceIndex, uint decompressedSize, Stream outStream)
+		public void Decompress(Stream inStream, int resourceIndex, uint compressedSize, Stream outStream)
 		{
 			if (resourceIndex < 0 || resourceIndex > _resources.Count)
 				throw new ArgumentOutOfRangeException("resourceIndex");
 			
 			var reader = new BinaryReader(inStream);
-			reader.BaseStream.Position = _resources[resourceIndex].Offset;
+			var resource = _resources[resourceIndex];
+			reader.BaseStream.Position = resource.Offset;
 
 			// Compressed resources are split into chunks, so decompress each chunk until the complete data is decompressed
-			uint totalDecompressed = 0;
-			while (totalDecompressed < decompressedSize)
+			var totalProcessed = 0U;
+			compressedSize = Math.Min(compressedSize, resource.Size);
+			while (totalProcessed < compressedSize)
 			{
 				// Each chunk begins with a 32-bit decompressed size followed by a 32-bit compressed size
 				var chunkDecompressedSize = reader.ReadInt32();
 				var chunkCompressedSize = reader.ReadInt32();
+				totalProcessed += 8;
+				if (totalProcessed >= compressedSize)
+					break;
 
 				// Decompress the chunk and write it to the output stream
 				var compressedData = new byte[chunkCompressedSize];
 				reader.Read(compressedData, 0, chunkCompressedSize);
 				var decompressedData = LZ4Codec.Decode(compressedData, 0, chunkCompressedSize, chunkDecompressedSize);
 				outStream.Write(decompressedData, 0, chunkDecompressedSize);
-				totalDecompressed += (uint)chunkDecompressedSize;
+				totalProcessed += (uint)chunkCompressedSize;
 			}
 		}
 
@@ -83,8 +88,8 @@ namespace HaloOnlineTagTool.Resources
 			// Resize the resource's data so that the chunk can fit
 			var resource = _resources[resourceIndex];
 			var newSize = (uint)compressed.Length + ChunkHeaderSize;
-			newSize = (newSize + 0xF) & ~0xFU; // Round up to a multiple of 0x10
-			var sizeDelta = (int)(newSize - resource.Size);
+			var roundedSize = (newSize + 0xF) & ~0xFU; // Round up to a multiple of 0x10
+			var sizeDelta = (int)(roundedSize - resource.Size);
 			if (sizeDelta > 0)
 			{
 				// Resource needs to grow
@@ -94,7 +99,7 @@ namespace HaloOnlineTagTool.Resources
 			else
 			{
 				// Resource needs to shrink
-				inStream.Position = resource.Offset + newSize;
+				inStream.Position = resource.Offset + roundedSize;
 				StreamUtil.Remove(inStream, -sizeDelta);
 			}
 
@@ -104,6 +109,7 @@ namespace HaloOnlineTagTool.Resources
 			writer.Write(data.Length);
 			writer.Write(compressed.Length);
 			writer.Write(compressed, 0, compressed.Length);
+			StreamUtil.Fill(inStream, 0, (int)(roundedSize - newSize)); // Padding
 
 			// Adjust resource offsets
 			for (var i = resourceIndex + 1; i < _resources.Count; i++)
