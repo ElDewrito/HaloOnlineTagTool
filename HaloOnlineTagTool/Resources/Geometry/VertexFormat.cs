@@ -11,6 +11,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	/// </summary>
 	public enum VertexFormat : byte
 	{
+		Invalid,
 		World,               // s_world_vertex
 		Rigid,               // s_rigid_vertex
 		Skinned,             // s_skinned_vertex
