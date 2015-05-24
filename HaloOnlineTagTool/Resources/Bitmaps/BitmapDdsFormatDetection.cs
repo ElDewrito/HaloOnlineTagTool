@@ -118,6 +118,7 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			{ BitmapFormat.Dxt3,          new BitmapFormatDefinition { FormatType = DdsFormatType.Other, FourCc = DdsFourCc.FromString("DXT3") } },
 			{ BitmapFormat.Dxt5,          new BitmapFormatDefinition { FormatType = DdsFormatType.Other, FourCc = DdsFourCc.FromString("DXT5") } },
 			{ BitmapFormat.A4R4G4B4Font,  new BitmapFormatDefinition { FormatType = DdsFormatType.Rgb, BitsPerPixel = 16, ABitMask = 0xF000, RBitMask = 0x0F00, GBitMask = 0x00F0, BBitMask = 0x000F } },
+			{ BitmapFormat.Dxn,           new BitmapFormatDefinition { FormatType = DdsFormatType.Other, FourCc = DdsFourCc.FromString("ATI2") } },
 
 			// TODO: Double-check these
 			{ BitmapFormat.V8U8,          new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.R8G8UNorm } },
@@ -126,8 +127,7 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			{ BitmapFormat.Q8W8V8U8,      new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.R8G8B8A8UNorm } },
 			{ BitmapFormat.A2R10G10B10,   new BitmapFormatDefinition { FormatType = DdsFormatType.Rgb, BitsPerPixel = 32, ABitMask = 0xC0000000, RBitMask = 0x3FF00000, GBitMask = 0x000FFC00, BBitMask = 0x000003FF } },
 			{ BitmapFormat.A16B16G16R16,  new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.R16G16B16A16UNorm } },
-			{ BitmapFormat.V16U16,        new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.R16G16UNorm } },
-			{ BitmapFormat.Dxn,           new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.Bc5UNorm } }
+			{ BitmapFormat.V16U16,        new BitmapFormatDefinition { FormatType = DdsFormatType.Other, D3D10Format = DxgiFormat.R16G16UNorm } }
 		};
 
 		private static Dictionary<BitmapFormatDefinition, BitmapFormat> _injectionDefinitions;
