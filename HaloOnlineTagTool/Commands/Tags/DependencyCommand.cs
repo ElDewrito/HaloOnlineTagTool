@@ -22,7 +22,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"dep add <tag index> <dependency index...>\n" +
 			"dep remove <tag index> <dependency index...>\n" +
 			"dep list <tag index>\n" +
-			"dep listall <tag index>" +
+			"dep listall <tag index>\n" +
             "dep liston <tag index>",
 
 			"\"dep add\" will cause the first tag to load the other tags.\n" +
