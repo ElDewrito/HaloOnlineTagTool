@@ -11,13 +11,13 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Model
 	{
 		[TagElement]
-		public HaloTag Unknown0 { get; set; }
+		public HaloTag RenderModel { get; set; }
 		[TagElement]
-		public HaloTag Unknown10 { get; set; }
+		public HaloTag CollisionModel { get; set; }
 		[TagElement]
-		public HaloTag Unknown20 { get; set; }
+		public HaloTag Animation { get; set; }
 		[TagElement]
-		public HaloTag Unknown30 { get; set; }
+		public HaloTag PhysicsModel { get; set; }
 		[TagElement]
 		public int Unknown40 { get; set; }
 		[TagElement]

@@ -50,10 +50,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			/// Gets or sets the format of each vertex.
 			/// </summary>
 			[TagElement]
-			public VertexFormat Format { get; set; }
-
-			[TagElement]
-			public byte Unused5 { get; set; }
+			public VertexBufferFormat Format { get; set; }
 
 			/// <summary>
 			/// Gets or sets the size of each vertex in bytes.

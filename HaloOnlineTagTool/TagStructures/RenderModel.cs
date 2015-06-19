@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Resources;
+using HaloOnlineTagTool.Resources.Geometry;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -46,7 +47,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown64 { get; set; }
 		[TagElement]
-		public List<Section> Sections { get; set; }
+		public List<Mesh> Meshes { get; set; }
 		[TagElement]
 		public List<BoundingBox> BoundingBoxes { get; set; }
 		[TagElement]
@@ -190,23 +191,50 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown1CC { get; set; }
 
+		/// <summary>
+		/// A region of a model.
+		/// </summary>
 		[TagStructure(Size = 0x10)]
 		public class Region
 		{
+			/// <summary>
+			/// Gets or sets the name of the region as a stringID.
+			/// </summary>
 			[TagElement]
 			public int Name { get; set; }
+
+			/// <summary>
+			/// Gets or sets the permutations belonging to the region.
+			/// </summary>
 			[TagElement]
 			public List<Permutation> Permutations { get; set; }
 
+			/// <summary>
+			/// A permutation of a region, associating a specific mesh with it.
+			/// </summary>
 			[TagStructure(Size = 0x18)]
 			public class Permutation
 			{
+				/// <summary>
+				/// Gets or sets the name of the permutation as a stringID.
+				/// </summary>
 				[TagElement]
 				public int Name { get; set; }
+
+				/// <summary>
+				/// Gets or sets the index of the first mesh belonging to the permutation.
+				/// </summary>
 				[TagElement]
-				public int SectionIndex { get; set; }
+				public ushort MeshIndex { get; set; }
+
+				/// <summary>
+				/// Gets or sets the number of meshes belonging to the permutation.
+				/// </summary>
 				[TagElement]
-				public int SectionCount { get; set; }
+				public ushort MeshCount { get; set; }
+
+				[TagElement]
+				public int Unknown8 { get; set; }
 				[TagElement]
 				public int UnknownC { get; set; }
 				[TagElement]
@@ -348,11 +376,18 @@ namespace HaloOnlineTagTool.TagStructures
 			}
 		}
 
+		/// <summary>
+		/// A material describing how a mesh part should be rendered.
+		/// </summary>
 		[TagStructure(Size = 0x24)]
 		public class Material
 		{
+			/// <summary>
+			/// Gets or sets the render method tag to use to render the material.
+			/// </summary>
 			[TagElement]
-			public HaloTag Shader { get; set; }
+			public HaloTag RenderMethod { get; set; }
+
 			[TagElement]
 			public int Unknown10 { get; set; }
 			[TagElement]
@@ -371,64 +406,185 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown23 { get; set; }
 		}
 
+		/// <summary>
+		/// A 3D mesh which can be rendered.
+		/// </summary>
 		[TagStructure(Size = 0x4C)]
-		public class Section
+		public class Mesh
 		{
+			/// <summary>
+			/// Gets or sets the parts of the mesh, grouped by render method.
+			/// </summary>
 			[TagElement]
-			public List<Submesh> Submeshes { get; set; }
+			public List<Part> Parts { get; set; }
+
+			/// <summary>
+			/// Gets or sets the subparts of the mesh.
+			/// Subparts can be toggled on and off for each part.
+			/// </summary>
 			[TagElement]
-			public List<VertexGroup> VertexGroups { get; set; }
+			public List<SubPart> SubParts { get; set; }
+
+			/// <summary>
+			/// Gets or sets the vertex buffers to use for the mesh, as indexes into the
+			/// vertex buffer array in the model's definition data. If an index is 0xFF,
+			/// then the buffer is not set.
+			/// </summary>
+			[TagElement(Count = 8)]
+			public ushort[] VertexBuffers { get; set; }
+
+			/// <summary>
+			/// Gets or sets the index buffers to use for the mesh, as an index into the
+			/// index buffer array in the model's definition data. If an index is 0xFF,
+			/// then the buffer is not set.
+			/// </summary>
+			[TagElement(Count = 2)]
+			public ushort[] IndexBuffers { get; set; }
+
+			/// <summary>
+			/// Gets or sets flags describing the mesh.
+			/// </summary>
 			[TagElement]
-			public int Unknown18 { get; set; }
+			public MeshFlags Flags { get; set; }
+
+			/// <summary>
+			/// Gets or sets the index of the node to associate the mesh with.
+			/// Only applies to rigid meshes.
+			/// </summary>
 			[TagElement]
-			public int Unknown1C { get; set; }
+			public byte RigidNodeIndex { get; set; }
+
+			/// <summary>
+			/// Gets or sets the type of each vertex in the mesh.
+			/// </summary>
 			[TagElement]
-			public int Unknown20 { get; set; }
+			public VertexType Type { get; set; }
+
+			/// <summary>
+			/// Gets or sets the type of precomputed radiance transfer (PRT) that the mesh uses.
+			/// </summary>
 			[TagElement]
-			public int Unknown24 { get; set; }
+			public PrtType PrtType { get; set; }
+
 			[TagElement]
-			public int Unknown28 { get; set; }
+			public PrimitiveType IndexBufferType { get; set; }
+
 			[TagElement]
-			public int Unknown2C { get; set; }
+			public List<TagBlock20> Unknown34 { get; set; } // Instanced geometry
 			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
+			public List<TagBlock22> Unknown40 { get; set; } // Water
+
+			/// <summary>
+			/// Associates geometry with a specific material.
+			/// </summary>
+			[TagStructure(Size = 0x10)]
+			public class Part
+			{
+				/// <summary>
+				/// Gets or sets the index of the material.
+				/// </summary>
+				[TagElement]
+				public short MaterialIndex { get; set; }
+
+				[TagElement]
+				public short Unknown2 { get; set; }
+
+				/// <summary>
+				/// Gets or sets the index of the first vertex in the index buffer.
+				/// </summary>
+				[TagElement]
+				public ushort FirstIndex { get; set; }
+
+				/// <summary>
+				/// Gets or sets the number of indexes in the part.
+				/// </summary>
+				[TagElement]
+				public ushort IndexCount { get; set; }
+
+				/// <summary>
+				/// Gets or sets the index of the first subpart that makes up this part.
+				/// </summary>
+				[TagElement]
+				public short FirstSubPartIndex { get; set; }
+
+				/// <summary>
+				/// Gets or sets the number of subparts that make up this part.
+				/// </summary>
+				[TagElement]
+				public short SubPartCount { get; set; }
+
+				[TagElement]
+				public byte UnknownC { get; set; } // enum
+				[TagElement]
+				public byte UnknownD { get; set; } // flags
+
+				/// <summary>
+				/// Gets or sets the number of vertices that the part uses.
+				/// </summary>
+				/// <remarks>
+				/// Note that this actually seems to be unused. The value is pulled from
+				/// the vertex buffer definition instead.
+				/// </remarks>
+				[TagElement]
+				public ushort VertexCount { get; set; } 
+			}
+
+			/// <summary>
+			/// A subpart of a mesh which can be rendered selectively.
+			/// </summary>
+			[TagStructure(Size = 0x8)]
+			public class SubPart
+			{
+				/// <summary>
+				/// Gets or sets the index of the first vertex in the subpart.
+				/// </summary>
+				[TagElement]
+				public short FirstIndex { get; set; }
+
+				/// <summary>
+				/// Gets or sets the number of indexes in the subpart.
+				/// </summary>
+				[TagElement]
+				public short IndexCount { get; set; }
+
+				/// <summary>
+				/// Gets or sets the index of the part which this subpart belongs to.
+				/// </summary>
+				[TagElement]
+				public short PartIndex { get; set; }
+
+				/// <summary>
+				/// Gets or sets the number of vertices that the part uses.
+				/// </summary>
+				/// <remarks>
+				/// Note that this actually seems to be unused. The value is pulled from
+				/// the vertex buffer definition instead.
+				/// </remarks>
+				[TagElement]
+				public short VertexCount { get; set; }
+			}
 
 			[TagStructure(Size = 0x10)]
-			public class Submesh
+			public class TagBlock20
 			{
 				[TagElement]
 				public int Unknown0 { get; set; }
 				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
+				public List<TagBlock21> Unknown4 { get; set; }
+
+				[TagStructure(Size = 0x2)]
+				public class TagBlock21
+				{
+					[TagElement]
+					public short Unknown0 { get; set; }
+				}
 			}
 
-			[TagStructure(Size = 0x8)]
-			public class VertexGroup
+			[TagStructure(Size = 0x4)]
+			public class TagBlock22
 			{
 				[TagElement]
-				public short IndexBufferStart { get; set; }
-				[TagElement]
-				public short IndexBufferCount { get; set; }
-				[TagElement]
-				public short SubmeshIndex { get; set; }
-				[TagElement]
-				public short VertexBufferCount { get; set; }
+				public int Unknown0 { get; set; }
 			}
 		}
 

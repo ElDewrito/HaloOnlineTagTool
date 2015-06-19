@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 namespace HaloOnlineTagTool.Resources.Geometry
 {
 	/// <summary>
-	/// Model primitive types.
+	/// Precomputed radiance transfer (PRT) types.
 	/// </summary>
-	public enum PrimitiveType : int
+	public enum PrtType : byte
 	{
-		PointList,
-		LineList,
-		LineStrip,
-		TriangleList,
-		TriangleFan,
-		TriangleStrip,
+		None,
+		Ambient,
+		Linear,
+		Quadratic
 	}
 }
