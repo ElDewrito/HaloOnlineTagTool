@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Resources;
 
 namespace HaloOnlineTagTool.Serialization
@@ -174,6 +175,14 @@ namespace HaloOnlineTagTool.Serialization
 			// TODO: Allow other types to be in data references, since sometimes they can point to a structure
 			if (valueType == typeof(byte[]))
 				return DeserializeDataReference(reader, context);
+			
+			// Vector types
+			if (valueType == typeof(Vector2))
+				return new Vector2(reader.ReadSingle(), reader.ReadSingle());
+			if (valueType == typeof(Vector3))
+				return new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+			if (valueType == typeof(Vector4))
+				return new Vector4(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
 			// Non-byte array = Inline array
 			// TODO: Define more clearly in general what constitutes a data reference and what doesn't

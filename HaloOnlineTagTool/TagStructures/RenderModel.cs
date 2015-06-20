@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Resources.Geometry;
 using HaloOnlineTagTool.Serialization;
@@ -256,29 +257,13 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagElement]
 			public float DefaultScale { get; set; }
 			[TagElement]
-			public float InverseForwardI { get; set; }
+			public Vector3 InverseForward { get; set; }
 			[TagElement]
-			public float InverseForwardJ { get; set; }
+			public Vector3 InverseLeft { get; set; }
 			[TagElement]
-			public float InverseForwardK { get; set; }
+			public Vector3 InverseUp { get; set; }
 			[TagElement]
-			public float InverseLeftI { get; set; }
-			[TagElement]
-			public float InverseLeftJ { get; set; }
-			[TagElement]
-			public float InverseLeftK { get; set; }
-			[TagElement]
-			public float InverseUpI { get; set; }
-			[TagElement]
-			public float InverseUpJ { get; set; }
-			[TagElement]
-			public float InverseUpK { get; set; }
-			[TagElement]
-			public float InversePositionI { get; set; }
-			[TagElement]
-			public float InversePositionJ { get; set; }
-			[TagElement]
-			public float InversePositionK { get; set; }
+			public Vector3 InversePosition { get; set; }
 		}
 
 		[TagStructure(Size = 0x60)]
@@ -295,45 +280,19 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagElement]
 			public short ImportNode { get; set; }
 			[TagElement]
-			public float DefaultTranslationX { get; set; }
+			public Vector3 DefaultTranslation { get; set; }
 			[TagElement]
-			public float DefaultTranslationY { get; set; }
-			[TagElement]
-			public float DefaultTranslationZ { get; set; }
-			[TagElement]
-			public float DefaultRotationI { get; set; }
-			[TagElement]
-			public float DefaultRotationJ { get; set; }
-			[TagElement]
-			public float DefaultRotationK { get; set; }
-			[TagElement]
-			public float DefaultRotationW { get; set; }
+			public Vector4 DefaultRotation { get; set; }
 			[TagElement]
 			public float DefaultScale { get; set; }
 			[TagElement]
-			public float InverseForwardI { get; set; }
+			public Vector3 InverseForward { get; set; }
 			[TagElement]
-			public float InverseForwardJ { get; set; }
+			public Vector3 InverseLeft { get; set; }
 			[TagElement]
-			public float InverseForwardK { get; set; }
+			public Vector3 InverseUp { get; set; }
 			[TagElement]
-			public float InverseLeftI { get; set; }
-			[TagElement]
-			public float InverseLeftJ { get; set; }
-			[TagElement]
-			public float InverseLeftK { get; set; }
-			[TagElement]
-			public float InverseUpI { get; set; }
-			[TagElement]
-			public float InverseUpJ { get; set; }
-			[TagElement]
-			public float InverseUpK { get; set; }
-			[TagElement]
-			public float InversePositionI { get; set; }
-			[TagElement]
-			public float InversePositionJ { get; set; }
-			[TagElement]
-			public float InversePositionK { get; set; }
+			public Vector3 InversePosition { get; set; }
 			[TagElement]
 			public float DistanceFromParent { get; set; }
 		}
@@ -358,19 +317,9 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagElement]
 				public sbyte Unknown3 { get; set; }
 				[TagElement]
-				public float TranslationX { get; set; }
+				public Vector3 Translation { get; set; }
 				[TagElement]
-				public float TranslationY { get; set; }
-				[TagElement]
-				public float TranslationZ { get; set; }
-				[TagElement]
-				public float RotationI { get; set; }
-				[TagElement]
-				public float RotationJ { get; set; }
-				[TagElement]
-				public float RotationK { get; set; }
-				[TagElement]
-				public float RotationW { get; set; }
+				public Vector4 Rotation { get; set; }
 				[TagElement]
 				public float Scale { get; set; }
 			}

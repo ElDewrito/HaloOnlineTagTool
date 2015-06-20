@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Resources;
 
 namespace HaloOnlineTagTool.Serialization
@@ -190,6 +191,12 @@ namespace HaloOnlineTagTool.Serialization
 				block.Writer.Write(((ResourceAddress)val).Value);
 			else if (valueType == typeof(byte[]))
 				SerializeDataReference(tagStream, block, (byte[])val);
+			else if (valueType == typeof(Vector2))
+				SerializeVector(block, (Vector2)val);
+			else if (valueType == typeof(Vector3))
+				SerializeVector(block, (Vector3)val);
+			else if (valueType == typeof(Vector4))
+				SerializeVector(block, (Vector4)val);
 			else if (valueType.IsArray)
 				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
@@ -331,6 +338,27 @@ namespace HaloOnlineTagTool.Serialization
 
 			// Finalize the block and write the pointer
 			block.WritePointer(valueBlock.Finalize(tagStream), valueType);
+		}
+
+		private static void SerializeVector(IDataBlock block, Vector2 vec)
+		{
+			block.Writer.Write(vec.X);
+			block.Writer.Write(vec.Y);
+		}
+
+		private static void SerializeVector(IDataBlock block, Vector3 vec)
+		{
+			block.Writer.Write(vec.X);
+			block.Writer.Write(vec.Y);
+			block.Writer.Write(vec.Z);
+		}
+
+		private static void SerializeVector(IDataBlock block, Vector4 vec)
+		{
+			block.Writer.Write(vec.X);
+			block.Writer.Write(vec.Y);
+			block.Writer.Write(vec.Z);
+			block.Writer.Write(vec.W);
 		}
 	}
 }
