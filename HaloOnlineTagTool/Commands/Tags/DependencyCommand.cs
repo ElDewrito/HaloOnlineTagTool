@@ -22,12 +22,14 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"dep add <tag index> <dependency index...>\n" +
 			"dep remove <tag index> <dependency index...>\n" +
 			"dep list <tag index>\n" +
-			"dep listall <tag index>",
+			"dep listall <tag index>\n" +
+            "dep liston <tag index>",
 
 			"\"dep add\" will cause the first tag to load the other tags.\n" +
 			"\"dep remove\" will prevent the first tag from loading the other tags.\n" +
 			"\"dep list\" will list all immediate dependencies of a tag.\n" +
-			"\"dep listall\" will recursively list all dependencies of a tag.\n" +
+            "\"dep listall\" will recursively list all dependencies of a tag.\n" +
+            "\"dep liston\" will list all tags that depend on a tag.\n" +
 			"\n" +
 			"To add dependencies to a map, use the \"map\" command to get its scenario tag\n" +
 			"index and then add dependencies to the scenario tag.")
@@ -52,6 +54,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 				case "list":
 				case "listall":
 					return ExecuteList(tag, (args[0] == "listall"));
+                case "liston":
+                    return ExecuteListDependsOn(tag);
 				default:
 					return false;
 			}
@@ -104,5 +108,12 @@ namespace HaloOnlineTagTool.Commands.Tags
 			TagPrinter.PrintTagsShort(dependencies);
 			return true;
 		}
+
+        private bool ExecuteListDependsOn(HaloTag tag)
+        {
+            var dependsOn = _cache.Tags.Where(t => t != null && t.Dependencies.Contains(tag.Index)).ToArray();
+            TagPrinter.PrintTagsShort(dependsOn);
+            return true;
+        }
 	}
 }
