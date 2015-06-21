@@ -97,6 +97,8 @@
     <Compile Include="Commands\Vfsl\VfslListCommand.cs" />
     <Compile Include="Common\ArrayUtil.cs" />
     <Compile Include="Common\DdsHeader.cs" />
+    <Compile Include="Common\Half\Half.cs" />
+    <Compile Include="Common\Half\HalfHelper.cs" />
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="GameLanguage.cs" />
