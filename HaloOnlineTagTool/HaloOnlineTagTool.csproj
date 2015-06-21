@@ -117,7 +117,10 @@
     <Compile Include="Resources\Geometry\PrimitiveType.cs" />
     <Compile Include="Resources\Geometry\PrtType.cs" />
     <Compile Include="Resources\Geometry\VertexBufferFormat.cs" />
+    <Compile Include="Resources\Geometry\VertexElementReader.cs" />
+    <Compile Include="Resources\Geometry\VertexReader.cs" />
     <Compile Include="Resources\Geometry\VertexType.cs" />
+    <Compile Include="Resources\Geometry\Vertex.cs" />
     <Compile Include="Resources\ResourceCache.cs" />
     <Compile Include="Resources\ResourceDataManager.cs" />
     <Compile Include="Serialization\IDataBlock.cs" />

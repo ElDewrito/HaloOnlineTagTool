@@ -25,6 +25,17 @@ namespace HaloOnlineTagTool.Common
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Vector3"/> struct from an array of components.
+		/// </summary>
+		/// <param name="components">The components. Must contain at least three elements.</param>
+		public Vector3(float[] components)
+		{
+			X = components[0];
+			Y = components[1];
+			Z = components[2];
+		}
+
+		/// <summary>
 		/// Gets the X component of the vector.
 		/// </summary>
 		public readonly float X;
@@ -38,6 +49,15 @@ namespace HaloOnlineTagTool.Common
 		/// Gets the Z component of the vector.
 		/// </summary>
 		public readonly float Z;
+
+		/// <summary>
+		/// Gets an array containing the vector's components.
+		/// </summary>
+		/// <returns>An array containing the vector's components.</returns>
+		public float[] ToArray()
+		{
+			return new[] { X, Y, Z };
+		}
 
 		/// <summary>
 		/// Computes the squared length of the vector.

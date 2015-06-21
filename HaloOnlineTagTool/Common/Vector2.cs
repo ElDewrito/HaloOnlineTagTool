@@ -23,6 +23,16 @@ namespace HaloOnlineTagTool.Common
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Vector2"/> struct from an array of components.
+		/// </summary>
+		/// <param name="components">The components. Must contain at least two elements.</param>
+		public Vector2(float[] components)
+		{
+			X = components[0];
+			Y = components[1];
+		}
+
+		/// <summary>
 		/// Gets the X component of the vector.
 		/// </summary>
 		public readonly float X;
@@ -31,6 +41,15 @@ namespace HaloOnlineTagTool.Common
 		/// Gets the Y component of the vector.
 		/// </summary>
 		public readonly float Y;
+
+		/// <summary>
+		/// Gets an array containing the vector's components.
+		/// </summary>
+		/// <returns>An array containing the vector's components.</returns>
+		public float[] ToArray()
+		{
+			return new[] { X, Y };
+		}
 
 		/// <summary>
 		/// Computes the squared length of the vector.
