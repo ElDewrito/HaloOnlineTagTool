@@ -14,6 +14,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	public class ObjExtractor
 	{
 		private readonly TextWriter _writer;
+		private readonly StringWriter _faceWriter = new StringWriter();
 		private uint _baseIndex = 1;
 
 		/// <summary>
@@ -48,6 +49,15 @@ namespace HaloOnlineTagTool.Resources.Geometry
 				WriteTriangles(indexes);
 			}
 			_baseIndex += (uint)vertices.Count;
+		}
+
+		/// <summary>
+		/// Finishes writing meshes out to the file.
+		/// </summary>
+		public void Finish()
+		{
+			_writer.Write(_faceWriter.ToString());
+			_faceWriter.Close();
 		}
 
 		/// <summary>
@@ -215,7 +225,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		}
 
 		/// <summary>
-		/// Writes triangle list data out to the file.
+		/// Queues triangle list data to be written out to the file.
 		/// </summary>
 		/// <param name="indexes">The indexes for the triangle list. Each set of 3 indexes forms one triangle.</param>
 		private void WriteTriangles(IReadOnlyList<uint> indexes)
@@ -231,7 +241,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 					continue;
 
 				// Write a face command for a triangle
-				_writer.WriteLine("f {0}/{0}/{0} {1}/{1}/{1} {2}/{2}/{2}", a, b, c);
+				_faceWriter.WriteLine("f {0}/{0}/{0} {1}/{1}/{1} {2}/{2}/{2}", a, b, c);
 			}
 		}
 

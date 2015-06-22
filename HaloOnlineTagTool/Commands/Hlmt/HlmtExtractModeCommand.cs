@@ -146,6 +146,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 							objExtractor.ExtractMesh(meshReader, vertexCompressor, resourceStream);
 						}
 					}
+					objExtractor.Finish();
 				}
 			}
 			Console.WriteLine("Done!");
