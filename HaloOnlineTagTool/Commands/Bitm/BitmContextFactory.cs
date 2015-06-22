@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.Commands.Bitm
 	{
 		public static CommandContext Create(CommandContext parent, FileInfo fileInfo, TagCache cache, HaloTag tag, Bitmap bitmap)
 		{
-			var context = new CommandContext(parent, string.Format("{0:X8}.unic", tag.Index));
+			var context = new CommandContext(parent, string.Format("{0:X8}.bitm", tag.Index));
 			context.AddCommand(new BitmImportCommand(fileInfo, cache, tag, bitmap));
 			return context;
 		}

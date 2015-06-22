@@ -64,15 +64,16 @@ namespace HaloOnlineTagTool.Resources.Geometry
 				throw new InvalidOperationException("Mesh does not have a vertex buffer bound to stream 0");
 			var vertexReader = reader.OpenVertexReader(mainBuffer, resourceStream);
 
-			// Only support rigid and skinned meshes for now
 			switch (reader.Mesh.Type)
 			{
 				case VertexType.Rigid:
 					return ReadRigidVertices(vertexReader, mainBuffer.Count);
 				case VertexType.Skinned:
 					return ReadSkinnedVertices(vertexReader, mainBuffer.Count);
+				case VertexType.DualQuat:
+					return ReadDualQuatVertices(vertexReader, mainBuffer.Count);
 				default:
-					throw new InvalidOperationException("Only Rigid and Skinned meshes are supported");
+					throw new InvalidOperationException("Only Rigid, Skinned, and DualQuat meshes are supported");
 			}
 		}
 
@@ -115,6 +116,28 @@ namespace HaloOnlineTagTool.Resources.Geometry
 					Position = skinned.Position,
 					Normal = skinned.Normal,
 					TexCoords = skinned.Texcoord,
+				});
+			}
+			return result;
+		}
+
+		/// <summary>
+		/// Reads dualquat vertices into a format-independent list.
+		/// </summary>
+		/// <param name="reader">The vertex reader to read from.</param>
+		/// <param name="count">The number of vertices to read.</param>
+		/// <returns>The vertices that were read.</returns>
+		private static List<ObjVertex> ReadDualQuatVertices(VertexReader reader, int count)
+		{
+			var result = new List<ObjVertex>();
+			for (var i = 0; i < count; i++)
+			{
+				var dualQuat = reader.ReadDualQuatVertex();
+				result.Add(new ObjVertex
+				{
+					Position = dualQuat.Position,
+					Normal = dualQuat.Normal,
+					TexCoords = dualQuat.Texcoord,
 				});
 			}
 			return result;

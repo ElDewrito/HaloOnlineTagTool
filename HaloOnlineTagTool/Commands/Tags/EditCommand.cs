@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands.Bitm;
+using HaloOnlineTagTool.Commands.Hlmt;
 using HaloOnlineTagTool.Commands.Unic;
 using HaloOnlineTagTool.Commands.Vfsl;
 using HaloOnlineTagTool.Serialization;
@@ -31,7 +32,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"this command will make special tag-specific commands available\n" +
 			"which can be used to edit or view the data in the tag.\n" +
 			"\n" +
-			"Currently-supported tag types: vfsl, unic, bitm")
+			"Currently-supported tag types: bitm, hlmt, unic, vfsl")
 		{
 			_stack = stack;
 			_cache = cache;
@@ -57,6 +58,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 					break;
 				case "bitm":
 					EditBitmTag(tag);
+					break;
+				case "hlmt":
+					EditHlmtTag(tag);
 					break;
 				default:
 					Console.Error.WriteLine("Tag type \"" + tag.Class + "\" is not supported.");
@@ -92,6 +96,15 @@ namespace HaloOnlineTagTool.Commands.Tags
 			using (var stream = _fileInfo.OpenRead())
 				bitmap = TagDeserializer.Deserialize<Bitmap>(new TagSerializationContext(stream, _cache, tag));
 			var context = BitmContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, bitmap);
+			_stack.Push(context);
+		}
+
+		private void EditHlmtTag(HaloTag tag)
+		{
+			Model model;
+			using (var stream = _fileInfo.OpenRead())
+				model = TagDeserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
+			var context = HlmtContextFactory.Create(_stack.Context, _fileInfo, _cache, _stringIds, tag, model);
 			_stack.Push(context);
 		}
 	}

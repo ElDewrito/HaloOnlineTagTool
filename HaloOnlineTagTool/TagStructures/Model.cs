@@ -31,7 +31,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public HaloTag Unknown54 { get; set; }
 		[TagElement]
-		public List<TagBlock0> Unknown64 { get; set; }
+		public List<Variant> Variants { get; set; }
 		[TagElement]
 		public int Unknown70 { get; set; }
 		[TagElement]
@@ -124,10 +124,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag Unknown1A4 { get; set; }
 
 		[TagStructure(Size = 0x50)]
-		public class TagBlock0
+		public class Variant
 		{
 			[TagElement]
-			public int Unknown0 { get; set; }
+			public int Name { get; set; }
 			[TagElement]
 			public int Unknown4 { get; set; }
 			[TagElement]
@@ -149,7 +149,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagElement]
 			public int Unknown28 { get; set; }
 			[TagElement]
-			public List<TagBlock1> Unknown2C { get; set; }
+			public List<Region> Regions { get; set; }
 			[TagElement]
 			public List<TagBlock4> Unknown38 { get; set; }
 			[TagElement]
@@ -160,28 +160,40 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown4C { get; set; }
 
 			[TagStructure(Size = 0x18)]
-			public class TagBlock1
+			public class Region
 			{
 				[TagElement]
-				public int Unknown0 { get; set; }
+				public int Name { get; set; }
 				[TagElement]
-				public int Unknown4 { get; set; }
+				public byte RenderModelRegionIndex { get; set; }
 				[TagElement]
-				public List<TagBlock2> Unknown8 { get; set; }
+				public sbyte Unknown5 { get; set; }
+				[TagElement]
+				public sbyte Unknown6 { get; set; }
+				[TagElement]
+				public sbyte Unknown7 { get; set; }
+				[TagElement]
+				public List<Permutation> Permutations { get; set; }
 				[TagElement]
 				public int Unknown14 { get; set; }
 
 				[TagStructure(Size = 0x24)]
-				public class TagBlock2
+				public class Permutation
 				{
 					[TagElement]
-					public int Unknown0 { get; set; }
+					public int Name { get; set; }
 					[TagElement]
-					public int Unknown4 { get; set; }
+					public byte RenderModelPermutationIndex { get; set; }
 					[TagElement]
-					public int Unknown8 { get; set; }
+					public byte Unknown5 { get; set; }
 					[TagElement]
-					public List<TagBlock3> UnknownC { get; set; }
+					public byte Unknown6 { get; set; }
+					[TagElement]
+					public byte Unknown7 { get; set; }
+					[TagElement]
+					public float Probability { get; set; }
+					[TagElement]
+					public List<State> States { get; set; }
 					[TagElement]
 					public int Unknown18 { get; set; }
 					[TagElement]
@@ -190,10 +202,10 @@ namespace HaloOnlineTagTool.TagStructures
 					public int Unknown20 { get; set; }
 
 					[TagStructure(Size = 0x20)]
-					public class TagBlock3
+					public class State
 					{
 						[TagElement]
-						public int Unknown0 { get; set; }
+						public int Name { get; set; }
 						[TagElement]
 						public int Unknown4 { get; set; }
 						[TagElement]

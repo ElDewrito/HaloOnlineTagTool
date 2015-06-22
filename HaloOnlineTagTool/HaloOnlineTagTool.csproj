@@ -65,6 +65,9 @@
     <Compile Include="Commands\Bitm\BitmContextFactory.cs" />
     <Compile Include="Commands\Bitm\BitmImportCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Hlmt\HlmtContextFactory.cs" />
+    <Compile Include="Commands\Hlmt\HlmtListVariantsCommand.cs" />
+    <Compile Include="Commands\Hlmt\HlmtExtractModeCommand.cs" />
     <Compile Include="Commands\LocalizedStringPrinter.cs" />
     <Compile Include="Commands\Tags\AddressCommand.cs" />
     <Compile Include="Commands\Tags\DuplicateTagCommand.cs" />
