@@ -173,9 +173,9 @@ namespace HaloOnlineTagTool.Serialization
 
 			private static D3DObjectType GetD3DObjectType(Type type)
 			{
-				if (type == typeof(RenderGeometryResourceDefinition.VertexBufferDefinition))
+				if (type == typeof(VertexBufferDefinition))
 					return D3DObjectType.VertexBuffer;
-				if (type == typeof(RenderGeometryResourceDefinition.IndexBufferDefinition))
+				if (type == typeof(IndexBufferDefinition))
 					return D3DObjectType.IndexBuffer;
 				if (type == typeof(BitmapTextureResourceDefinition.BitmapDefinition))
 					return D3DObjectType.Texture;
