@@ -15,9 +15,9 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public List<TagBlock0> Unknown10 { get; set; }
 		[TagElement]
-        public List<PredictedBitmaps> PredictedBitmap { get; set; }
+        	public List<PredictedBitmaps> PredictedBitmap { get; set; }
 		[TagElement]
-        public List<ShaderProperties> ShaderProperty { get; set; }
+        	public List<ShaderProperties> ShaderProperty { get; set; }
 		[TagElement]
 		public int Unknown34 { get; set; }
 		[TagElement]
@@ -35,7 +35,7 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x3C)]
-        public class PredictedBitmaps
+        	public class PredictedBitmaps
 		{
 			[TagElement]
 			public int Type { get; set; }
@@ -75,14 +75,14 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x84)]
-        public class ShaderProperties
+        	public class ShaderProperties
 		{
 			[TagElement]
 			public HaloTag Template { get; set; }
 			[TagElement]
-            public List<ShaderMaps> ShaderMap { get; set; }
+            		public List<ShaderMaps> ShaderMap { get; set; }
 			[TagElement]
-            public List<TilingFalloffs> TilingFalloff { get; set; }
+        		public List<TilingFalloffs> TilingFalloff { get; set; }
 			[TagElement]
 			public int Unknown28 { get; set; }
 			[TagElement]
@@ -115,7 +115,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown80 { get; set; }
 
 			[TagStructure(Size = 0x18)]
-            public class ShaderMaps
+			public class ShaderMaps
 			{
 				[TagElement]
 				public HaloTag BitmapCubeMapDetailMapOther { get; set; }
@@ -126,7 +126,7 @@ namespace HaloOnlineTagTool.TagStructures
 			}
 
 			[TagStructure(Size = 0x10)]
-            public class TilingFalloffs
+			public class TilingFalloffs
 			{
 				[TagElement]
 				public int UTilingRed { get; set; }
