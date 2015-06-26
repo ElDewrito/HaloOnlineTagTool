@@ -221,7 +221,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		{
 			_writer.WriteLine("v {0} {1} {2}", vertex.Position.X, vertex.Position.Y, vertex.Position.Z);
 			_writer.WriteLine("vn {0} {1} {2}", vertex.Normal.X, vertex.Normal.Y, vertex.Normal.Z);
-			_writer.WriteLine("vt {0} {1}", vertex.TexCoords.X, vertex.TexCoords.Y);
+			_writer.WriteLine("vt {0} {1}", vertex.TexCoords.X, 1 - vertex.TexCoords.Y);
 		}
 
 		/// <summary>
