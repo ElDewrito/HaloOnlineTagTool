@@ -60,7 +60,8 @@
     <Compile Include="Analysis\MemoryMap.cs" />
     <Compile Include="Analysis\TagLayoutGuess.cs" />
     <Compile Include="Analysis\TagReferenceGuess.cs" />
-    <Compile Include="Analysis\TagStructureClassWriter.cs" />
+    <Compile Include="Analysis\CppStructWriter.cs" />
+    <Compile Include="Analysis\CSharpClassWriter.cs" />
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\Bitm\BitmContextFactory.cs" />
     <Compile Include="Commands\Bitm\BitmImportCommand.cs" />

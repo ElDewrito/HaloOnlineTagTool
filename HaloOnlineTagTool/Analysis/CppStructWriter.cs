@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace HaloOnlineTagTool.Analysis
 {
-    public class TagStructureClassWriter : ITagLayoutWriter
+    public class CppStructWriter : ITagLayoutWriter
     {
         private readonly StringIdCache _stringIds;
         private readonly string _outDir;
 	    private TextWriter _writer;
-        private ClassBuilder _builder;
+        private StructBuilder _builder;
 
-        public TagStructureClassWriter(StringIdCache stringIds, string outDir)
+        public CppStructWriter(StringIdCache stringIds, string outDir)
         {
             _stringIds = stringIds;
             _outDir = outDir;
@@ -30,21 +30,19 @@ namespace HaloOnlineTagTool.Analysis
             if (string.IsNullOrEmpty(name))
                 throw new InvalidOperationException("Unable to look up the tag class name");
 	        name = ConvertToPascalCase(name);
-            var path = Path.Combine(_outDir, name + ".cs");
+            var path = Path.Combine(_outDir, name + ".hpp");
             _writer = new StreamWriter(File.Open(path, FileMode.Create, FileAccess.Write));
 
-            // Write the C# header
-            _writer.WriteLine("using System;");
-            _writer.WriteLine("using System.Collections.Generic;");
-            _writer.WriteLine("using System.Linq;");
-            _writer.WriteLine("using System.Text;");
-            _writer.WriteLine("using System.Threading.Tasks;");
-            _writer.WriteLine("using HaloOnlineTagTool.Serialization;");
-            _writer.WriteLine();
-            _writer.WriteLine("namespace HaloOnlineTagTool.TagStructures");
+            // Write the C++ header
+            _writer.WriteLine("#pragma once");
+            _writer.WriteLine("#include \"Tags.hpp\"");
+			_writer.WriteLine();
+            _writer.WriteLine("namespace Blam");
             _writer.WriteLine("{");
+			_writer.WriteLine("\tnamespace Tags");
+			_writer.WriteLine("\t{");
 
-            _builder = new ClassBuilder(_writer, 1, name);
+            _builder = new StructBuilder(_writer, 2, name);
 			_builder.Begin(tagClass, classStringId, layout);
         }
 
@@ -71,6 +69,7 @@ namespace HaloOnlineTagTool.Analysis
         public void End()
         {
             _builder.End();
+			_writer.WriteLine("\t}");
 			_writer.WriteLine("}");
 			_writer.Close();
 	        _writer = null;
@@ -95,16 +94,18 @@ namespace HaloOnlineTagTool.Analysis
 			return result.ToString();
 		}
 
-        private class ClassBuilder : ITagLayoutWriter, ITagElementGuessVisitor
+        private class StructBuilder : ITagLayoutWriter, ITagElementGuessVisitor
         {
             private readonly TextWriter _writer;
 	        private string _indent;
 	        private int _indentLevel;
 			private readonly string _name;
 	        private int _nextUnknownBlock;
+			private readonly StringWriter _fields = new StringWriter();
 			private readonly Queue<string> _subBlocks = new Queue<string>();
+	        private uint _size;
 
-            public ClassBuilder(TextWriter writer, int indent, string name)
+            public StructBuilder(TextWriter writer, int indent, string name)
             {
 	            _writer = writer;
 	            _name = name;
@@ -113,11 +114,11 @@ namespace HaloOnlineTagTool.Analysis
 
 			public void Begin(MagicNumber tagClass, int classStringId, TagLayoutGuess layout)
 			{
-				if (classStringId != 0)
-					_writer.WriteLine("{0}[TagStructure(Class = \"{1}\", Size = 0x{2:X})]", _indent, tagClass, layout.Size);
+				_size = layout.Size;
+				if (tagClass.Value != 0)
+					_writer.WriteLine("{0}struct {1} : Tag<'{2}'>", _indent, _name, tagClass);
 				else
-					_writer.WriteLine("{0}[TagStructure(Size = 0x{1:X})]", _indent, layout.Size);
-				_writer.WriteLine("{0}public class {1}", _indent, _name);
+					_writer.WriteLine("{0}struct {1}", _indent, _name);
 				_writer.WriteLine("{0}{{", _indent);
 				SetIndent(_indentLevel + 1);
 			}
@@ -129,12 +130,12 @@ namespace HaloOnlineTagTool.Analysis
 
             public void AddUnknownByte(uint offset)
             {
-				AddUnknown(offset, "byte");
+				AddUnknown(offset, "uint8_t");
             }
 
             public void AddUnknownInt16(uint offset)
             {
-				AddUnknown(offset, "short");
+				AddUnknown(offset, "int16_t");
             }
 
             public void AddUnknownInt32(uint offset)
@@ -144,35 +145,40 @@ namespace HaloOnlineTagTool.Analysis
 
 			void ITagElementGuessVisitor.Visit(uint offset, TagBlockGuess guess)
 			{
-				var className = string.Format("TagBlock{0}", _nextUnknownBlock++);
+				var structName = string.Format("TagBlock{0}", _nextUnknownBlock++);
+				_writer.WriteLine("{0}struct {1};", _indent, structName);
 	            using (var blockWriter = new StringWriter())
 	            {
-		            var blockBuilder = new ClassBuilder(blockWriter, _indentLevel, className);
+		            var blockBuilder = new StructBuilder(blockWriter, _indentLevel, structName);
 		            blockBuilder._nextUnknownBlock = _nextUnknownBlock;
 		            LayoutGuessWriter.Write(null, guess.ElementLayout, blockBuilder);
 					_subBlocks.Enqueue(blockWriter.ToString());
 		            _nextUnknownBlock = blockBuilder._nextUnknownBlock;
 	            }
-				AddUnknown(offset, string.Format("List<{0}>", className));
+				AddUnknown(offset, string.Format("TagBlock<{0}>", structName));
             }
 
 			void ITagElementGuessVisitor.Visit(uint offset, DataReferenceGuess guess)
             {
-				AddUnknown(offset, "byte[]");
+				AddUnknown(offset, "DataReference<uint8_t>");
             }
 
 			void ITagElementGuessVisitor.Visit(uint offset, TagReferenceGuess guess)
             {
-                AddUnknown(offset, "HaloTag");
+                AddUnknown(offset, "TagReference");
             }
 
 	        void ITagElementGuessVisitor.Visit(uint offset, ResourceReferenceGuess guess)
 	        {
-		        AddUnknown(offset, "ResourceReference");
+		        AddUnknown(offset, "void*");
 	        }
 
             public void End()
             {
+				if (_subBlocks.Count > 0)
+					_writer.WriteLine();
+				_writer.Write(_fields.ToString());
+
 				// Put tag block definitions at the end
 	            while (_subBlocks.Count > 0)
 	            {
@@ -181,13 +187,13 @@ namespace HaloOnlineTagTool.Analysis
 	            }
 
 	            SetIndent(_indentLevel - 1);
-                _writer.WriteLine("{0}}}", _indent);
+                _writer.WriteLine("{0}}};", _indent);
+				_writer.WriteLine("{0}TAG_STRUCT_SIZE_ASSERT({1}, 0x{2:X});", _indent, _name, _size);
             }
 
             private void AddUnknown(uint offset, string type)
             {
-                _writer.WriteLine("{0}[TagElement]", _indent);
-                _writer.WriteLine("{0}public {1} Unknown{2:X} {{ get; set; }}", _indent, type, offset);
+                _fields.WriteLine("{0}{1} Unknown{2:X};", _indent, type, offset);
             }
 
 	        private void SetIndent(int level)

@@ -25,7 +25,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Scans all tags in the file to guess tag layouts.\n" +
 			"Layouts will be written to the output directory in the chosen format.\n" +
 			"\n" +
-			"Supported types: csharp")
+			"Supported types: csharp, cpp")
 		{
 			_cache = cache;
 			_fileInfo = fileInfo;
@@ -36,11 +36,20 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			if (args.Count != 2)
 				return false;
-			if (args[0] != "csharp")
-				return false;
 			var outDir = args[1];
+			ITagLayoutWriter writer;
+			switch (args[0])
+			{
+				case "csharp":
+					writer = new CSharpClassWriter(_stringIds, outDir);
+					break;
+				case "cpp":
+					writer = new CppStructWriter(_stringIds, outDir);
+					break;
+				default:
+					return false;
+			}
 			Directory.CreateDirectory(outDir);
-			var writer = new TagStructureClassWriter(_stringIds, outDir);
 			var count = 0;
 			using (var stream = _fileInfo.OpenRead())
 			{
