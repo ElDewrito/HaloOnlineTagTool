@@ -11,13 +11,13 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Shader
 	{
 		[TagElement]
-		public HaloTag Unknown0 { get; set; }
+		public HaloTag ShaderBase { get; set; }
 		[TagElement]
 		public List<TagBlock0> Unknown10 { get; set; }
 		[TagElement]
-		public List<TagBlock1> Unknown1C { get; set; }
+        	public List<PredictedBitmaps> PredictedBitmap { get; set; }
 		[TagElement]
-		public List<TagBlock3> Unknown28 { get; set; }
+        	public List<ShaderProperties> ShaderProperty { get; set; }
 		[TagElement]
 		public int Unknown34 { get; set; }
 		[TagElement]
@@ -35,14 +35,14 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x3C)]
-		public class TagBlock1
+        	public class PredictedBitmaps
 		{
 			[TagElement]
-			public int Unknown0 { get; set; }
+			public int Type { get; set; }
 			[TagElement]
 			public int Unknown4 { get; set; }
 			[TagElement]
-			public HaloTag Unknown8 { get; set; }
+			public HaloTag Bitmap { get; set; }
 			[TagElement]
 			public int Unknown18 { get; set; }
 			[TagElement]
@@ -75,14 +75,14 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x84)]
-		public class TagBlock3
+        	public class ShaderProperties
 		{
 			[TagElement]
-			public HaloTag Unknown0 { get; set; }
+			public HaloTag Template { get; set; }
 			[TagElement]
-			public List<TagBlock4> Unknown10 { get; set; }
+            		public List<ShaderMaps> ShaderMap { get; set; }
 			[TagElement]
-			public List<TagBlock5> Unknown1C { get; set; }
+        		public List<TilingFalloffs> TilingFalloff { get; set; }
 			[TagElement]
 			public int Unknown28 { get; set; }
 			[TagElement]
@@ -115,27 +115,27 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown80 { get; set; }
 
 			[TagStructure(Size = 0x18)]
-			public class TagBlock4
+			public class ShaderMaps
 			{
 				[TagElement]
-				public HaloTag Unknown0 { get; set; }
+				public HaloTag BitmapCubeMapDetailMapOther { get; set; }
 				[TagElement]
 				public int Unknown10 { get; set; }
 				[TagElement]
-				public int Unknown14 { get; set; }
+				public int TilingFalloffIndex { get; set; }
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock5
+			public class TilingFalloffs
 			{
 				[TagElement]
-				public int Unknown0 { get; set; }
+				public int UTilingRed { get; set; }
 				[TagElement]
-				public int Unknown4 { get; set; }
+				public int VTilingGreen { get; set; }
 				[TagElement]
-				public int Unknown8 { get; set; }
+				public int Blue { get; set; }
 				[TagElement]
-				public int UnknownC { get; set; }
+				public int Intensity { get; set; }
 			}
 
 			[TagStructure(Size = 0x2)]
