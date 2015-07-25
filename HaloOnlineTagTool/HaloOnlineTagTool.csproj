@@ -248,6 +248,7 @@
     <Compile Include="TagStructures\DecoratorSet.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TagStructures\DeviceControl.cs" />
     <Compile Include="TagStructures\DeviceMachine.cs">
       <SubType>Code</SubType>
     </Compile>
