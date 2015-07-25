@@ -7,7 +7,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "trdf", Size = 0x48)]
+	[TagStructure(Class = "trdf", Size = 0x44)]
 	public class TextureRenderList
 	{
 		[TagElement]
@@ -24,8 +24,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown3C { get; set; }
 		[TagElement]
 		public int Unknown40 { get; set; }
-		[TagElement]
-		public int Unknown44 { get; set; }
 
 		[TagStructure(Size = 0x110)]
 		public class TagBlock0
@@ -225,6 +223,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Unknown20 { get; set; }
 		}
 
+		// NOTE: In 8.1.373869, this size is 0x5C
 		[TagStructure(Size = 0x4C)]
 		public class TagBlock4
 		{
@@ -262,6 +261,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown48 { get; set; }
 		}
 
+		// NOTE: In 8.1.373869, this size is 0x84
 		[TagStructure(Size = 0x64)]
 		public class TagBlock5
 		{

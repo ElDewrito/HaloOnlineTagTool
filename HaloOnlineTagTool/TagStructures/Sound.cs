@@ -8,7 +8,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "snd!", Size = 0xD8)]
+	[TagStructure(Class = "snd!", Size = 0xD4)]
 	public class Sound
 	{
 		[TagElement]
@@ -93,8 +93,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public ResourceReference UnknownCC { get; set; }
 		[TagElement]
 		public int UnknownD0 { get; set; }
-		[TagElement]
-		public int UnknownD4 { get; set; }
 
 		[TagStructure(Size = 0x10)]
 		public class TagBlock0

@@ -30,10 +30,15 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown2C { get; set; }
 		[TagElement]
 		public int Unknown30 { get; set; }
+
+		// NOTE: 8.1.373869 has two extra ints here
+
 		[TagElement]
 		public List<TagBlock0> Unknown34 { get; set; }
 		[TagElement]
 		public List<TagBlock1> Unknown40 { get; set; }
+
+		// NOTE: 8.1.373869 may have an extra int here
 
 		[TagStructure(Size = 0xA4)]
 		public class TagBlock0

@@ -485,11 +485,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown534 { get; set; }
 		[TagElement]
-		public int Unknown538 { get; set; }
-		[TagElement]
-		public int Unknown53C { get; set; }
-		[TagElement]
-		public int Unknown540 { get; set; }
+		public List<TagBlock17> Unknown538 { get; set; }
 		[TagElement]
 		public int Unknown544 { get; set; }
 		[TagElement]
@@ -1151,6 +1147,17 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagElement]
 				public int UnknownC0 { get; set; }
 			}
+		}
+
+		[TagStructure(Size = 0xC)]
+		public class TagBlock17
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
 		}
 	}
 }

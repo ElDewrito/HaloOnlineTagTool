@@ -232,6 +232,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown294 { get; set; }
 		[TagElement]
 		public int Unknown298 { get; set; }
+
+		// NOTE: 8.1.373869 has two extra ints here
+
 		[TagElement]
 		public List<TagBlock5> Unknown29C { get; set; }
 		[TagElement]

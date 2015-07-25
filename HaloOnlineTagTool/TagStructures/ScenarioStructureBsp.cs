@@ -8,7 +8,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sbsp", Size = 0x3AC)]
+	[TagStructure(Class = "sbsp", Size = 0x3A8)]
 	public class ScenarioStructureBsp
 	{
 		[TagElement]
@@ -148,17 +148,9 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public List<TagBlock20> Unknown174 { get; set; }
 		[TagElement]
-		public int Unknown180 { get; set; }
+		public List<TagBlock44> Unknown180 { get; set; }
 		[TagElement]
-		public int Unknown184 { get; set; }
-		[TagElement]
-		public int Unknown188 { get; set; }
-		[TagElement]
-		public int Unknown18C { get; set; }
-		[TagElement]
-		public int Unknown190 { get; set; }
-		[TagElement]
-		public int Unknown194 { get; set; }
+		public List<TagBlock45> Unknown18C { get; set; }
 		[TagElement]
 		public int Unknown198 { get; set; }
 		[TagElement]
@@ -383,8 +375,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown3A0 { get; set; }
 		[TagElement]
 		public int Unknown3A4 { get; set; }
-		[TagElement]
-		public int Unknown3A8 { get; set; }
 
 		[TagStructure(Size = 0x18)]
 		public class TagBlock0
@@ -879,6 +869,90 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown1C { get; set; }
 			[TagElement]
 			public int Unknown20 { get; set; }
+		}
+
+		[TagStructure(Size = 0x24)]
+		public class TagBlock44
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
+			[TagElement]
+			public int Unknown14 { get; set; }
+			[TagElement]
+			public int Unknown18 { get; set; }
+			[TagElement]
+			public int Unknown1C { get; set; }
+			[TagElement]
+			public int Unknown20 { get; set; }
+		}
+
+		[TagStructure(Size = 0x6D)]
+		public class TagBlock45
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
+			[TagElement]
+			public int Unknown14 { get; set; }
+			[TagElement]
+			public int Unknown18 { get; set; }
+			[TagElement]
+			public int Unknown1C { get; set; }
+			[TagElement]
+			public int Unknown20 { get; set; }
+			[TagElement]
+			public int Unknown24 { get; set; }
+			[TagElement]
+			public int Unknown28 { get; set; }
+			[TagElement]
+			public int Unknown2C { get; set; }
+			[TagElement]
+			public int Unknown30 { get; set; }
+			[TagElement]
+			public int Unknown34 { get; set; }
+			[TagElement]
+			public int Unknown38 { get; set; }
+			[TagElement]
+			public int Unknown3C { get; set; }
+			[TagElement]
+			public int Unknown40 { get; set; }
+			[TagElement]
+			public int Unknown44 { get; set; }
+			[TagElement]
+			public int Unknown48 { get; set; }
+			[TagElement]
+			public int Unknown4C { get; set; }
+			[TagElement]
+			public int Unknown50 { get; set; }
+			[TagElement]
+			public int Unknown54 { get; set; }
+			[TagElement]
+			public int Unknown58 { get; set; }
+			[TagElement]
+			public int Unknown5C { get; set; }
+			[TagElement]
+			public int Unknown60 { get; set; }
+			[TagElement]
+			public int Unknown64 { get; set; }
+			[TagElement]
+			public int Unknown68 { get; set; }
+			[TagElement]
+			public byte Unknown6C { get; set; }
 		}
 
 		[TagStructure(Size = 0x74)]

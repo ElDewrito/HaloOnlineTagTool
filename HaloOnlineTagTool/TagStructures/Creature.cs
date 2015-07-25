@@ -284,7 +284,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown20 { get; set; }
 		}
 
-		[TagStructure(Size = 0x1E)]
+		[TagStructure(Size = 0x18)]
 		public class TagBlock3
 		{
 			[TagElement]

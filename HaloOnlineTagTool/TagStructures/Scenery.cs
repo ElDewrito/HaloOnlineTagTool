@@ -79,13 +79,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown9C { get; set; }
 		[TagElement]
-		public int UnknownA0 { get; set; }
-		[TagElement]
-		public int UnknownA4 { get; set; }
-		[TagElement]
-		public int UnknownA8 { get; set; }
-		[TagElement]
-		public int UnknownAC { get; set; }
+		public HaloTag UnknownA0 { get; set; }
 		[TagElement]
 		public int UnknownB0 { get; set; }
 		[TagElement]

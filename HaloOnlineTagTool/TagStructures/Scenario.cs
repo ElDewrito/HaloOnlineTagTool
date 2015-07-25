@@ -107,11 +107,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public List<TagBlock34> Unknown134 { get; set; }
 		[TagElement]
-		public int Unknown140 { get; set; }
-		[TagElement]
-		public int Unknown144 { get; set; }
-		[TagElement]
-		public int Unknown148 { get; set; }
+		public List<TagBlock103> Unknown140 { get; set; }
 		[TagElement]
 		public List<TagBlock35> Unknown14C { get; set; }
 		[TagElement]
@@ -141,17 +137,9 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown190 { get; set; }
 		[TagElement]
-		public int Unknown194 { get; set; }
+		public List<TagBlock105> Unknown194 { get; set; }
 		[TagElement]
-		public int Unknown198 { get; set; }
-		[TagElement]
-		public int Unknown19C { get; set; }
-		[TagElement]
-		public int Unknown1A0 { get; set; }
-		[TagElement]
-		public int Unknown1A4 { get; set; }
-		[TagElement]
-		public int Unknown1A8 { get; set; }
+		public List<TagBlock106> Unknown1A0 { get; set; }
 		[TagElement]
 		public List<TagBlock37> Unknown1AC { get; set; }
 		[TagElement]
@@ -199,11 +187,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown2A4 { get; set; }
 		[TagElement]
-		public int Unknown2A8 { get; set; }
-		[TagElement]
-		public int Unknown2AC { get; set; }
-		[TagElement]
-		public int Unknown2B0 { get; set; }
+		public List<TagBlock104> Unknown2A8 { get; set; }
 		[TagElement]
 		public int Unknown2B4 { get; set; }
 		[TagElement]
@@ -711,11 +695,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown7DC { get; set; }
 		[TagElement]
-		public int Unknown7E0 { get; set; }
-		[TagElement]
-		public int Unknown7E4 { get; set; }
-		[TagElement]
-		public int Unknown7E8 { get; set; }
+		public List<TagBlock107> Unknown7E0 { get; set; }
 		[TagElement]
 		public int Unknown7EC { get; set; }
 		[TagElement]
@@ -1597,6 +1577,33 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown2C { get; set; }
 		}
 
+		[TagStructure(Size = 0x2C)]
+		public class TagBlock103
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
+			[TagElement]
+			public int Unknown14 { get; set; }
+			[TagElement]
+			public int Unknown18 { get; set; }
+			[TagElement]
+			public int Unknown1C { get; set; }
+			[TagElement]
+			public int Unknown20 { get; set; }
+			[TagElement]
+			public int Unknown24 { get; set; }
+			[TagElement]
+			public int Unknown28 { get; set; }
+		}
+
 		[TagStructure(Size = 0x8C)]
 		public class TagBlock35
 		{
@@ -1674,6 +1681,98 @@ namespace HaloOnlineTagTool.TagStructures
 
 		[TagStructure(Size = 0x30)]
 		public class TagBlock36
+		{
+			[TagElement]
+			public HaloTag Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
+			[TagElement]
+			public int Unknown14 { get; set; }
+			[TagElement]
+			public int Unknown18 { get; set; }
+			[TagElement]
+			public int Unknown1C { get; set; }
+			[TagElement]
+			public int Unknown20 { get; set; }
+			[TagElement]
+			public int Unknown24 { get; set; }
+			[TagElement]
+			public int Unknown28 { get; set; }
+			[TagElement]
+			public int Unknown2C { get; set; }
+		}
+
+		[TagStructure(Size = 0x80)]
+		public class TagBlock105
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
+			[TagElement]
+			public int Unknown14 { get; set; }
+			[TagElement]
+			public int Unknown18 { get; set; }
+			[TagElement]
+			public int Unknown1C { get; set; }
+			[TagElement]
+			public int Unknown20 { get; set; }
+			[TagElement]
+			public int Unknown24 { get; set; }
+			[TagElement]
+			public int Unknown28 { get; set; }
+			[TagElement]
+			public int Unknown2C { get; set; }
+			[TagElement]
+			public int Unknown30 { get; set; }
+			[TagElement]
+			public int Unknown34 { get; set; }
+			[TagElement]
+			public int Unknown38 { get; set; }
+			[TagElement]
+			public int Unknown3C { get; set; }
+			[TagElement]
+			public int Unknown40 { get; set; }
+			[TagElement]
+			public int Unknown44 { get; set; }
+			[TagElement]
+			public int Unknown48 { get; set; }
+			[TagElement]
+			public int Unknown4C { get; set; }
+			[TagElement]
+			public int Unknown50 { get; set; }
+			[TagElement]
+			public int Unknown54 { get; set; }
+			[TagElement]
+			public int Unknown58 { get; set; }
+			[TagElement]
+			public int Unknown5C { get; set; }
+			[TagElement]
+			public int Unknown60 { get; set; }
+			[TagElement]
+			public int Unknown64 { get; set; }
+			[TagElement]
+			public int Unknown68 { get; set; }
+			[TagElement]
+			public int Unknown6C { get; set; }
+			[TagElement]
+			public int Unknown70 { get; set; }
+			[TagElement]
+			public int Unknown74 { get; set; }
+			[TagElement]
+			public int Unknown78 { get; set; }
+			[TagElement]
+			public int Unknown7C { get; set; }
+		}
+
+		[TagStructure(Size = 0x30)]
+		public class TagBlock106
 		{
 			[TagElement]
 			public HaloTag Unknown0 { get; set; }
@@ -2123,6 +2222,21 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagElement]
 				public int Unknown10 { get; set; }
 			}
+		}
+
+		[TagStructure(Size = 0x14)]
+		public class TagBlock104
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
 		}
 
 		[TagStructure(Size = 0x14)]
@@ -3420,6 +3534,22 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown8 { get; set; }
 			[TagElement]
 			public int UnknownC { get; set; }
+		}
+
+
+		[TagStructure(Size = 0x14)]
+		public class TagBlock107
+		{
+			[TagElement]
+			public int Unknown0 { get; set; }
+			[TagElement]
+			public int Unknown4 { get; set; }
+			[TagElement]
+			public int Unknown8 { get; set; }
+			[TagElement]
+			public int UnknownC { get; set; }
+			[TagElement]
+			public int Unknown10 { get; set; }
 		}
 
 		[TagStructure(Size = 0x10)]

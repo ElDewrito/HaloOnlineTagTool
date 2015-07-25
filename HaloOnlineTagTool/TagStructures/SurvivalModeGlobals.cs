@@ -25,7 +25,8 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int Unknown44 { get; set; }
 
-		[TagStructure(Size = 0x10C)]
+		// NOTE: In 8.1.373869, this size is 0x20C
+		[TagStructure(Size = 0x10C)] 
 		public class TagBlock0
 		{
 			[TagElement]

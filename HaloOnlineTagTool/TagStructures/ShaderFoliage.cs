@@ -92,29 +92,13 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagElement]
 			public int Unknown34 { get; set; }
 			[TagElement]
-			public int Unknown38 { get; set; }
+			public List<TagBlock6> Unknown38 { get; set; }
 			[TagElement]
-			public int Unknown3C { get; set; }
+			public List<TagBlock7> Unknown44 { get; set; }
 			[TagElement]
-			public int Unknown40 { get; set; }
+			public List<TagBlock8> Unknown50 { get; set; }
 			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
+			public List<TagBlock9> Unknown5C { get; set; }
 			[TagElement]
 			public int Unknown68 { get; set; }
 			[TagElement]
@@ -152,6 +136,44 @@ namespace HaloOnlineTagTool.TagStructures
 				public int Unknown8 { get; set; }
 				[TagElement]
 				public int UnknownC { get; set; }
+			}
+
+			[TagStructure(Size = 0x2)]
+			public class TagBlock6
+			{
+				[TagElement]
+				public short Unknown0 { get; set; }
+			}
+
+			[TagStructure(Size = 0x6)]
+			public class TagBlock7
+			{
+				[TagElement]
+				public int Unknown0 { get; set; }
+				[TagElement]
+				public short Unknown4 { get; set; }
+			}
+
+			[TagStructure(Size = 0x4)]
+			public class TagBlock8
+			{
+				[TagElement]
+				public int Unknown0 { get; set; }
+			}
+
+			[TagStructure(Size = 0x24)]
+			public class TagBlock9
+			{
+				[TagElement]
+				public int Unknown0 { get; set; }
+				[TagElement]
+				public int Unknown4 { get; set; }
+				[TagElement]
+				public int Unknown8 { get; set; }
+				[TagElement]
+				public int UnknownC { get; set; }
+				[TagElement]
+				public byte[] Unknown10 { get; set; }
 			}
 		}
 	}
