@@ -48,12 +48,12 @@ namespace HaloOnlineTagTool
 		public int ClassId { get; set; }
 
 		/// <summary>
-		/// Gets the offset of the tag's data, including its header.
+		/// Gets the offset of the tag's data (after the header).
 		/// </summary>
 		public uint Offset { get; internal set; }
 
 		/// <summary>
-		/// Gets the size of the tag's data, including its header.
+		/// Gets the size of the tag's data (not including the header).
 		/// </summary>
 		public uint Size { get; internal set; }
 

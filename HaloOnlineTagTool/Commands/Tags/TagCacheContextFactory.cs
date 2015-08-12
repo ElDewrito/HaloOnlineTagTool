@@ -22,6 +22,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new AddressCommand());
 			context.AddCommand(new ExtractBitmapsCommand(cache, fileInfo));
 			context.AddCommand(new ResourceDataCommand());
+			context.AddCommand(new TagBlockCommand(cache, fileInfo));
 			if (stringIds != null)
 			{
 				context.AddCommand(new StringIdCommand(stringIds));
