@@ -92,8 +92,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 					case "remove":
 						result = RemoveSubcommand(stream, tag, blockOffset, elementSize, ref newCount, args);
 						break;
-					case "addat":
-						result = AddAtSubcommand(stream, tag, blockOffset, elementSize, ref newCount, args);
+					case "insertat":
+						result = InsertAtSubcommand(stream, tag, blockOffset, elementSize, ref newCount, args);
 						break;
 					case "removeat":
 						result = RemoveAtSubcommand(stream, tag, blockOffset, elementSize, ref newCount, args);
@@ -107,12 +107,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 				// Update the block pointer if necessary
 				if (oldCount != newCount)
 				{
-					stream.Position = offset;
+					stream.Position = tag.Offset + fixup.WriteOffset - 4;
 					var writer = new BinaryWriter(stream);
 					writer.Write(newCount);
 					if (newCount > 0)
 					{
-						fixup.WriteOffset = (uint)offsetFromTag + 4;
 						fixup.TargetOffset = (uint)blockOffset;
 						if (address == 0)
 							tag.DataFixups.Add(fixup);
@@ -142,7 +141,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			return true;
 		}
 
-		private bool AddAtSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
+		private bool InsertAtSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
 		{
 			if (args.Count != 5)
 				return false;
