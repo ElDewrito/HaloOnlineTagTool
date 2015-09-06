@@ -52,63 +52,63 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		public IndexBufferDefinition[] IndexBuffers { get; private set; }
 
 		/// <summary>
-		/// Opens a vertex reader on one of the mesh's vertex buffers.
+		/// Opens a vertex stream on one of the mesh's vertex buffers.
 		/// </summary>
 		/// <param name="definition">The vertex buffer definition.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
-		/// <returns>The vertex reader if successful, or <c>null</c> otherwise.</returns>
-		public VertexReader OpenVertexReader(VertexBufferDefinition definition, Stream baseStream)
+		/// <returns>The vertex stream if successful, or <c>null</c> otherwise.</returns>
+		public VertexStream OpenVertexStream(VertexBufferDefinition definition, Stream baseStream)
 		{
 			if (definition.Data.Address.Type != ResourceAddressType.Resource)
 				return null; // Don't bother supporting non-resource addresses
 			baseStream.Position = definition.Data.Address.Offset;
-			return new VertexReader(new BinaryReader(baseStream));
+			return new VertexStream(baseStream);
 		}
 
 		/// <summary>
-		/// Opens a vertex reader on one of the mesh's vertex streams.
+		/// Opens a vertex stream on one of the mesh's vertex streams.
 		/// </summary>
 		/// <param name="streamIndex">Index of the vertex stream to open.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
-		/// <returns>The vertex reader if successful, or <c>null</c> otherwise.</returns>
-		public VertexReader OpenVertexReader(int streamIndex, Stream baseStream)
+		/// <returns>The vertex stream if successful, or <c>null</c> otherwise.</returns>
+		public VertexStream OpenVertexStream(int streamIndex, Stream baseStream)
 		{
 			if (streamIndex < 0 || streamIndex >= VertexStreams.Length)
 				return null;
 			var definition = VertexStreams[streamIndex];
 			if (definition == null)
 				return null;
-			return OpenVertexReader(definition, baseStream);
+			return OpenVertexStream(definition, baseStream);
 		}
 
 		/// <summary>
-		/// Opens an index buffer reader on one of the mesh's index buffers.
+		/// Opens an index buffer stream on one of the mesh's index buffers.
 		/// </summary>
 		/// <param name="definition">The index buffer definition.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
-		/// <returns>The index buffer reader if successful, or <c>null</c> otherwise.</returns>
-		public IndexBufferReader OpenIndexBufferReader(IndexBufferDefinition definition, Stream baseStream)
+		/// <returns>The index buffer stream if successful, or <c>null</c> otherwise.</returns>
+		public IndexBufferStream OpenIndexBufferStream(IndexBufferDefinition definition, Stream baseStream)
 		{
 			if (definition.Data.Address.Type != ResourceAddressType.Resource)
 				return null; // Don't bother supporting non-resource addresses
 			baseStream.Position = definition.Data.Address.Offset;
-			return new IndexBufferReader(new BinaryReader(baseStream), IndexBufferFormat.UInt16);
+			return new IndexBufferStream(baseStream, IndexBufferFormat.UInt16);
 		}
 
 		/// <summary>
-		/// Opens an index buffer reader on one of the mesh's index buffers.
+		/// Opens an index buffer stream on one of the mesh's index buffers.
 		/// </summary>
 		/// <param name="bufferIndex">Index of the index buffer to open.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
-		/// <returns>The index buffer reader if successful, or <c>null</c> otherwise.</returns>
-		public IndexBufferReader OpenIndexBufferReader(int bufferIndex, Stream baseStream)
+		/// <returns>The index buffer stream if successful, or <c>null</c> otherwise.</returns>
+		public IndexBufferStream OpenIndexBufferStream(int bufferIndex, Stream baseStream)
 		{
 			if (bufferIndex < 0 || bufferIndex >= IndexBuffers.Length)
 				return null;
 			var definition = IndexBuffers[bufferIndex];
 			if (definition == null)
 				return null;
-			return OpenIndexBufferReader(definition, baseStream);
+			return OpenIndexBufferStream(definition, baseStream);
 		}
 
 		/// <summary>

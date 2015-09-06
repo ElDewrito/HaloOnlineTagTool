@@ -72,7 +72,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			var mainBuffer = reader.VertexStreams[0];
 			if (mainBuffer == null)
 				throw new InvalidOperationException("Mesh does not have a vertex buffer bound to stream 0");
-			var vertexReader = reader.OpenVertexReader(mainBuffer, resourceStream);
+			var vertexReader = reader.OpenVertexStream(mainBuffer, resourceStream);
 
 			switch (reader.Mesh.Type)
 			{
@@ -93,7 +93,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadRigidVertices(VertexReader reader, int count)
+		private static List<ObjVertex> ReadRigidVertices(VertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -115,7 +115,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadSkinnedVertices(VertexReader reader, int count)
+		private static List<ObjVertex> ReadSkinnedVertices(VertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -137,7 +137,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadDualQuatVertices(VertexReader reader, int count)
+		private static List<ObjVertex> ReadDualQuatVertices(VertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -182,14 +182,14 @@ namespace HaloOnlineTagTool.Resources.Geometry
 				throw new InvalidOperationException("Index buffer 0 is null");
 
 			// Read the indexes
-			var indexReader = reader.OpenIndexBufferReader(indexBuffer, resourceStream);
-			indexReader.Position = part.FirstIndex;
+			var indexStream = reader.OpenIndexBufferStream(indexBuffer, resourceStream);
+			indexStream.Position = part.FirstIndex;
 			switch (indexBuffer.Type)
 			{
 				case PrimitiveType.TriangleList:
-					return indexReader.ReadIndexes(part.IndexCount);
+					return indexStream.ReadIndexes(part.IndexCount);
 				case PrimitiveType.TriangleStrip:
-					return indexReader.ReadTriangleStrip(part.IndexCount);
+					return indexStream.ReadTriangleStrip(part.IndexCount);
 				default:
 					throw new InvalidOperationException("Unsupported index buffer type: " + indexBuffer.Type);
 			}

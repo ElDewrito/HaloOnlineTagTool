@@ -8,25 +8,29 @@ using System.Threading.Tasks;
 namespace HaloOnlineTagTool.Resources.Geometry
 {
 	/// <summary>
-	/// Reads index buffer data.
+	/// Reads and writes index buffer data.
 	/// </summary>
-	public class IndexBufferReader
+	public class IndexBufferStream
 	{
+		private readonly Stream _stream;
 		private readonly BinaryReader _reader;
+		private readonly BinaryWriter _writer;
 		private readonly IndexBufferFormat _format;
 		private readonly long _baseOffset;
 		private readonly uint _indexSize;
 
 		/// <summary>
-		/// Creates an index buffer reader on a stream.
+		/// Creates an index buffer stream.
 		/// </summary>
-		/// <param name="reader">The reader to use. It must point to the beginning of the index buffer.</param>
+		/// <param name="stream">The base stream to use. It must point to the beginning of the index buffer.</param>
 		/// <param name="format">The format of each index in the buffer.</param>
-		public IndexBufferReader(BinaryReader reader, IndexBufferFormat format)
+		public IndexBufferStream(Stream stream, IndexBufferFormat format)
 		{
-			_reader = reader;
+			_stream = stream;
+			_reader = new BinaryReader(_stream);
+			_writer = new BinaryWriter(_stream);
 			_format = format;
-			_baseOffset = _reader.BaseStream.Position;
+			_baseOffset = _stream.Position;
 			_indexSize = (format == IndexBufferFormat.UInt16) ? 2U : 4U;
 		}
 
@@ -35,8 +39,8 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// </summary>
 		public uint Position
 		{
-			get { return (uint)(_reader.BaseStream.Position - _baseOffset) / _indexSize; }
-			set { _reader.BaseStream.Position = _baseOffset + value * _indexSize; }
+			get { return (uint)(_stream.Position - _baseOffset) / _indexSize; }
+			set { _stream.Position = _baseOffset + value * _indexSize; }
 		}
 
 		/// <summary>
@@ -49,6 +53,18 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		}
 
 		/// <summary>
+		/// Writes an index and advances the stream.
+		/// </summary>
+		/// <param name="index">The index to write.</param>
+		public void WriteIndex(uint index)
+		{
+			if (_format == IndexBufferFormat.UInt16)
+				_writer.Write((ushort)index);
+			else
+				_writer.Write(index);
+		}
+
+		/// <summary>
 		/// Reads indexes into an array and advances the stream.
 		/// </summary>
 		/// <param name="buffer">The buffer to read into.</param>
@@ -56,7 +72,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="count">The number of indexes to read.</param>
 		public void ReadIndexes(uint[] buffer, uint offset, uint count)
 		{
-			for (var i = 0; i < count; i++)
+			for (uint i = 0; i < count; i++)
 				buffer[i + offset] = ReadIndex();
 		}
 
@@ -70,6 +86,27 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			var result = new uint[count];
 			ReadIndexes(result, 0, count);
 			return result;
+		}
+
+		/// <summary>
+		/// Writes indexes from an array and advances the stream.
+		/// </summary>
+		/// <param name="buffer">The buffer of indexes to write.</param>
+		/// <param name="offset">The offset into the buffer to start writing at.</param>
+		/// <param name="count">The number of indexes to write.</param>
+		public void WriteIndexes(uint[] buffer, uint offset, uint count)
+		{
+			for (uint i = 0; i < count; i++)
+				WriteIndex(buffer[i + offset]);
+		}
+
+		/// <summary>
+		/// Writes indexes from an array and advances the stream.
+		/// </summary>
+		/// <param name="buffer">The indexes to write.</param>
+		public void WriteIndexes(uint[] buffer)
+		{
+			WriteIndexes(buffer, 0, (uint)buffer.LongLength);
 		}
 
 		/// <summary>

@@ -13,8 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>8a507f06</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -120,7 +119,7 @@
     <Compile Include="Resources\Bitmaps\BitmapFlags.cs" />
     <Compile Include="Resources\Bitmaps\BitmapFormat.cs" />
     <Compile Include="Resources\Bitmaps\BitmapType.cs" />
-    <Compile Include="Resources\Geometry\IndexBufferReader.cs" />
+    <Compile Include="Resources\Geometry\IndexBufferStream.cs" />
     <Compile Include="Resources\Geometry\Mesh.cs" />
     <Compile Include="Resources\Geometry\MeshFlags.cs" />
     <Compile Include="Resources\Geometry\ObjExtractor.cs" />
@@ -129,8 +128,8 @@
     <Compile Include="Resources\Geometry\PrtType.cs" />
     <Compile Include="Resources\Geometry\VertexBufferFormat.cs" />
     <Compile Include="Resources\Geometry\VertexCompressor.cs" />
-    <Compile Include="Resources\Geometry\VertexElementReader.cs" />
-    <Compile Include="Resources\Geometry\VertexReader.cs" />
+    <Compile Include="Resources\Geometry\VertexElementStream.cs" />
+    <Compile Include="Resources\Geometry\VertexStream.cs" />
     <Compile Include="Resources\Geometry\VertexType.cs" />
     <Compile Include="Resources\Geometry\Vertex.cs" />
     <Compile Include="Resources\ResourceCache.cs" />
