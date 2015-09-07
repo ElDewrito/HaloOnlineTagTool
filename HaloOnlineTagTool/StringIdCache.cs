@@ -98,6 +98,11 @@ namespace HaloOnlineTagTool
 			return (set << 16) | (index & 0xFFFF);
 		}
 
+		public int GetStringId(string str)
+		{
+			return GetStringId(Strings.IndexOf(str));
+		}
+
 		/// <summary>
 		/// Saves the string data back to the file.
 		/// </summary>

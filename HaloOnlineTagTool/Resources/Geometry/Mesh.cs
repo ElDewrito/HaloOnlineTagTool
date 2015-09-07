@@ -28,7 +28,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		/// <summary>
 		/// Gets or sets the vertex buffers to use for the mesh, as indexes into the
-		/// vertex buffer array in the model's definition data. If an index is 0xFF,
+		/// vertex buffer array in the model's definition data. If an index is 0xFFFF,
 		/// then the buffer is not set.
 		/// </summary>
 		[TagElement(Count = 8)]
@@ -36,7 +36,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		/// <summary>
 		/// Gets or sets the index buffers to use for the mesh, as an index into the
-		/// index buffer array in the model's definition data. If an index is 0xFF,
+		/// index buffer array in the model's definition data. If an index is 0xFFFF,
 		/// then the buffer is not set.
 		/// </summary>
 		[TagElement(Count = 2)]
@@ -122,10 +122,6 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			/// <summary>
 			/// Gets or sets the number of vertices that the part uses.
 			/// </summary>
-			/// <remarks>
-			/// Note that this actually seems to be unused. The value is pulled from
-			/// the vertex buffer definition instead.
-			/// </remarks>
 			[TagElement]
 			public ushort VertexCount { get; set; }
 		}
@@ -140,13 +136,13 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			/// Gets or sets the index of the first vertex in the subpart.
 			/// </summary>
 			[TagElement]
-			public short FirstIndex { get; set; }
+			public ushort FirstIndex { get; set; }
 
 			/// <summary>
 			/// Gets or sets the number of indexes in the subpart.
 			/// </summary>
 			[TagElement]
-			public short IndexCount { get; set; }
+			public ushort IndexCount { get; set; }
 
 			/// <summary>
 			/// Gets or sets the index of the part which this subpart belongs to.
@@ -162,7 +158,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			/// the vertex buffer definition instead.
 			/// </remarks>
 			[TagElement]
-			public short VertexCount { get; set; }
+			public ushort VertexCount { get; set; }
 		}
 
 		[TagStructure(Size = 0x10)]

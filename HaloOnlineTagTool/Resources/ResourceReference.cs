@@ -127,6 +127,44 @@ namespace HaloOnlineTagTool.Resources
 				return ResourceLocation.Video;
 			throw new InvalidOperationException("The resource does not have a location flag set");
 		}
+
+		/// <summary>
+		/// Changes the location of the resource by changing its location flags.
+		/// </summary>
+		/// <param name="newLocation">The new location.</param>
+		/// <exception cref="System.ArgumentException">Unsupported resource location</exception>
+		public void ChangeLocation(ResourceLocation newLocation)
+		{
+			LocationFlags &= ~ResourceLocationFlags.LocationMask;
+			switch (newLocation)
+			{
+				case ResourceLocation.Resources:
+					LocationFlags |= ResourceLocationFlags.InResources;
+					break;
+				case ResourceLocation.Textures:
+					LocationFlags |= ResourceLocationFlags.InTextures;
+					break;
+				case ResourceLocation.TexturesB:
+					LocationFlags |= ResourceLocationFlags.InTexturesB;
+					break;
+				case ResourceLocation.Audio:
+					LocationFlags |= ResourceLocationFlags.InAudio;
+					break;
+				case ResourceLocation.Video:
+					LocationFlags |= ResourceLocationFlags.InVideo;
+					break;
+				default:
+					throw new ArgumentException("Unsupported resource location");
+			}
+		}
+
+		/// <summary>
+		/// Disables the resource's checksum by changing its location flags.
+		/// </summary>
+		public void DisableChecksum()
+		{
+			LocationFlags &= ~(ResourceLocationFlags.UseChecksum | ResourceLocationFlags.UseChecksum2);
+		}
 	}
 
 	/// <summary>
@@ -209,7 +247,12 @@ namespace HaloOnlineTagTool.Resources
 		/// Indicates that the resource's checksum should be validated.
 		/// Alternate flag for <see cref="UseChecksum"/>.
 		/// </summary>
-		UseChecksum2 = 1 << 7
+		UseChecksum2 = 1 << 7,
+
+		/// <summary>
+		/// Mask for the location part of the flags.
+		/// </summary>
+		LocationMask = 0x3E,
 	}
 
 	/// <summary>

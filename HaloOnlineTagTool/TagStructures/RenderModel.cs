@@ -188,7 +188,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public List<TagBlock18> Unknown1B4 { get; set; }
 		[TagElement]
-		public List<TagBlock19> Unknown1C0 { get; set; }
+		public List<RuntimeNode> RuntimeNodes { get; set; }
 		[TagElement]
 		public int Unknown1CC { get; set; }
 
@@ -667,24 +667,14 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x20)]
-		public class TagBlock19
+		public class RuntimeNode
 		{
 			[TagElement]
-			public int Unknown0 { get; set; }
+			public Vector4 Rotation { get; set; }
 			[TagElement]
-			public int Unknown4 { get; set; }
+			public Vector3 Translation { get; set; }
 			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
+			public float Scale { get; set; }
 		}
 	}
 }

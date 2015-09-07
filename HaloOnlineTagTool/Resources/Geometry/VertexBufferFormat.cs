@@ -9,10 +9,6 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	/// <summary>
 	/// Vertex buffer formats.
 	/// </summary>
-	/// <remarks>
-	/// This enum is total garbage and is only used to calculate vertex sizes.
-	/// All that matters is that the corresponding size matches the vertex buffer.
-	/// </remarks>
 	public enum VertexBufferFormat : short
 	{
 		Invalid,      // Invalid

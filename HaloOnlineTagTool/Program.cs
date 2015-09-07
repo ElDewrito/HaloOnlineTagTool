@@ -7,8 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
-using HaloOnlineTagTool.Serialization;
-using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool
 {
@@ -77,7 +75,7 @@ namespace HaloOnlineTagTool
 					Console.Error.WriteLine("Unrecognized command: {0}", autoexecCommand[0]);
 				return;
 			}
-			
+
 			Console.WriteLine();
 			Console.WriteLine("Enter \"help\" to list available commands. Enter \"exit\" to quit.");
 			while (true)

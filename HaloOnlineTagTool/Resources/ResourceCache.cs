@@ -34,6 +34,29 @@ namespace HaloOnlineTagTool.Resources
 		}
 
 		/// <summary>
+		/// Adds a resource to the cache.
+		/// </summary>
+		/// <param name="inStream">The stream open on the resource cache.</param>
+		/// <param name="data">The data to compress.</param>
+		/// <param name="compressedSize">On return, the size of the compressed data.</param>
+		/// <returns>The index of the resource that was added.</returns>
+		public int Add(Stream inStream, byte[] data, out uint compressedSize)
+		{
+			// Add a resource of size 0 to the list
+			var lastResource = (_resources.Count > 0) ? _resources[_resources.Count - 1] : null;
+			var resourceIndex = _resources.Count;
+			_resources.Add(new Resource
+			{
+				Offset = (lastResource != null) ? lastResource.Offset + lastResource.Size : 0,
+				Size = 0,
+			});
+
+			// Now "replace" it
+			compressedSize = Compress(inStream, resourceIndex, data);
+			return resourceIndex;
+		}
+
+		/// <summary>
 		/// Decompresses a resource.
 		/// </summary>
 		/// <param name="inStream">The stream open on the resource cache.</param>
@@ -112,6 +135,7 @@ namespace HaloOnlineTagTool.Resources
 			StreamUtil.Fill(inStream, 0, (int)(roundedSize - newSize)); // Padding
 
 			// Adjust resource offsets
+			resource.Size = roundedSize;
 			for (var i = resourceIndex + 1; i < _resources.Count; i++)
 				_resources[i].Offset = (uint)(_resources[i].Offset + sizeDelta);
 			UpdateResourceTable(writer);

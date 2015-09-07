@@ -56,6 +56,36 @@ namespace HaloOnlineTagTool.Resources
 		}
 
 		/// <summary>
+		/// Adds a new resource to a cache.
+		/// </summary>
+		/// <param name="resource">The resource reference to initialize.</param>
+		/// <param name="location">The location where the resource should be stored.</param>
+		/// <param name="dataStream">The stream to read the resource data from.</param>
+		/// <exception cref="System.ArgumentNullException">resource</exception>
+		/// <exception cref="System.ArgumentException">The input stream is not open for reading;dataStream</exception>
+		public void Add(ResourceReference resource, ResourceLocation location, Stream dataStream)
+		{
+			if (resource == null)
+				throw new ArgumentNullException("resource");
+			if (!dataStream.CanRead)
+				throw new ArgumentException("The input stream is not open for reading", "dataStream");
+	
+			resource.ChangeLocation(location);
+			var cache = GetCache(resource);
+			using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+			{
+				var dataSize = (int)(dataStream.Length - dataStream.Position);
+				var data = new byte[dataSize];
+				dataStream.Read(data, 0, dataSize);
+				uint compressedSize;
+				resource.Index = cache.Cache.Add(stream, data, out compressedSize);
+				resource.CompressedSize = compressedSize;
+				resource.DecompressedSize = (uint)dataSize;
+				resource.DisableChecksum();
+			}
+		}
+
+		/// <summary>
 		/// Extracts the raw data for a resource.
 		/// </summary>
 		/// <param name="resource">The resource.</param>
@@ -96,7 +126,7 @@ namespace HaloOnlineTagTool.Resources
 				var compressedSize = cache.Cache.Compress(stream, resource.Index, data);
 				resource.CompressedSize = compressedSize;
 				resource.DecompressedSize = (uint)dataSize;
-				resource.LocationFlags &= ~(ResourceLocationFlags.UseChecksum | ResourceLocationFlags.UseChecksum2);
+				resource.DisableChecksum();
 			}
 		}
 
