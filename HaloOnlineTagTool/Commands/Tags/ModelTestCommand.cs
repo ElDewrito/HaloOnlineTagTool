@@ -57,12 +57,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 				InverseUp = new Vector3(0, 0, 1),
 			});
 
-			// Add a material
-			var material = builder.AddMaterial(new RenderModel.Material
-			{
-				RenderMethod = _cache.Tags[0x101F],
-			});
-
 			// Begin building the default region and permutation
 			builder.BeginRegion(_stringIds.GetStringId("default"));
 			builder.BeginPermutation(_stringIds.GetStringId("default"));
@@ -83,21 +77,17 @@ namespace HaloOnlineTagTool.Commands.Tags
 					logStream.Detach();
 				}
 
-				if (model.MeshCount != 1)
-				{
-					Console.Error.WriteLine("Only models with one mesh are supported");
-					return true;
-				}
-
 				Console.WriteLine("Assembling vertices...");
 
-				// Build mesh data from the assimp data
+				// Build a multipart mesh from the model data,
+				// with each model mesh mapping to a part of one large mesh and having its own material
+				builder.BeginMesh();
+				ushort partStartVertex = 0;
+				ushort partStartIndex = 0;
+				var vertices = new List<RigidVertex>();
+				var indices = new List<ushort>();
 				foreach (var mesh in model.Meshes)
 				{
-					builder.BeginMesh();
-
-					// Build the vertex buffer
-					var vertices = new List<RigidVertex>();
 					for (var i = 0; i < mesh.VertexCount; i++)
 					{
 						var position = mesh.Vertices[i];
@@ -114,15 +104,27 @@ namespace HaloOnlineTagTool.Commands.Tags
 							Binormal = new Vector3(bitangent.X, bitangent.Y, bitangent.Z),
 						});
 					}
-					builder.BindRigidVertexBuffer(vertices, node);
 
 					// Build the index buffer
-					var indices = mesh.GetIndices();
-					builder.BindIndexBuffer(indices.Select(i => (ushort)i), PrimitiveType.TriangleList);
-					builder.DefinePart(material, 0, (ushort)indices.Length, (ushort)mesh.VertexCount);
+					var meshIndices = mesh.GetIndices();
+					indices.AddRange(meshIndices.Select(i => (ushort)(i + partStartVertex)));
 
-					builder.EndMesh();
+					// Define a material and part for this mesh
+					var material = builder.AddMaterial(new RenderModel.Material
+					{
+						RenderMethod = _cache.Tags[0x101F],
+					});
+					builder.DefinePart(material, partStartIndex, (ushort)meshIndices.Length, (ushort)mesh.VertexCount);
+
+					// Move to the next part
+					partStartVertex += (ushort)mesh.VertexCount;
+					partStartIndex += (ushort)meshIndices.Length;
 				}
+
+				// Bind the vertex and index buffers
+				builder.BindRigidVertexBuffer(vertices, node);
+				builder.BindIndexBuffer(indices, PrimitiveType.TriangleList);
+				builder.EndMesh();
 			}
 
 			builder.EndPermutation();
