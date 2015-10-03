@@ -23,6 +23,7 @@ namespace HaloOnlineTagTool
 		V10_1_454665_Live,
 		V11_1_498295_Live,
 		V11_1_554482_Live,
+		V11_1_571627_Live,
 	}
 
 	public static class VersionDetection
@@ -63,6 +64,8 @@ namespace HaloOnlineTagTool
 					return "11.1.498295 Live";
 				case EngineVersion.V11_1_554482_Live:
 					return "11.1.554482 Live";
+				case EngineVersion.V11_1_571627_Live:
+					return "11.1.571627 Live";
 				default:
 					return version.ToString();
 			}
@@ -104,6 +107,7 @@ namespace HaloOnlineTagTool
 			130844512316254660, // V10_1_454665_Live
 			130858473716879375, // V11_1_498295_Live
 			130879952719550501, // V11_1_554482_Live
+			130881889330693956, // V11_1_571627_Live
 		};
 	}
 }
