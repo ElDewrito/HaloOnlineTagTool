@@ -85,7 +85,7 @@ namespace HaloOnlineTagTool
 			}
 
 			// Match the closest timestamp
-			index = Math.Min(~index, VersionTimestamps.Length - 1);
+			index = Math.Max(0, Math.Min(~index - 1, VersionTimestamps.Length - 1));
 			closestGuess = (EngineVersion)index;
 			return EngineVersion.Unknown;
 		}
