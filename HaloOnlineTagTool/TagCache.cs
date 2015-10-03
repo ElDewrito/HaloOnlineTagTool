@@ -370,7 +370,7 @@ namespace HaloOnlineTagTool
 		private void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
 		{
 			var headerOffset = (uint)reader.BaseStream.Position;
-			var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum?
+			var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum
 			var totalSize = reader.ReadUInt32();                        // 0x04 uint32 total size
 			var numDependencies = reader.ReadInt16();                   // 0x08 int16  dependencies count
 			var numDataFixups = reader.ReadInt16();                     // 0x0A int16  data fixup count
@@ -380,7 +380,7 @@ namespace HaloOnlineTagTool
 			var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
 			var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
 			var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-			var classId = reader.ReadInt32();                           // 0x20 uint32 class stringid
+			var classId = new StringId(reader.ReadUInt32());            // 0x20 uint32 class stringid
 			var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
 
 			// Update the tag object
@@ -467,7 +467,7 @@ namespace HaloOnlineTagTool
 			writer.Write(tag.Class.Value);
 			writer.Write(tag.ParentClass.Value);
 			writer.Write(tag.GrandparentClass.Value);
-			writer.Write(tag.ClassId);
+			writer.Write(tag.ClassId.Value);
 
 			// Write dependencies
 			foreach (var dependency in tag.Dependencies)

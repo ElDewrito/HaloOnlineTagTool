@@ -96,7 +96,7 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public LocalizedString()
 		{
-			StringId = -1;
+			StringId = StringId.Null;
 			StringIdStr = "";
 			Offsets = new int[12];
 			for (var i = 0; i < Offsets.Length; i++)
@@ -107,7 +107,7 @@ namespace HaloOnlineTagTool.TagStructures
 		/// Gets or sets the string's stringID.
 		/// </summary>
 		[TagElement]
-		public int StringId { get; set; }
+		public StringId StringId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the stringID's string value. Can be empty.

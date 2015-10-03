@@ -113,6 +113,7 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="GameLanguage.cs" />
+    <Compile Include="IStringIdResolver.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Common\Vector3.cs" />
     <Compile Include="ProcessMemoryStream.cs" />
@@ -155,6 +156,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StreamUtil.cs" />
+    <Compile Include="StringId.cs" />
     <Compile Include="StringIdCache.cs" />
     <Compile Include="TagList.cs" />
     <Compile Include="TagCache.cs" />
@@ -560,6 +562,7 @@
     <Compile Include="TagStructures\Wind.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="V1_106708\StringIdResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -568,6 +571,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

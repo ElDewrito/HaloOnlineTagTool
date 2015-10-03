@@ -52,7 +52,7 @@ namespace HaloOnlineTagTool
 			try
 			{
 				using (var stream = File.OpenRead(stringIdPath))
-					stringIds = new StringIdCache(stream);
+					stringIds = new StringIdCache(stream, new V1_106708.StringIdResolver());
 			}
 			catch (IOException)
 			{

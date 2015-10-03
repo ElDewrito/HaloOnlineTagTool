@@ -12,17 +12,14 @@ namespace HaloOnlineTagTool
 	/// </summary>
 	public class StringIdCache
 	{
-		// These values were figured out through trial-and-error
-		private static readonly int[] _setOffsets = {0x90F, 0x1, 0x685, 0x720, 0x7C4, 0x778, 0x7D0, 0x8EA, 0x902};
-		private const int SetMin = 0x1;   // Mininum index that goes in a set
-		private const int SetMax = 0xF1E; // Maximum index that goes in a set
-
 		/// <summary>
 		/// Loads a stringID cache from a string_ids.dat file.
 		/// </summary>
 		/// <param name="stream">The stream to read from.</param>
-		public StringIdCache(Stream stream)
+		/// <param name="resolver">The stringID resolver to use.</param>
+		public StringIdCache(Stream stream, IStringIdResolver resolver)
 		{
+			Resolver = resolver;
 			Strings = new List<string>();
 			Load(stream);
 		}
@@ -34,71 +31,41 @@ namespace HaloOnlineTagTool
 		public List<string> Strings { get; private set; }
 
 		/// <summary>
-		/// Gets the string corresponding to a stringID value.
+		/// Gets the stringID resolver that the cache is using.
 		/// </summary>
-		/// <param name="stringId">The stringID value.</param>
-		/// <returns>The string corresponding to the value, or <c>null</c> if not found.</returns>
-		public string GetString(int stringId)
+		public IStringIdResolver Resolver { get; private set; }
+
+		/// <summary>
+		/// Gets the string corresponding to a stringID.
+		/// </summary>
+		/// <param name="stringId">The stringID.</param>
+		/// <returns>The string corresponding to the stringID, or <c>null</c> if not found.</returns>
+		public string GetString(StringId stringId)
 		{
-			// Get the set and index
-			var set = stringId >> 16;      // Set = upper 16 bits
-			var index = stringId & 0xFFFF; // Index = lower 16 bits
-
-			int strIndex;
-			if (set == 0 && (index < SetMin || index > SetMax))
-			{
-				// Value does not go into a set, so the index is the same as the ID
-				strIndex = index;
-			}
-			else
-			{
-				if (set < 0 || set >= _setOffsets.Length)
-					return null; // Invalid set number
-
-				// Convert the index part of the ID into a string index based on its set
-				if (set == 0)
-					index -= SetMin;
-				strIndex = index + _setOffsets[set];
-			}
+			var strIndex = Resolver.StringIdToIndex(stringId);
 			if (strIndex < 0 || strIndex >= Strings.Count)
 				return null;
 			return Strings[strIndex];
 		}
 
-		public int GetStringId(int strIndex)
+		/// <summary>
+		/// Gets the stringID corresponding to a string list index.
+		/// </summary>
+		/// <param name="strIndex">The string list index to convert.</param>
+		/// <returns>The corresponding stringID.</returns>
+		public StringId GetStringId(int strIndex)
 		{
 			if (strIndex < 0 || strIndex >= Strings.Count)
-				return 0;
-
-			// If the value is outside of a set, just return it
-			if (strIndex < SetMin || strIndex > SetMax)
-				return strIndex;
-
-			// Find the set which the index is closest to
-			// TODO: This could probably be more optimized if the set offset list was sorted or something
-			var set = 0;
-			var minDistance = Strings.Count;
-			for (var i = 0; i < _setOffsets.Length; i++)
-			{
-				if (strIndex < _setOffsets[i])
-					continue;
-				var distance = strIndex - _setOffsets[i];
-				if (distance >= minDistance)
-					continue;
-				set = i;
-				minDistance = distance;
-			}
-
-			// Compute the index within the set
-			var index = strIndex - _setOffsets[set];
-			if (set == 0)
-				index += SetMin;
-
-			// Set is the upper 16 bits, index is the lower 16
-			return (set << 16) | (index & 0xFFFF);
+				return StringId.Null;
+			return Resolver.IndexToStringId(strIndex);
 		}
 
-		public int GetStringId(string str)
+		/// <summary>
+		/// Gets the stringID corresponding to a string in the list.
+		/// </summary>
+		/// <param name="str">The string to search for.</param>
+		/// <returns>The corresponding stringID, or <see cref="StringId.Null"/> if not found.</returns>
+		public StringId GetStringId(string str)
 		{
 			return GetStringId(Strings.IndexOf(str));
 		}

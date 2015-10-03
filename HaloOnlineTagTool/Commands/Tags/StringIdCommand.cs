@@ -46,10 +46,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			if (args.Count != 2)
 				return false;
-			int stringId;
-			if (!int.TryParse(args[1], NumberStyles.HexNumber, null, out stringId))
+			uint stringId;
+			if (!uint.TryParse(args[1], NumberStyles.HexNumber, null, out stringId))
 				return false;
-			var str = _stringIds.GetString(stringId);
+			var str = _stringIds.GetString(new StringId(stringId));
 			if (str != null)
 				Console.WriteLine(str);
 			else
@@ -74,7 +74,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				strings.Add(new FoundStringId
 				{
 					Id = id,
-					IdDisplay = string.Format("0x{0:X}", id),
+					IdDisplay = id.ToString(),
 					Value = _stringIds.Strings[i]
 				});
 			}
@@ -94,7 +94,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private class FoundStringId
 		{
-			public int Id { get; set; }
+			public StringId Id { get; set; }
 
 			public string IdDisplay { get; set; }
 

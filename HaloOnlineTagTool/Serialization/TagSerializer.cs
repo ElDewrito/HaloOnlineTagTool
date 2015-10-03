@@ -197,6 +197,8 @@ namespace HaloOnlineTagTool.Serialization
 				SerializeVector(block, (Vector3)val);
 			else if (valueType == typeof(Vector4))
 				SerializeVector(block, (Vector4)val);
+			else if (valueType == typeof(StringId))
+				block.Writer.Write(((StringId)val).Value);
 			else if (valueType.IsArray)
 				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))

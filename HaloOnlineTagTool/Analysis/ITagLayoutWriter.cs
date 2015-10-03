@@ -15,9 +15,9 @@ namespace HaloOnlineTagTool.Analysis
 		/// Begins writing a layout.
 		/// </summary>
 		/// <param name="tagClass">The tag class magic number. Can be 0 if none.</param>
-		/// <param name="classStringId">The tag class name stringID. Can be 0 if none.</param>
+		/// <param name="classStringId">The tag class name stringID. Can be <see cref="StringId.Null"/> if none.</param>
 		/// <param name="layout">The tag layout.</param>
-		void Begin(MagicNumber tagClass, int classStringId, TagLayoutGuess layout);
+		void Begin(MagicNumber tagClass, StringId classStringId, TagLayoutGuess layout);
 
 		/// <summary>
 		/// Adds an unknown byte to the layout.

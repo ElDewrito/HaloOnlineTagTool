@@ -54,7 +54,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 				return true;
 			}
 			var stringId = _stringIds.GetStringId(stringIdIndex);
-			if (stringId == 0)
+			if (stringId == StringId.Null)
 			{
 				Console.Error.WriteLine("Failed to resolve the stringID.");
 				return true;

@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.TagStructures
 	public class RenderModel
 	{
 		[TagElement]
-		public int Name { get; set; }
+		public StringId Name { get; set; }
 		[TagElement]
 		public ushort Flags { get; set; }
 		[TagElement]
@@ -202,7 +202,7 @@ namespace HaloOnlineTagTool.TagStructures
 			/// Gets or sets the name of the region as a stringID.
 			/// </summary>
 			[TagElement]
-			public int Name { get; set; }
+			public StringId Name { get; set; }
 
 			/// <summary>
 			/// Gets or sets the permutations belonging to the region.
@@ -220,7 +220,7 @@ namespace HaloOnlineTagTool.TagStructures
 				/// Gets or sets the name of the permutation as a stringID.
 				/// </summary>
 				[TagElement]
-				public int Name { get; set; }
+				public StringId Name { get; set; }
 
 				/// <summary>
 				/// Gets or sets the index of the first mesh belonging to the permutation.
@@ -249,7 +249,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class Flair
 		{
 			[TagElement]
-			public int Name { get; set; }
+			public StringId Name { get; set; }
 			[TagElement]
 			public ushort Flags { get; set; }
 			[TagElement]
@@ -270,7 +270,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class Node
 		{
 			[TagElement]
-			public int Name { get; set; }
+			public StringId Name { get; set; }
 			[TagElement]
 			public short ParentNode { get; set; }
 			[TagElement]
@@ -301,7 +301,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class MarkerGroup
 		{
 			[TagElement]
-			public int Name { get; set; }
+			public StringId Name { get; set; }
 			[TagElement]
 			public List<Marker> Markers { get; set; }
 

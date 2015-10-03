@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.Analysis
 			if (tag != null)
 				writer.Begin(tag.Class, tag.ClassId, layout);
 			else
-				writer.Begin(new MagicNumber(0), 0, layout);
+				writer.Begin(new MagicNumber(0), StringId.Null, layout);
 
 			for (uint offset = 0; offset < layout.Size; offset += 4)
 			{

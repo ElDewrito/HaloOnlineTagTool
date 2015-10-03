@@ -184,6 +184,10 @@ namespace HaloOnlineTagTool.Serialization
 			if (valueType == typeof(Vector4))
 				return new Vector4(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
+			// StringID
+			if (valueType == typeof(StringId))
+				return new StringId(reader.ReadUInt32());
+
 			// Non-byte array = Inline array
 			// TODO: Define more clearly in general what constitutes a data reference and what doesn't
 			if (valueType.IsArray)

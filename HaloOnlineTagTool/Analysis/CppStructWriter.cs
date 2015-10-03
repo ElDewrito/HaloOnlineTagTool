@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.Analysis
 			_outDir = outDir;
 		}
 
-		public void Begin(MagicNumber tagClass, int classStringId, TagLayoutGuess layout)
+		public void Begin(MagicNumber tagClass, StringId classStringId, TagLayoutGuess layout)
 		{
 			if (_writer != null)
 				throw new InvalidOperationException("Cannot begin a new tag while another is still in progress");
@@ -112,7 +112,7 @@ namespace HaloOnlineTagTool.Analysis
 				SetIndent(indent);
 			}
 
-			public void Begin(MagicNumber tagClass, int classStringId, TagLayoutGuess layout)
+			public void Begin(MagicNumber tagClass, StringId classStringId, TagLayoutGuess layout)
 			{
 				_size = layout.Size;
 				if (tagClass.Value != 0)

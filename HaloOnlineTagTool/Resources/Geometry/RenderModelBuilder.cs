@@ -71,7 +71,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// </summary>
 		/// <param name="name">The name stringID.</param>
 		/// <exception cref="System.InvalidOperationException">Cannot begin a new region while another is active</exception>
-		public void BeginRegion(int name)
+		public void BeginRegion(StringId name)
 		{
 			if (_currentRegion != null)
 				throw new InvalidOperationException("Cannot begin a new region while another is active");
@@ -111,7 +111,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// or
 		/// Cannot begin a new permutation while another is active
 		/// </exception>
-		public void BeginPermutation(int name)
+		public void BeginPermutation(StringId name)
 		{
 			if (_currentRegion == null)
 				throw new InvalidOperationException("Cannot begin a new permutation if a region is not active");

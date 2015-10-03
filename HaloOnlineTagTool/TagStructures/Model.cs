@@ -127,7 +127,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class Variant
 		{
 			[TagElement]
-			public int Name { get; set; }
+			public StringId Name { get; set; }
 			[TagElement]
 			public int Unknown4 { get; set; }
 			[TagElement]
@@ -163,7 +163,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public class Region
 			{
 				[TagElement]
-				public int Name { get; set; }
+				public StringId Name { get; set; }
 				[TagElement]
 				public byte RenderModelRegionIndex { get; set; }
 				[TagElement]
@@ -181,7 +181,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public class Permutation
 				{
 					[TagElement]
-					public int Name { get; set; }
+					public StringId Name { get; set; }
 					[TagElement]
 					public byte RenderModelPermutationIndex { get; set; }
 					[TagElement]
@@ -205,7 +205,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public class State
 					{
 						[TagElement]
-						public int Name { get; set; }
+						public StringId Name { get; set; }
 						[TagElement]
 						public int Unknown4 { get; set; }
 						[TagElement]
