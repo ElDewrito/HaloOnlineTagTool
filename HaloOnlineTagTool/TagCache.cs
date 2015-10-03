@@ -38,6 +38,11 @@ namespace HaloOnlineTagTool
 		public TagList Tags { get; private set; }
 
 		/// <summary>
+		/// Gets the timestamp stored in the file (as a FILETIME value).
+		/// </summary>
+		public long Timestamp { get; private set; }
+
+		/// <summary>
 		/// Gets the tag classes in the file.
 		/// </summary>
 		public IEnumerable<MagicNumber> TagClasses
@@ -341,6 +346,8 @@ namespace HaloOnlineTagTool
 			reader.BaseStream.Position = 0x4;
 			var tagListOffset = reader.ReadInt32(); // 0x4 uint32 offset table offset
 			var tagCount = reader.ReadInt32();      // 0x8 uint32 number of tags
+			reader.BaseStream.Position = 0x10;
+			Timestamp = reader.ReadInt64();         // 0x10 FILETIME timestamp
 
 			// Read tag offset list
 			reader.BaseStream.Position = tagListOffset;

@@ -61,7 +61,25 @@ namespace HaloOnlineTagTool
 			}
 
 			if (autoexecCommand == null && stringIds != null)
+			{
 				Console.WriteLine("{0} strings loaded.", stringIds.Strings.Count);
+				Console.WriteLine();
+			}
+
+			// Version detection
+			EngineVersion closestVersion;
+			var version = VersionDetection.DetectVersion(cache, out closestVersion);
+			if (version != EngineVersion.Unknown)
+			{
+				if (autoexecCommand == null)
+					Console.WriteLine("Detected target engine version {0}.", VersionDetection.GetVersionString(closestVersion));
+			}
+			else
+			{
+				Console.Error.WriteLine("WARNING: The cache file's version was not recognized!");
+				Console.Error.WriteLine("Using the closest known version {0}.", VersionDetection.GetVersionString(closestVersion));
+				version = closestVersion;
+			}
 
 			// Create command context
 			var contextStack = new CommandContextStack();
@@ -76,6 +94,8 @@ namespace HaloOnlineTagTool
 				return;
 			}
 
+			var buildDate = DateTime.FromFileTime(cache.Timestamp);
+			Console.WriteLine("This cache file was built on {0} at {1}.", buildDate.ToShortDateString(), buildDate.ToShortTimeString());
 			Console.WriteLine();
 			Console.WriteLine("Enter \"help\" to list available commands. Enter \"exit\" to quit.");
 			while (true)

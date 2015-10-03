@@ -112,6 +112,7 @@
     <Compile Include="Common\Half\HalfHelper.cs" />
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
+    <Compile Include="VersionDetection.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="StringIdResolverBase.cs" />
     <Compile Include="MagicNumber.cs" />
