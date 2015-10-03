@@ -11,20 +11,24 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class StringIdCommand : Command
 	{
+		private readonly FileInfo _fileInfo;
 		private readonly StringIdCache _stringIds;
 
-		public StringIdCommand(StringIdCache stringIds) : base(
+		public StringIdCommand(FileInfo fileInfo, StringIdCache stringIds) : base(
 			CommandFlags.Inherit,
 
 			"stringid",
-			"Look up or find stringID values",
+			"Add, look up, or find stringID values",
 
+			"stringid add <string>\n" +
 			"stringid get <id>\n" +
 			"stringid list [filter]",
 
+			"\"stringid add\" will add a new stringID.\n" +
 			"\"stringid get\" will display the string corresponding to an ID value.\n" +
-			"\"stringid list\" will list string IDs, optionally filtering them.")
+			"\"stringid list\" will list stringIDs, optionally filtering them.")
 		{
+			_fileInfo = fileInfo;
 			_stringIds = stringIds;
 		}
 
@@ -34,12 +38,28 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 			switch (args[0])
 			{
+				case "add":
+					return ExecuteAdd(args);
 				case "get":
 					return ExecuteGet(args);
 				case "list":
 					return ExecuteList(args);
 			}
 			return false;
+		}
+
+		private bool ExecuteAdd(List<string> args)
+		{
+			if (args.Count != 2)
+				return false;
+			var str = args[1];
+			var id = _stringIds.Add(str);
+			var stringIdsPath = Path.Combine(_fileInfo.DirectoryName ?? Directory.GetCurrentDirectory(), "string_ids.dat");
+			using (var stream = File.Open(stringIdsPath, FileMode.Open, FileAccess.ReadWrite))
+				_stringIds.Save(stream);
+			
+			Console.WriteLine("Added string \"{0}\" as {1}.", str, id);
+			return true;
 		}
 
 		private bool ExecuteGet(List<string> args)

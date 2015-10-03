@@ -12,6 +12,8 @@ namespace HaloOnlineTagTool
 	/// </summary>
 	public class StringIdCache
 	{
+		private readonly List<string> _strings = new List<string>();
+
 		/// <summary>
 		/// Loads a stringID cache from a string_ids.dat file.
 		/// </summary>
@@ -20,7 +22,7 @@ namespace HaloOnlineTagTool
 		public StringIdCache(Stream stream, StringIdResolverBase resolver)
 		{
 			Resolver = resolver;
-			Strings = new List<string>();
+			Strings = _strings.AsReadOnly();
 			Load(stream);
 		}
 
@@ -28,12 +30,24 @@ namespace HaloOnlineTagTool
 		/// Gets the strings in the file.
 		/// Note that strings can be <c>null</c>.
 		/// </summary>
-		public List<string> Strings { get; private set; }
+		public IList<string> Strings { get; private set; }
 
 		/// <summary>
 		/// Gets the stringID resolver that the cache is using.
 		/// </summary>
 		public StringIdResolverBase Resolver { get; private set; }
+
+		/// <summary>
+		/// Adds a string to the cache.
+		/// </summary>
+		/// <param name="str">The string to add.</param>
+		/// <returns>The stringID corresponding to the string that was added.</returns>
+		public StringId Add(string str)
+		{
+			var strIndex = _strings.Count;
+			_strings.Add(str);
+			return GetStringId(strIndex);
+		}
 
 		/// <summary>
 		/// Gets the string corresponding to a stringID.
@@ -43,9 +57,9 @@ namespace HaloOnlineTagTool
 		public string GetString(StringId stringId)
 		{
 			var strIndex = Resolver.StringIdToIndex(stringId);
-			if (strIndex < 0 || strIndex >= Strings.Count)
+			if (strIndex < 0 || strIndex >= _strings.Count)
 				return null;
-			return Strings[strIndex];
+			return _strings[strIndex];
 		}
 
 		/// <summary>
@@ -55,7 +69,7 @@ namespace HaloOnlineTagTool
 		/// <returns>The corresponding stringID.</returns>
 		public StringId GetStringId(int strIndex)
 		{
-			if (strIndex < 0 || strIndex >= Strings.Count)
+			if (strIndex < 0 || strIndex >= _strings.Count)
 				return StringId.Null;
 			return Resolver.IndexToStringId(strIndex);
 		}
@@ -67,7 +81,7 @@ namespace HaloOnlineTagTool
 		/// <returns>The corresponding stringID, or <see cref="StringId.Null"/> if not found.</returns>
 		public StringId GetStringId(string str)
 		{
-			return GetStringId(Strings.IndexOf(str));
+			return GetStringId(_strings.IndexOf(str));
 		}
 
 		/// <summary>
@@ -79,15 +93,16 @@ namespace HaloOnlineTagTool
 			var writer = new BinaryWriter(stream);
 
 			// Write the string count and then skip over the offset table, because it will be filled in last
-			writer.Write(Strings.Count);
-			writer.BaseStream.Position += 4 + Strings.Count * 4; // 4 byte data size + 4 bytes per string offset
+			writer.Write(_strings.Count);
+			writer.BaseStream.Position += 4 + _strings.Count * 4; // 4 byte data size + 4 bytes per string offset
 			
 			// Write string data and keep track of offsets
-			var stringOffsets = new int[Strings.Count];
+			var stringOffsets = new int[_strings.Count];
 			var dataOffset = (int)writer.BaseStream.Position;
-			for (var i = 0; i < Strings.Count; i++)
+			var currentOffset = 0;
+			for (var i = 0; i < _strings.Count; i++)
 			{
-				var str = Strings[i];
+				var str = _strings[i];
 				if (str == null)
 				{
 					// Null string - set offset to -1
@@ -96,19 +111,19 @@ namespace HaloOnlineTagTool
 				}
 
 				// Write the string as null-terminated ASCII
-				stringOffsets[i] = (int)writer.BaseStream.Position;
+				stringOffsets[i] = currentOffset;
 				var data = Encoding.ASCII.GetBytes(str);
 				writer.Write(data, 0, data.Length);
 				writer.Write((byte)0);
+				currentOffset += data.Length + 1;
 			}
-			var dataEndOffset = (int)writer.BaseStream.Position;
 
 			// Now go back and write the string offsets
 			writer.BaseStream.Position = 0x4;
-			writer.Write(dataEndOffset - dataOffset); // Data size
+			writer.Write(currentOffset); // Data size
 			foreach (var offset in stringOffsets)
 				writer.Write(offset);
-			writer.BaseStream.SetLength(writer.BaseStream.Position);
+			writer.BaseStream.SetLength(dataOffset + currentOffset);
 		}
 
 		/// <summary>
@@ -134,11 +149,11 @@ namespace HaloOnlineTagTool
 			{
 				if (offset == -1 || offset >= dataSize)
 				{
-					Strings.Add(null);
+					_strings.Add(null);
 					continue;
 				}
 				reader.BaseStream.Position = dataOffset + offset;
-				Strings.Add(ReadString(reader));
+				_strings.Add(ReadString(reader));
 			}
 		}
 

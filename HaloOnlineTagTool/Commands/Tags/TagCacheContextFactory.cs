@@ -25,7 +25,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new TagBlockCommand(cache, fileInfo));
 			if (stringIds != null)
 			{
-				context.AddCommand(new StringIdCommand(stringIds));
+				context.AddCommand(new StringIdCommand(fileInfo, stringIds));
 				context.AddCommand(new ListStringsCommand(cache, fileInfo, stringIds));
 				context.AddCommand(new GenerateLayoutsCommand(cache, fileInfo, stringIds));
 				context.AddCommand(new ModelTestCommand(cache, fileInfo, stringIds));
