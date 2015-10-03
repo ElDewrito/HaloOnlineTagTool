@@ -11,13 +11,11 @@ namespace HaloOnlineTagTool.Commands.Unic
 {
 	class UnicSetCommand : Command
 	{
-		private readonly FileInfo _fileInfo;
-		private readonly TagCache _cache;
+		private readonly OpenTagCache _info;
 		private readonly HaloTag _tag;
 		private readonly MultilingualUnicodeStringList _unic;
-		private readonly StringIdCache _stringIds;
 
-		public UnicSetCommand(FileInfo fileInfo, TagCache cache, HaloTag tag, MultilingualUnicodeStringList unic, StringIdCache stringIds) : base(
+		public UnicSetCommand(OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic) : base(
 			CommandFlags.None,
 
 			"set",
@@ -29,11 +27,9 @@ namespace HaloOnlineTagTool.Commands.Unic
 			"Remember to put the string value in quotes if it contains spaces.\n" +
 			"If the string does not exist, it will be added.")
 		{
-			_fileInfo = fileInfo;
-			_cache = cache;
+			_info = info;
 			_tag = tag;
 			_unic = unic;
-			_stringIds = stringIds;
 		}
 
 		public override bool Execute(List<string> args)
@@ -47,13 +43,13 @@ namespace HaloOnlineTagTool.Commands.Unic
 
 			// Look up the stringID that was passed in
 			var stringIdStr = args[1];
-			var stringIdIndex = _stringIds.Strings.IndexOf(stringIdStr);
+			var stringIdIndex = _info.StringIds.Strings.IndexOf(stringIdStr);
 			if (stringIdIndex < 0)
 			{
 				Console.Error.WriteLine("Unable to find stringID \"{0}\".", stringIdStr);
 				return true;
 			}
-			var stringId = _stringIds.GetStringId(stringIdIndex);
+			var stringId = _info.StringIds.GetStringId(stringIdIndex);
 			if (stringId == StringId.Null)
 			{
 				Console.Error.WriteLine("Failed to resolve the stringID.");
@@ -74,8 +70,8 @@ namespace HaloOnlineTagTool.Commands.Unic
 
 			// Save the tag data
 			_unic.SetString(localizedStr, language, newValue);
-			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
-				TagSerializer.Serialize(new TagSerializationContext(stream, _cache, _tag), _unic);
+			using (var stream = _info.OpenCacheReadWrite())
+				TagSerializer.Serialize(new TagSerializationContext(stream, _info.Cache, _tag), _unic);
 
 			if (added)
 				Console.WriteLine("String added successfully.");

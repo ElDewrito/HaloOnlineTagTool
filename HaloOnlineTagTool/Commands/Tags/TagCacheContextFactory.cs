@@ -5,30 +5,30 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	static class TagCacheContextFactory
 	{
-		public static CommandContext Create(CommandContextStack stack, TagCache cache, FileInfo fileInfo, StringIdCache stringIds)
+		public static CommandContext Create(CommandContextStack stack, OpenTagCache info)
 		{
-			var context = new CommandContext(null, fileInfo.Name);
+			var context = new CommandContext(null, info.CacheFile.Name);
 			context.AddCommand(new HelpCommand(stack));
-			context.AddCommand(new DependencyCommand(cache, fileInfo));
-			context.AddCommand(new FixupCommand(cache, fileInfo));
-			context.AddCommand(new ExtractCommand(cache, fileInfo));
-			context.AddCommand(new ImportCommand(cache, fileInfo));
-			context.AddCommand(new InfoCommand(cache));
-			context.AddCommand(new InsertCommand(cache, fileInfo));
-			context.AddCommand(new ListCommand(cache));
+			context.AddCommand(new DependencyCommand(info));
+			context.AddCommand(new FixupCommand(info));
+			context.AddCommand(new ExtractCommand(info));
+			context.AddCommand(new ImportCommand(info));
+			context.AddCommand(new InfoCommand(info));
+			context.AddCommand(new InsertCommand(info));
+			context.AddCommand(new ListCommand(info));
 			context.AddCommand(new MapCommand());
-			context.AddCommand(new EditCommand(stack, cache, fileInfo, stringIds));
-			context.AddCommand(new DuplicateTagCommand(cache, fileInfo));
+			context.AddCommand(new EditCommand(stack, info));
+			context.AddCommand(new DuplicateTagCommand(info));
 			context.AddCommand(new AddressCommand());
-			context.AddCommand(new ExtractBitmapsCommand(cache, fileInfo));
+			context.AddCommand(new ExtractBitmapsCommand(info));
 			context.AddCommand(new ResourceDataCommand());
-			context.AddCommand(new TagBlockCommand(cache, fileInfo));
-			if (stringIds != null)
+			context.AddCommand(new TagBlockCommand(info));
+			if (info.StringIds != null)
 			{
-				context.AddCommand(new StringIdCommand(fileInfo, stringIds));
-				context.AddCommand(new ListStringsCommand(cache, fileInfo, stringIds));
-				context.AddCommand(new GenerateLayoutsCommand(cache, fileInfo, stringIds));
-				context.AddCommand(new ModelTestCommand(cache, fileInfo, stringIds));
+				context.AddCommand(new StringIdCommand(info));
+				context.AddCommand(new ListStringsCommand(info));
+				context.AddCommand(new GenerateLayoutsCommand(info));
+				context.AddCommand(new ModelTestCommand(info));
 			}
 			return context;
 		}

@@ -14,12 +14,11 @@ namespace HaloOnlineTagTool.Commands.Bitm
 {
 	class BitmImportCommand : Command
 	{
-		private readonly FileInfo _fileInfo;
-		private readonly TagCache _cache;
+		private readonly OpenTagCache _info;
 		private readonly HaloTag _tag;
 		private readonly Bitmap _bitmap;
 
-		public BitmImportCommand(FileInfo fileInfo, TagCache cache, HaloTag tag, Bitmap bitmap) : base(
+		public BitmImportCommand(OpenTagCache info, HaloTag tag, Bitmap bitmap) : base(
 			CommandFlags.None,
 
 			"import",
@@ -31,8 +30,7 @@ namespace HaloOnlineTagTool.Commands.Bitm
 			"No conversion will be done on the data in the DDS file.\n" +
 			"The pixel format must be supported by the game.")
 		{
-			_fileInfo = fileInfo;
-			_cache = cache;
+			_info = info;
 			_tag = tag;
 			_bitmap = bitmap;
 		}
@@ -55,7 +53,7 @@ namespace HaloOnlineTagTool.Commands.Bitm
 			var resourceManager = new ResourceDataManager();
 			try
 			{
-				resourceManager.LoadCachesFromDirectory(_fileInfo.DirectoryName);
+				resourceManager.LoadCachesFromDirectory(_info.CacheFile.DirectoryName);
 			}
 			catch
 			{
@@ -71,9 +69,9 @@ namespace HaloOnlineTagTool.Commands.Bitm
 					var injector = new BitmapDdsInjector(resourceManager);
 					injector.InjectDds(_bitmap, imageIndex, imageStream);
 				}
-				using (var tagsStream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+				using (var tagsStream = _info.OpenCacheReadWrite())
 				{
-					var tagContext = new TagSerializationContext(tagsStream, _cache, _tag);
+					var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _tag);
 					TagSerializer.Serialize(tagContext, _bitmap);
 				}
 			}

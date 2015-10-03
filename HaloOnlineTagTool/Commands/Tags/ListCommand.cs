@@ -8,7 +8,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 	{
 		private readonly TagCache _cache;
 
-		public ListCommand(TagCache cache) : base(
+		public ListCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"list",
@@ -21,7 +21,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Tags which inherit from the given classes will also be printed.\n" +
 			"If no class is specified, all tags in the file will be listed.")
 		{
-			_cache = cache;
+			_cache = info.Cache;
 		}
 
 		public override bool Execute(List<string> args)

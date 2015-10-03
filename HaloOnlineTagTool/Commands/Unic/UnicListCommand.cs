@@ -9,10 +9,10 @@ namespace HaloOnlineTagTool.Commands.Unic
 {
 	class UnicListCommand : Command
 	{
+		private readonly OpenTagCache _info;
 		private readonly MultilingualUnicodeStringList _unic;
-		private readonly StringIdCache _stringIds;
 
-		public UnicListCommand(MultilingualUnicodeStringList unic, StringIdCache stringIds) : base(
+		public UnicListCommand(OpenTagCache info, MultilingualUnicodeStringList unic) : base(
 			CommandFlags.Inherit,
 
 			"list",
@@ -29,8 +29,8 @@ namespace HaloOnlineTagTool.Commands.Unic
 			"chinese-trad, chinese-simp, portuguese, russian")
 		{
 			// TODO: Can we dynamically generate the language list from the dictionary in ArgumentParser?
+			_info = info;
 			_unic = unic;
-			_stringIds = stringIds;
 		}
 
 		public override bool Execute(List<string> args)
@@ -42,7 +42,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 				return false;
 			var filter = (args.Count == 2) ? args[1] : null;
 
-			var strings = LocalizedStringPrinter.PrepareForDisplay(_unic, _stringIds, _unic.Strings, language, filter);
+			var strings = LocalizedStringPrinter.PrepareForDisplay(_unic, _info.StringIds, _unic.Strings, language, filter);
 			if (strings.Count > 0)
 				LocalizedStringPrinter.PrintStrings(strings);
 			else

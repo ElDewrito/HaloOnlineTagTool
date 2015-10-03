@@ -11,10 +11,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	class GenerateLayoutsCommand : Command
 	{
 		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
-		private readonly StringIdCache _stringIds;
+		private readonly OpenTagCache _info;
 
-		public GenerateLayoutsCommand(TagCache cache, FileInfo fileInfo, StringIdCache stringIds) : base(
+		public GenerateLayoutsCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"genlayouts",
@@ -27,9 +26,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"\n" +
 			"Supported types: csharp, cpp")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
-			_stringIds = stringIds;
+			_cache = info.Cache;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
@@ -41,17 +39,17 @@ namespace HaloOnlineTagTool.Commands.Tags
 			switch (args[0])
 			{
 				case "csharp":
-					writer = new CSharpClassWriter(_stringIds, outDir);
+					writer = new CSharpClassWriter(_info.StringIds, outDir);
 					break;
 				case "cpp":
-					writer = new CppStructWriter(_stringIds, outDir);
+					writer = new CppStructWriter(_info.StringIds, outDir);
 					break;
 				default:
 					return false;
 			}
 			Directory.CreateDirectory(outDir);
 			var count = 0;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 			{
 				foreach (var tagClass in _cache.TagClasses)
 				{

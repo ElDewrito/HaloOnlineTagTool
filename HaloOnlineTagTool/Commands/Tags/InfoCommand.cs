@@ -7,7 +7,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 	{
 		private readonly TagCache _cache;
 
-		public InfoCommand(TagCache cache) : base(
+		public InfoCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"info",
@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 			"Displays detailed information about a tag.")
 		{
-			_cache = cache;
+			_cache = info.Cache;
 		}
 
 		public override bool Execute(List<string> args)

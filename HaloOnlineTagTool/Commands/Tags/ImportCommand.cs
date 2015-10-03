@@ -9,7 +9,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
 
-		public ImportCommand(TagCache cache, FileInfo fileInfo) : base(
+		public ImportCommand(OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"import",
@@ -22,8 +22,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"\n" +
 			"If the tag was extracted using the \"full\" option, you must supply it here too.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_cache = info.Cache;
+			_fileInfo = info.CacheFile;
 		}
 
 		public override bool Execute(List<string> args)

@@ -11,11 +11,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class ListStringsCommand : Command
 	{
-		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
-		private readonly StringIdCache _stringIds;
+		private readonly OpenTagCache _info;
 
-		public ListStringsCommand(TagCache cache, FileInfo fileInfo, StringIdCache stringIds) : base(
+		public ListStringsCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"liststrings",
@@ -31,9 +29,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"english, japanese, german, french, spanish, mexican, italian, korean,\n" +
 			"chinese-trad, chinese-simp, portuguese, russian")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
-			_stringIds = stringIds;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
@@ -46,12 +42,12 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var filter = (args.Count == 2) ? args[1] : null;
 
 			var found = false;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 			{
-				foreach (var unicTag in _cache.Tags.FindAllByClass("unic"))
+				foreach (var unicTag in _info.Cache.Tags.FindAllByClass("unic"))
 				{
-					var unic = TagDeserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, unicTag));
-					var strings = LocalizedStringPrinter.PrepareForDisplay(unic, _stringIds, unic.Strings, language, filter);
+					var unic = TagDeserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _info.Cache, unicTag));
+					var strings = LocalizedStringPrinter.PrepareForDisplay(unic, _info.StringIds, unic.Strings, language, filter);
 					if (strings.Count == 0)
 						continue;
 					if (found)

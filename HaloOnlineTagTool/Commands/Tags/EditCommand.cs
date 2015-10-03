@@ -17,10 +17,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 	{
 		private readonly CommandContextStack _stack;
 		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
-		private readonly StringIdCache _stringIds;
+		private readonly OpenTagCache _info;
 
-		public EditCommand(CommandContextStack stack, TagCache cache, FileInfo fileInfo, StringIdCache stringIds) : base(
+		public EditCommand(CommandContextStack stack, OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"edit",
@@ -35,9 +34,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Currently-supported tag types: bitm, hlmt, unic, vfsl")
 		{
 			_stack = stack;
-			_cache = cache;
-			_fileInfo = fileInfo;
-			_stringIds = stringIds;
+			_cache = info.Cache;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
@@ -75,36 +73,36 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private void EditVfslTag(HaloTag tag)
 		{
 			VFilesList vfsl;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 				vfsl = TagDeserializer.Deserialize<VFilesList>(new TagSerializationContext(stream, _cache, tag));
-			var context = VfslContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, vfsl);
+			var context = VfslContextFactory.Create(_stack.Context, _info, tag, vfsl);
 			_stack.Push(context);
 		}
 
 		private void EditUnicTag(HaloTag tag)
 		{
 			MultilingualUnicodeStringList unic;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 				unic = TagDeserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, tag));
-			var context = UnicContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, unic, _stringIds);
+			var context = UnicContextFactory.Create(_stack.Context, _info, tag, unic);
 			_stack.Push(context);
 		}
 
 		private void EditBitmTag(HaloTag tag)
 		{
 			Bitmap bitmap;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 				bitmap = TagDeserializer.Deserialize<Bitmap>(new TagSerializationContext(stream, _cache, tag));
-			var context = BitmContextFactory.Create(_stack.Context, _fileInfo, _cache, tag, bitmap);
+			var context = BitmContextFactory.Create(_stack.Context, _info, tag, bitmap);
 			_stack.Push(context);
 		}
 
 		private void EditHlmtTag(HaloTag tag)
 		{
 			Model model;
-			using (var stream = _fileInfo.OpenRead())
+			using (var stream = _info.OpenCacheRead())
 				model = TagDeserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
-			var context = HlmtContextFactory.Create(_stack.Context, _fileInfo, _cache, _stringIds, tag, model);
+			var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
 			_stack.Push(context);
 		}
 	}

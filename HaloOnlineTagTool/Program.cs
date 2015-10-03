@@ -81,9 +81,18 @@ namespace HaloOnlineTagTool
 				version = closestVersion;
 			}
 
+			var info = new OpenTagCache
+			{
+				Cache = cache,
+				CacheFile = fileInfo,
+				StringIds = stringIds,
+				StringIdsFile = (stringIds != null) ? new FileInfo(stringIdPath) : null,
+				Version = version,
+			};
+
 			// Create command context
 			var contextStack = new CommandContextStack();
-			var tagsContext = TagCacheContextFactory.Create(contextStack, cache, fileInfo, stringIds);
+			var tagsContext = TagCacheContextFactory.Create(contextStack, info);
 			contextStack.Push(tagsContext);
 
 			// If autoexecuting a command, just run it and return

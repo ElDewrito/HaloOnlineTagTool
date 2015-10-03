@@ -14,10 +14,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class ExtractBitmapsCommand : Command
 	{
-		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
+		private readonly OpenTagCache _info;
 
-		public ExtractBitmapsCommand(TagCache cache, FileInfo fileInfo) : base(
+		public ExtractBitmapsCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"extractbitmaps",
@@ -28,8 +27,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Extract all bitmap tags and any subimages to the given folder.\n" +
 			"If the folder does not exist, it will be created.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
@@ -44,7 +42,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var resourceManager = new ResourceDataManager();
 			try
 			{
-				resourceManager.LoadCachesFromDirectory(_fileInfo.DirectoryName);
+				resourceManager.LoadCachesFromDirectory(_info.CacheFile.DirectoryName);
 			}
 			catch
 			{
@@ -55,16 +53,16 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 			var extractor = new BitmapDdsExtractor(resourceManager);
 			var count = 0;
-			using (var tagsStream = _fileInfo.OpenRead())
+			using (var tagsStream = _info.OpenCacheRead())
 			{
-				foreach (var tag in _cache.Tags.FindAllByClass("bitm"))
+				foreach (var tag in _info.Cache.Tags.FindAllByClass("bitm"))
 				{
 					Console.Write("Extracting ");
 					TagPrinter.PrintTagShort(tag);
 
 					try
 					{
-						var tagContext = new TagSerializationContext(tagsStream, _cache, tag);
+						var tagContext = new TagSerializationContext(tagsStream, _info.Cache, tag);
 						var bitmap = TagDeserializer.Deserialize<Bitmap>(tagContext);
 						var ddsOutDir = outDir;
 						if (bitmap.Images.Count > 1)

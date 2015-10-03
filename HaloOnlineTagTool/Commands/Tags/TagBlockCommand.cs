@@ -10,10 +10,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class TagBlockCommand : Command
 	{
-		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
+		private readonly OpenTagCache _info;
 
-		public TagBlockCommand(TagCache cache, FileInfo fileInfo) : base(
+		public TagBlockCommand(OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"tagblock",
@@ -32,8 +31,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"\"tagblock addat\" adds elements in the middle of a tag block.\n" +
 			"\"tagblock removeat\" removes elements from the middle of a tag block.\n")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
@@ -56,7 +54,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			TagPrinter.PrintTagShort(tag);
 			var offsetFromTag = offset - tag.Offset;
 
-			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
+			using (var stream = _info.OpenCacheReadWrite())
 			{
 				// Read block info
 				stream.Position = offset;
@@ -121,7 +119,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 						tag.DataFixups.Remove(fixup);
 						writer.Write(0);
 					}
-					_cache.UpdateTag(stream, tag);
+					_info.Cache.UpdateTag(stream, tag);
 				}
 			}
 
@@ -188,7 +186,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (amount == 0)
 				return;
 			index = Math.Max(0, Math.Min(index, count));
-			_cache.InsertTagData(stream, tag, (uint)(offset + index * elementSize), elementSize * amount, InsertOrigin.Before);
+			_info.Cache.InsertTagData(stream, tag, (uint)(offset + index * elementSize), elementSize * amount, InsertOrigin.Before);
 			count += amount;
 		}
 
@@ -198,13 +196,13 @@ namespace HaloOnlineTagTool.Commands.Tags
 			amount = Math.Max(0, Math.Min(amount, count - index));
 			if (amount == 0)
 				return;
-			_cache.InsertTagData(stream, tag, (uint)(offset + (index + amount) * elementSize), -elementSize * amount, InsertOrigin.Before);
+			_info.Cache.InsertTagData(stream, tag, (uint)(offset + (index + amount) * elementSize), -elementSize * amount, InsertOrigin.Before);
 			count = Math.Max(0, count - amount);
 		}
 
 		private HaloTag FindTagWithOffset(int offset)
 		{
-			return _cache.Tags.FirstOrDefault(t => t != null && offset >= t.Offset && offset < t.Offset + t.Size);
+			return _info.Cache.Tags.FirstOrDefault(t => t != null && offset >= t.Offset && offset < t.Offset + t.Size);
 		}
 	}
 }

@@ -9,10 +9,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class DuplicateTagCommand : Command
 	{
-		private readonly TagCache _cache;
-		private readonly FileInfo _fileInfo;
+		private readonly OpenTagCache _info;
 
-		public DuplicateTagCommand(TagCache cache, FileInfo fileInfo) : base(
+		public DuplicateTagCommand(OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"duplicate",
@@ -23,21 +22,20 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"All of the tag's data, including tag blocks, will be copied into a new tag.\n" +
 			"The new tag can then be edited independently of the old tag.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_info = info;
 		}
 
 		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 1)
 				return false;
-			var tag = ArgumentParser.ParseTagIndex(_cache, args[0]);
+			var tag = ArgumentParser.ParseTagIndex(_info.Cache, args[0]);
 			if (tag == null)
 				return false;
 
 			HaloTag newTag;
-			using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
-				newTag = _cache.DuplicateTag(stream, tag);
+			using (var stream = _info.OpenCacheReadWrite())
+				newTag = _info.Cache.DuplicateTag(stream, tag);
 
 			Console.WriteLine("Tag duplicated successfully!");
 			Console.Write("New tag: ");

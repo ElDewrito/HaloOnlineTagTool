@@ -11,10 +11,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class StringIdCommand : Command
 	{
-		private readonly FileInfo _fileInfo;
+		private readonly OpenTagCache _info;
 		private readonly StringIdCache _stringIds;
 
-		public StringIdCommand(FileInfo fileInfo, StringIdCache stringIds) : base(
+		public StringIdCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"stringid",
@@ -28,8 +28,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"\"stringid get\" will display the string corresponding to an ID value.\n" +
 			"\"stringid list\" will list stringIDs, optionally filtering them.")
 		{
-			_fileInfo = fileInfo;
-			_stringIds = stringIds;
+			_info = info;
+			_stringIds = info.StringIds;
 		}
 
 		public override bool Execute(List<string> args)
@@ -54,8 +54,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 			var str = args[1];
 			var id = _stringIds.Add(str);
-			var stringIdsPath = Path.Combine(_fileInfo.DirectoryName ?? Directory.GetCurrentDirectory(), "string_ids.dat");
-			using (var stream = File.Open(stringIdsPath, FileMode.Open, FileAccess.ReadWrite))
+			using (var stream = _info.StringIdsFile.Open(FileMode.Open, FileAccess.ReadWrite))
 				_stringIds.Save(stream);
 			
 			Console.WriteLine("Added string \"{0}\" as {1}.", str, id);

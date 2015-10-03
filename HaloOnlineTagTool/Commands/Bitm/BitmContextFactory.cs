@@ -10,10 +10,10 @@ namespace HaloOnlineTagTool.Commands.Bitm
 {
 	static class BitmContextFactory
 	{
-		public static CommandContext Create(CommandContext parent, FileInfo fileInfo, TagCache cache, HaloTag tag, Bitmap bitmap)
+		public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, Bitmap bitmap)
 		{
 			var context = new CommandContext(parent, string.Format("{0:X8}.bitm", tag.Index));
-			context.AddCommand(new BitmImportCommand(fileInfo, cache, tag, bitmap));
+			context.AddCommand(new BitmImportCommand(info, tag, bitmap));
 			return context;
 		}
 	}

@@ -10,10 +10,10 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 {
 	class HlmtListVariantsCommand : Command
 	{
+		private readonly OpenTagCache _info;
 		private readonly Model _model;
-		private readonly StringIdCache _stringIds;
 
-		public HlmtListVariantsCommand(Model model, StringIdCache stringIds) : base(
+		public HlmtListVariantsCommand(OpenTagCache info, Model model) : base(
 			CommandFlags.Inherit,
 
 			"listvariants",
@@ -23,15 +23,15 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 
 			"Lists variant names which can be used with \"extractmode\".")
 		{
+			_info = info;
 			_model = model;
-			_stringIds = stringIds;
 		}
 
 		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 0)
 				return false;
-			var variantNames = _model.Variants.Select(v => _stringIds.GetString(v.Name) ?? v.Name.ToString()).OrderBy(n => n).ToList();
+			var variantNames = _model.Variants.Select(v => _info.StringIds.GetString(v.Name) ?? v.Name.ToString()).OrderBy(n => n).ToList();
 			if (variantNames.Count == 0)
 			{
 				Console.WriteLine("Model has no variants");

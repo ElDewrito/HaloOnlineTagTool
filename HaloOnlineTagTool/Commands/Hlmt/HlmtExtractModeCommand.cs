@@ -15,10 +15,10 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 	{
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
-		private readonly Model _model;
 		private readonly StringIdCache _stringIds;
+		private readonly Model _model;
 
-		public HlmtExtractModeCommand(TagCache cache, FileInfo fileInfo, Model model, StringIdCache stringIds) : base(
+		public HlmtExtractModeCommand(OpenTagCache info, Model model) : base(
 			CommandFlags.Inherit,
 
 			"extractmode",
@@ -32,10 +32,10 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 			"\n" +
 			"Supported file types: obj")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_cache = info.Cache;
+			_fileInfo = info.CacheFile;
+			_stringIds = info.StringIds;
 			_model = model;
-			_stringIds = stringIds;
 		}
 
 		public override bool Execute(List<string> args)

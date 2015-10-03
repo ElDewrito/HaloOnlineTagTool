@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private readonly FileInfo _fileInfo;
 		private readonly StringIdCache _stringIds;
 
-		public ModelTestCommand(TagCache cache, FileInfo fileInfo, StringIdCache stringIds) : base(
+		public ModelTestCommand(OpenTagCache info) : base(
 			CommandFlags.Inherit,
 
 			"modeltest",
@@ -31,9 +31,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Injects the model over the traffic cone.\n" +
 			"The model must only have a single material and no nodes.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
-			_stringIds = stringIds;
+			_cache = info.Cache;
+			_fileInfo = info.CacheFile;
+			_stringIds = info.StringIds;
 		}
 
 		public override bool Execute(List<string> args)

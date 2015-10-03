@@ -10,7 +10,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
 
-		public InsertCommand(TagCache cache, FileInfo fileInfo) : base(
+		public InsertCommand(OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"insert",
@@ -27,8 +27,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"If \"after\" is specified, then any pointers to the insertion offset will NOT be\n" +
 			"adjusted. Useful for inserting data at the beginning of a tag or tag block.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_fileInfo = info.CacheFile;
 		}
 
 		public override bool Execute(List<string> args)

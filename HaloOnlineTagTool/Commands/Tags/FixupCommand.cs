@@ -12,10 +12,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 	class FixupCommand : Command
 	{
-		private TagCache _cache;
-		private FileInfo _fileInfo;
+		private readonly TagCache _cache;
+		private readonly FileInfo _fileInfo;
 
-		public FixupCommand(TagCache cache, FileInfo fileInfo) : base(
+		public FixupCommand(OpenTagCache info) : base(
 			CommandFlags.None,
 
 			"fixup",
@@ -34,8 +34,8 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"\n" +
 			"Offsets are relative to the start of the tag data, NOT the header.")
 		{
-			_cache = cache;
-			_fileInfo = fileInfo;
+			_cache = info.Cache;
+			_fileInfo = info.CacheFile;
 		}
 		
 		public override bool Execute(List<string> args)
