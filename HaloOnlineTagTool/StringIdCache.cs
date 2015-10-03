@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool
 		/// </summary>
 		/// <param name="stream">The stream to read from.</param>
 		/// <param name="resolver">The stringID resolver to use.</param>
-		public StringIdCache(Stream stream, IStringIdResolver resolver)
+		public StringIdCache(Stream stream, StringIdResolverBase resolver)
 		{
 			Resolver = resolver;
 			Strings = new List<string>();
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool
 		/// <summary>
 		/// Gets the stringID resolver that the cache is using.
 		/// </summary>
-		public IStringIdResolver Resolver { get; private set; }
+		public StringIdResolverBase Resolver { get; private set; }
 
 		/// <summary>
 		/// Gets the string corresponding to a stringID.

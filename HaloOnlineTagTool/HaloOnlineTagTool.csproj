@@ -113,7 +113,7 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="GameLanguage.cs" />
-    <Compile Include="IStringIdResolver.cs" />
+    <Compile Include="StringIdResolverBase.cs" />
     <Compile Include="MagicNumber.cs" />
     <Compile Include="Common\Vector3.cs" />
     <Compile Include="ProcessMemoryStream.cs" />
