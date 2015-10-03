@@ -199,10 +199,14 @@ namespace HaloOnlineTagTool.Serialization
 				SerializeVector(block, (Vector4)val);
 			else if (valueType == typeof(StringId))
 				block.Writer.Write(((StringId)val).Value);
+			else if (valueType == typeof(Angle))
+				block.Writer.Write(((Angle)val).Radians);
 			else if (valueType.IsArray)
 				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
 				SerializeTagBlock(context, tagStream, block, val, valueType);
+			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
+				SerializeRange(block, val);
 			else
 				SerializeStruct(context, tagStream, block, val);
 		}
@@ -361,6 +365,16 @@ namespace HaloOnlineTagTool.Serialization
 			block.Writer.Write(vec.Y);
 			block.Writer.Write(vec.Z);
 			block.Writer.Write(vec.W);
+		}
+
+		private static void SerializeRange(IDataBlock block, object val)
+		{
+			var type = val.GetType();
+			var boundsType = type.GenericTypeArguments[0];
+			var min = type.GetField("Min").GetValue(val);
+			var max = type.GetField("Max").GetValue(val);
+			SerializePrimitiveValue(block.Writer, min, boundsType);
+			SerializePrimitiveValue(block.Writer, max, boundsType);
 		}
 	}
 }

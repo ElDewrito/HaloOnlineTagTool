@@ -188,6 +188,10 @@ namespace HaloOnlineTagTool.Serialization
 			if (valueType == typeof(StringId))
 				return new StringId(reader.ReadUInt32());
 
+			// Angle (radians)
+			if (valueType == typeof(Angle))
+				return Angle.FromRadians(reader.ReadSingle());
+
 			// Non-byte array = Inline array
 			// TODO: Define more clearly in general what constitutes a data reference and what doesn't
 			if (valueType.IsArray)
@@ -196,6 +200,10 @@ namespace HaloOnlineTagTool.Serialization
 			// List = Tag block
 			if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
 				return DeserializeTagBlock(reader, context, valueType);
+
+			// Ranges
+			if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
+				return DeserializeRange(reader, valueType);
 
 			// Assume the value is a structure
 			return DeserializeStruct(reader, context, valueType);
@@ -339,6 +347,20 @@ namespace HaloOnlineTagTool.Serialization
 				result.Append((char)ch);
 			}
 			return result.ToString();
+		}
+
+		/// <summary>
+		/// Deserializes a <see cref="Range{T}"/> value.
+		/// </summary>
+		/// <param name="reader">The reader.</param>
+		/// <param name="rangeType">The range's type.</param>
+		/// <returns>The deserialized range.</returns>
+		private static object DeserializeRange(BinaryReader reader, Type rangeType)
+		{
+			var boundsType = rangeType.GenericTypeArguments[0];
+			var min = DeserializePrimitiveValue(reader, boundsType);
+			var max = DeserializePrimitiveValue(reader, boundsType);
+			return Activator.CreateInstance(rangeType, min, max);
 		}
 	}
 }
