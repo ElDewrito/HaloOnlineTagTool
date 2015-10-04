@@ -118,6 +118,7 @@
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagElementEnumerator.cs" />
+    <Compile Include="V11_1_498295\StringIdResolver.cs" />
     <Compile Include="VersionDetection.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="StringIdResolverBase.cs" />

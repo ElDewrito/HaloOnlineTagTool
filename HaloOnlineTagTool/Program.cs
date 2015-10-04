@@ -42,18 +42,42 @@ namespace HaloOnlineTagTool
 				cache = new TagCache(stream);
 
 			if (autoexecCommand == null)
-			{
 				Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
-				Console.Write("Reading stringIDs...");
+
+			// Version detection
+			EngineVersion closestVersion;
+			var version = VersionDetection.DetectVersion(cache, out closestVersion);
+			if (version != EngineVersion.Unknown)
+			{
+				if (autoexecCommand == null)
+				{
+					var buildDate = DateTime.FromFileTime(cache.Timestamp);
+					Console.WriteLine("- Detected target engine version {0}.", VersionDetection.GetVersionString(closestVersion));
+					Console.WriteLine("- This cache file was built on {0} at {1}.", buildDate.ToShortDateString(), buildDate.ToShortTimeString());
+				}
+			}
+			else
+			{
+				Console.Error.WriteLine("WARNING: The cache file's version was not recognized!");
+				Console.Error.WriteLine("Using the closest known version {0}.", VersionDetection.GetVersionString(closestVersion));
+				version = closestVersion;
 			}
 
+			// Determine the stringID resolver to use based on version
+			StringIdResolverBase resolver;
+			if (VersionDetection.Compare(version, EngineVersion.V11_1_498295_Live) >= 0)
+				resolver = new V11_1_498295.StringIdResolver();
+			else
+				resolver = new V1_106708.StringIdResolver();
+
 			// Load stringIDs
+			Console.Write("Reading stringIDs...");
 			var stringIdPath = Path.Combine(fileInfo.DirectoryName ?? "", "string_ids.dat");
 			StringIdCache stringIds = null;
 			try
 			{
 				using (var stream = File.OpenRead(stringIdPath))
-					stringIds = new StringIdCache(stream, new V1_106708.StringIdResolver());
+					stringIds = new StringIdCache(stream, resolver);
 			}
 			catch (IOException)
 			{
@@ -65,21 +89,6 @@ namespace HaloOnlineTagTool
 			{
 				Console.WriteLine("{0} strings loaded.", stringIds.Strings.Count);
 				Console.WriteLine();
-			}
-
-			// Version detection
-			EngineVersion closestVersion;
-			var version = VersionDetection.DetectVersion(cache, out closestVersion);
-			if (version != EngineVersion.Unknown)
-			{
-				if (autoexecCommand == null)
-					Console.WriteLine("Detected target engine version {0}.", VersionDetection.GetVersionString(closestVersion));
-			}
-			else
-			{
-				Console.Error.WriteLine("WARNING: The cache file's version was not recognized!");
-				Console.Error.WriteLine("Using the closest known version {0}.", VersionDetection.GetVersionString(closestVersion));
-				version = closestVersion;
 			}
 
 			var info = new OpenTagCache
@@ -106,9 +115,6 @@ namespace HaloOnlineTagTool
 				return;
 			}
 
-			var buildDate = DateTime.FromFileTime(cache.Timestamp);
-			Console.WriteLine("This cache file was built on {0} at {1}.", buildDate.ToShortDateString(), buildDate.ToShortTimeString());
-			Console.WriteLine();
 			Console.WriteLine("Enter \"help\" to list available commands. Enter \"exit\" to quit.");
 			while (true)
 			{
