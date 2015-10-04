@@ -15,7 +15,9 @@ namespace HaloOnlineTagTool.Resources
 			{ ResourceLocation.Textures, "textures.dat" },
 			{ ResourceLocation.TexturesB, "textures_b.dat" },
 			{ ResourceLocation.Audio, "audio.dat" },
-			{ ResourceLocation.Video, "video.dat" }
+			{ ResourceLocation.Video, "video.dat" },
+			{ ResourceLocation.RenderModels, "render_models.dat" },
+			{ ResourceLocation.Lightmaps, "lightmaps.dat" },
 		};
 
 		private readonly Dictionary<ResourceLocation, LoadedCache> _loadedCaches = new Dictionary<ResourceLocation, LoadedCache>();
@@ -51,7 +53,8 @@ namespace HaloOnlineTagTool.Resources
 			foreach (var cache in _cacheNames)
 			{
 				var path = Path.Combine(directory, cache.Value);
-				LoadCache(cache.Key, path);
+				if (File.Exists(path))
+					LoadCache(cache.Key, path);
 			}
 		}
 
