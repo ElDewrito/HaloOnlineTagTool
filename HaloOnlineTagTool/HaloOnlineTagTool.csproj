@@ -115,6 +115,9 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
+    <Compile Include="Serialization\MaxVersionAttribute.cs" />
+    <Compile Include="Serialization\MinVersionAttribute.cs" />
+    <Compile Include="Serialization\TagElementEnumerator.cs" />
     <Compile Include="VersionDetection.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="StringIdResolverBase.cs" />

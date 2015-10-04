@@ -54,7 +54,7 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 				imported++;
 			}
 			using (var stream = _info.OpenCacheReadWrite())
-				TagSerializer.Serialize(new TagSerializationContext(stream, _info.Cache, _tag), _list);
+				_info.Serializer.Serialize(new TagSerializationContext(stream, _info.Cache, _tag), _list);
 			Console.WriteLine("Imported {0} files.", imported);
 			return true;
 		}

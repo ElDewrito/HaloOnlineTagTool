@@ -19,11 +19,11 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			_resourceManager = resourceManager;
 		}
 
-		public void InjectDds(Bitmap bitmap, int imageIndex, Stream ddsStream)
+		public void InjectDds(TagSerializer serializer, TagDeserializer deserializer, Bitmap bitmap, int imageIndex, Stream ddsStream)
 		{
 			// Deserialize the old definition
 			var resourceContext = new ResourceSerializationContext(bitmap.Resources[imageIndex].Resource);
-			var definition = TagDeserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
+			var definition = deserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
 			if (definition.Texture == null || definition.Texture.Definition == null)
 				throw new ArgumentException("Invalid bitmap definition");
 			var texture = definition.Texture.Definition;
@@ -58,7 +58,7 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			_resourceManager.Replace(bitmap.Resources[imageIndex].Resource, ddsStream);
 
 			// Serialize the new resource definition
-			TagSerializer.Serialize(resourceContext, definition);
+			serializer.Serialize(resourceContext, definition);
 
 			// Modify the image data in the bitmap tag to match the definition
 			var imageData = bitmap.Images[imageIndex];

@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bitm", Size = 0xB8)]
+	[TagStructure(Class = "bitm", MaxVersion = EngineVersion.V1_106708_cert_ms23, Size = 0xB8)]
+	[TagStructure(Class = "bitm", Size = 0xAC)]
 	public class Bitmap
 	{
 		[TagElement]
@@ -75,10 +76,13 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagElement]
 		public int UnknownA8 { get; set; }
 		[TagElement]
+		[MaxVersion(EngineVersion.V1_106708_cert_ms23)] // TODO: Figure out a better version and if these values are ever even used in 106708
 		public int UnknownAC { get; set; }
 		[TagElement]
+		[MaxVersion(EngineVersion.V1_106708_cert_ms23)]
 		public int UnknownB0 { get; set; }
 		[TagElement]
+		[MaxVersion(EngineVersion.V1_106708_cert_ms23)]
 		public int UnknownB4 { get; set; }
 
 		[TagStructure(Size = 0x8)]

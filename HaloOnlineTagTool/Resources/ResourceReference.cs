@@ -8,7 +8,8 @@ namespace HaloOnlineTagTool.Resources
 	/// A reference to a resource used by a tag.
 	/// This is treated by the serialization system as a special type of tag element.
 	/// </summary>
-	[TagStructure(Size = 0x6C)]
+	[TagStructure(MaxVersion = EngineVersion.V1_106708_cert_ms23, Size = 0x6C)]
+	[TagStructure(Size = 0x70)]
 	public class ResourceReference
 	{
 		[TagElement]
@@ -21,12 +22,24 @@ namespace HaloOnlineTagTool.Resources
 		/// Gets or sets flags containing information about where the resource is located.
 		/// </summary>
 		[TagElement]
-		public ResourceLocationFlags LocationFlags { get; set; }
+		[MaxVersion(EngineVersion.V1_106708_cert_ms23)]
+		public OldResourceLocationFlags OldLocationFlags { get; set; }
+
+		/// <summary>
+		/// Gets or sets flags containing information about where the resource is located.
+		/// </summary>
+		[TagElement]
+		[MinVersion(EngineVersion.V1_235640_cert_ms25)]
+		public NewResourceLocationFlags NewLocationFlags { get; set; }
 
 		// Not 100% sure on this
 		// -1 = uncompressed?
 		[TagElement]
 		public sbyte CompressionType { get; set; }
+
+		[TagElement]
+		[MinVersion(EngineVersion.V1_235640_cert_ms25)]
+		public int Unknown4 { get; set; }
 
 		/// <summary>
 		/// Gets or sets the index of the resource within its .dat file.
@@ -48,7 +61,7 @@ namespace HaloOnlineTagTool.Resources
 
 		/// <summary>
 		/// Gets or sets the checksum of the resource data.
-		/// Only used if <see cref="ResourceLocationFlags.UseChecksum"/> or <see cref="ResourceLocationFlags.UseChecksum2"/> are set.
+		/// Only used if <see cref="OldResourceLocationFlags.UseChecksum"/> or <see cref="OldResourceLocationFlags.UseChecksum2"/> are set.
 		/// </summary>
 		[TagElement]
 		public uint Checksum { get; set; }
@@ -115,16 +128,37 @@ namespace HaloOnlineTagTool.Resources
 		/// <exception cref="InvalidOperationException">The resource does not have a location flag set</exception>
 		public ResourceLocation GetLocation()
 		{
-			if ((LocationFlags & ResourceLocationFlags.InResources) != 0)
-				return ResourceLocation.Resources;
-			if ((LocationFlags & ResourceLocationFlags.InTextures) != 0)
-				return ResourceLocation.Textures;
-			if ((LocationFlags & ResourceLocationFlags.InTexturesB) != 0)
-				return ResourceLocation.TexturesB;
-			if ((LocationFlags & ResourceLocationFlags.InAudio) != 0)
-				return ResourceLocation.Audio;
-			if ((LocationFlags & ResourceLocationFlags.InVideo) != 0)
-				return ResourceLocation.Video;
+			if (OldLocationFlags != 0)
+			{
+				if ((OldLocationFlags & OldResourceLocationFlags.InResources) != 0)
+					return ResourceLocation.Resources;
+				if ((OldLocationFlags & OldResourceLocationFlags.InTextures) != 0)
+					return ResourceLocation.Textures;
+				if ((OldLocationFlags & OldResourceLocationFlags.InTexturesB) != 0)
+					return ResourceLocation.TexturesB;
+				if ((OldLocationFlags & OldResourceLocationFlags.InAudio) != 0)
+					return ResourceLocation.Audio;
+				if ((OldLocationFlags & OldResourceLocationFlags.InVideo) != 0)
+					return ResourceLocation.Video;
+			}
+			else if (NewLocationFlags != 0)
+			{
+				// FIXME: haxhaxhax, maybe we should just have separate types for the old and new reference layouts?
+				if ((NewLocationFlags & NewResourceLocationFlags.InResources) != 0)
+					return ResourceLocation.Resources;
+				if ((NewLocationFlags & NewResourceLocationFlags.InTextures) != 0)
+					return ResourceLocation.Textures;
+				if ((NewLocationFlags & NewResourceLocationFlags.InTexturesB) != 0)
+					return ResourceLocation.TexturesB;
+				if ((NewLocationFlags & NewResourceLocationFlags.InAudio) != 0)
+					return ResourceLocation.Audio;
+				if ((NewLocationFlags & NewResourceLocationFlags.InVideo) != 0)
+					return ResourceLocation.Video;
+				if ((NewLocationFlags & NewResourceLocationFlags.InRenderModels) != 0)
+					return ResourceLocation.Video;
+				if ((NewLocationFlags & NewResourceLocationFlags.InLightmaps) != 0)
+					return ResourceLocation.Video;
+			}
 			throw new InvalidOperationException("The resource does not have a location flag set");
 		}
 
@@ -135,23 +169,35 @@ namespace HaloOnlineTagTool.Resources
 		/// <exception cref="System.ArgumentException">Unsupported resource location</exception>
 		public void ChangeLocation(ResourceLocation newLocation)
 		{
-			LocationFlags &= ~ResourceLocationFlags.LocationMask;
+			OldLocationFlags &= ~OldResourceLocationFlags.LocationMask;
+			NewLocationFlags &= ~NewResourceLocationFlags.LocationMask;
 			switch (newLocation)
 			{
 				case ResourceLocation.Resources:
-					LocationFlags |= ResourceLocationFlags.InResources;
+					OldLocationFlags |= OldResourceLocationFlags.InResources;
+					NewLocationFlags |= NewResourceLocationFlags.InResources;
 					break;
 				case ResourceLocation.Textures:
-					LocationFlags |= ResourceLocationFlags.InTextures;
+					OldLocationFlags |= OldResourceLocationFlags.InTextures;
+					NewLocationFlags |= NewResourceLocationFlags.InTextures;
 					break;
 				case ResourceLocation.TexturesB:
-					LocationFlags |= ResourceLocationFlags.InTexturesB;
+					OldLocationFlags |= OldResourceLocationFlags.InTexturesB;
+					NewLocationFlags |= NewResourceLocationFlags.InTexturesB;
 					break;
 				case ResourceLocation.Audio:
-					LocationFlags |= ResourceLocationFlags.InAudio;
+					OldLocationFlags |= OldResourceLocationFlags.InAudio;
+					NewLocationFlags |= NewResourceLocationFlags.InAudio;
 					break;
 				case ResourceLocation.Video:
-					LocationFlags |= ResourceLocationFlags.InVideo;
+					OldLocationFlags |= OldResourceLocationFlags.InVideo;
+					NewLocationFlags |= NewResourceLocationFlags.InVideo;
+					break;
+				case ResourceLocation.RenderModels:
+					NewLocationFlags |= NewResourceLocationFlags.InRenderModels;
+					break;
+				case ResourceLocation.Lightmaps:
+					NewLocationFlags |= NewResourceLocationFlags.InLightmaps;
 					break;
 				default:
 					throw new ArgumentException("Unsupported resource location");
@@ -163,7 +209,8 @@ namespace HaloOnlineTagTool.Resources
 		/// </summary>
 		public void DisableChecksum()
 		{
-			LocationFlags &= ~(ResourceLocationFlags.UseChecksum | ResourceLocationFlags.UseChecksum2);
+			OldLocationFlags &= ~(OldResourceLocationFlags.UseChecksum | OldResourceLocationFlags.UseChecksum2);
+			NewLocationFlags &= ~NewResourceLocationFlags.UseChecksum;
 		}
 	}
 
@@ -207,9 +254,10 @@ namespace HaloOnlineTagTool.Resources
 
 	/// <summary>
 	/// Flags related to the location and storage of the resource data.
+	/// Only for 1.106708.
 	/// </summary>
 	[Flags]
-	public enum ResourceLocationFlags : byte
+	public enum OldResourceLocationFlags : byte
 	{
 		/// <summary>
 		/// Indicates that the resource's checksum should be validated.
@@ -256,6 +304,59 @@ namespace HaloOnlineTagTool.Resources
 	}
 
 	/// <summary>
+	/// Flags related to the location and storage of the resource data.
+	/// Only for versions 1.235640 and newer.
+	/// </summary>
+	[Flags]
+	public enum NewResourceLocationFlags : byte
+	{
+		/// <summary>
+		/// Indicates that the resource's checksum should be validated.
+		/// </summary>
+		UseChecksum = 1 << 0,
+
+		/// <summary>
+		/// Indicates that the resource is in resources.dat.
+		/// </summary>
+		InResources = 1 << 1,
+
+		/// <summary>
+		/// Indicates that the resource is in textures.dat.
+		/// </summary>
+		InTextures = 1 << 2,
+
+		/// <summary>
+		/// Indicates that the resource is in textures_b.dat.
+		/// </summary>
+		InTexturesB = 1 << 3,
+
+		/// <summary>
+		/// Indicates that the resource is in audio.dat.
+		/// </summary>
+		InAudio = 1 << 4,
+
+		/// <summary>
+		/// Indicates that the resource is in video.dat.
+		/// </summary>
+		InVideo = 1 << 5,
+
+		/// <summary>
+		/// Indicates that the resource is in render_models.dat.
+		/// </summary>
+		InRenderModels = 1 << 6,
+
+		/// <summary>
+		/// Indicates that the resource is in lightmaps.dat.
+		/// </summary>
+		InLightmaps = 1 << 7,
+
+		/// <summary>
+		/// Mask for the location part of the flags.
+		/// </summary>
+		LocationMask = 0xFE,
+	}
+
+	/// <summary>
 	/// Resource location constants used by <see cref="ResourceReference.GetLocation"/>.
 	/// </summary>
 	public enum ResourceLocation
@@ -283,7 +384,17 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// The resource is in video.dat.
 		/// </summary>
-		Video
+		Video,
+
+		/// <summary>
+		/// The resource is in render_models.dat.
+		/// </summary>
+		RenderModels,
+
+		/// <summary>
+		/// The resource is in lightmaps.dat.
+		/// </summary>
+		Lightmaps,
 	}
 
 	/// <summary>

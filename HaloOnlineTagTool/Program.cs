@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
+using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool
 {
@@ -88,6 +89,8 @@ namespace HaloOnlineTagTool
 				StringIds = stringIds,
 				StringIdsFile = (stringIds != null) ? new FileInfo(stringIdPath) : null,
 				Version = version,
+				Serializer = new TagSerializer(version),
+				Deserializer = new TagDeserializer(version),
 			};
 
 			// Create command context

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.Commands
 {
@@ -38,6 +39,16 @@ namespace HaloOnlineTagTool.Commands
 		/// Gets or sets the target engine version.
 		/// </summary>
 		public EngineVersion Version { get; set; }
+
+		/// <summary>
+		/// Gets or sets the tag serializer to use.
+		/// </summary>
+		public TagSerializer Serializer { get; set; }
+
+		/// <summary>
+		/// Gets or sets the tag deserializer to use.
+		/// </summary>
+		public TagDeserializer Deserializer { get; set; }
 
 		/// <summary>
 		/// Opens the tag cache file for reading.

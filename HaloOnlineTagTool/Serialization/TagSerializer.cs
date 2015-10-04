@@ -13,9 +13,20 @@ namespace HaloOnlineTagTool.Serialization
 	/// <summary>
 	/// Serializes classes into tag data by using reflection.
 	/// </summary>
-	public static class TagSerializer
+	public class TagSerializer
 	{
 		private const int DefaultBlockAlign = 4;
+
+		private readonly EngineVersion _version;
+
+		/// <summary>
+		/// Constructs a tag serializer for a specific engine version.
+		/// </summary>
+		/// <param name="version">The engine version to target.</param>
+		public TagSerializer(EngineVersion version)
+		{
+			_version = version;
+		}
 
 		/// <summary>
 		/// Serializes a tag structure into a context.
@@ -23,7 +34,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <typeparam name="T"></typeparam>
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStructure">The tag structure.</param>
-		public static void Serialize<T>(ISerializationContext context, T tagStructure)
+		public void Serialize<T>(ISerializationContext context, T tagStructure)
 		{
 			// Serialize the structure to a data block
 			context.BeginSerialize();
@@ -45,24 +56,18 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="structure">The structure to serialize.</param>
 		/// <exception cref="System.InvalidOperationException">Structure type must have TagStructureAttribute</exception>
-		private static void SerializeStruct(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object structure)
+		private void SerializeStruct(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object structure)
 		{
-			// Get the TagStructureAttribute associated with the structure type
 			var structType = structure.GetType();
-			var structAttrib = structType.GetCustomAttributes(typeof(TagStructureAttribute), false).FirstOrDefault() as TagStructureAttribute;
-			if (structAttrib == null)
-				throw new InvalidOperationException("Structure type must have TagStructureAttribute");
-
-			// Serialize each property
-			var properties = structType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			var baseOffset = block.Stream.Position;
-			foreach (var property in properties)
-				SerializeProperty(context, tagStream, block, structure, structAttrib, property, baseOffset);
+			var enumerator = new TagElementEnumerator(structType, _version);
+			while (enumerator.Next())
+				SerializeProperty(context, tagStream, block, structure, enumerator, baseOffset);
 
 			// Honor the struct size if it's defined
-			if (structAttrib.Size > 0)
+			if (enumerator.Structure.Size > 0)
 			{
-				block.Stream.Position = baseOffset + structAttrib.Size;
+				block.Stream.Position = baseOffset + enumerator.Structure.Size;
 				if (block.Stream.Position > block.Stream.Length)
 					block.Stream.SetLength(block.Stream.Position);
 			}
@@ -79,21 +84,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="property">The property.</param>
 		/// <param name="baseOffset">The base offset of the structure from the start of its block.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property \ + property.Name + \ is outside of its structure</exception>
-		private static void SerializeProperty(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset)
+		private void SerializeProperty(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object instance, TagElementEnumerator enumerator, long baseOffset)
 		{
-			// Get the property's TagValueAttribute
-			var valueInfo = property.GetCustomAttributes(typeof(TagElementAttribute), false).FirstOrDefault() as TagElementAttribute;
-			if (valueInfo == null)
-				return; // Ignore the property
-			if (valueInfo.Offset >= structInfo.Size)
-				throw new InvalidOperationException("Offset for property \"" + property.Name + "\" is outside of its structure");
-
 			// Seek to the value if it has an offset specified and write it
-			if (valueInfo.Offset >= 0)
+			var valueInfo = enumerator.Element;
+			if (enumerator.Element.Offset >= 0)
 				block.Stream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = block.Stream.Position;
-			var val = property.GetValue(instance);
-			SerializeValue(context, tagStream, block, val, valueInfo, property.PropertyType);
+			var val = enumerator.Property.GetValue(instance);
+			SerializeValue(context, tagStream, block, val, valueInfo, enumerator.Property.PropertyType);
 			if (valueInfo.Size > 0)
 				block.Stream.Position = startOffset + valueInfo.Size;
 		}
@@ -107,7 +106,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private static void SerializeValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private void SerializeValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
 			// Call the data block's PreSerialize callback to determine if the value should be mutated
 			val = block.PreSerialize(valueInfo, val);
@@ -177,7 +176,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private static void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
 				SerializeIndirectValue(context, tagStream, block, val, valueType);
@@ -277,7 +276,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="data">The array.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
-		private static void SerializeInlineArray(ISerializationContext context, MemoryStream tagStream, IDataBlock block, Array data, TagElementAttribute valueInfo)
+		private void SerializeInlineArray(ISerializationContext context, MemoryStream tagStream, IDataBlock block, Array data, TagElementAttribute valueInfo)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot serialize an inline array with no count set");
@@ -298,7 +297,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="list">The list of values in the tag block.</param>
 		/// <param name="listType">Type of the list.</param>
-		private static void SerializeTagBlock(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType)
+		private void SerializeTagBlock(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType)
 		{
 			var writer = block.Writer;
 			var listCount = 0;
@@ -329,7 +328,7 @@ namespace HaloOnlineTagTool.Serialization
 			writer.Write(0);
 		}
 
-		private static void SerializeIndirectValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, Type valueType)
+		private void SerializeIndirectValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, Type valueType)
 		{
 			var writer = block.Writer;
 			if (val == null)

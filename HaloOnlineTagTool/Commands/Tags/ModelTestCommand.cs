@@ -16,6 +16,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 {
 	class ModelTestCommand : Command
 	{
+		private readonly OpenTagCache _info;
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
 		private readonly StringIdCache _stringIds;
@@ -31,6 +32,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"Injects the model over the traffic cone.\n" +
 			"The model must only have a single material and no nodes.")
 		{
+			_info = info;
 			_cache = info.Cache;
 			_fileInfo = info.CacheFile;
 			_stringIds = info.StringIds;
@@ -133,7 +135,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			Console.WriteLine("Building Blam mesh data...");
 
 			var resourceStream = new MemoryStream();
-			var renderModel = builder.Build(resourceStream);
+			var renderModel = builder.Build(_info.Serializer, resourceStream);
 
 			Console.WriteLine("Writing resource data...");
 
@@ -152,7 +154,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				renderModel.Resource.Owner = tag;
 
 				var context = new TagSerializationContext(cacheStream, _cache, tag);
-				TagSerializer.Serialize(context, renderModel);
+				_info.Serializer.Serialize(context, renderModel);
 			}
 			Console.WriteLine("Model imported successfully!");
 			return true;

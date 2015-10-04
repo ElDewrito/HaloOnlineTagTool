@@ -67,12 +67,12 @@ namespace HaloOnlineTagTool.Commands.Bitm
 				using (var imageStream = File.OpenRead(imagePath))
 				{
 					var injector = new BitmapDdsInjector(resourceManager);
-					injector.InjectDds(_bitmap, imageIndex, imageStream);
+					injector.InjectDds(_info.Serializer, _info.Deserializer, _bitmap, imageIndex, imageStream);
 				}
 				using (var tagsStream = _info.OpenCacheReadWrite())
 				{
 					var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _tag);
-					TagSerializer.Serialize(tagContext, _bitmap);
+					_info.Serializer.Serialize(tagContext, _bitmap);
 				}
 			}
 			catch (Exception ex)

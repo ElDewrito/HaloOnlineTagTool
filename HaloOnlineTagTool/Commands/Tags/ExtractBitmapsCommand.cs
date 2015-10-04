@@ -63,7 +63,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 					try
 					{
 						var tagContext = new TagSerializationContext(tagsStream, _info.Cache, tag);
-						var bitmap = TagDeserializer.Deserialize<Bitmap>(tagContext);
+						var bitmap = _info.Deserializer.Deserialize<Bitmap>(tagContext);
 						var ddsOutDir = outDir;
 						if (bitmap.Images.Count > 1)
 						{
@@ -76,7 +76,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 								((bitmap.Images.Count > 1) ? i.ToString() : tag.Index.ToString("X8")) + ".dds");
 							using (var outStream = File.Open(outPath, FileMode.Create, FileAccess.Write))
 							{
-								extractor.ExtractDds(bitmap, i, outStream);
+								extractor.ExtractDds(_info.Deserializer, bitmap, i, outStream);
 							}
 						}
 						count++;

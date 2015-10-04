@@ -19,14 +19,14 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			_resourceManager = resourceManager;
 		}
 
-		public void ExtractDds(Bitmap bitmap, int imageIndex, Stream outStream)
+		public void ExtractDds(TagDeserializer deserializer, Bitmap bitmap, int imageIndex, Stream outStream)
 		{
 			// TODO: Make sure 3D textures and cube maps work
 
 			// Deserialize the resource definition and verify it
 		    var resource = bitmap.Resources[imageIndex];
 			var resourceContext = new ResourceSerializationContext(resource.Resource);
-			var definition = TagDeserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
+			var definition = deserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
 			if (definition.Texture == null || definition.Texture.Definition == null)
 				throw new ArgumentException("Invalid bitmap definition");
 			var dataReference = definition.Texture.Definition.Data;

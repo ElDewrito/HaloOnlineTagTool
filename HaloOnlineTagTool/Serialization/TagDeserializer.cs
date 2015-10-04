@@ -15,15 +15,26 @@ namespace HaloOnlineTagTool.Serialization
 	/// <summary>
 	/// Deserializes tag data into objects by using reflection.
 	/// </summary>
-	public static class TagDeserializer
+	public class TagDeserializer
 	{
+		private readonly EngineVersion _version;
+
+		/// <summary>
+		/// Constructs a tag deserializer for a specific engine version.
+		/// </summary>
+		/// <param name="version">The engine version to target.</param>
+		public TagDeserializer(EngineVersion version)
+		{
+			_version = version;
+		}
+
 		/// <summary>
 		/// Deserializes tag data into an object.
 		/// </summary>
 		/// <typeparam name="T">The type of object to deserialize the tag data as.</typeparam>
 		/// <param name="context">The serialization context to use.</param>
 		/// <returns>The object that was read.</returns>
-		public static T Deserialize<T>(ISerializationContext context)
+		public T Deserialize<T>(ISerializationContext context)
 		{
 			// TODO: Add support for tag inheritance
 			var reader = context.BeginDeserialize();
@@ -40,22 +51,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="structType">The type of the structure to deserialize.</param>
 		/// <returns>The deserialized structure.</returns>
 		/// <exception cref="System.InvalidOperationException">Target type must have TagStructureAttribute</exception>
-		private static object DeserializeStruct(BinaryReader reader, ISerializationContext context, Type structType)
+		private object DeserializeStruct(BinaryReader reader, ISerializationContext context, Type structType)
 		{
-			// Get the TagStructureAttribute associated with the target type
-			var structAttrib = structType.GetCustomAttributes(typeof(TagStructureAttribute), false).FirstOrDefault() as TagStructureAttribute;
-		    if (structAttrib == null)
-		        throw new InvalidOperationException("Target type must have TagStructureAttribute");
-
-			// Deserialize each property in the structure
 			var baseOffset = reader.BaseStream.Position;
-			var properties = structType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 			var instance = Activator.CreateInstance(structType);
-			foreach (var property in properties)
-				DeserializeProperty(reader, context, instance, structAttrib, property, baseOffset);
-			if (structAttrib.Size > 0)
-				reader.BaseStream.Position = baseOffset + structAttrib.Size;
-
+			var enumerator = new TagElementEnumerator(structType, _version);
+			while (enumerator.Next())
+				DeserializeProperty(reader, context, instance, enumerator, baseOffset);
+			if (enumerator.Structure.Size > 0)
+				reader.BaseStream.Position = baseOffset + enumerator.Structure.Size;
 			return instance;
 		}
 
@@ -65,26 +69,18 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="reader">The reader.</param>
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="instance">The instance to store the property to.</param>
-		/// <param name="structInfo">The structure information.</param>
-		/// <param name="property">The property.</param>
+		/// <param name="enumerator">The active element enumerator.</param>
 		/// <param name="baseOffset">The offset of the start of the structure.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property is outside of its structure</exception>
-		private static void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagStructureAttribute structInfo, PropertyInfo property, long baseOffset)
+		private void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagElementEnumerator enumerator, long baseOffset)
 		{
-			// Get the property's TagValueAttribute
-			var valueInfo = property.GetCustomAttributes(typeof(TagElementAttribute), false).FirstOrDefault() as TagElementAttribute;
-			if (valueInfo == null)
-				return; // Ignore the property
-			if (valueInfo.Offset >= structInfo.Size)
-				throw new InvalidOperationException("Offset for property \"" + property.Name + "\" is outside of its structure");
-
 			// Seek to the value if it has an offset specified and then read it
-			if (valueInfo.Offset >= 0)
-				reader.BaseStream.Position = baseOffset + valueInfo.Offset;
+			if (enumerator.Element.Offset >= 0)
+				reader.BaseStream.Position = baseOffset + enumerator.Element.Offset;
 			var startOffset = reader.BaseStream.Position;
-			property.SetValue(instance, DeserializeValue(reader, context, valueInfo, property.PropertyType));
-			if (valueInfo.Size > 0)
-				reader.BaseStream.Position = startOffset + valueInfo.Size; // Honor the value's size if it has one set
+			enumerator.Property.SetValue(instance, DeserializeValue(reader, context, enumerator.Element, enumerator.Property.PropertyType));
+			if (enumerator.Element.Size > 0)
+				reader.BaseStream.Position = startOffset + enumerator.Element.Size; // Honor the value's size if it has one set
 		}
 
 		/// <summary>
@@ -95,7 +91,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private static object DeserializeValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private object DeserializeValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueType.IsPrimitive)
 				return DeserializePrimitiveValue(reader, valueType);
@@ -148,7 +144,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private static object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
 			// Indirect objects
 			// TODO: Remove ResourceReference hax, the Indirect flag wasn't available when I generated the tag structures
@@ -216,7 +212,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized tag block.</returns>
-		private static object DeserializeTagBlock(BinaryReader reader, ISerializationContext context, Type valueType)
+		private object DeserializeTagBlock(BinaryReader reader, ISerializationContext context, Type valueType)
 		{
 			var elementType = valueType.GenericTypeArguments[0];
 			var result = Activator.CreateInstance(valueType);
@@ -251,7 +247,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private static object DeserializeIndirectValue(BinaryReader reader, ISerializationContext context, Type valueType)
+		private object DeserializeIndirectValue(BinaryReader reader, ISerializationContext context, Type valueType)
 		{
 			// Read the pointer
 			var pointer = reader.ReadUInt32();
@@ -315,7 +311,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized array.</returns>
-		private static Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot deserialize an inline array with no count set");

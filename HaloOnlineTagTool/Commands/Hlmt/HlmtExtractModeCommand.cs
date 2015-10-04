@@ -13,6 +13,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 {
 	class HlmtExtractModeCommand : Command
 	{
+		private readonly OpenTagCache _info;
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
 		private readonly StringIdCache _stringIds;
@@ -32,6 +33,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 			"\n" +
 			"Supported file types: obj")
 		{
+			_info = info;
 			_cache = info.Cache;
 			_fileInfo = info.CacheFile;
 			_stringIds = info.StringIds;
@@ -82,7 +84,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 			using (var cacheStream = _fileInfo.OpenRead())
 			{
 				var renderModelContext = new TagSerializationContext(cacheStream, _cache, _model.RenderModel);
-				renderModel = TagDeserializer.Deserialize<RenderModel>(renderModelContext);
+				renderModel = _info.Deserializer.Deserialize<RenderModel>(renderModelContext);
 			}
 			if (renderModel.Resource == null)
 			{
@@ -92,7 +94,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 			
 			// Deserialize the resource definition
 			var resourceContext = new ResourceSerializationContext(renderModel.Resource);
-			var definition = TagDeserializer.Deserialize<RenderGeometryResourceDefinition>(resourceContext);
+			var definition = _info.Deserializer.Deserialize<RenderGeometryResourceDefinition>(resourceContext);
 
 			using (var resourceStream = new MemoryStream())
 			{

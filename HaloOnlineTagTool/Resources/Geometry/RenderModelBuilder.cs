@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Common;
@@ -290,16 +291,17 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <summary>
 		/// Builds a model tag and resource data.
 		/// </summary>
+		/// <param name="serializer">The tag serializer to use to serialize the model definition data.</param>
 		/// <param name="resourceDataStream">The stream to write resource data to.</param>
 		/// <returns></returns>
 		/// <exception cref="System.InvalidOperationException">Cannot build a model if a region is active</exception>
-		public RenderModel Build(Stream resourceDataStream)
+		public RenderModel Build(TagSerializer serializer, Stream resourceDataStream)
 		{
 			if (_currentRegion != null)
 				throw new InvalidOperationException("Cannot build a model if a region is active");
 
 			CompressVertices();
-			BuildResourceData(resourceDataStream);
+			BuildResourceData(serializer, resourceDataStream);
 			return _model;
 		}
 
@@ -372,7 +374,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			return result;
 		}
 
-		private void BuildResourceData(Stream resourceDataStream)
+		private void BuildResourceData(TagSerializer serializer, Stream resourceDataStream)
 		{
 			var definition = new RenderGeometryResourceDefinition();
 			definition.VertexBuffers = new List<D3DPointer<VertexBufferDefinition>>();
@@ -413,10 +415,10 @@ namespace HaloOnlineTagTool.Resources.Geometry
 					},
 				});
 			}
-			SerializeDefinitionData(definition);
+			SerializeDefinitionData(serializer, definition);
 		}
 
-		private void SerializeDefinitionData(RenderGeometryResourceDefinition definition)
+		private void SerializeDefinitionData(TagSerializer serializer, RenderGeometryResourceDefinition definition)
 		{
 			_model.Resource = new ResourceReference
 			{
@@ -426,7 +428,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 				Unknown68 = 1,
 			};
 			var context = new ResourceSerializationContext(_model.Resource);
-			TagSerializer.Serialize(context, definition);
+			serializer.Serialize(context, definition);
 		}
 
 		private static int SerializeVertexBuffer(MeshData mesh, Stream outStream)
