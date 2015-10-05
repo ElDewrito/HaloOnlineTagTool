@@ -9,28 +9,28 @@ namespace HaloOnlineTagTool.Resources.Geometry
 {
 	public class WorldVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 	}
 
 	public class RigidVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 	}
 
 	public class SkinnedVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 		public byte[] BlendIndices { get; set; }
 		public float[] BlendWeights { get; set; }
@@ -45,28 +45,28 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 	public class FlatWorldVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 	}
 
 	public class FlatRigidVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 	}
 
 	public class FlatSkinnedVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 		public byte[] BlendIndices { get; set; }
 		public float[] BlendWeights { get; set; }
@@ -129,9 +129,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 	public class DecoratorVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
-		public Vector3 Normal { get; set; }
+		public Vector4 Normal { get; set; }
 		public short[] Texcoord2 { get; set; }
 		public Vector4 Texcoord3 { get; set; }
 		public Vector4 Texcoord4 { get; set; }
@@ -199,10 +199,10 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 	public class DualQuatVertex
 	{
-		public Vector3 Position { get; set; }
+		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector3 Normal { get; set; }
-		public Vector3 Tangent { get; set; }
+		public Vector4 Tangent { get; set; }
 		public Vector3 Binormal { get; set; }
 		public byte[] BlendIndices { get; set; }
 		public float[] BlendWeights { get; set; }

@@ -155,9 +155,9 @@ namespace HaloOnlineTagTool.Resources
 				if ((NewLocationFlags & NewResourceLocationFlags.InVideo) != 0)
 					return ResourceLocation.Video;
 				if ((NewLocationFlags & NewResourceLocationFlags.InRenderModels) != 0)
-					return ResourceLocation.Video;
+					return ResourceLocation.RenderModels;
 				if ((NewLocationFlags & NewResourceLocationFlags.InLightmaps) != 0)
-					return ResourceLocation.Video;
+					return ResourceLocation.Lightmaps;
 			}
 			throw new InvalidOperationException("The resource does not have a location flag set");
 		}

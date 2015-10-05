@@ -43,7 +43,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (args.Count != 1)
 				return false;
 
-			var builder = new RenderModelBuilder();
+			var builder = new RenderModelBuilder(_info.Version);
 
 			// Add a root node
 			var node = builder.AddNode(new RenderModel.Node
@@ -99,10 +99,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 						var bitangent = mesh.BiTangents[i];
 						vertices.Add(new RigidVertex
 						{
-							Position = new Vector3(position.X, position.Y, position.Z),
+							Position = new Vector4(position.X, position.Y, position.Z, 1),
 							Normal = new Vector3(normal.X, normal.Y, normal.Z),
 							Texcoord = new Vector2(uv.X, uv.Y),
-							Tangent = new Vector3(tangent.X, tangent.Y, tangent.Z),
+							Tangent = new Vector4(tangent.X, tangent.Y, tangent.Z, 1),
 							Binormal = new Vector3(bitangent.X, bitangent.Y, bitangent.Z),
 						});
 					}

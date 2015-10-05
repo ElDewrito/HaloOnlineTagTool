@@ -39,12 +39,12 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// </summary>
 		/// <param name="pos">The position to compress.</param>
 		/// <returns>The compressed position.</returns>
-		public Vector3 CompressPosition(Vector3 pos)
+		public Vector4 CompressPosition(Vector4 pos)
 		{
 			var newX = (pos.X - _info.PositionMinX) / _xScale;
 			var newY = (pos.Y - _info.PositionMinY) / _yScale;
 			var newZ = (pos.Z - _info.PositionMinZ) / _zScale;
-			return new Vector3(newX, newY, newZ);
+			return new Vector4(newX, newY, newZ, pos.W);
 		}
 
 		/// <summary>
@@ -52,12 +52,12 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// </summary>
 		/// <param name="pos">The position to decompress.</param>
 		/// <returns>The decompressed position.</returns>
-		public Vector3 DecompressPosition(Vector3 pos)
+		public Vector4 DecompressPosition(Vector4 pos)
 		{
 			var newX = pos.X * _xScale + _info.PositionMinX;
 			var newY = pos.Y * _yScale + _info.PositionMinY;
 			var newZ = pos.Z * _zScale + _info.PositionMinZ;
-			return new Vector3(newX, newY, newZ);
+			return new Vector4(newX, newY, newZ, pos.W);
 		}
 
 		/// <summary>

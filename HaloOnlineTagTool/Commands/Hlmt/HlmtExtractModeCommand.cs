@@ -132,7 +132,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 							for (var i = 0; i < meshCount; i++)
 							{
 								// Create a MeshReader for the mesh and pass it to the obj extractor
-								var meshReader = new MeshReader(renderModel.Meshes[meshIndex + i], definition);
+								var meshReader = new MeshReader(_info.Version, renderModel.Meshes[meshIndex + i], definition);
 								objExtractor.ExtractMesh(meshReader, vertexCompressor, resourceStream);
 							}
 						}
@@ -144,7 +144,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 						foreach (var mesh in renderModel.Meshes)
 						{
 							// Create a MeshReader for the mesh and pass it to the obj extractor
-							var meshReader = new MeshReader(mesh, definition);
+							var meshReader = new MeshReader(_info.Version, mesh, definition);
 							objExtractor.ExtractMesh(meshReader, vertexCompressor, resourceStream);
 						}
 					}

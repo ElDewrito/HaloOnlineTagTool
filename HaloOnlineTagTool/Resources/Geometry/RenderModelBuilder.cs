@@ -16,6 +16,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	/// </summary>
 	public class RenderModelBuilder
 	{
+		private readonly EngineVersion _version;
 		private readonly RenderModel _model = new RenderModel();
 		private RenderModel.Region _currentRegion;
 		private RenderModel.Region.Permutation _currentPermutation;
@@ -23,10 +24,11 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		private readonly List<MeshData> _meshes = new List<MeshData>();
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RenderModelBuilder"/> class.
+		/// Initializes a new instance of the <see cref="RenderModelBuilder"/> class for a particular engine version.
 		/// </summary>
-		public RenderModelBuilder()
+		public RenderModelBuilder(EngineVersion version)
 		{
+			_version = version;
 			_model.Regions = new List<RenderModel.Region>();
 			_model.Nodes = new List<RenderModel.Node>();
 			_model.RuntimeNodes = new List<RenderModel.RuntimeNode>();
@@ -340,7 +342,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			{
 				// TODO: Refactor how vertices work, this is just ugly
 
-				IEnumerable<Vector3> positions = null;
+				IEnumerable<Vector4> positions = null;
 				IEnumerable<Vector2> texCoords = null;
 				if (mesh.RigidVertices != null)
 				{
@@ -431,9 +433,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			serializer.Serialize(context, definition);
 		}
 
-		private static int SerializeVertexBuffer(MeshData mesh, Stream outStream)
+		private int SerializeVertexBuffer(MeshData mesh, Stream outStream)
 		{
-			var vertexStream = new VertexStream(outStream);
+			var vertexStream = VertexStreamFactory.Create(_version, outStream);
 			if (mesh.RigidVertices != null)
 			{
 				foreach (var v in mesh.RigidVertices)

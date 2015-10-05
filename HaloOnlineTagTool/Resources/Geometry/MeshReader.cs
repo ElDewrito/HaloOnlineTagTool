@@ -16,13 +16,17 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		private const int StreamCount = 5;
 		private const int IndexBufferCount = 2;
 
+		private readonly EngineVersion _version;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MeshReader"/> class.
 		/// </summary>
+		/// <param name="version">The engine version to target.</param>
 		/// <param name="mesh">The mesh.</param>
 		/// <param name="definition">The mesh's definition data.</param>
-		public MeshReader(Mesh mesh, RenderGeometryResourceDefinition definition)
+		public MeshReader(EngineVersion version, Mesh mesh, RenderGeometryResourceDefinition definition)
 		{
+			_version = version;
 			Mesh = mesh;
 			Definition = definition;
 			VertexStreams = new VertexBufferDefinition[StreamCount];
@@ -57,12 +61,12 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="definition">The vertex buffer definition.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
 		/// <returns>The vertex stream if successful, or <c>null</c> otherwise.</returns>
-		public VertexStream OpenVertexStream(VertexBufferDefinition definition, Stream baseStream)
+		public IVertexStream OpenVertexStream(VertexBufferDefinition definition, Stream baseStream)
 		{
 			if (definition.Data.Address.Type != ResourceAddressType.Resource)
 				return null; // Don't bother supporting non-resource addresses
 			baseStream.Position = definition.Data.Address.Offset;
-			return new VertexStream(baseStream);
+			return VertexStreamFactory.Create(_version, baseStream);
 		}
 
 		/// <summary>
@@ -71,7 +75,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="streamIndex">Index of the vertex stream to open.</param>
 		/// <param name="baseStream">The stream open on the mesh's resource data to use as a base stream.</param>
 		/// <returns>The vertex stream if successful, or <c>null</c> otherwise.</returns>
-		public VertexStream OpenVertexStream(int streamIndex, Stream baseStream)
+		public IVertexStream OpenVertexStream(int streamIndex, Stream baseStream)
 		{
 			if (streamIndex < 0 || streamIndex >= VertexStreams.Length)
 				return null;

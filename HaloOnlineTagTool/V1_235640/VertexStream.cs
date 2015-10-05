@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources.Geometry;
 
-namespace HaloOnlineTagTool.Resources.Geometry
+namespace HaloOnlineTagTool.V1_235640
 {
-	public class VertexStream
+	class VertexStream : IVertexStream
 	{
 		private readonly VertexElementStream _stream;
 
@@ -21,53 +22,43 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		{
 			return new WorldVertex
 			{
-				Position = _stream.ReadFloat3(),
+				Position = _stream.ReadFloat4(),
 				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Tangent = _stream.ReadUByte4N(),
 			};
 		}
 
 		public void WriteWorldVertex(WorldVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
+			_stream.WriteFloat4(v.Position);
 			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteUByte4N(v.Tangent);
 		}
 
 		public RigidVertex ReadRigidVertex()
 		{
 			return new RigidVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Tangent = _stream.ReadUByte4N(),
 			};
 		}
 
 		public void WriteRigidVertex(RigidVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Tangent);
 		}
 
 		public SkinnedVertex ReadSkinnedVertex()
 		{
 			return new SkinnedVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Tangent = _stream.ReadUByte4N(),
 				BlendIndices = _stream.ReadUByte4(),
 				BlendWeights = _stream.ReadUByte4N().ToArray(),
 			};
@@ -75,11 +66,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public void WriteSkinnedVertex(SkinnedVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Tangent);
 			_stream.WriteUByte4(v.BlendIndices);
 			_stream.WriteUByte4N(new Vector4(v.BlendWeights));
 		}
@@ -105,53 +94,43 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		{
 			return new FlatWorldVertex
 			{
-				Position = _stream.ReadFloat3(),
+				Position = _stream.ReadFloat4(),
 				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Tangent = _stream.ReadUByte4N(),
 			};
 		}
 
 		public void WriteFlatWorldVertex(FlatWorldVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
+			_stream.WriteFloat4(v.Position);
 			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteUByte4N(v.Tangent);
 		}
 
 		public FlatRigidVertex ReadFlatRigidVertex()
 		{
 			return new FlatRigidVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Tangent = _stream.ReadUByte4N(),
 			};
 		}
 
 		public void WriteFlatRigidVertex(FlatRigidVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Tangent);
 		}
 
 		public FlatSkinnedVertex ReadFlatSkinnedVertex()
 		{
 			return new FlatSkinnedVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Tangent = _stream.ReadUByte4N(),
 				BlendIndices = _stream.ReadUByte4(),
 				BlendWeights = _stream.ReadUByte4N().ToArray(),
 			};
@@ -159,11 +138,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public void WriteFlatSkinnedVertex(FlatSkinnedVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Tangent);
 			_stream.WriteUByte4(v.BlendIndices);
 			_stream.WriteUByte4N(new Vector4(v.BlendWeights));
 		}
@@ -306,9 +283,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		{
 			return new DecoratorVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Normal = _stream.ReadUByte4N(),
 				Texcoord2 = _stream.ReadShort4(),
 				Texcoord3 = _stream.ReadUByte4N(),
 				Texcoord4 = _stream.ReadUByte4N(),
@@ -317,9 +294,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public void WriteDecoratorVertex(DecoratorVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Normal);
 			_stream.WriteShort4(v.Texcoord2);
 			_stream.WriteUByte4N(v.Texcoord3);
 			_stream.WriteUByte4N(v.Texcoord4);
@@ -467,11 +444,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		{
 			return new DualQuatVertex
 			{
-				Position = _stream.ReadFloat3(),
-				Texcoord = _stream.ReadFloat2(),
-				Normal = _stream.ReadFloat3(),
-				Tangent = _stream.ReadFloat3(),
-				Binormal = _stream.ReadFloat3(),
+				Position = _stream.ReadShort4N(),
+				Texcoord = _stream.ReadShort2N(),
+				Tangent = _stream.ReadUByte4N(),
 				BlendIndices = _stream.ReadUByte4(),
 				BlendWeights = _stream.ReadUByte4N().ToArray(),
 			};
@@ -479,13 +454,32 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public void WriteDualQuatVertex(DualQuatVertex v)
 		{
-			_stream.WriteFloat3(v.Position);
-			_stream.WriteFloat2(v.Texcoord);
-			_stream.WriteFloat3(v.Normal);
-			_stream.WriteFloat3(v.Tangent);
-			_stream.WriteFloat3(v.Binormal);
+			_stream.WriteShort4N(v.Position);
+			_stream.WriteShort2N(v.Texcoord);
+			_stream.WriteUByte4N(v.Tangent);
 			_stream.WriteUByte4(v.BlendIndices);
 			_stream.WriteUByte4N(new Vector4(v.BlendWeights));
+		}
+
+		public WorldVertex ReadWorldVertex2()
+		{
+			return new WorldVertex
+			{
+				Position = new Vector4(_stream.ReadFloat3(), 0),
+				Texcoord = _stream.ReadFloat2(),
+				Normal = _stream.ReadFloat3(),
+				Tangent = new Vector4(_stream.ReadFloat3(), 0),
+				Binormal = _stream.ReadFloat3(),
+			};
+		}
+
+		public void WriteWorldVertex2(WorldVertex v)
+		{
+			_stream.WriteFloat3(v.Position.XYZ);
+			_stream.WriteFloat2(v.Texcoord);
+			_stream.WriteFloat3(v.Normal);
+			_stream.WriteFloat3(v.Tangent.XYZ);
+			_stream.WriteFloat3(v.Binormal);
 		}
 
 		public StaticPerVertexColorData ReadStaticPerVertexColorData()
@@ -571,7 +565,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			};
 		}
 
-		public void WriteQuadradicPrtData(QuadraticPrtData v)
+		public void WriteQuadraticPrtData(QuadraticPrtData v)
 		{
 			_stream.WriteFloat3(v.BlendWeight);
 			_stream.WriteFloat3(v.BlendWeight2);

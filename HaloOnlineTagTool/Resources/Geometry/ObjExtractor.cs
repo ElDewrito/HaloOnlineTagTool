@@ -93,7 +93,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadRigidVertices(VertexStream reader, int count)
+		private static List<ObjVertex> ReadRigidVertices(IVertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -115,7 +115,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadSkinnedVertices(VertexStream reader, int count)
+		private static List<ObjVertex> ReadSkinnedVertices(IVertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -137,7 +137,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <param name="reader">The vertex reader to read from.</param>
 		/// <param name="count">The number of vertices to read.</param>
 		/// <returns>The vertices that were read.</returns>
-		private static List<ObjVertex> ReadDualQuatVertices(VertexStream reader, int count)
+		private static List<ObjVertex> ReadDualQuatVertices(IVertexStream reader, int count)
 		{
 			var result = new List<ObjVertex>();
 			for (var i = 0; i < count; i++)
@@ -247,7 +247,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		private class ObjVertex
 		{
-			public Vector3 Position { get; set; }
+			public Vector4 Position { get; set; }
 			public Vector3 Normal { get; set; }
 			public Vector2 TexCoords { get; set; }
 		}

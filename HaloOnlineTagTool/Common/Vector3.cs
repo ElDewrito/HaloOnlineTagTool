@@ -25,6 +25,18 @@ namespace HaloOnlineTagTool.Common
 		}
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="Vector3"/> struct from a 2D vector and a Z component.
+		/// </summary>
+		/// <param name="xy">The vector to obtain the X and Y components from.</param>
+		/// <param name="z">The Z component.</param>
+		public Vector3(Vector2 xy, float z)
+		{
+			X = xy.X;
+			Y = xy.Y;
+			Z = z;
+		}
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="Vector3"/> struct from an array of components.
 		/// </summary>
 		/// <param name="components">The components. Must contain at least three elements.</param>
@@ -49,6 +61,11 @@ namespace HaloOnlineTagTool.Common
 		/// Gets the Z component of the vector.
 		/// </summary>
 		public readonly float Z;
+
+		/// <summary>
+		/// Gets the X and Y components of the vector as a 2D vector.
+		/// </summary>
+		public Vector2 XY { get { return new Vector2(X, Y); } }
 
 		/// <summary>
 		/// Gets an array containing the vector's components.

@@ -115,10 +115,13 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
+    <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagElementEnumerator.cs" />
     <Compile Include="V11_1_498295\StringIdResolver.cs" />
+    <Compile Include="Resources\Geometry\IVertexStream.cs" />
+    <Compile Include="V1_235640\VertexStream.cs" />
     <Compile Include="VersionDetection.cs" />
     <Compile Include="GameLanguage.cs" />
     <Compile Include="StringIdResolverBase.cs" />
@@ -144,7 +147,7 @@
     <Compile Include="Resources\Geometry\VertexBufferFormat.cs" />
     <Compile Include="Resources\Geometry\VertexCompressor.cs" />
     <Compile Include="Resources\Geometry\VertexElementStream.cs" />
-    <Compile Include="Resources\Geometry\VertexStream.cs" />
+    <Compile Include="V1_106708\VertexStream.cs" />
     <Compile Include="Resources\Geometry\VertexType.cs" />
     <Compile Include="Resources\Geometry\Vertex.cs" />
     <Compile Include="Resources\ResourceCache.cs" />
