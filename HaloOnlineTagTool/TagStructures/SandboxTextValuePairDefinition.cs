@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,30 +12,31 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "jmrq", Size = 0xC)]
 	public class SandboxTextValuePairDefinition
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
+		public List<SandboxTextValuePair> SandboxTextValuePairs;
 
 		[TagStructure(Size = 0x10)]
-		public class TagBlock0
+		public class SandboxTextValuePair
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown4 { get; set; }
+			public StringId ParameterName;
+			public List<TextValuePari> TextValueParis;
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock1
+			public class TextValuePari
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public byte Flags;
+				public ExpectedValueTypeValue ExpectedValueType;
+				public short Unknown;
+				public int IntValue;
+				public StringId RefName;
+				public StringId Name;
+				public StringId Description;
+
+				public enum ExpectedValueTypeValue : sbyte
+				{
+					IntegerIndex,
+					StringidReference,
+					Incremental,
+				}
 			}
 		}
 	}

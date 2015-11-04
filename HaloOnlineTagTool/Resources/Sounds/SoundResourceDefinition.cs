@@ -11,7 +11,6 @@ namespace HaloOnlineTagTool.Resources.Sounds
 		/// <summary>
 		/// Gets or sets the reference to the sound data.
 		/// </summary>
-		[TagElement]
-		public ResourceDataReference Data { get; set; }
+		public ResourceDataReference Data;
 	}
 }

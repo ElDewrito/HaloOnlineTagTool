@@ -78,13 +78,13 @@ namespace HaloOnlineTagTool.Analysis
 						potentialGuess = fixup;
 					}
 				}
-				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _cache.ContainsClass(new MagicNumber((int)lookBehind[2])))
+				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _cache.ContainsGroup(new MagicNumber((int)lookBehind[2])))
 				{
 					// Tag reference
 					if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
 					{
 						var referencedTag = _cache.Tags[(int)val];
-						if (referencedTag != null && referencedTag.Class.Value == (int)lookBehind[2])
+						if (referencedTag != null && referencedTag.GroupTag.Value == (int)lookBehind[2])
 							result.Add(offset - 0xC, new TagReferenceGuess());
 					}
 				}

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,66 +12,39 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "ant!", Size = 0x50)]
 	public class Antenna
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown4 { get; set; }
-		[TagElement]
-		public HaloTag Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown24 { get; set; }
-		[TagElement]
-		public int Unknown28 { get; set; }
-		[TagElement]
-		public int Unknown2C { get; set; }
-		[TagElement]
-		public int Unknown30 { get; set; }
-		[TagElement]
-		public int Unknown34 { get; set; }
-		[TagElement]
-		public int Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown3C { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown40 { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
+		public StringId AttachmentMarkerName;
+		public HaloTag Bitmaps;
+		public HaloTag Physics;
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public float Unknown4;
+		public float Unknown5;
+		public float Unknown6;
+		public float Unknown7;
+		public List<Vertex> Vertices;
+		public float Unknown8;
 
 		[TagStructure(Size = 0x40)]
-		public class TagBlock0
+		public class Vertex
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
+			public Angle AngleY;
+			public Angle AngleP;
+			public float Length;
+			public short SequenceIndex;
+			public short Unknown;
+			public float ColorA;
+			public float ColorR;
+			public float ColorG;
+			public float ColorB;
+			public float LodColorA;
+			public float LodColorR;
+			public float LodColorG;
+			public float LodColorB;
+			public float Width;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
 		}
 	}
 }

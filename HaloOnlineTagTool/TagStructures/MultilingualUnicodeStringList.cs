@@ -18,14 +18,12 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the strings in the list.
 		/// </summary>
-		[TagElement]
-		public List<LocalizedString> Strings { get; set; }
+		public List<LocalizedString> Strings;
 
 		/// <summary>
 		/// Gets or sets the data block containing every string.
 		/// </summary>
-		[TagElement]
-		public byte[] Data { get; set; }
+		public byte[] Data;
 
 		/// <summary>
 		/// Gets the value of a string in a given language.
@@ -106,21 +104,18 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the string's stringID.
 		/// </summary>
-		[TagElement]
-		public StringId StringId { get; set; }
+		public StringId StringId;
 
 		/// <summary>
 		/// Gets or sets the stringID's string value. Can be empty.
 		/// </summary>
-		[TagElement(Size = 0x20)]
-		public string StringIdStr { get; set; }
+		[TagField(Size = 0x20)] public string StringIdStr;
 
 		/// <summary>
 		/// Gets or sets the array of offsets for each language.
 		/// If an offset is -1, then the string is not available.
 		/// There must be 12 of these (one offset per language).
 		/// </summary>
-		[TagElement(Count = 12)]
-		public int[] Offsets { get; set; }
+		[TagField(Count = 12)] public int[] Offsets;
 	}
 }

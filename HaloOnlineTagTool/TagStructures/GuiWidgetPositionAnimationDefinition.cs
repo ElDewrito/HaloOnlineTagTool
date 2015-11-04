@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,30 +12,20 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wpos", Size = 0x24)]
 	public class GuiWidgetPositionAnimationDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown4 { get; set; }
-		[TagElement]
-		public byte[] Unknown10 { get; set; }
+		public float Unknown;
+		public List<UnknownBlock> Unknown2;
+		public byte[] Unknown3;
 
 		[TagStructure(Size = 0x1C)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
+			public float Unknown;
+			public float KeyframeX;
+			public float KeyframeY;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public float Unknown5;
 		}
 	}
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Analysis;
+using HaloOnlineTagTool.Layouts;
 
 namespace HaloOnlineTagTool.Commands.Tags
 {
@@ -34,15 +35,16 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			if (args.Count != 2)
 				return false;
+			var type = args[0];
 			var outDir = args[1];
-			ITagLayoutWriter writer;
-			switch (args[0])
+			TagLayoutWriter writer;
+			switch (type)
 			{
 				case "csharp":
-					writer = new CSharpClassWriter(_info.StringIds, outDir);
+					writer = new CSharpLayoutWriter();
 					break;
 				case "cpp":
-					writer = new CppStructWriter(_info.StringIds, outDir);
+					writer = new CppLayoutWriter();
 					break;
 				default:
 					return false;
@@ -51,11 +53,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var count = 0;
 			using (var stream = _info.OpenCacheRead())
 			{
-				foreach (var tagClass in _cache.TagClasses)
+				foreach (var groupTag in _cache.GroupTags)
 				{
 					TagLayoutGuess layout = null;
 					HaloTag lastTag = null;
-					foreach (var tag in _cache.Tags.FindAllByClass(tagClass))
+					foreach (var tag in _cache.Tags.FindAllInGroup(groupTag))
 					{
 						Console.Write("Analyzing ");
 						TagPrinter.PrintTagShort(tag);
@@ -71,8 +73,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 					}
 					if (layout != null && lastTag != null)
 					{
-						Console.WriteLine("Writing {0} layout", tagClass);
-						LayoutGuessWriter.Write(lastTag, layout, writer);
+						Console.WriteLine("Writing {0} layout", groupTag);
+						var name = _info.StringIds.GetString(lastTag.GroupName);
+						var tagLayout = LayoutGuessFinalizer.MakeLayout(layout, name, groupTag);
+						var path = Path.Combine(outDir, writer.GetSuggestedFileName(tagLayout));
+						writer.WriteLayout(tagLayout, path);
 						count++;
 					}
 				}

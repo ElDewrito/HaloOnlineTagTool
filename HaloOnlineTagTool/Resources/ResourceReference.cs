@@ -12,114 +12,91 @@ namespace HaloOnlineTagTool.Resources
 	[TagStructure(Size = 0x70)]
 	public class ResourceReference
 	{
-		[TagElement]
-		public sbyte Unknown0 { get; set; }
+		public sbyte Unknown0;
 
-		[TagElement]
-		public sbyte Unknown1 { get; set; }
+		public sbyte Unknown1;
 
 		/// <summary>
 		/// Gets or sets flags containing information about where the resource is located.
 		/// </summary>
-		[TagElement]
 		[MaxVersion(EngineVersion.V1_106708_cert_ms23)]
-		public OldResourceLocationFlags OldLocationFlags { get; set; }
+		public OldResourceLocationFlags OldLocationFlags;
 
 		/// <summary>
 		/// Gets or sets flags containing information about where the resource is located.
 		/// </summary>
-		[TagElement]
 		[MinVersion(EngineVersion.V1_235640_cert_ms25)]
-		public NewResourceLocationFlags NewLocationFlags { get; set; }
+		public NewResourceLocationFlags NewLocationFlags;
 
 		// Not 100% sure on this
 		// -1 = uncompressed?
-		[TagElement]
-		public sbyte CompressionType { get; set; }
+		public sbyte CompressionType;
 
-		[TagElement]
 		[MinVersion(EngineVersion.V1_235640_cert_ms25)]
-		public int Unknown4 { get; set; }
+		public int Unknown4;
 
 		/// <summary>
 		/// Gets or sets the index of the resource within its .dat file.
 		/// </summary>
-		[TagElement]
-		public int Index { get; set; }
+		public int Index;
 
 		/// <summary>
 		/// Gets or sets the total size of the compressed resource data, including chunk headers.
 		/// </summary>
-		[TagElement]
-		public uint CompressedSize { get; set; }
+		public uint CompressedSize;
 
 		/// <summary>
 		/// Gets or sets the size of the decompressed resource data.
 		/// </summary>
-		[TagElement]
-		public uint DecompressedSize { get; set; }
+		public uint DecompressedSize;
 
 		/// <summary>
 		/// Gets or sets the checksum of the resource data.
 		/// Only used if <see cref="OldResourceLocationFlags.UseChecksum"/> or <see cref="OldResourceLocationFlags.UseChecksum2"/> are set.
 		/// </summary>
-		[TagElement]
-		public uint Checksum { get; set; }
+		public uint Checksum;
 
 		// Not 100% sure on this...if this is nonzero, the resource is decompressed and this is the size
-		[TagElement]
-		public uint RawSize { get; set; }
+		public uint RawSize;
 
-		[TagElement]
-		public uint Unknown18 { get; set; }
+		public uint Unknown18;
 
-		[TagElement]
-		public uint Unknown1C { get; set; }
+		public uint Unknown1C;
 
-		[TagElement]
-		public uint Unknown20 { get; set; }
+		public uint Unknown20;
 
 		/// <summary>
 		/// Gets or sets the tag that owns the resource.
 		/// </summary>
-		[TagElement]
-		public HaloTag Owner { get; set; }
+		public HaloTag Owner;
 
-		[TagElement]
-		public ushort Salt { get; set; }
+		public ushort Salt;
 
-		[TagElement]
-		public sbyte Type { get; set; }
+		public sbyte Type;
 
-		[TagElement]
-		public byte Unknown37 { get; set; }
+		public byte Unknown37;
 
 		/// <summary>
 		/// Gets or sets the buffer containing the resource's definition data.
 		/// </summary>
-		[TagElement]
-		public byte[] DefinitionData { get; set; }
+		public byte[] DefinitionData;
 
 		/// <summary>
 		/// Gets or sets the address of the resource's definition structure within its definition data.
 		/// </summary>
-		[TagElement]
-		public ResourceAddress DefinitionAddress { get; set; }
+		public ResourceAddress DefinitionAddress;
 
 		/// <summary>
 		/// Gets or sets the fixups to apply to the definition data.
 		/// </summary>
-		[TagElement]
-		public List<ResourceDefinitionFixup> DefinitionFixups { get; set; }
+		public List<ResourceDefinitionFixup> DefinitionFixups;
 
 		/// <summary>
 		/// Gets or sets the D3D object fixups to apply to the definition data.
 		/// </summary>
-		[TagElement]
-		public List<D3DObjectFixup> D3DObjectFixups { get; set; }
-			
-		[TagElement]
-		public int Unknown68 { get; set; }
+		public List<D3DObjectFixup> D3DObjectFixups;
+
+		public int Unknown68;
 
 		/// <summary>
 		/// Gets the location of the resource by checking its location flags.
@@ -223,14 +200,12 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// Gets or sets the offset from the start of the definition data where the address should be written.
 		/// </summary>
-		[TagElement]
-		public uint DefinitionDataOffset { get; set; }
+		public uint DefinitionDataOffset;
 
 		/// <summary>
 		/// Gets or sets the address which the value in the definition data should point to.
 		/// </summary>
-		[TagElement]
-		public ResourceAddress Address { get; set; }
+		public ResourceAddress Address;
 	}
 
 	/// <summary>
@@ -242,14 +217,12 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// Gets or sets the address of the object's definition.
 		/// </summary>
-		[TagElement]
-		public ResourceAddress Address { get; set; }
+		public ResourceAddress Address;
 
 		/// <summary>
 		/// Gets or sets the type of object to load.
 		/// </summary>
-		[TagElement]
-		public D3DObjectType Type { get; set; }
+		public D3DObjectType Type;
 	}
 
 	/// <summary>

@@ -46,7 +46,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (tag == null)
 				return false;
 			var oldContext = _stack.Context;
-			switch (tag.Class.ToString())
+			switch (tag.GroupTag.ToString())
 			{
 				case "vfsl":
 					EditVfslTag(tag);
@@ -61,10 +61,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 					EditHlmtTag(tag);
 					break;
 				default:
-					Console.Error.WriteLine("Tag type \"" + tag.Class + "\" is not supported.");
+					Console.Error.WriteLine("Tag type \"" + tag.GroupTag + "\" is not supported.");
 					return true;
 			}
-			Console.WriteLine("Tag {0:X8}.{1} has been opened for editing.", tag.Index, tag.Class);
+			Console.WriteLine("Tag {0:X8}.{1} has been opened for editing.", tag.Index, tag.GroupTag);
 			Console.WriteLine("New commands are now available. Enter \"help\" to view them.");
 			Console.WriteLine("Use \"exit\" to return to {0}.", oldContext.Name);
 			return true;

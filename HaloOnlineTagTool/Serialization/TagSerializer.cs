@@ -60,7 +60,7 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			var structType = structure.GetType();
 			var baseOffset = block.Stream.Position;
-			var enumerator = new TagElementEnumerator(structType, _version);
+			var enumerator = new TagFieldEnumerator(structType, _version);
 			while (enumerator.Next())
 				SerializeProperty(context, tagStream, block, structure, enumerator, baseOffset);
 
@@ -84,15 +84,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="property">The property.</param>
 		/// <param name="baseOffset">The base offset of the structure from the start of its block.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property \ + property.Name + \ is outside of its structure</exception>
-		private void SerializeProperty(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object instance, TagElementEnumerator enumerator, long baseOffset)
+		private void SerializeProperty(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object instance, TagFieldEnumerator enumerator, long baseOffset)
 		{
 			// Seek to the value if it has an offset specified and write it
-			var valueInfo = enumerator.Element;
-			if (enumerator.Element.Offset >= 0)
+			var valueInfo = enumerator.Attribute;
+			if (enumerator.Attribute.Offset >= 0)
 				block.Stream.Position = baseOffset + valueInfo.Offset;
 			var startOffset = block.Stream.Position;
-			var val = enumerator.Property.GetValue(instance);
-			SerializeValue(context, tagStream, block, val, valueInfo, enumerator.Property.PropertyType);
+			var val = enumerator.Field.GetValue(instance);
+			SerializeValue(context, tagStream, block, val, valueInfo, enumerator.Field.FieldType);
 			if (valueInfo.Size > 0)
 				block.Stream.Position = startOffset + valueInfo.Size;
 		}
@@ -106,7 +106,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private void SerializeValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagFieldAttribute valueInfo, Type valueType)
 		{
 			// Call the data block's PreSerialize callback to determine if the value should be mutated
 			val = block.PreSerialize(valueInfo, val);
@@ -176,7 +176,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="val">The value.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
 		/// <param name="valueType">Type of the value.</param>
-		private void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagElementAttribute valueInfo, Type valueType)
+		private void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagFieldAttribute valueInfo, Type valueType)
 		{
 			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
 				SerializeIndirectValue(context, tagStream, block, val, valueType);
@@ -230,7 +230,7 @@ namespace HaloOnlineTagTool.Serialization
 		private static void SerializeTagReference(BinaryWriter writer, HaloTag referencedTag)
 		{
 			// Write the reference out
-			writer.Write((referencedTag != null) ? referencedTag.Class.Value : -1);
+			writer.Write((referencedTag != null) ? referencedTag.GroupTag.Value : -1);
 			writer.Write(0);
 			writer.Write(0);
 			writer.Write((referencedTag != null) ? referencedTag.Index : -1);
@@ -276,7 +276,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="data">The array.</param>
 		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
-		private void SerializeInlineArray(ISerializationContext context, MemoryStream tagStream, IDataBlock block, Array data, TagElementAttribute valueInfo)
+		private void SerializeInlineArray(ISerializationContext context, MemoryStream tagStream, IDataBlock block, Array data, TagFieldAttribute valueInfo)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot serialize an inline array with no count set");

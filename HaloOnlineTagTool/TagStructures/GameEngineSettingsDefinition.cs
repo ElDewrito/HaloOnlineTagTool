@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,1076 +12,1317 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wezr", Size = 0x8C)]
 	public class GameEngineSettingsDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown4 { get; set; }
-		[TagElement]
-		public List<TagBlock6> Unknown10 { get; set; }
-		[TagElement]
-		public List<TagBlock11> Unknown1C { get; set; }
-		[TagElement]
-		public List<TagBlock16> Unknown28 { get; set; }
-		[TagElement]
-		public List<TagBlock21> Unknown34 { get; set; }
-		[TagElement]
-		public List<TagBlock26> Unknown40 { get; set; }
-		[TagElement]
-		public List<TagBlock31> Unknown4C { get; set; }
-		[TagElement]
-		public List<TagBlock36> Unknown58 { get; set; }
-		[TagElement]
-		public List<TagBlock41> Unknown64 { get; set; }
-		[TagElement]
-		public List<TagBlock46> Unknown70 { get; set; }
-		[TagElement]
-		public List<TagBlock51> Unknown7C { get; set; }
-		[TagElement]
-		public int Unknown88 { get; set; }
+		public float Unknown;
+		public List<TraitProfile> TraitProfiles;
+		public List<SlayerVariant> SlayerVariants;
+		public List<OddballVariant> OddballVariants;
+		public List<CaptureTheFlagVariant> CaptureTheFlagVariants;
+		public List<AssaultVariant> AssaultVariants;
+		public List<InfectionVariant> InfectionVariants;
+		public List<KingOfTheHillVariant> KingOfTheHillVariants;
+		public List<TerritoriesVariant> TerritoriesVariants;
+		public List<JuggernautVariant> JuggernautVariants;
+		public List<VipVariant> VipVariants;
+		public List<SandboxEditorVariant> SandboxEditorVariants;
+		public float Unknown2;
 
 		[TagStructure(Size = 0x40)]
-		public class TagBlock0
+		public class TraitProfile
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown4 { get; set; }
-			[TagElement]
-			public List<TagBlock2> Unknown10 { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown1C { get; set; }
-			[TagElement]
-			public List<TagBlock4> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock5> Unknown34 { get; set; }
+			public StringId Name;
+			public List<ShieldsAndHealthBlock> ShieldsAndHealth;
+			public List<WeaponsAndDamageBlock> WeaponsAndDamage;
+			public List<MovementBlock> Movement;
+			public List<AppearanceBlock> Appearance;
+			public List<Sensor> Sensors;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock1
+			public class ShieldsAndHealthBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public DamageResistanceValue DamageResistance;
+				public ShieldMultiplierValue ShieldMultiplier;
+				public ShieldRechargeRateValue ShieldRechargeRate;
+				public HeadshotImmunityValue HeadshotImmunity;
+				public ShieldVampirismValue ShieldVampirism;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+
+				public enum DamageResistanceValue : sbyte
+				{
+					Unchanged,
+					_10,
+					_50,
+					_90,
+					_100,
+					_110,
+					_150,
+					_200,
+					_300,
+					_500,
+					_1000,
+					_2000,
+					Invulnerable,
+				}
+
+				public enum ShieldMultiplierValue : sbyte
+				{
+					Unchanged,
+					NoShields,
+					NormalShields,
+					_2xOvershields,
+					_3xOvershields,
+					_4xOvershields,
+				}
+
+				public enum ShieldRechargeRateValue : sbyte
+				{
+					Unchanged,
+					_25,
+					_10,
+					_5,
+					_0,
+					_50,
+					_90,
+					_100,
+					_110,
+					_200,
+				}
+
+				public enum HeadshotImmunityValue : sbyte
+				{
+					Unchanged,
+					Enabled,
+					Disabled,
+				}
+
+				public enum ShieldVampirismValue : sbyte
+				{
+					Unchanged,
+					Disabled,
+					_10,
+					_25,
+					_50,
+					_100,
+				}
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock2
+			public class WeaponsAndDamageBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
+				public DamageModifierValue DamageModifier;
+				public GrenadeRegenerationValue GrenadeRegeneration;
+				public WeaponPickupValue WeaponPickup;
+				public InfiniteAmmoValue InfiniteAmmo;
+				public StringId PrimaryWeapon;
+				public StringId SecondaryWeapon;
+				public GrenadeCountValue GrenadeCount;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+
+				public enum DamageModifierValue : sbyte
+				{
+					Unchanged,
+					_0,
+					_25,
+					_50,
+					_75,
+					_90,
+					_100,
+					_110,
+					_125,
+					_150,
+					_200,
+					_300,
+					InstantKill,
+				}
+
+				public enum GrenadeRegenerationValue : sbyte
+				{
+					Unchanged,
+					Enabled,
+					Disabled,
+				}
+
+				public enum WeaponPickupValue : sbyte
+				{
+					Unchanged,
+					Enabled,
+					Disabled,
+				}
+
+				public enum InfiniteAmmoValue : sbyte
+				{
+					Unchanged,
+					Disabled,
+					Enabled,
+				}
+
+				public enum GrenadeCountValue : short
+				{
+					Unchanged,
+					MapDefault,
+					None,
+				}
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock3
+			public class MovementBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public PlayerSpeedValue PlayerSpeed;
+				public PlayerGravityValue PlayerGravity;
+				public VehicleUseValue VehicleUse;
+				public sbyte Unknown;
+
+				public enum PlayerSpeedValue : sbyte
+				{
+					Unchanged,
+					_25,
+					_50,
+					_75,
+					_90,
+					_100,
+					_110,
+					_125,
+					_150,
+					_200,
+					_300,
+				}
+
+				public enum PlayerGravityValue : sbyte
+				{
+					Unchanged,
+					_50,
+					_75,
+					_100,
+					_150,
+					_200,
+				}
+
+				public enum VehicleUseValue : sbyte
+				{
+					Unchanged,
+					None,
+					PassengerOnly,
+					FullUse,
+				}
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock4
+			public class AppearanceBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public ActiveCamoValue ActiveCamo;
+				public WaypointValue Waypoint;
+				public AuraValue Aura;
+				public ForcedColorValue ForcedColor;
+
+				public enum ActiveCamoValue : sbyte
+				{
+					Unchanged,
+					Disabled,
+					BadCamo,
+					PoorCamo,
+					GoodCamo,
+				}
+
+				public enum WaypointValue : sbyte
+				{
+					Unchanged,
+					None,
+					VisibleToAllies,
+					VisibleToEveryone,
+				}
+
+				public enum AuraValue : sbyte
+				{
+					Unchanged,
+					Disabled,
+					Team,
+					Black,
+					White,
+				}
+
+				public enum ForcedColorValue : sbyte
+				{
+					Unchanged,
+					Off,
+					Red,
+					Blue,
+					Green,
+					Orange,
+					Purple,
+					Gold,
+					Brown,
+					Pink,
+					White,
+					Black,
+					Zombie,
+					PinkUnused,
+				}
 			}
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock5
+			public class Sensor
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public MotionTrackerModeValue MotionTrackerMode;
+				public MotionTrackerRangeValue MotionTrackerRange;
+
+				public enum MotionTrackerModeValue : int
+				{
+					Unchanged,
+					Disabled,
+					AllyMovement,
+					PlayerMovement,
+					PlayerLocations,
+				}
+
+				public enum MotionTrackerRangeValue : int
+				{
+					Unchanged,
+					_10m,
+					_15m,
+					_25m,
+					_50m,
+					_75m,
+					_100m,
+					_150m,
+				}
 			}
 		}
 
 		[TagStructure(Size = 0x70)]
-		public class TagBlock6
+		public class SlayerVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock7> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock8> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock9> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock10> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public TeamScoringValue TeamScoring;
+			public short PointsToWin;
+			public short Unknown;
+			public sbyte KillPoints;
+			public sbyte AssistPoints;
+			public sbyte DeathPoints;
+			public sbyte SuicidePoints;
+			public sbyte BetrayalPoints;
+			public sbyte LeaderKillBonus;
+			public sbyte EliminationBonus;
+			public sbyte AssassinationBonus;
+			public sbyte HeadshotBonus;
+			public sbyte BeatdownBonus;
+			public sbyte StickyBonus;
+			public sbyte SplatterBonus;
+			public sbyte SpreeBonus;
+			public sbyte Unknown2;
+			public StringId LeaderTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock7
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock8
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock9
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock10
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum TeamScoringValue : short
+			{
+				SumOfTeam,
+				MinimumScore,
+				MaximumScore,
+				Default,
 			}
 		}
 
 		[TagStructure(Size = 0x70)]
-		public class TagBlock11
+		public class OddballVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock12> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock13> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock14> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock15> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public TeamScoringValue TeamScoring;
+			public short PointsToWin;
+			public short Unknown;
+			public sbyte CarryingPoints;
+			public sbyte KillPoints;
+			public sbyte BallKillPoints;
+			public sbyte BallCarrierKillPoints;
+			public sbyte BallCount;
+			public sbyte Unknown2;
+			public short InitialBallDelay;
+			public short BallRespawnDelay;
+			public StringId BallCarrierTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock12
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock13
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock14
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock15
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum TeamScoringValue : short
+			{
+				SumOfTeam,
+				MinimumScore,
+				MaximumScore,
+				Default,
 			}
 		}
 
 		[TagStructure(Size = 0x70)]
-		public class TagBlock16
+		public class CaptureTheFlagVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock17> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock18> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock19> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock20> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public HomeFlagWaypointValue HomeFlagWaypoint;
+			public GameModeValue GameMode;
+			public RespawnOnCaptureValue RespawnOnCapture;
+			public short FlagReturnTime;
+			public short SuddenDeathTime;
+			public short ScoreToWin;
+			public short Unknown;
+			public short FlagResetTime;
+			public StringId FlagCarrierTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock17
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock18
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock19
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock20
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum HomeFlagWaypointValue : short
+			{
+				Unknown1,
+				Unknown2,
+				Unknown3,
+				NotInSingle,
+			}
+
+			public enum GameModeValue : short
+			{
+				Multiple,
+				Single,
+				Neutral,
+			}
+
+			public enum RespawnOnCaptureValue : short
+			{
+				Disabled,
+				OnAllyCapture,
+				OnEnemyCapture,
+				OnAnyCapture,
 			}
 		}
 
 		[TagStructure(Size = 0x80)]
-		public class TagBlock21
+		public class AssaultVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock22> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock23> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock24> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock25> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public RespawnOnCaptureValue RespawnOnCapture;
+			public GameModeValue GameMode;
+			public EnemyBombWaypointValue EnemyBombWaypoint;
+			public short SuddenDeathTime;
+			public short DetonationsToWin;
+			public short Unknown;
+			public short Unknown2;
+			public short Unknown3;
+			public short Unknown4;
+			public short BombResetTime;
+			public short BombArmingTime;
+			public short BombDisarmingTime;
+			public short BombFuseTime;
+			public short Unknown5;
+			public StringId BombCarrierTraitProfile;
+			public StringId UnknownTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock22
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock23
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock24
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock25
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum RespawnOnCaptureValue : short
+			{
+				Disabled,
+				OnAllyCapture,
+				OnEnemyCapture,
+				OnAnyCapture,
+			}
+
+			public enum GameModeValue : short
+			{
+				Multiple,
+				Single,
+				Neutral,
+			}
+
+			public enum EnemyBombWaypointValue : short
+			{
+				Unknown1,
+				Unknown2,
+				Unknown3,
+				NotInSingle,
 			}
 		}
 
 		[TagStructure(Size = 0x7C)]
-		public class TagBlock26
+		public class InfectionVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock27> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock28> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock29> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock30> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public SafeHavensValue SafeHavens;
+			public NextZombieValue NextZombie;
+			public short InitialZombieCount;
+			public short SafeHavenMovementTime;
+			public sbyte ZombieKillPoints;
+			public sbyte InfectionPoints;
+			public sbyte SafeHavenArrivalPoints;
+			public sbyte SuicidePoints;
+			public sbyte BetrayalPoints;
+			public sbyte LastManStandingBonus;
+			public sbyte Unknown;
+			public sbyte Unknown2;
+			public StringId ZombieTraitProfile;
+			public StringId AlphaZombieTraitProfile;
+			public StringId OnHavenTraitProfile;
+			public StringId LastHumanTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock27
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock28
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock29
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock30
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum SafeHavensValue : short
+			{
+				None,
+				Random,
+				Sequence,
+			}
+
+			public enum NextZombieValue : short
+			{
+				MostPoints,
+				FirstInfected,
+				Unchanged,
+				Random,
 			}
 		}
 
 		[TagStructure(Size = 0x70)]
-		public class TagBlock31
+		public class KingOfTheHillVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock32> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock33> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock34> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock35> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public short ScoreToWin;
+			public short Unknown;
+			public TeamScoringValue TeamScoring;
+			public HillMovementValue HillMovement;
+			public HillMovementOrderValue HillMovementOrder;
+			public short Unknown2;
+			public sbyte OnHillPoints;
+			public sbyte UncontestedControlPoints;
+			public sbyte OffHillPoints;
+			public sbyte KillPoints;
+			public StringId OnHillTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock32
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock33
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock34
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock35
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum TeamScoringValue : short
+			{
+				Sum,
+				Minimum,
+				Maximum,
+				Default,
+			}
+
+			public enum HillMovementValue : short
+			{
+				NoMovement,
+				After10Seconds,
+				After15Seconds,
+				After30Seconds,
+				After1Minute,
+				After2Minutes,
+				After3Minutes,
+				After4Minutes,
+				After5Minutes,
+			}
+
+			public enum HillMovementOrderValue : short
+			{
+				Random,
+				Sequence,
 			}
 		}
 
 		[TagStructure(Size = 0x6C)]
-		public class TagBlock36
+		public class TerritoriesVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock37> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock38> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock39> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock40> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public RespawnOnCaptureValue RespawnOnCapture;
+			public short TerritoryCaptureTime;
+			public short SuddenDeathTime;
+			public short Unknown;
+			public StringId DefenderTraitProfile;
+			public StringId AttackerTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock37
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock38
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock39
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock40
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum RespawnOnCaptureValue : short
+			{
+				Disabled,
+				OnAllyCapture,
+				OnEnemyCapture,
+				OnAnyCapture,
 			}
 		}
 
 		[TagStructure(Size = 0x74)]
-		public class TagBlock41
+		public class JuggernautVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock42> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock43> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock44> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock45> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public FirstJuggernautValue FirstJuggernaut;
+			public NextJuggernautValue NextJuggernaut;
+			public GoalZoneMovementValue GoalZoneMovement;
+			public GoalZoneOrderValue GoalZoneOrder;
+			public short ScoreToWin;
+			public short Unknown;
+			public sbyte KillPoints;
+			public sbyte TakedownPoints;
+			public sbyte KillAsJuggernautPoints;
+			public sbyte GoalArrivalPoints;
+			public sbyte SuicidePoints;
+			public sbyte BetrayalPoints;
+			public sbyte NextJuggernautDelay;
+			public sbyte Unknown2;
+			public StringId JuggernautTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock42
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock43
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock44
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock45
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum FirstJuggernautValue : short
+			{
+				Random,
+				FirstKill,
+				FirstDeath,
+			}
+
+			public enum NextJuggernautValue : short
+			{
+				Killer,
+				Killed,
+				Unchanged,
+				Random,
+			}
+
+			public enum GoalZoneMovementValue : short
+			{
+				NoMovement,
+				After10Seconds,
+				After15Seconds,
+				After30Seconds,
+				After1Minute,
+				After2Minutes,
+				After3Minutes,
+				After4Minutes,
+				After5Minutes,
+				OnArrival,
+				OnNewJuggernaut,
+			}
+
+			public enum GoalZoneOrderValue : short
+			{
+				Random,
+				Sequence,
 			}
 		}
 
 		[TagStructure(Size = 0x7C)]
-		public class TagBlock46
+		public class VipVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock47> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock48> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock49> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock50> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public short ScoreToWin;
+			public short Unknown;
+			public NextVipValue NextVip;
+			public GoalZoneMovementValue GoalZoneMovement;
+			public GoalZoneMovementOrderValue GoalZoneMovementOrder;
+			public sbyte KillPoints;
+			public sbyte VipTakedownPoints;
+			public sbyte KillAsVipPoints;
+			public sbyte VipDeathPoints;
+			public sbyte GoalArrivalPoints;
+			public sbyte SuicidePoints;
+			public sbyte VipBetrayalPoints;
+			public sbyte BetrayalPoints;
+			public sbyte VipProximityTraitRadius;
+			public sbyte Unknown2;
+			public StringId VipTeamTraitProfile;
+			public StringId VipProximityTraitProfile;
+			public StringId VipTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock47
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock48
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock49
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock50
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum NextVipValue : short
+			{
+				Random,
+				Unknown,
+				NextDeath,
+				Unchanged,
+			}
+
+			public enum GoalZoneMovementValue : short
+			{
+				NoMovement,
+				After10Seconds,
+				After15Seconds,
+				After30Seconds,
+				After1Minute,
+				After2Minutes,
+				After3Minutes,
+				After4Minutes,
+				After5Minutes,
+				OnArrival,
+				OnNewVip,
+			}
+
+			public enum GoalZoneMovementOrderValue : short
+			{
+				Random,
+				Sequence,
 			}
 		}
 
 		[TagStructure(Size = 0x64)]
-		public class TagBlock51
+		public class SandboxEditorVariant
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public List<TagBlock52> Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock53> Unknown34 { get; set; }
-			[TagElement]
-			public List<TagBlock54> Unknown40 { get; set; }
-			[TagElement]
-			public List<TagBlock55> Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
+			public string NameAscii;
+			public StringId Name;
+			public StringId Description;
+			public List<GeneralSetting> GeneralSettings;
+			public List<RespawnSetting> RespawnSettings;
+			public List<SocialSetting> SocialSettings;
+			public List<MapOverride> MapOverrides;
+			public uint Flags;
+			public EditModeValue EditMode;
+			public short EditorRespawnTime;
+			public StringId EditorTraitProfile;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock52
+			public class GeneralSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public uint Flags;
+				public sbyte TimeLimit;
+				public sbyte NumberOfRounds;
+				public sbyte EarlyVictoryWinCount;
+				public RoundResetsValue RoundResets;
+
+				public enum RoundResetsValue : sbyte
+				{
+					Nothing,
+					PlayersOnly,
+					Everything,
+				}
 			}
 
-			[TagStructure(Size = 0x14)]
-			public class TagBlock53
+			[TagStructure(Size = 0x10)]
+			public class RespawnSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public ushort Flags;
+				public sbyte LivesPerRound;
+				public sbyte SharedTeamLives;
+				public byte RespawnTime;
+				public byte SuicidePenalty;
+				public byte BetrayalPenalty;
+				public byte UnknownPenalty;
+				public byte RespawnTimeGrowth;
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public StringId RespawnTraitProfile;
+				public sbyte RespawnTraitDuration;
+				public sbyte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock54
+			public class SocialSetting
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint Flags;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock55
+			public class MapOverride
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public uint Flags;
+				public StringId BasePlayerTraitProfile;
+				public StringId WeaponSet;
+				public StringId VehicleSet;
+				public StringId OvershieldTraitProfile;
+				public StringId ActiveCamoTraitProfile;
+				public StringId CustomPowerupTraitProfile;
+				public sbyte OvershieldTraitDuration;
+				public sbyte ActiveCamoTraitDuration;
+				public sbyte CustomPowerupTraitDuration;
+				public sbyte Unknown;
+			}
+
+			public enum EditModeValue : short
+			{
+				Everyone,
+				LeaderOnly,
 			}
 		}
 	}

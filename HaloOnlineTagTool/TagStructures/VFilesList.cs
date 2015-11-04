@@ -18,14 +18,12 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the files in the list.
 		/// </summary>
-		[TagElement]
-		public List<VFileInfo> Files { get; set; }
+		public List<VFileInfo> Files;
 
 		/// <summary>
 		/// Gets or sets the data block containing the data for every file.
 		/// </summary>
-		[TagElement]
-		public byte[] Data { get; set; }
+		public byte[] Data;
 
 		/// <summary>
 		/// Attempts to find a file by its path.
@@ -112,25 +110,21 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the name of the file (e.g. "hf2p_weapons_categories.ps").
 		/// </summary>
-		[TagElement(Size = 0x100)]
-		public string Name { get; set; }
+		[TagField(Size = 0x100)] public string Name;
 
 		/// <summary>
 		/// Gets or sets the folder the file is located in (e.g. "ps\autogen\").
 		/// </summary>
-		[TagElement(Size = 0x100)]
-		public string Folder { get; set; }
+		[TagField(Size = 0x100)] public string Folder;
 
 		/// <summary>
 		/// Gets or sets the starting offset of the file from the file data block.
 		/// </summary>
-		[TagElement]
-		public int Offset { get; set; }
+		public int Offset;
 
 		/// <summary>
 		/// Gets or sets the size of the file in bytes.
 		/// </summary>
-		[TagElement]
-		public int Size { get; set; }
+		public int Size;
 	}
 }

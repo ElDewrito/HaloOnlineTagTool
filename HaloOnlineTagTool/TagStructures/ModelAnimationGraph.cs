@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
@@ -11,528 +12,483 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "jmad", Size = 0x104)]
 	public class ModelAnimationGraph
 	{
-		[TagElement]
-		public HaloTag Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown14 { get; set; }
-		[TagElement]
-		public List<TagBlock1> Unknown20 { get; set; }
-		[TagElement]
-		public List<TagBlock2> Unknown2C { get; set; }
-		[TagElement]
-		public List<TagBlock3> Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown44 { get; set; }
-		[TagElement]
-		public int Unknown48 { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
-		[TagElement]
-		public List<TagBlock4> Unknown50 { get; set; }
-		[TagElement]
-		public List<TagBlock10> Unknown5C { get; set; }
-		[TagElement]
-		public List<TagBlock26> Unknown68 { get; set; }
-		[TagElement]
-		public List<TagBlock27> Unknown74 { get; set; }
-		[TagElement]
-		public List<TagBlock28> Unknown80 { get; set; }
-		[TagElement]
-		public List<TagBlock31> Unknown8C { get; set; }
-		[TagElement]
-		public int Unknown98 { get; set; }
-		[TagElement]
-		public int Unknown9C { get; set; }
-		[TagElement]
-		public int UnknownA0 { get; set; }
-		[TagElement]
-		public int UnknownA4 { get; set; }
-		[TagElement]
-		public int UnknownA8 { get; set; }
-		[TagElement]
-		public int UnknownAC { get; set; }
-		[TagElement]
-		public int UnknownB0 { get; set; }
-		[TagElement]
-		public int UnknownB4 { get; set; }
-		[TagElement]
-		public int UnknownB8 { get; set; }
-		[TagElement]
-		public int UnknownBC { get; set; }
-		[TagElement]
-		public int UnknownC0 { get; set; }
-		[TagElement]
-		public int UnknownC4 { get; set; }
-		[TagElement]
-		public int UnknownC8 { get; set; }
-		[TagElement]
-		public int UnknownCC { get; set; }
-		[TagElement]
-		public int UnknownD0 { get; set; }
-		[TagElement]
-		public int UnknownD4 { get; set; }
-		[TagElement]
-		public int UnknownD8 { get; set; }
-		[TagElement]
-		public int UnknownDC { get; set; }
-		[TagElement]
-		public int UnknownE0 { get; set; }
-		[TagElement]
-		public int UnknownE4 { get; set; }
-		[TagElement]
-		public int UnknownE8 { get; set; }
-		[TagElement]
-		public int UnknownEC { get; set; }
-		[TagElement]
-		public int UnknownF0 { get; set; }
-		[TagElement]
-		public int UnknownF4 { get; set; }
-		[TagElement]
-		public List<TagBlock32> UnknownF8 { get; set; }
+		public HaloTag ParentAnimationGraph;
+		public byte InheritanceFlags;
+		public byte PrivateFlags;
+		public short AnimationCodecPack;
+		public List<SkeletonNode> SkeletonNodes;
+		public List<SoundReference> SoundReferences;
+		public List<EffectReference> EffectReferences;
+		public List<BlendScreen> BlendScreens;
+		public List<Leg> Legs;
+		public List<Animation> Animations;
+		public List<Mode> Modes;
+		public List<VehicleSuspensionBlock> VehicleSuspension;
+		public List<ObjectOverlay> ObjectOverlays;
+		public List<InheritanceListBlock> InheritanceList;
+		public List<WeaponListBlock> WeaponList;
+		public uint UnknownArmNodes1;
+		public uint UnknownArmNodes2;
+		public uint UnknownArmNodes3;
+		public uint UnknownArmNodes4;
+		public uint UnknownArmNodes5;
+		public uint UnknownArmNodes6;
+		public uint UnknownArmNodes7;
+		public uint UnknownArmNodes8;
+		public uint UnknownNodes1;
+		public uint UnknownNodes2;
+		public uint UnknownNodes3;
+		public uint UnknownNodes4;
+		public uint UnknownNodes5;
+		public uint UnknownNodes6;
+		public uint UnknownNodes7;
+		public uint UnknownNodes8;
+		public byte[] LastImportResults;
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public List<ResourceGroup> ResourceGroups;
 
 		[TagStructure(Size = 0x20)]
-		public class TagBlock0
+		public class SkeletonNode
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
+			public StringId Name;
+			public short NextSiblingNodeIndex;
+			public short FirstChildNodeIndex;
+			public short ParentNodeIndex;
+			public byte ModelFlags;
+			public byte NodeJointFlags;
+			public float BaseVectorI;
+			public float BaseVectorJ;
+			public float BaseVectorK;
+			public float VectorRange;
+			public float ZPosition;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock1
+		public class SoundReference
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
+			public HaloTag Sound;
+			public ushort Flags;
+			public short Unknown;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock2
+		public class EffectReference
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
+			public HaloTag Effect;
+			public ushort Flags;
+			public short Unknown;
 		}
 
 		[TagStructure(Size = 0x1C)]
-		public class TagBlock3
+		public class BlendScreen
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
+			public StringId Label;
+			public Angle RightYawPerFrame;
+			public Angle LeftYawPerFrame;
+			public short RightFrameCount;
+			public short LeftFrameCount;
+			public Angle DownPitchPerFrame;
+			public Angle UpPitchPerFrame;
+			public short DownPitchFrameCount;
+			public short UpPitchFrameCount;
+		}
+
+		[TagStructure(Size = 0x1C)]
+		public class Leg
+		{
+			public StringId FootMarker;
+			public float FootMin;
+			public float FootMax;
+			public StringId AnkleMarker;
+			public float AnkleMin;
+			public float AnkleMax;
+			public AnchorsValue Anchors;
+			public short Unknown;
+
+			public enum AnchorsValue : short
+			{
+				False,
+				True,
+			}
 		}
 
 		[TagStructure(Size = 0x88)]
-		public class TagBlock4
+		public class Animation
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public List<TagBlock5> Unknown2C { get; set; }
-			[TagElement]
-			public List<TagBlock6> Unknown38 { get; set; }
-			[TagElement]
-			public List<TagBlock7> Unknown44 { get; set; }
-			[TagElement]
-			public List<TagBlock8> Unknown50 { get; set; }
-			[TagElement]
-			public List<TagBlock9> Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
-			[TagElement]
-			public int Unknown80 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
+			public StringId Name;
+			public float Weight;
+			public short LoopFrameIndex;
+			public ushort PlaybackFlags;
+			public sbyte BlendScreen;
+			public DesiredCompressionValue DesiredCompression;
+			public CurrentCompressionValue CurrentCompression;
+			public sbyte NodeCount;
+			public short FrameCount;
+			public TypeValue Type;
+			public FrameInfoTypeValue FrameInfoType;
+			public ushort ProductionFlags;
+			public ushort InternalFlags;
+			public int NodeListChecksum;
+			public int ProductionChecksum;
+			public short Unknown;
+			public short Unknown2;
+			public short PreviousVariantSibling;
+			public short NextVariantSibling;
+			public short RawInformationGroupIndex;
+			public short RawInformationMemberIndex;
+			public List<FrameEvent> FrameEvents;
+			public List<SoundEvent> SoundEvents;
+			public List<EffectEvent> EffectEvents;
+			public List<UnknownBlock> Unknown3;
+			public List<ObjectSpaceParentNode> ObjectSpaceParentNodes;
+			public List<LegAnchoringBlock> LegAnchoring;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+
+			public enum DesiredCompressionValue : sbyte
+			{
+				BestScore,
+				BestCompression,
+				BestAccuracy,
+				BestFullframe,
+				BestSmallKeyframe,
+				BestLargeKeyframe,
+			}
+
+			public enum CurrentCompressionValue : sbyte
+			{
+				BestScore,
+				BestCompression,
+				BestAccuracy,
+				BestFullframe,
+				BestSmallKeyframe,
+				BestLargeKeyframe,
+			}
+
+			public enum TypeValue : sbyte
+			{
+				Base,
+				Overlay,
+				Replacement,
+			}
+
+			public enum FrameInfoTypeValue : sbyte
+			{
+				None,
+				DxDy,
+				DxDyDyaw,
+				DxDyDzDyaw,
+			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock5
+			public class FrameEvent
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public TypeValue Type;
+				public short Frame;
+
+				public enum TypeValue : short
+				{
+					PrimaryKeyframe,
+					SecondaryKeyframe,
+					LeftFoot,
+					RightFoot,
+					AllowInterruption,
+					TransitionA,
+					TransitionB,
+					TransitionC,
+					TransitionD,
+					BothFeetShuffle,
+					BodyImpact,
+				}
 			}
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock6
+			public class SoundEvent
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public short Sound;
+				public short Frame;
+				public StringId MarkerName;
 			}
 
-			[TagStructure(Size = 0xC)]
-			public class TagBlock7
+			[TagStructure(Size = 0x8)]
+			public class EffectEvent
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
+				public short Effect;
+				public short Frame;
+				public StringId MarkerName;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock8
+			public class UnknownBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public short Unknown;
+				public short Unknown2;
 			}
 
 			[TagStructure(Size = 0x1C)]
-			public class TagBlock9
+			public class ObjectSpaceParentNode
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
+				public short NodeIndex;
+				public ushort ComponentFlags;
+				public short RotationX;
+				public short RotationY;
+				public short RotationZ;
+				public short RotationW;
+				public float DefaultTranslationX;
+				public float DefaultTranslationY;
+				public float DefaultTranslationZ;
+				public float DefaultScale;
+			}
+
+			[TagStructure(Size = 0x10)]
+			public class LegAnchoringBlock
+			{
+				public short LegIndex;
+				public short Unknown;
+				public List<UnknownBlock> Unknown2;
+
+				[TagStructure(Size = 0x14)]
+				public class UnknownBlock
+				{
+					public short Frame1a;
+					public short Frame2a;
+					public short Frame1b;
+					public short Frame2b;
+					public float Unknown;
+					public float Unknown2;
+					public float Unknown3;
+				}
 			}
 		}
 
 		[TagStructure(Size = 0x28)]
-		public class TagBlock10
+		public class Mode
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock11> Unknown4 { get; set; }
-			[TagElement]
-			public List<TagBlock25> Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
+			public StringId Label;
+			public List<WeaponClassBlock> WeaponClass;
+			public List<ModeIkBlock> ModeIk;
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
 
 			[TagStructure(Size = 0x28)]
-			public class TagBlock11
+			public class WeaponClassBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public List<TagBlock12> Unknown4 { get; set; }
-				[TagElement]
-				public List<TagBlock20> Unknown10 { get; set; }
-				[TagElement]
-				public List<TagBlock21> Unknown1C { get; set; }
+				public StringId Label;
+				public List<WeaponTypeBlock> WeaponType;
+				public List<WeaponIkBlock> WeaponIk;
+				public List<SyncAction> SyncActions;
 
 				[TagStructure(Size = 0x34)]
-				public class TagBlock12
+				public class WeaponTypeBlock
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public List<TagBlock13> Unknown4 { get; set; }
-					[TagElement]
-					public List<TagBlock14> Unknown10 { get; set; }
-					[TagElement]
-					public List<TagBlock15> Unknown1C { get; set; }
-					[TagElement]
-					public List<TagBlock18> Unknown28 { get; set; }
+					public StringId Label;
+					public List<Action> Actions;
+					public List<Overlay> Overlays;
+					public List<DeathAndDamageBlock> DeathAndDamage;
+					public List<Transition> Transitions;
 
 					[TagStructure(Size = 0x8)]
-					public class TagBlock13
+					public class Action
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
+						public StringId Label;
+						public short GraphIndex;
+						public short Animation;
 					}
 
 					[TagStructure(Size = 0x8)]
-					public class TagBlock14
+					public class Overlay
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
+						public StringId Label;
+						public short GraphIndex;
+						public short Animation;
 					}
 
 					[TagStructure(Size = 0x10)]
-					public class TagBlock15
+					public class DeathAndDamageBlock
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public List<TagBlock16> Unknown4 { get; set; }
+						public StringId Label;
+						public List<Direction> Directions;
 
 						[TagStructure(Size = 0xC)]
-						public class TagBlock16
+						public class Direction
 						{
-							[TagElement]
-							public List<TagBlock17> Unknown0 { get; set; }
+							public List<Region> Regions;
 
 							[TagStructure(Size = 0x4)]
-							public class TagBlock17
+							public class Region
 							{
-								[TagElement]
-								public int Unknown0 { get; set; }
+								public short GraphIndex;
+								public short Animation;
 							}
 						}
 					}
 
 					[TagStructure(Size = 0x18)]
-					public class TagBlock18
+					public class Transition
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
-						[TagElement]
-						public int Unknown8 { get; set; }
-						[TagElement]
-						public List<TagBlock19> UnknownC { get; set; }
+						public StringId FullName;
+						public StringId StateName;
+						public short Unknown;
+						public sbyte IndexA;
+						public sbyte IndexB;
+						public List<Destination> Destinations;
 
 						[TagStructure(Size = 0x14)]
-						public class TagBlock19
+						public class Destination
 						{
-							[TagElement]
-							public int Unknown0 { get; set; }
-							[TagElement]
-							public int Unknown4 { get; set; }
-							[TagElement]
-							public int Unknown8 { get; set; }
-							[TagElement]
-							public int UnknownC { get; set; }
-							[TagElement]
-							public int Unknown10 { get; set; }
+							public StringId FullName;
+							public StringId ModeName;
+							public StringId StateName;
+							public FrameEventLinkValue FrameEventLink;
+							public sbyte Unknown;
+							public sbyte IndexA;
+							public sbyte IndexB;
+							public short GraphIndex;
+							public short Animation;
+
+							public enum FrameEventLinkValue : sbyte
+							{
+								NoKeyframe,
+								KeyframeTypeA,
+								KeyframeTypeB,
+								KeyframeTypeC,
+								KeyframeTypeD,
+							}
 						}
 					}
 				}
 
 				[TagStructure(Size = 0x8)]
-				public class TagBlock20
+				public class WeaponIkBlock
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
+					public StringId Marker;
+					public StringId AttachToMarker;
 				}
 
 				[TagStructure(Size = 0x10)]
-				public class TagBlock21
+				public class SyncAction
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public List<TagBlock22> Unknown4 { get; set; }
+					public StringId Label;
+					public List<ClassBlock> Class;
 
 					[TagStructure(Size = 0x1C)]
-					public class TagBlock22
+					public class ClassBlock
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public List<TagBlock23> Unknown4 { get; set; }
-						[TagElement]
-						public List<TagBlock24> Unknown10 { get; set; }
+						public StringId Label;
+						public List<UnknownBlock> Unknown;
+						public List<SyncBipedBlock> SyncBiped;
 
 						[TagStructure(Size = 0x30)]
-						public class TagBlock23
+						public class UnknownBlock
 						{
-							[TagElement]
-							public int Unknown0 { get; set; }
-							[TagElement]
-							public int Unknown4 { get; set; }
-							[TagElement]
-							public int Unknown8 { get; set; }
-							[TagElement]
-							public int UnknownC { get; set; }
-							[TagElement]
-							public int Unknown10 { get; set; }
-							[TagElement]
-							public int Unknown14 { get; set; }
-							[TagElement]
-							public int Unknown18 { get; set; }
-							[TagElement]
-							public int Unknown1C { get; set; }
-							[TagElement]
-							public int Unknown20 { get; set; }
-							[TagElement]
-							public int Unknown24 { get; set; }
-							[TagElement]
-							public int Unknown28 { get; set; }
-							[TagElement]
-							public int Unknown2C { get; set; }
+							public int Unknown;
+							public short GraphIndex;
+							public short Animation;
+							public float Unknown2;
+							public float Unknown3;
+							public float Unknown4;
+							public float Unknown5;
+							public float Unknown6;
+							public float Unknown7;
+							public float Unknown8;
+							public float Unknown9;
+							public float Unknown10;
+							public float Unknown11;
 						}
 
 						[TagStructure(Size = 0x14)]
-						public class TagBlock24
+						public class SyncBipedBlock
 						{
-							[TagElement]
-							public int Unknown0 { get; set; }
-							[TagElement]
-							public HaloTag Unknown4 { get; set; }
+							public float Unknown;
+							public HaloTag Biped;
 						}
 					}
 				}
 			}
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock25
+			public class ModeIkBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public StringId Marker;
+				public StringId AttachToMarker;
 			}
 		}
 
 		[TagStructure(Size = 0x28)]
-		public class TagBlock26
+		public class VehicleSuspensionBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
+			public StringId Label;
+			public short GraphIndex;
+			public short Animation;
+			public StringId MarkerName;
+			public float MassPointOffset;
+			public float FullExtensionGroundDepth;
+			public float FullCompressionGroundDepth;
+			public StringId RegionName;
+			public float MassPointOffset2;
+			public float ExpressionGroundDepth;
+			public float CompressionGroundDepth;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock27
+		public class ObjectOverlay
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
+			public StringId Label;
+			public short GraphIndex;
+			public short Animation;
+			public short Unknown;
+			public FunctionControlsValue FunctionControls;
+			public StringId Function;
+			public float Unknown2;
+
+			public enum FunctionControlsValue : short
+			{
+				Frame,
+				Scale,
+			}
 		}
 
 		[TagStructure(Size = 0x30)]
-		public class TagBlock28
+		public class InheritanceListBlock
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock29> Unknown10 { get; set; }
-			[TagElement]
-			public List<TagBlock30> Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
+			public HaloTag InheritedGraph;
+			public List<NodeMapBlock> NodeMap;
+			public List<NodeMapFlag> NodeMapFlags;
+			public float RootZOffset;
+			public uint InheritanceFlags;
 
 			[TagStructure(Size = 0x2)]
-			public class TagBlock29
+			public class NodeMapBlock
 			{
-				[TagElement]
-				public short Unknown0 { get; set; }
+				public short LocalNode;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock30
+			public class NodeMapFlag
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public uint LocalNodeFlags;
 			}
 		}
 
 		[TagStructure(Size = 0x8)]
-		public class TagBlock31
+		public class WeaponListBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
+			public StringId WeaponName;
+			public StringId WeaponClass;
 		}
 
 		[TagStructure(Size = 0xC)]
-		public class TagBlock32
+		public class ResourceGroup
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public ResourceReference Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
+			public int MemberCount;
+			public ResourceReference Resource;
+			public int UselessPadding;
 		}
 	}
 }

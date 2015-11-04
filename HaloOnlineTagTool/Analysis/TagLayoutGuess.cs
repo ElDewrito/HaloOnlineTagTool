@@ -46,7 +46,7 @@ namespace HaloOnlineTagTool.Analysis
 		}
 
 		/// <summary>
-		/// Merges anoter layout into this one.
+		/// Merges another layout into this one.
 		/// </summary>
 		/// <param name="otherLayout">The layout to merge with.</param>
 		public void Merge(TagLayoutGuess otherLayout)

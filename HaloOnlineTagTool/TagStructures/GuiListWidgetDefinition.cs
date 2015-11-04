@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,56 +12,43 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "lst3", Size = 0x70)]
 	public class GuiListWidgetDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1C { get; set; }
-		[TagElement]
-		public int Unknown2C { get; set; }
-		[TagElement]
-		public HaloTag Unknown30 { get; set; }
-		[TagElement]
-		public int Unknown40 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown44 { get; set; }
-		[TagElement]
-		public HaloTag Unknown50 { get; set; }
-		[TagElement]
-		public HaloTag Unknown60 { get; set; }
+		public uint Flags;
+		public StringId Name;
+		public short Unknown;
+		public short Layer;
+		public short WidescreenYOffset;
+		public short WidescreenXOffset;
+		public short WidescreenYUnknown;
+		public short WidescreenXUnknown;
+		public short StandardYOffset;
+		public short StandardXOffset;
+		public short StandardYUnknown;
+		public short StandardXUnknown;
+		public HaloTag Animation;
+		public StringId DataSourceName;
+		public HaloTag Skin;
+		public int RowCount;
+		public List<ListWidgetItem> ListWidgetItems;
+		public HaloTag UpArrowBitmap;
+		public HaloTag DownArrowBitmap;
 
 		[TagStructure(Size = 0x30)]
-		public class TagBlock0
+		public class ListWidgetItem
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
+			public uint Flags;
+			public StringId Name;
+			public short Unknown;
+			public short Layer;
+			public short WidescreenYOffset;
+			public short WidescreenXOffset;
+			public short WidescreenYUnknown;
+			public short WidescreenXUnknown;
+			public short StandardYOffset;
+			public short StandardXOffset;
+			public short StandardYUnknown;
+			public short StandardXUnknown;
+			public HaloTag Animation;
+			public StringId Target;
 		}
 	}
 }

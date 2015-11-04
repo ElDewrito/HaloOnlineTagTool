@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,70 +12,40 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "dsrc", Size = 0x20)]
 	public class GuiDatasourceDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
+		public StringId Name;
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public List<Datum> Data;
+		public float Unknown4;
 
 		[TagStructure(Size = 0x28)]
-		public class TagBlock0
+		public class Datum
 		{
-			[TagElement]
-			public List<TagBlock1> Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock2> UnknownC { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
+			public List<IntegerValue> IntegerValues;
+			public List<StringValue> StringValues;
+			public List<StringidValue> StringidValues;
+			public StringId Unknown;
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock1
+			public class IntegerValue
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public StringId DataType;
+				public int Value;
 			}
 
 			[TagStructure(Size = 0x24)]
-			public class TagBlock2
+			public class StringValue
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
+				public StringId DataType;
+				public string Value;
 			}
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock3
+			public class StringidValue
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public StringId DataType;
+				public StringId Value;
 			}
 		}
 	}

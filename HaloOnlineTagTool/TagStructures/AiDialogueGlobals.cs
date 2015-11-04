@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,140 +12,109 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "adlg", Size = 0x5C)]
 	public class AiDialogueGlobals
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown14 { get; set; }
-		[TagElement]
-		public List<TagBlock2> Unknown20 { get; set; }
-		[TagElement]
-		public int Unknown2C { get; set; }
-		[TagElement]
-		public int Unknown30 { get; set; }
-		[TagElement]
-		public int Unknown34 { get; set; }
-		[TagElement]
-		public List<TagBlock3> Unknown38 { get; set; }
-		[TagElement]
-		public List<TagBlock4> Unknown44 { get; set; }
-		[TagElement]
-		public int Unknown50 { get; set; }
-		[TagElement]
-		public int Unknown54 { get; set; }
-		[TagElement]
-		public int Unknown58 { get; set; }
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public float Unknown4;
+		public float Unknown5;
+		public List<Vocalization> Vocalizations;
+		public List<Pattern> Patterns;
+		public float Unknown6;
+		public float Unknown7;
+		public float Unknown8;
+		public List<DialogDatum> DialogData;
+		public List<InvoluntaryDatum> InvoluntaryData;
+		public float Unknown9;
+		public float Unknown10;
+		public float Unknown11;
 
 		[TagStructure(Size = 0x60)]
-		public class TagBlock0
+		public class Vocalization
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown54 { get; set; }
+			public StringId Vocalization2;
+			public short ParentIndex;
+			public short Priority;
+			public uint Flags;
+			public short GlanceBehavior;
+			public short GlanceRecipient;
+			public PerceptionTypeValue PerceptionType;
+			public short MaxCombatStatus;
+			public short AnimationImpulse;
+			public short OverlapPriority;
+			public float SoundRepetitionDelay;
+			public float AllowableQueueDelay;
+			public float PreVocalizationDelay;
+			public float NotificationDelay;
+			public float PostVocalizationDelay;
+			public float RepeatDelay;
+			public float Weight;
+			public float SpeakerFreezeTime;
+			public float ListenerFreezeTime;
+			public short SpeakerEmotion;
+			public short ListenerEmotion;
+			public float SkipFraction1;
+			public float SkipFraction2;
+			public float SkipFraction3;
+			public float SkipFraction4;
+			public StringId SampleLine;
+			public List<Respons> Responses;
+
+			public enum PerceptionTypeValue : short
+			{
+				None,
+				Speaker,
+				Listener,
+			}
 
 			[TagStructure(Size = 0xC)]
-			public class TagBlock1
+			public class Respons
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
+				public StringId VocalizationName;
+				public ushort Flags;
+				public short VocalizationIndex;
+				public short ResponseType;
+				public short ImportDialogueIndex;
 			}
 		}
 
 		[TagStructure(Size = 0x34)]
-		public class TagBlock2
+		public class Pattern
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
+			public short DialogueType;
+			public short VocalizationsIndex;
+			public StringId VocalizationName;
+			public short SpeakerType;
+			public ushort Flags;
+			public short Hostility;
+			public ushort Unknown;
+			public short Unknown2;
+			public short CauseType;
+			public StringId CauseAiTypeName;
+			public float Unknown3;
+			public short Unknown4;
+			public short Unknown5;
+			public short Attitude;
+			public short Unknown6;
+			public uint Conditions;
+			public short SpacialRelationship;
+			public short DamageType;
+			public short Unknown7;
+			public short SubjectType;
+			public StringId SubjectAiTypeName;
 		}
 
 		[TagStructure(Size = 0x4)]
-		public class TagBlock3
+		public class DialogDatum
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
+			public short StartIndex;
+			public short Length;
 		}
 
 		[TagStructure(Size = 0x4)]
-		public class TagBlock4
+		public class InvoluntaryDatum
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
+			public short InvoluntaryVocalizationIndex;
+			public short Unknown;
 		}
 	}
 }

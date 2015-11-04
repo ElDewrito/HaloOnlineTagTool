@@ -29,6 +29,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				context.AddCommand(new ListStringsCommand(info));
 				context.AddCommand(new GenerateLayoutsCommand(info));
 				context.AddCommand(new ModelTestCommand(info));
+				context.AddCommand(new ConvertPluginsCommand(info));
 			}
 			return context;
 		}

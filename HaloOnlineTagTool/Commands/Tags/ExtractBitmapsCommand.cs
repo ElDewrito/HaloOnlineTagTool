@@ -55,7 +55,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var count = 0;
 			using (var tagsStream = _info.OpenCacheRead())
 			{
-				foreach (var tag in _info.Cache.Tags.FindAllByClass("bitm"))
+				foreach (var tag in _info.Cache.Tags.FindAllInGroup("bitm"))
 				{
 					Console.Write("Extracting ");
 					TagPrinter.PrintTagShort(tag);

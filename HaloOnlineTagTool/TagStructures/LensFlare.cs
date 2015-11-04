@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,130 +12,80 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "lens", Size = 0x9C)]
 	public class LensFlare
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
-		[TagElement]
-		public int Unknown20 { get; set; }
-		[TagElement]
-		public HaloTag Unknown24 { get; set; }
-		[TagElement]
-		public int Unknown34 { get; set; }
-		[TagElement]
-		public int Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown3C { get; set; }
-		[TagElement]
-		public int Unknown40 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown44 { get; set; }
-		[TagElement]
-		public int Unknown50 { get; set; }
-		[TagElement]
-		public List<TagBlock1> Unknown54 { get; set; }
-		[TagElement]
-		public List<TagBlock2> Unknown60 { get; set; }
-		[TagElement]
-		public int Unknown6C { get; set; }
-		[TagElement]
-		public int Unknown70 { get; set; }
-		[TagElement]
-		public int Unknown74 { get; set; }
-		[TagElement]
-		public List<TagBlock3> Unknown78 { get; set; }
-		[TagElement]
-		public List<TagBlock4> Unknown84 { get; set; }
-		[TagElement]
-		public int Unknown90 { get; set; }
-		[TagElement]
-		public int Unknown94 { get; set; }
-		[TagElement]
-		public int Unknown98 { get; set; }
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public float Unknown4;
+		public float Unknown5;
+		public float Unknown6;
+		public float Unknown7;
+		public float Unknown8;
+		public float Unknown9;
+		public HaloTag Unknown10;
+		public float Unknown11;
+		public float Unknown12;
+		public float Unknown13;
+		public float Unknown14;
+		public List<UnknownBlock> Unknown15;
+		public float Unknown16;
+		public List<UnknownBlock2> Unknown17;
+		public List<UnknownBlock3> Unknown18;
+		public float Unknown19;
+		public float Unknown20;
+		public float Unknown21;
+		public List<UnknownBlock4> Unknown22;
+		public List<UnknownBlock5> Unknown23;
+		public float Unknown24;
+		public float Unknown25;
+		public float Unknown26;
 
 		[TagStructure(Size = 0x8C)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public HaloTag Unknown8 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public byte[] Unknown28 { get; set; }
-			[TagElement]
-			public byte[] Unknown3C { get; set; }
-			[TagElement]
-			public byte[] Unknown50 { get; set; }
-			[TagElement]
-			public byte[] Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
-			[TagElement]
-			public int Unknown80 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
-			[TagElement]
-			public int Unknown88 { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public HaloTag Unknown3;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public byte[] Unknown8;
+			public byte[] Unknown9;
+			public byte[] Unknown10;
+			public byte[] Unknown11;
+			public float Unknown12;
+			public float Unknown13;
+			public float Unknown14;
+			public float Unknown15;
+			public float Unknown16;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock1
+		public class UnknownBlock2
 		{
-			[TagElement]
-			public byte[] Unknown0 { get; set; }
+			public byte[] Unknown;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock2
+		public class UnknownBlock3
 		{
-			[TagElement]
-			public byte[] Unknown0 { get; set; }
+			public byte[] Unknown;
 		}
 
 		[TagStructure(Size = 0x24)]
-		public class TagBlock3
+		public class UnknownBlock4
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public byte[] Unknown10 { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public byte[] Unknown5;
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock4
+		public class UnknownBlock5
 		{
-			[TagElement]
-			public byte[] Unknown0 { get; set; }
+			public byte[] Unknown;
 		}
 	}
 }

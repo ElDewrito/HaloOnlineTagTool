@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,52 +12,28 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "pdm!", Size = 0x3C)]
 	public class PodiumSettings
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
-		[TagElement]
-		public int Unknown20 { get; set; }
-		[TagElement]
-		public int Unknown24 { get; set; }
-		[TagElement]
-		public int Unknown28 { get; set; }
-		[TagElement]
-		public int Unknown2C { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown30 { get; set; }
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public Angle Unknown4;
+		public Angle Unknown5;
+		public float Unknown6;
+		public Angle Unknown7;
+		public int Unknown8;
+		public HaloTag Unknown9;
+		public List<UnknownBlock> Unknown10;
 
 		[TagStructure(Size = 0x2C)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1C { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public Angle Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public int Unknown7;
+			public HaloTag Effect;
 		}
 	}
 }

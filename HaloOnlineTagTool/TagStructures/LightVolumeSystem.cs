@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,297 +12,301 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "ltvl", Size = 0x14)]
 	public class LightVolumeSystem
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
+		public List<LightVolumeSystemBlock> LightVolumeSystem2;
+		public float Unknown;
+		public float Unknown2;
 
 		[TagStructure(Size = 0x17C)]
-		public class TagBlock0
+		public class LightVolumeSystemBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown4 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown14 { get; set; }
-			[TagElement]
-			public List<TagBlock2> Unknown20 { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public byte[] Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public byte[] Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
-			[TagElement]
-			public int Unknown88 { get; set; }
-			[TagElement]
-			public int Unknown8C { get; set; }
-			[TagElement]
-			public byte[] Unknown90 { get; set; }
-			[TagElement]
-			public int UnknownA4 { get; set; }
-			[TagElement]
-			public int UnknownA8 { get; set; }
-			[TagElement]
-			public int UnknownAC { get; set; }
-			[TagElement]
-			public byte[] UnknownB0 { get; set; }
-			[TagElement]
-			public int UnknownC4 { get; set; }
-			[TagElement]
-			public int UnknownC8 { get; set; }
-			[TagElement]
-			public int UnknownCC { get; set; }
-			[TagElement]
-			public byte[] UnknownD0 { get; set; }
-			[TagElement]
-			public int UnknownE4 { get; set; }
-			[TagElement]
-			public int UnknownE8 { get; set; }
-			[TagElement]
-			public int UnknownEC { get; set; }
-			[TagElement]
-			public byte[] UnknownF0 { get; set; }
-			[TagElement]
-			public int Unknown104 { get; set; }
-			[TagElement]
-			public int Unknown108 { get; set; }
-			[TagElement]
-			public int Unknown10C { get; set; }
-			[TagElement]
-			public byte[] Unknown110 { get; set; }
-			[TagElement]
-			public int Unknown124 { get; set; }
-			[TagElement]
-			public int Unknown128 { get; set; }
-			[TagElement]
-			public int Unknown12C { get; set; }
-			[TagElement]
-			public byte[] Unknown130 { get; set; }
-			[TagElement]
-			public int Unknown144 { get; set; }
-			[TagElement]
-			public int Unknown148 { get; set; }
-			[TagElement]
-			public int Unknown14C { get; set; }
-			[TagElement]
-			public int Unknown150 { get; set; }
-			[TagElement]
-			public int Unknown154 { get; set; }
-			[TagElement]
-			public List<TagBlock6> Unknown158 { get; set; }
-			[TagElement]
-			public List<TagBlock7> Unknown164 { get; set; }
-			[TagElement]
-			public List<TagBlock8> Unknown170 { get; set; }
+			public StringId Name;
+			public HaloTag BaseRenderMethod;
+			public List<UnknownBlock> Unknown;
+			public List<ImportDatum> ImportData;
+			public List<ShaderProperty> ShaderProperties;
+			public sbyte Unknown2;
+			public sbyte Unknown3;
+			public sbyte Unknown4;
+			public sbyte Unknown5;
+			public float Unknown6;
+			public int Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public sbyte Input;
+			public sbyte InputRange;
+			public OutputKindValue OutputKind;
+			public sbyte Output;
+			public byte[] Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public sbyte Input2;
+			public sbyte InputRange2;
+			public OutputKindValue2 OutputKind2;
+			public sbyte Output2;
+			public byte[] Unknown13;
+			public float Unknown14;
+			public float Unknown15;
+			public sbyte Input3;
+			public sbyte InputRange3;
+			public OutputKindValue3 OutputKind3;
+			public sbyte Output3;
+			public byte[] Unknown16;
+			public float Unknown17;
+			public float Unknown18;
+			public sbyte Input4;
+			public sbyte InputRange4;
+			public OutputKindValue4 OutputKind4;
+			public sbyte Output4;
+			public byte[] Unknown19;
+			public float Unknown20;
+			public float Unknown21;
+			public sbyte Input5;
+			public sbyte InputRange5;
+			public OutputKindValue5 OutputKind5;
+			public sbyte Output5;
+			public byte[] Unknown22;
+			public float Unknown23;
+			public float Unknown24;
+			public sbyte Input6;
+			public sbyte InputRange6;
+			public OutputKindValue6 OutputKind6;
+			public sbyte Output6;
+			public byte[] Unknown25;
+			public float Unknown26;
+			public float Unknown27;
+			public sbyte Input7;
+			public sbyte InputRange7;
+			public OutputKindValue7 OutputKind7;
+			public sbyte Output7;
+			public byte[] Unknown28;
+			public float Unknown29;
+			public float Unknown30;
+			public sbyte Input8;
+			public sbyte InputRange8;
+			public OutputKindValue8 OutputKind8;
+			public sbyte Output8;
+			public byte[] Unknown31;
+			public float Unknown32;
+			public float Unknown33;
+			public float Unknown34;
+			public float Unknown35;
+			public float Unknown36;
+			public List<UnknownBlock2> Unknown37;
+			public List<CompiledFunction> CompiledFunctions;
+			public List<CompiledColorFunction> CompiledColorFunctions;
 
 			[TagStructure(Size = 0x2)]
-			public class TagBlock1
+			public class UnknownBlock
 			{
-				[TagElement]
-				public short Unknown0 { get; set; }
+				public short Unknown;
 			}
 
 			[TagStructure(Size = 0x3C)]
-			public class TagBlock2
+			public class ImportDatum
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
+				public StringId MaterialType;
+				public int Unknown;
+				public HaloTag Bitmap;
+				public float Unknown2;
+				public int Unknown3;
+				public short Unknown4;
+				public short Unknown5;
+				public short Unknown6;
+				public short Unknown7;
+				public short Unknown8;
+				public short Unknown9;
+				public float Unknown10;
+				public List<Function> Functions;
+
+				[TagStructure(Size = 0x24)]
+				public class Function
+				{
+					public int Unknown;
+					public StringId Name;
+					public float Unknown2;
+					public float Unknown3;
+					public byte[] Function2;
+				}
 			}
 
 			[TagStructure(Size = 0x84)]
-			public class TagBlock3
+			public class ShaderProperty
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
-				[TagElement]
-				public List<TagBlock4> Unknown10 { get; set; }
-				[TagElement]
-				public List<TagBlock5> Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public int Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown50 { get; set; }
-				[TagElement]
-				public int Unknown54 { get; set; }
-				[TagElement]
-				public int Unknown58 { get; set; }
-				[TagElement]
-				public int Unknown5C { get; set; }
-				[TagElement]
-				public int Unknown60 { get; set; }
-				[TagElement]
-				public int Unknown64 { get; set; }
-				[TagElement]
-				public int Unknown68 { get; set; }
-				[TagElement]
-				public int Unknown6C { get; set; }
-				[TagElement]
-				public int Unknown70 { get; set; }
-				[TagElement]
-				public int Unknown74 { get; set; }
-				[TagElement]
-				public int Unknown78 { get; set; }
-				[TagElement]
-				public int Unknown7C { get; set; }
-				[TagElement]
-				public int Unknown80 { get; set; }
+				public HaloTag Template;
+				public List<ShaderMap> ShaderMaps;
+				public List<Argument> Arguments;
+				public List<UnknownBlock> Unknown;
+				public float Unknown2;
+				public List<UnknownBlock2> Unknown3;
+				public List<UnknownBlock3> Unknown4;
+				public List<UnknownBlock4> Unknown5;
+				public List<Function> Functions;
+				public int Unknown6;
+				public int Unknown7;
+				public float Unknown8;
+				public short Unknown9;
+				public short Unknown10;
+				public short Unknown11;
+				public short Unknown12;
+				public short Unknown13;
+				public short Unknown14;
+				public short Unknown15;
+				public short Unknown16;
 
 				[TagStructure(Size = 0x18)]
-				public class TagBlock4
+				public class ShaderMap
 				{
-					[TagElement]
-					public HaloTag Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
+					public HaloTag Bitmap;
+					public sbyte Unknown;
+					public sbyte BitmapIndex;
+					public sbyte Unknown2;
+					public byte BitmapFlags;
+					public sbyte UnknownBitmapIndexEnable;
+					public sbyte UvArgumentIndex;
+					public sbyte Unknown3;
+					public sbyte Unknown4;
 				}
 
 				[TagStructure(Size = 0x10)]
-				public class TagBlock5
+				public class Argument
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
-					[TagElement]
-					public int Unknown8 { get; set; }
-					[TagElement]
-					public int UnknownC { get; set; }
+					public float Arg1;
+					public float Arg2;
+					public float Arg3;
+					public float Arg4;
+				}
+
+				[TagStructure(Size = 0x4)]
+				public class UnknownBlock
+				{
+					public float Unknown;
+				}
+
+				[TagStructure(Size = 0x2)]
+				public class UnknownBlock2
+				{
+					public short Unknown;
+				}
+
+				[TagStructure(Size = 0x6)]
+				public class UnknownBlock3
+				{
+					public float Unknown;
+					public sbyte Unknown2;
+					public sbyte Unknown3;
+				}
+
+				[TagStructure(Size = 0x4)]
+				public class UnknownBlock4
+				{
+					public short Unknown;
+					public short Unknown2;
+				}
+
+				[TagStructure(Size = 0x24)]
+				public class Function
+				{
+					public int Unknown;
+					public StringId Name;
+					public float Unknown2;
+					public float Unknown3;
+					public byte[] Function2;
 				}
 			}
 
-			[TagStructure(Size = 0x10)]
-			public class TagBlock6
+			public enum OutputKindValue : sbyte
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue2 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue3 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue4 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue5 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue6 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue7 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			public enum OutputKindValue8 : sbyte
+			{
+				None,
+				Plus,
+				Times,
+			}
+
+			[TagStructure(Size = 0x10)]
+			public class UnknownBlock2
+			{
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
 			}
 
 			[TagStructure(Size = 0x40)]
-			public class TagBlock7
+			public class CompiledFunction
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
+				public float Unknown5;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+				public float Unknown10;
+				public float Unknown11;
+				public float Unknown12;
+				public float Unknown13;
+				public float Unknown14;
+				public float Unknown15;
+				public float Unknown16;
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock8
+			public class CompiledColorFunction
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
+				public float Red;
+				public float Green;
+				public float Blue;
+				public float Magnitude;
 			}
 		}
 	}

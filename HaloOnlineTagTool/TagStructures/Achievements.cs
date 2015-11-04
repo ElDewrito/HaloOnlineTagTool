@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,30 +12,20 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "achi", Size = 0x18)]
 	public class Achievements
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
+		public List<AchievementInformationBlock> AchievementInformation;
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
 
 		[TagStructure(Size = 0x18)]
-		public class TagBlock0
+		public class AchievementInformationBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
+			public int Unknown;
+			public int Unknown2;
+			public StringId LevelName;
+			public int Unknown3;
+			public int Unknown4;
+			public int Unknown5;
 		}
 	}
 }

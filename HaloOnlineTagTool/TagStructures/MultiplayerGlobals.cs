@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,795 +12,1784 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "mulg", Size = 0x18)]
 	public class MultiplayerGlobals
 	{
-		[TagElement]
-		public List<UniversalGlobals> Universal { get; set; }
-		[TagElement]
-		public List<RuntimeGlobals> Runtime { get; set; }
+		public List<UniversalBlock> Universal;
+		public List<RuntimeBlock> Runtime;
 
 		[TagStructure(Size = 0xD8)]
-		public class UniversalGlobals
+		public class UniversalBlock
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown10 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown20 { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown2C { get; set; }
-			[TagElement]
-			public List<TagBlock5> Unknown38 { get; set; }
-			[TagElement]
-			public List<TagBlock6> Unknown44 { get; set; }
-			[TagElement]
-			public HaloTag Unknown50 { get; set; }
-			[TagElement]
-			public HaloTag Unknown60 { get; set; }
-			[TagElement]
-			public HaloTag Unknown70 { get; set; }
-			[TagElement]
-			public List<TagBlock7> Unknown80 { get; set; }
-			[TagElement]
-			public List<TagBlock8> Unknown8C { get; set; }
-			[TagElement]
-			public List<TagBlock9> Unknown98 { get; set; }
-			[TagElement]
-			public List<TagBlock10> UnknownA4 { get; set; }
-			[TagElement]
-			public List<TagBlock12> UnknownB0 { get; set; }
-			[TagElement]
-			public List<TagBlock14> UnknownBC { get; set; }
-			[TagElement]
-			public HaloTag UnknownC8 { get; set; }
+			public HaloTag RandomPlayerNameStrings;
+			public HaloTag TeamNameStrings;
+			public List<SpartanArmorCustomizationBlock> SpartanArmorCustomization;
+			public List<EliteArmorCustomizationBlock> EliteArmorCustomization;
+			public List<EquipmentBlock> Equipment;
+			public List<UnknownBlock> Unknown;
+			public HaloTag MultiplayerStrings;
+			public HaloTag SandboxUiStrings;
+			public HaloTag SandboxUiProperties;
+			public List<GameVariantWeapon> GameVariantWeapons;
+			public List<GameVariantVehicle> GameVariantVehicles;
+			public List<GameVariantEquipmentBlock> GameVariantEquipment;
+			public List<WeaponSet> WeaponSets;
+			public List<VehicleSet> VehicleSets;
+			public List<PodiumBlock> Podium;
+			public HaloTag EngineSettings;
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock1
+			public class SpartanArmorCustomizationBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public List<TagBlock2> Unknown8 { get; set; }
+				public StringId ArmorObjectRegion;
+				public StringId BipedRegion;
+				public List<Permutation> Permutations;
 
 				[TagStructure(Size = 0x30)]
-				public class TagBlock2
+				public class Permutation
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public HaloTag Unknown4 { get; set; }
-					[TagElement]
-					public HaloTag Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown24 { get; set; }
-					[TagElement]
-					public int Unknown28 { get; set; }
-					[TagElement]
-					public int Unknown2C { get; set; }
+					public StringId Name;
+					public HaloTag ThirdPersonArmorObject;
+					public HaloTag FirstPersonArmorModel;
+					public short Unknown;
+					public short Unknown2;
+					public StringId ParentAttachMarker;
+					public StringId ChildAttachMarker;
 				}
 			}
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock3
+			public class EliteArmorCustomizationBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public List<TagBlock4> Unknown8 { get; set; }
+				public StringId PieceRegion;
+				public StringId CharacterRegion;
+				public List<Permutation> Permutations;
 
 				[TagStructure(Size = 0x30)]
-				public class TagBlock4
+				public class Permutation
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
-					[TagElement]
-					public int Unknown8 { get; set; }
-					[TagElement]
-					public int UnknownC { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
-					[TagElement]
-					public int Unknown20 { get; set; }
-					[TagElement]
-					public int Unknown24 { get; set; }
-					[TagElement]
-					public int Unknown28 { get; set; }
-					[TagElement]
-					public int Unknown2C { get; set; }
+					public StringId Name;
+					public HaloTag ThirdPersonArmorObject;
+					public HaloTag FirstPersonArmorModel;
+					public short Unknown;
+					public short Unknown2;
+					public StringId ParentAttachMarker;
+					public StringId ChildAttachMarker;
 				}
 			}
 
 			[TagStructure(Size = 0x18)]
-			public class TagBlock5
+			public class EquipmentBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
+				public StringId Name;
+				public HaloTag Equipment;
+				public short Unknown;
+				public short Unknown2;
 			}
 
 			[TagStructure(Size = 0x8)]
-			public class TagBlock6
+			public class UnknownBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
+				public int Unknown;
+				public int Unknown2;
 			}
 
 			[TagStructure(Size = 0x18)]
-			public class TagBlock7
+			public class GameVariantWeapon
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public HaloTag Unknown8 { get; set; }
+				public StringId Name;
+				public float RandomChance;
+				public HaloTag Weapon;
 			}
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock8
+			public class GameVariantVehicle
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown4 { get; set; }
+				public StringId Name;
+				public HaloTag Vehicle;
 			}
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock9
+			public class GameVariantEquipmentBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown4 { get; set; }
+				public StringId Name;
+				public HaloTag Grenade;
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock10
+			public class WeaponSet
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public List<TagBlock11> Unknown4 { get; set; }
+				public StringId Name;
+				public List<Substitution> Substitutions;
 
 				[TagStructure(Size = 0x8)]
-				public class TagBlock11
+				public class Substitution
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
+					public StringId OriginalWeapon;
+					public StringId SubstitutedWeapon;
 				}
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock12
+			public class VehicleSet
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public List<TagBlock13> Unknown4 { get; set; }
+				public StringId Name;
+				public List<Substitution> Substitutions;
 
 				[TagStructure(Size = 0x8)]
-				public class TagBlock13
+				public class Substitution
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
+					public StringId OriginalVehicle;
+					public StringId SubstitutedVehicle;
 				}
 			}
 
 			[TagStructure(Size = 0x30)]
-			public class TagBlock14
+			public class PodiumBlock
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public List<TagBlock15> Unknown18 { get; set; }
-				[TagElement]
-				public List<TagBlock16> Unknown24 { get; set; }
+				public HaloTag AnimationGraph;
+				public StringId DefaultUnarmed;
+				public StringId DefaultArmed;
+				public List<StanceAnimation> StanceAnimations;
+				public List<MoveAnimation> MoveAnimations;
 
 				[TagStructure(Size = 0x34)]
-				public class TagBlock15
+				public class StanceAnimation
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
-					[TagElement]
-					public int Unknown8 { get; set; }
-					[TagElement]
-					public int UnknownC { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
-					[TagElement]
-					public int Unknown20 { get; set; }
-					[TagElement]
-					public int Unknown24 { get; set; }
-					[TagElement]
-					public int Unknown28 { get; set; }
-					[TagElement]
-					public int Unknown2C { get; set; }
-					[TagElement]
-					public int Unknown30 { get; set; }
+					public string Name;
+					public StringId BaseAnimation;
+					public StringId LoopAnimation;
+					public StringId UnarmedTransition;
+					public StringId ArmedTransition;
+					public float Unknown;
 				}
 
 				[TagStructure(Size = 0x50)]
-				public class TagBlock16
+				public class MoveAnimation
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
-					[TagElement]
-					public int Unknown8 { get; set; }
-					[TagElement]
-					public int UnknownC { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
-					[TagElement]
-					public int Unknown20 { get; set; }
-					[TagElement]
-					public int Unknown24 { get; set; }
-					[TagElement]
-					public int Unknown28 { get; set; }
-					[TagElement]
-					public int Unknown2C { get; set; }
-					[TagElement]
-					public HaloTag Unknown30 { get; set; }
-					[TagElement]
-					public HaloTag Unknown40 { get; set; }
+					public string Name;
+					public StringId InAnimation;
+					public StringId LoopAnimation;
+					public StringId OutAnimation;
+					public int Unknown;
+					public HaloTag PrimaryWeapon;
+					public HaloTag SecondaryWeapon;
 				}
 			}
 		}
 
 		[TagStructure(Size = 0x2A8)]
-		public class RuntimeGlobals
+		public class RuntimeBlock
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown10 { get; set; }
-			[TagElement]
-			public HaloTag Unknown20 { get; set; }
-			[TagElement]
-			public HaloTag Unknown30 { get; set; }
-			[TagElement]
-			public HaloTag Unknown40 { get; set; }
-			[TagElement]
-			public HaloTag Unknown50 { get; set; }
-			[TagElement]
-			public HaloTag Unknown60 { get; set; }
-			[TagElement]
-			public HaloTag Unknown70 { get; set; }
-			[TagElement]
-			public HaloTag Unknown80 { get; set; }
-			[TagElement]
-			public HaloTag Unknown90 { get; set; }
-			[TagElement]
-			public HaloTag UnknownA0 { get; set; }
-			[TagElement]
-			public HaloTag UnknownB0 { get; set; }
-			[TagElement]
-			public List<TagBlock18> UnknownC0 { get; set; }
-			[TagElement]
-			public List<TagBlock19> UnknownCC { get; set; }
-			[TagElement]
-			public List<Event> UnknownD8 { get; set; }
-			[TagElement]
-			public List<Event> UnknownE4 { get; set; }
-			[TagElement]
-			public List<Event> UnknownF0 { get; set; }
-			[TagElement]
-			public List<Event> UnknownFC { get; set; }
-			[TagElement]
-			public List<Event> Unknown108 { get; set; }
-			[TagElement]
-			public List<Event> Unknown114 { get; set; }
-			[TagElement]
-			public List<Event> Unknown120 { get; set; }
-			[TagElement]
-			public List<Event> Unknown12C { get; set; }
-			[TagElement]
-			public List<Event> Unknown138 { get; set; }
-			[TagElement]
-			public List<Event> Unknown144 { get; set; }
-			[TagElement]
-			public List<Event> Unknown150 { get; set; }
-			[TagElement]
-			public List<Event> Unknown15C { get; set; }
-			[TagElement]
-			public int Unknown168 { get; set; }
-			[TagElement]
-			public int Unknown16C { get; set; }
-			[TagElement]
-			public List<TagBlock32> Unknown170 { get; set; }
-			[TagElement]
-			public List<TagBlock37> Unknown17C { get; set; }
-			[TagElement]
-			public HaloTag Unknown188 { get; set; }
-			[TagElement]
-			public HaloTag Unknown198 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1A8 { get; set; }
-			[TagElement]
-			public int Unknown1B8 { get; set; }
-			[TagElement]
-			public int Unknown1BC { get; set; }
-			[TagElement]
-			public int Unknown1C0 { get; set; }
-			[TagElement]
-			public int Unknown1C4 { get; set; }
-			[TagElement]
-			public int Unknown1C8 { get; set; }
-			[TagElement]
-			public int Unknown1CC { get; set; }
-			[TagElement]
-			public int Unknown1D0 { get; set; }
-			[TagElement]
-			public int Unknown1D4 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1D8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1E8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1F8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown208 { get; set; }
-			[TagElement]
-			public HaloTag Unknown218 { get; set; }
-			[TagElement]
-			public HaloTag Unknown228 { get; set; }
-			[TagElement]
-			public HaloTag Unknown238 { get; set; }
-			[TagElement]
-			public int Unknown248 { get; set; }
-			[TagElement]
-			public int Unknown24C { get; set; }
-			[TagElement]
-			public int Unknown250 { get; set; }
-			[TagElement]
-			public int Unknown254 { get; set; }
-			[TagElement]
-			public HaloTag Unknown258 { get; set; }
-			[TagElement]
-			public HaloTag Unknown268 { get; set; }
-			[TagElement]
-			public HaloTag Unknown278 { get; set; }
-			[TagElement]
-			public HaloTag Unknown288 { get; set; }
-			[TagElement]
-			public int Unknown298 { get; set; }
-			[TagElement]
-			public int Unknown29C { get; set; }
-			[TagElement]
-			public int Unknown2A0 { get; set; }
-			[TagElement]
-			public int Unknown2A4 { get; set; }
+			public HaloTag SandboxEditorUnit;
+			public HaloTag SandboxEditorObject;
+			public HaloTag Flag;
+			public HaloTag Ball;
+			public HaloTag Bomb;
+			public HaloTag VipZone;
+			public HaloTag InGameStrings;
+			public HaloTag Unknown;
+			public HaloTag Unknown2;
+			public HaloTag Unknown3;
+			public HaloTag Unknown4;
+			public HaloTag Unknown5;
+			public List<Sound> Sounds;
+			public List<LoopingSound> LoopingSounds;
+			public List<UnknownEvent> UnknownEvents;
+			public List<GeneralEvent> GeneralEvents;
+			public List<FlavorEvent> FlavorEvents;
+			public List<SlayerEvent> SlayerEvents;
+			public List<CtfEvent> CtfEvents;
+			public List<OddballEvent> OddballEvents;
+			public List<KingOfTheHillEvent> KingOfTheHillEvents;
+			public List<VipEvent> VipEvents;
+			public List<JuggernautEvent> JuggernautEvents;
+			public List<TerritoriesEvent> TerritoriesEvents;
+			public List<AssaultEvent> AssaultEvents;
+			public List<InfectionEvent> InfectionEvents;
+			public int DefaultFragGrenadeCount;
+			public int DefaultPlasmaGrenadeCount;
+			public List<MultiplayerConstant> MultiplayerConstants;
+			public List<StateRespons> StateResponses;
+			public HaloTag ScoreboardEmblemBitmap;
+			public HaloTag ScoreboardDeadEmblemBitmap;
+			public HaloTag DefaultShapeShader;
+			public HaloTag Unknown6;
+			public HaloTag CtfIntroUi;
+			public HaloTag SlayerIntroUi;
+			public HaloTag OddballIntroUi;
+			public HaloTag KingOfTheHillIntroUi;
+			public HaloTag SandboxIntroUi;
+			public HaloTag VipIntroUi;
+			public HaloTag JuggernautIntroUi;
+			public HaloTag TerritoriesIntroUi;
+			public HaloTag AssaultIntroUi;
+			public HaloTag InfectionIntroUi;
+			public HaloTag MenuMusic1;
+			public HaloTag MenuMusic2;
+			public HaloTag MenuMusic3;
+			public HaloTag Unknown7;
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock18
+			public class Sound
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
+				public HaloTag Sound2;
 			}
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock19
+			public class LoopingSound
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
+				public HaloTag LoopingSound2;
 			}
 
 			[TagStructure(Size = 0x10C)]
-			public class Event
+			public class UnknownEvent
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int StringId { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public HaloTag Unknown2C { get; set; }
-				[TagElement]
-				public HaloTag Unknown3C { get; set; }
-				[TagElement]
-				public HaloTag Unknown4C { get; set; }
-				[TagElement]
-				public HaloTag Unknown5C { get; set; }
-				[TagElement]
-				public HaloTag Unknown6C { get; set; }
-				[TagElement]
-				public HaloTag Unknown7C { get; set; }
-				[TagElement]
-				public HaloTag Unknown8C { get; set; }
-				[TagElement]
-				public HaloTag Unknown9C { get; set; }
-				[TagElement]
-				public HaloTag UnknownAC { get; set; }
-				[TagElement]
-				public HaloTag UnknownBC { get; set; }
-				[TagElement]
-				public HaloTag UnknownCC { get; set; }
-				[TagElement]
-				public HaloTag UnknownDC { get; set; }
-				[TagElement]
-				public int UnknownEC { get; set; }
-				[TagElement]
-				public int UnknownF0 { get; set; }
-				[TagElement]
-				public int UnknownF4 { get; set; }
-				[TagElement]
-				public int UnknownF8 { get; set; }
-				[TagElement]
-				public int UnknownFC { get; set; }
-				[TagElement]
-				public int Unknown100 { get; set; }
-				[TagElement]
-				public int Unknown104 { get; set; }
-				[TagElement]
-				public int Unknown108 { get; set; }
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class GeneralEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class FlavorEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class SlayerEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class CtfEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class OddballEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class KingOfTheHillEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class VipEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class JuggernautEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class TerritoriesEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class AssaultEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+			}
+
+			[TagStructure(Size = 0x10C)]
+			public class InfectionEvent
+			{
+				public ushort Flags;
+				public TypeValue Type;
+				public StringId Event;
+				public AudienceValue Audience;
+				public short Unknown;
+				public TeamValue Team;
+				public short Unknown2;
+				public StringId DisplayString;
+				public StringId DisplayMedal;
+				public float Unknown3;
+				public float Unknown4;
+				public RequiredFieldValue RequiredField;
+				public ExcludedAudienceValue ExcludedAudience;
+				public RequiredField2Value RequiredField2;
+				public ExcludedAudience2Value ExcludedAudience2;
+				public StringId PrimaryString;
+				public int PrimaryStringDuration;
+				public StringId PluralDisplayString;
+				public float SoundDelayAnnouncerOnly;
+				public ushort SoundFlags;
+				public short Unknown5;
+				public HaloTag EnglishSound;
+				public HaloTag JapaneseSound;
+				public HaloTag GermanSound;
+				public HaloTag FrenchSound;
+				public HaloTag SpanishSound;
+				public HaloTag LatinAmericanSpanishSound;
+				public HaloTag ItalianSound;
+				public HaloTag KoreanSound;
+				public HaloTag ChineseTraditionalSound;
+				public HaloTag ChineseSimplifiedSound;
+				public HaloTag PortugueseSound;
+				public HaloTag PolishSound;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+
+				public enum TypeValue : short
+				{
+					General,
+					Flavor,
+					Slayer,
+					CaptureTheFlag,
+					Oddball,
+					Unused,
+					KingOfTheHill,
+					Vip,
+					Juggernaut,
+					Territories,
+					Assault,
+					Infection,
+					Survival,
+					Unknown,
+				}
+
+				public enum AudienceValue : short
+				{
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+					All,
+				}
+
+				public enum TeamValue : short
+				{
+					NonePlayerOnly,
+					Cause,
+					Effect,
+					All,
+				}
+
+				public enum RequiredFieldValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudienceValue : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum RequiredField2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
+
+				public enum ExcludedAudience2Value : short
+				{
+					None,
+					CausePlayer,
+					CauseTeam,
+					EffectPlayer,
+					EffectTeam,
+				}
 			}
 
 			[TagStructure(Size = 0x220)]
-			public class TagBlock32
+			public class MultiplayerConstant
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public int Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown50 { get; set; }
-				[TagElement]
-				public int Unknown54 { get; set; }
-				[TagElement]
-				public int Unknown58 { get; set; }
-				[TagElement]
-				public int Unknown5C { get; set; }
-				[TagElement]
-				public int Unknown60 { get; set; }
-				[TagElement]
-				public int Unknown64 { get; set; }
-				[TagElement]
-				public List<TagBlock33> Unknown68 { get; set; }
-				[TagElement]
-				public List<TagBlock34> Unknown74 { get; set; }
-				[TagElement]
-				public List<TagBlock35> Unknown80 { get; set; }
-				[TagElement]
-				public List<TagBlock36> Unknown8C { get; set; }
-				[TagElement]
-				public int Unknown98 { get; set; }
-				[TagElement]
-				public int Unknown9C { get; set; }
-				[TagElement]
-				public int UnknownA0 { get; set; }
-				[TagElement]
-				public int UnknownA4 { get; set; }
-				[TagElement]
-				public int UnknownA8 { get; set; }
-				[TagElement]
-				public int UnknownAC { get; set; }
-				[TagElement]
-				public int UnknownB0 { get; set; }
-				[TagElement]
-				public int UnknownB4 { get; set; }
-				[TagElement]
-				public int UnknownB8 { get; set; }
-				[TagElement]
-				public int UnknownBC { get; set; }
-				[TagElement]
-				public int UnknownC0 { get; set; }
-				[TagElement]
-				public int UnknownC4 { get; set; }
-				[TagElement]
-				public int UnknownC8 { get; set; }
-				[TagElement]
-				public int UnknownCC { get; set; }
-				[TagElement]
-				public int UnknownD0 { get; set; }
-				[TagElement]
-				public int UnknownD4 { get; set; }
-				[TagElement]
-				public int UnknownD8 { get; set; }
-				[TagElement]
-				public int UnknownDC { get; set; }
-				[TagElement]
-				public int UnknownE0 { get; set; }
-				[TagElement]
-				public int UnknownE4 { get; set; }
-				[TagElement]
-				public int UnknownE8 { get; set; }
-				[TagElement]
-				public int UnknownEC { get; set; }
-				[TagElement]
-				public int UnknownF0 { get; set; }
-				[TagElement]
-				public int UnknownF4 { get; set; }
-				[TagElement]
-				public int UnknownF8 { get; set; }
-				[TagElement]
-				public int UnknownFC { get; set; }
-				[TagElement]
-				public int Unknown100 { get; set; }
-				[TagElement]
-				public int Unknown104 { get; set; }
-				[TagElement]
-				public int Unknown108 { get; set; }
-				[TagElement]
-				public int Unknown10C { get; set; }
-				[TagElement]
-				public int Unknown110 { get; set; }
-				[TagElement]
-				public int Unknown114 { get; set; }
-				[TagElement]
-				public int Unknown118 { get; set; }
-				[TagElement]
-				public int Unknown11C { get; set; }
-				[TagElement]
-				public int Unknown120 { get; set; }
-				[TagElement]
-				public int Unknown124 { get; set; }
-				[TagElement]
-				public int Unknown128 { get; set; }
-				[TagElement]
-				public int Unknown12C { get; set; }
-				[TagElement]
-				public int Unknown130 { get; set; }
-				[TagElement]
-				public int Unknown134 { get; set; }
-				[TagElement]
-				public int Unknown138 { get; set; }
-				[TagElement]
-				public int Unknown13C { get; set; }
-				[TagElement]
-				public int Unknown140 { get; set; }
-				[TagElement]
-				public int Unknown144 { get; set; }
-				[TagElement]
-				public int Unknown148 { get; set; }
-				[TagElement]
-				public int Unknown14C { get; set; }
-				[TagElement]
-				public int Unknown150 { get; set; }
-				[TagElement]
-				public int Unknown154 { get; set; }
-				[TagElement]
-				public int Unknown158 { get; set; }
-				[TagElement]
-				public int Unknown15C { get; set; }
-				[TagElement]
-				public int Unknown160 { get; set; }
-				[TagElement]
-				public HaloTag Unknown164 { get; set; }
-				[TagElement]
-				public int Unknown174 { get; set; }
-				[TagElement]
-				public int Unknown178 { get; set; }
-				[TagElement]
-				public int Unknown17C { get; set; }
-				[TagElement]
-				public int Unknown180 { get; set; }
-				[TagElement]
-				public HaloTag Unknown184 { get; set; }
-				[TagElement]
-				public int Unknown194 { get; set; }
-				[TagElement]
-				public int Unknown198 { get; set; }
-				[TagElement]
-				public int Unknown19C { get; set; }
-				[TagElement]
-				public int Unknown1A0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown1A4 { get; set; }
-				[TagElement]
-				public int Unknown1B4 { get; set; }
-				[TagElement]
-				public int Unknown1B8 { get; set; }
-				[TagElement]
-				public int Unknown1BC { get; set; }
-				[TagElement]
-				public int Unknown1C0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown1C4 { get; set; }
-				[TagElement]
-				public int Unknown1D4 { get; set; }
-				[TagElement]
-				public int Unknown1D8 { get; set; }
-				[TagElement]
-				public int Unknown1DC { get; set; }
-				[TagElement]
-				public int Unknown1E0 { get; set; }
-				[TagElement]
-				public int Unknown1E4 { get; set; }
-				[TagElement]
-				public int Unknown1E8 { get; set; }
-				[TagElement]
-				public int Unknown1EC { get; set; }
-				[TagElement]
-				public int Unknown1F0 { get; set; }
-				[TagElement]
-				public int Unknown1F4 { get; set; }
-				[TagElement]
-				public int Unknown1F8 { get; set; }
-				[TagElement]
-				public int Unknown1FC { get; set; }
-				[TagElement]
-				public int Unknown200 { get; set; }
-				[TagElement]
-				public int Unknown204 { get; set; }
-				[TagElement]
-				public int Unknown208 { get; set; }
-				[TagElement]
-				public int Unknown20C { get; set; }
-				[TagElement]
-				public int Unknown210 { get; set; }
-				[TagElement]
-				public int Unknown214 { get; set; }
-				[TagElement]
-				public int Unknown218 { get; set; }
-				[TagElement]
-				public int Unknown21C { get; set; }
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
+				public float Unknown5;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+				public float Unknown10;
+				public float Unknown11;
+				public float Unknown12;
+				public float Unknown13;
+				public float Unknown14;
+				public float Unknown15;
+				public float Unknown16;
+				public float Unknown17;
+				public float Unknown18;
+				public float Unknown19;
+				public float Unknown20;
+				public float Unknown21;
+				public float Unknown22;
+				public float Unknown23;
+				public float Unknown24;
+				public float Unknown25;
+				public float Unknown26;
+				public List<Weapon> Weapons;
+				public List<Vehicle> Vehicles;
+				public List<Projectile> Projectiles;
+				public List<EquipmentBlock> Equipment;
+				public float Unknown27;
+				public float Unknown28;
+				public float Unknown29;
+				public float Unknown30;
+				public float Unknown31;
+				public float Unknown32;
+				public float Unknown33;
+				public float Unknown34;
+				public float Unknown35;
+				public float Unknown36;
+				public float Unknown37;
+				public float Unknown38;
+				public float Unknown39;
+				public float Unknown40;
+				public float Unknown41;
+				public float Unknown42;
+				public float Unknown43;
+				public float Unknown44;
+				public float Unknown45;
+				public float Unknown46;
+				public float Unknown47;
+				public float Unknown48;
+				public float Unknown49;
+				public float Unknown50;
+				public float Unknown51;
+				public float Unknown52;
+				public float Unknown53;
+				public float Unknown54;
+				public float Unknown55;
+				public float Unknown56;
+				public float Unknown57;
+				public float Unknown58;
+				public float Unknown59;
+				public float Unknown60;
+				public float Unknown61;
+				public float Unknown62;
+				public float Unknown63;
+				public float Unknown64;
+				public float Unknown65;
+				public float Unknown66;
+				public float MaximumRandomSpawnBias;
+				public float TeleporterRechargeTime;
+				public float GrenadeDangerWeight;
+				public float GrenadeDangerInnerRadius;
+				public float GrenadeDangerOuterRadius;
+				public float GrenadeDangerLeadTime;
+				public float VehicleDangerMinimumSpeed;
+				public float VehicleDangerWeight;
+				public float VehicleDangerRadius;
+				public float VehicleDangerLeadTime;
+				public float VehicleNearbyPlayerDistance;
+				public HaloTag HillShader;
+				public float Unknown67;
+				public float Unknown68;
+				public float Unknown69;
+				public float Unknown70;
+				public HaloTag BombExplodeEffect;
+				public HaloTag Unknown71;
+				public HaloTag BombExplodeDamageEffect;
+				public HaloTag BombDefuseEffect;
+				public HaloTag CursorImpactEffect;
+				public StringId BombDefusalString;
+				public StringId BlockedTeleporterString;
+				public int Unknown72;
+				public StringId Unknown73;
+				public StringId SpawnAllowedDefaultRespawnString;
+				public StringId SpawnAtPlayerLookingAtSelfString;
+				public StringId SpawnAtPlayerLookingAtTargetString;
+				public StringId SpawnAtPlayerLookingAtPotentialTargetString;
+				public StringId SpawnAtTerritoryAllowedLookingAtTargetString;
+				public StringId SpawnAtTerritoryAllowedLookingAtPotentialTargetString;
+				public StringId PlayerOutOfLivesString;
+				public StringId InvalidSpawnTargetString;
+				public StringId TargettedPlayerEnemiesNearbyString;
+				public StringId TargettedPlayerUnfriendlyTeamString;
+				public StringId TargettedPlayerIsDeadString;
+				public StringId TargettedPlayerInCombatString;
+				public StringId TargettedPlayerTooFarFromOwnedFlagString;
+				public StringId NoAvailableNetpointsString;
+				public StringId NetpointContestedString;
 
 				[TagStructure(Size = 0x20)]
-				public class TagBlock33
+				public class Weapon
 				{
-					[TagElement]
-					public HaloTag Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
+					public HaloTag Weapon2;
+					public float Unknown;
+					public float Unknown2;
+					public float Unknown3;
+					public float Unknown4;
 				}
 
 				[TagStructure(Size = 0x20)]
-				public class TagBlock34
+				public class Vehicle
 				{
-					[TagElement]
-					public HaloTag Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
+					public HaloTag Vehicle2;
+					public float Unknown;
+					public float Unknown2;
+					public float Unknown3;
+					public float Unknown4;
 				}
 
 				[TagStructure(Size = 0x1C)]
-				public class TagBlock35
+				public class Projectile
 				{
-					[TagElement]
-					public HaloTag Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
+					public HaloTag Projectile2;
+					public float Unknown;
+					public float Unknown2;
+					public float Unknown3;
 				}
 
 				[TagStructure(Size = 0x14)]
-				public class TagBlock36
+				public class EquipmentBlock
 				{
-					[TagElement]
-					public HaloTag Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
+					public HaloTag Equipment;
+					public float Unknown;
 				}
 			}
 
 			[TagStructure(Size = 0x24)]
-			public class TagBlock37
+			public class StateRespons
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
+				public ushort Flags;
+				public short Unknown;
+				public StateValue State;
+				public short Unknown2;
+				public StringId FreeForAllMessage;
+				public StringId TeamMessage;
+				public HaloTag Unknown3;
+				public float Unknown4;
+
+				public enum StateValue : short
+				{
+					WaitingForSpaceToClear,
+					Observing,
+					RespawningSoon,
+					SittingOut,
+					OutOfLives,
+					PlayingWinning,
+					PlayingTied,
+					PlayingLosing,
+					GameOverWon,
+					GameOverTied,
+					GameOverLost,
+					GameOverTied2,
+					YouHaveFlag,
+					EnemyHasFlag,
+					FlagNotHome,
+					CarryingOddball,
+					YouAreJuggernaut,
+					YouControlHill,
+					SwitchingSidesSoon,
+					PlayerRecentlyStarted,
+					YouHaveBomb,
+					FlagContested,
+					BombContested,
+					LimitedLivesMultiple,
+					LimitedLivesSingle,
+					LimitedLivesFinal,
+					PlayingWinningUnlimited,
+					PlayingTiedUnlimited,
+					PlayingLosingUnlimited,
+				}
 			}
 		}
 	}

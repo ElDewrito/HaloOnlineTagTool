@@ -29,11 +29,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 
 			Console.WriteLine("Information for tag {0:X8}:", tag.Index);
-			Console.Write("- Classes: {0}", tag.Class);
-			if (tag.ParentClass.Value != -1)
-				Console.Write(" -> {0}", tag.ParentClass);
-			if (tag.GrandparentClass.Value != -1)
-				Console.Write(" -> {0}", tag.GrandparentClass);
+			Console.Write("- Groups: {0}", tag.GroupTag);
+			if (tag.ParentGroupTag.Value != -1)
+				Console.Write(" -> {0}", tag.ParentGroupTag);
+			if (tag.GrandparentGroupTag.Value != -1)
+				Console.Write(" -> {0}", tag.GrandparentGroupTag);
 			Console.WriteLine();
 			Console.WriteLine("- Data offset (after header): 0x{0:X}", tag.Offset);
 			Console.WriteLine("- Data size (without header): 0x{0:X}", tag.Size);

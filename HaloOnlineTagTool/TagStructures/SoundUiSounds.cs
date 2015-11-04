@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,16 +12,13 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sus!", Size = 0x10)]
 	public class SoundUiSounds
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
+		public List<UnknownBlock> Unknown;
+		public float Unknown2;
 
 		[TagStructure(Size = 0x10)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
+			public HaloTag Unknown;
 		}
 	}
 }

@@ -9,30 +9,22 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	[TagStructure(Size = 0x30)]
 	public class RenderGeometryResourceDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
+		public int Unknown0;
+		public int Unknown4;
+		public int Unknown8;
+		public int UnknownC;
+		public int Unknown10;
+		public int Unknown14;
 
 		/// <summary>
 		/// Gets or sets the vertex buffer definitions for the model data.
 		/// </summary>
-		[TagElement]
-		public List<D3DPointer<VertexBufferDefinition>> VertexBuffers { get; set; }
+		public List<D3DPointer<VertexBufferDefinition>> VertexBuffers;
 
 		/// <summary>
 		/// Gets or sets the index buffer definitions for the model data.
 		/// </summary>
-		[TagElement]
-		public List<D3DPointer<IndexBufferDefinition>> IndexBuffers { get; set; }
+		public List<D3DPointer<IndexBufferDefinition>> IndexBuffers;
 	}
 
 	/// <summary>
@@ -44,32 +36,27 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <summary>
 		/// Gets or sets the number of vertices in the buffer.
 		/// </summary>
-		[TagElement]
-		public int Count { get; set; }
+		public int Count;
 
 		/// <summary>
 		/// Gets or sets the format of each vertex.
 		/// </summary>
-		[TagElement]
-		public VertexBufferFormat Format { get; set; }
+		public VertexBufferFormat Format;
 
 		/// <summary>
 		/// Gets or sets the size of each vertex in bytes.
 		/// </summary>
 		/// <remarks>
-		/// This multiplied by <see cref="Count"/> should equal <see cref="TotalSize"/>.
+		/// This multiplied by <see cref="Count"/> should equal the total buffer size.
 		/// </remarks>
-		[TagElement]
-		public short VertexSize { get; set; }
+		public short VertexSize;
 
 		/// <summary>
 		/// Gets or sets the reference to the the data for the vertex buffer.
 		/// </summary>
-		[TagElement]
-		public ResourceDataReference Data { get; set; }
+		public ResourceDataReference Data;
 
-		[TagElement]
-		public int Unused1C { get; set; }
+		public int Unused1C;
 	}
 
 	/// <summary>
@@ -81,18 +68,14 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// <summary>
 		/// Gets or sets the primitive type to use for the index buffer.
 		/// </summary>
-		[TagElement]
-		public PrimitiveType Type { get; set; }
+		public PrimitiveType Type;
 
 		/// <summary>
 		/// Gets or sets the reference to the data for the index buffer.
 		/// </summary>
-		[TagElement]
-		public ResourceDataReference Data { get; set; }
+		public ResourceDataReference Data;
 
-		[TagElement]
-		public int Unused18 { get; set; }
-		[TagElement]
-		public int Unused1C { get; set; }
+		public int Unused18;
+		public int Unused1C;
 	}
 }

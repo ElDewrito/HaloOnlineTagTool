@@ -11,17 +11,14 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// Gets or sets the definition data for the object.
 		/// </summary>
-		[TagElement(Flags = TagElementFlags.Indirect)]
-		public TDefinition Definition { get; set; }
+		[TagField(Flags = TagElementFlags.Indirect)] public TDefinition Definition;
 
 		/// <summary>
 		/// Gets or sets the address of the object in memory.
 		/// This should be set to 0 because it will be filled in by the game.
 		/// </summary>
-		[TagElement]
-		public uint Address { get; set; }
+		public uint Address;
 
-		[TagElement]
-		public int UnusedC { get; set; }
+		public int UnusedC;
 	}
 }

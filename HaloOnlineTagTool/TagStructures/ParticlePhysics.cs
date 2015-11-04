@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,44 +12,29 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "pmov", Size = 0x2C)]
 	public class ParticlePhysics
 	{
-		[TagElement]
-		public HaloTag Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown20 { get; set; }
-		[TagElement]
-		public int Unknown24 { get; set; }
-		[TagElement]
-		public int Unknown28 { get; set; }
+		public HaloTag Unknown;
+		public float Unknown2;
+		public List<UnknownBlock> Unknown3;
+		public float Unknown4;
+		public float Unknown5;
+		public float Unknown6;
 
 		[TagStructure(Size = 0x18)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
+			public float Unknown;
+			public List<UnknownBlock2> Unknown2;
+			public float Unknown3;
+			public float Unknown4;
 
 			[TagStructure(Size = 0x24)]
-			public class TagBlock1
+			public class UnknownBlock2
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public byte[] Unknown8 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
+				public float Unknown;
+				public float Unknown2;
+				public byte[] Unknown3;
+				public float Unknown4;
+				public float Unknown5;
 			}
 		}
 	}

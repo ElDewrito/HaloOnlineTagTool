@@ -55,7 +55,7 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			var baseOffset = reader.BaseStream.Position;
 			var instance = Activator.CreateInstance(structType);
-			var enumerator = new TagElementEnumerator(structType, _version);
+			var enumerator = new TagFieldEnumerator(structType, _version);
 			while (enumerator.Next())
 				DeserializeProperty(reader, context, instance, enumerator, baseOffset);
 			if (enumerator.Structure.Size > 0)
@@ -72,15 +72,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="enumerator">The active element enumerator.</param>
 		/// <param name="baseOffset">The offset of the start of the structure.</param>
 		/// <exception cref="System.InvalidOperationException">Offset for property is outside of its structure</exception>
-		private void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagElementEnumerator enumerator, long baseOffset)
+		private void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagFieldEnumerator enumerator, long baseOffset)
 		{
 			// Seek to the value if it has an offset specified and then read it
-			if (enumerator.Element.Offset >= 0)
-				reader.BaseStream.Position = baseOffset + enumerator.Element.Offset;
+			if (enumerator.Attribute.Offset >= 0)
+				reader.BaseStream.Position = baseOffset + enumerator.Attribute.Offset;
 			var startOffset = reader.BaseStream.Position;
-			enumerator.Property.SetValue(instance, DeserializeValue(reader, context, enumerator.Element, enumerator.Property.PropertyType));
-			if (enumerator.Element.Size > 0)
-				reader.BaseStream.Position = startOffset + enumerator.Element.Size; // Honor the value's size if it has one set
+			enumerator.Field.SetValue(instance, DeserializeValue(reader, context, enumerator.Attribute, enumerator.Field.FieldType));
+			if (enumerator.Attribute.Size > 0)
+				reader.BaseStream.Position = startOffset + enumerator.Attribute.Size; // Honor the value's size if it has one set
 		}
 
 		/// <summary>
@@ -91,7 +91,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private object DeserializeValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
 		{
 			if (valueType.IsPrimitive)
 				return DeserializePrimitiveValue(reader, valueType);
@@ -144,7 +144,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		private object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
 		{
 			// Indirect objects
 			// TODO: Remove ResourceReference hax, the Indirect flag wasn't available when I generated the tag structures
@@ -311,7 +311,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <param name="valueType">The type of the value to deserialize.</param>
 		/// <returns>The deserialized array.</returns>
-		private Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagElementAttribute valueInfo, Type valueType)
+		private Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
 		{
 			if (valueInfo == null || valueInfo.Count == 0)
 				throw new ArgumentException("Cannot deserialize an inline array with no count set");

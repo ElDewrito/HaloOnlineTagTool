@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,154 +12,188 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "jpt!", Size = 0xF4)]
 	public class DamageEffect
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
-		[TagElement]
-		public int Unknown20 { get; set; }
-		[TagElement]
-		public int Unknown24 { get; set; }
-		[TagElement]
-		public int Unknown28 { get; set; }
-		[TagElement]
-		public int Unknown2C { get; set; }
-		[TagElement]
-		public int Unknown30 { get; set; }
-		[TagElement]
-		public int Unknown34 { get; set; }
-		[TagElement]
-		public int Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown3C { get; set; }
-		[TagElement]
-		public int Unknown40 { get; set; }
-		[TagElement]
-		public int Unknown44 { get; set; }
-		[TagElement]
-		public int Unknown48 { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
-		[TagElement]
-		public int Unknown50 { get; set; }
-		[TagElement]
-		public int Unknown54 { get; set; }
-		[TagElement]
-		public int Unknown58 { get; set; }
-		[TagElement]
-		public int Unknown5C { get; set; }
-		[TagElement]
-		public int Unknown60 { get; set; }
-		[TagElement]
-		public int Unknown64 { get; set; }
-		[TagElement]
-		public int Unknown68 { get; set; }
-		[TagElement]
-		public int Unknown6C { get; set; }
-		[TagElement]
-		public int Unknown70 { get; set; }
-		[TagElement]
-		public int Unknown74 { get; set; }
-		[TagElement]
-		public int Unknown78 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown7C { get; set; }
-		[TagElement]
-		public HaloTag Unknown88 { get; set; }
-		[TagElement]
-		public int Unknown98 { get; set; }
-		[TagElement]
-		public int Unknown9C { get; set; }
-		[TagElement]
-		public int UnknownA0 { get; set; }
-		[TagElement]
-		public int UnknownA4 { get; set; }
-		[TagElement]
-		public int UnknownA8 { get; set; }
-		[TagElement]
-		public int UnknownAC { get; set; }
-		[TagElement]
-		public int UnknownB0 { get; set; }
-		[TagElement]
-		public int UnknownB4 { get; set; }
-		[TagElement]
-		public int UnknownB8 { get; set; }
-		[TagElement]
-		public int UnknownBC { get; set; }
-		[TagElement]
-		public int UnknownC0 { get; set; }
-		[TagElement]
-		public int UnknownC4 { get; set; }
-		[TagElement]
-		public int UnknownC8 { get; set; }
-		[TagElement]
-		public int UnknownCC { get; set; }
-		[TagElement]
-		public int UnknownD0 { get; set; }
-		[TagElement]
-		public int UnknownD4 { get; set; }
-		[TagElement]
-		public int UnknownD8 { get; set; }
-		[TagElement]
-		public int UnknownDC { get; set; }
-		[TagElement]
-		public int UnknownE0 { get; set; }
-		[TagElement]
-		public int UnknownE4 { get; set; }
-		[TagElement]
-		public int UnknownE8 { get; set; }
-		[TagElement]
-		public int UnknownEC { get; set; }
-		[TagElement]
-		public int UnknownF0 { get; set; }
+		public float RadiusMin;
+		public float RadiusMax;
+		public float CutoffScale;
+		public uint Flags;
+		public SideEffectValue SideEffect;
+		public CategoryValue Category;
+		public uint Flags2;
+		public float AreaOfEffectCoreRadius;
+		public float DamageLowerBound;
+		public float DamageUpperBoundMin;
+		public float DamageUpperBoundMax;
+		public Angle DamageInnerConeAngle;
+		public Angle DamageOuterConeAngle;
+		public float ActiveCamoflageDamage;
+		public float Stun;
+		public float MaxStun;
+		public float StunTime;
+		public float InstantaneousAcceleration;
+		public float RiderDirectDamageScale;
+		public float RiderMaxTransferDamageScale;
+		public float RiderMinTransferDamageScale;
+		public StringId GeneralDamage;
+		public StringId SpecificDamage;
+		public StringId SpecialDamage;
+		public float AiStunRadius;
+		public float AiStunBoundsMin;
+		public float AiStunBoundsMax;
+		public float ShakeRadius;
+		public float EmpRadius;
+		public float Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public List<PlayerRespons> PlayerResponses;
+		public HaloTag DamageResponse;
+		public float Duration;
+		public FadeFunctionValue FadeFunction;
+		public short Unknown4;
+		public Angle Rotation;
+		public float Pushback;
+		public float JitterMin;
+		public float JitterMax;
+		public float Duration2;
+		public FalloffFunctionValue FalloffFunction;
+		public short Unknown5;
+		public float RandomTranslation;
+		public Angle RandomRotation;
+		public WobbleFunctionValue WobbleFunction;
+		public short Unknown6;
+		public float WobbleFunctionPeriod;
+		public float WobbleWeight;
+		public HaloTag Sound;
+		public float ForwardVelocity;
+		public float ForwardRadius;
+		public float ForwardExponent;
+		public float OutwardVelocity;
+		public float OutwardRadius;
+		public float OutwardExponent;
+
+		public enum SideEffectValue : short
+		{
+			None,
+			Harmless,
+			LethalToTheUnsuspecting,
+			Emp,
+		}
+
+		public enum CategoryValue : short
+		{
+			None,
+			Falling,
+			Bullet,
+			Grenade,
+			HighExplosive,
+			Sniper,
+			Melee,
+			Flame,
+			MountedWeapon,
+			Vehicle,
+			Plasma,
+			Needle,
+			Shotgun,
+		}
 
 		[TagStructure(Size = 0x70)]
-		public class TagBlock0
+		public class PlayerRespons
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public byte[] Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public byte[] Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public byte[] Unknown5C { get; set; }
+			public ResponseTypeValue ResponseType;
+			public short Unknown;
+			public TypeValue Type;
+			public PriorityValue Priority;
+			public float Duration;
+			public FadeFunctionValue FadeFunction;
+			public short Unknown2;
+			public float MaximumIntensity;
+			public float ColorAlpha;
+			public float ColorRed;
+			public float ColorGreen;
+			public float ColorBlue;
+			public float LowFrequencyVibrationDuration;
+			public byte[] LowFrequencyVibrationFunction;
+			public float HighFrequencyVibrationDuration;
+			public byte[] HighFrequencyVibrationFunction;
+			public StringId EffectName;
+			public float Duration2;
+			public byte[] EffectScaleFunction;
+
+			public enum ResponseTypeValue : short
+			{
+				Shielded,
+				Unshielded,
+				All,
+			}
+
+			public enum TypeValue : short
+			{
+				None,
+				Lighten,
+				Darken,
+				Max,
+				Min,
+				Invert,
+				Tint,
+			}
+
+			public enum PriorityValue : short
+			{
+				Low,
+				Medium,
+				High,
+			}
+
+			public enum FadeFunctionValue : short
+			{
+				Linear,
+				Late,
+				VeryLate,
+				Early,
+				VeryEarly,
+				Cosine,
+				Zero,
+				One,
+			}
+		}
+
+		public enum FadeFunctionValue : short
+		{
+			Linear,
+			Late,
+			VeryLate,
+			Early,
+			VeryEarly,
+			Cosine,
+			Zero,
+			One,
+		}
+
+		public enum FalloffFunctionValue : short
+		{
+			Linear,
+			Late,
+			VeryLate,
+			Early,
+			VeryEarly,
+			Cosine,
+			Zero,
+			One,
+		}
+
+		public enum WobbleFunctionValue : short
+		{
+			One,
+			Zero,
+			Cosine,
+			CosineVariablePeriod,
+			DiagonalWave,
+			DiagonalWaveVariablePeriod,
+			Slide,
+			SlideVariablePeriod,
+			Noise,
+			Jitter,
+			Wander,
+			Spark,
 		}
 	}
 }

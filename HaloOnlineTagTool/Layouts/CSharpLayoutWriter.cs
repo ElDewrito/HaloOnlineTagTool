@@ -1,0 +1,243 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+
+namespace HaloOnlineTagTool.Layouts
+{
+	public class CSharpLayoutWriter : TagLayoutWriter
+	{
+		public override string GetSuggestedFileName(TagLayout layout)
+		{
+			return string.Format("{0}.cs", NamingConvention.ToPascalCase(layout.Name));
+		}
+
+		public override void WriteLayout(TagLayout layout, TextWriter writer)
+		{
+			WriteHeader(writer);
+
+			var name = NamingConvention.ToPascalCase(layout.Name);
+			var builder = new ClassBuilder(writer, 1);
+			builder.Begin(name, layout.Size, layout.GroupTag);
+			layout.Accept(builder);
+			builder.End();
+
+			WriteFooter(writer);
+		}
+
+		private static void WriteHeader(TextWriter writer)
+		{
+			// Write the C# header
+			writer.WriteLine("using System;");
+			writer.WriteLine("using System.Collections.Generic;");
+			writer.WriteLine("using System.Linq;");
+			writer.WriteLine("using System.Text;");
+			writer.WriteLine("using System.Threading.Tasks;");
+			writer.WriteLine("using HaloOnlineTagTool.Common;");
+			writer.WriteLine("using HaloOnlineTagTool.Resources;");
+			writer.WriteLine("using HaloOnlineTagTool.Serialization;");
+			writer.WriteLine();
+			writer.WriteLine("namespace HaloOnlineTagTool.TagStructures");
+			writer.WriteLine("{");
+		}
+
+		private static void WriteFooter(TextWriter writer)
+		{
+			writer.WriteLine("}");
+		}
+
+		private class ClassBuilder : ITagLayoutFieldVisitor
+		{
+			private readonly TextWriter _writer;
+			private string _indent;
+			private int _indentLevel;
+			private int _arrayCount = 1;
+			private readonly Queue<string> _subBlocks = new Queue<string>();
+			private readonly Dictionary<string, int> _nameCounts = new Dictionary<string, int>(); 
+
+			public ClassBuilder(TextWriter writer, int indent)
+			{
+				_writer = writer;
+				SetIndent(indent);
+			}
+
+			public void Begin(string name, uint size, MagicNumber groupTag)
+			{
+				if (groupTag.Value != 0)
+					_writer.WriteLine("{0}[TagStructure(Class = \"{1}\", Size = 0x{2:X})]", _indent, groupTag, size);
+				else
+					_writer.WriteLine("{0}[TagStructure(Size = 0x{1:X})]", _indent, size);
+				_writer.WriteLine("{0}public class {1}", _indent, name);
+				_writer.WriteLine("{0}{{", _indent);
+				SetIndent(_indentLevel + 1);
+				_nameCounts[name] = 1;
+			}
+
+			public void Visit(BasicTagLayoutField field)
+			{
+				AddElement(GetTypeName(field.Type), field.Name);
+			}
+
+			public void Visit(ArrayTagLayoutField field)
+			{
+				_arrayCount = field.Count;
+				field.UnderlyingField.Accept(this);
+				_arrayCount = 1;
+			}
+
+			public void Visit(EnumTagLayoutField field)
+			{
+				using (var enumWriter = new StringWriter())
+				{
+					var typeName = BuildEnum(field.Layout, enumWriter);
+					_subBlocks.Enqueue(enumWriter.ToString());
+					AddElement(typeName, field.Name);
+				}
+			}
+
+			public void Visit(StringTagLayoutField field)
+			{
+				// TODO: Make use of the Size property on the field
+				AddElement("string", field.Name);
+			}
+
+			public void Visit(TagBlockTagLayoutField field)
+			{
+				string className;
+				if (field.ElementLayout.Name != field.Name)
+					className = MakeName(field.ElementLayout.Name);
+				else
+					className = MakeName(field.ElementLayout.Name + " Block");
+				using (var blockWriter = new StringWriter())
+				{
+					var blockBuilder = new ClassBuilder(blockWriter, _indentLevel);
+					blockBuilder.Begin(className, field.ElementLayout.Size, field.ElementLayout.GroupTag);
+					field.ElementLayout.Accept(blockBuilder);
+					blockBuilder.End();
+					_subBlocks.Enqueue(blockWriter.ToString());
+				}
+				var blockType = string.Format("List<{0}>", className);
+				AddElement(blockType, field.Name);
+			}
+
+			public void End()
+			{
+				// Put tag block definitions at the end
+				while (_subBlocks.Count > 0)
+				{
+					_writer.WriteLine();
+					_writer.Write(_subBlocks.Dequeue());
+				}
+				SetIndent(_indentLevel - 1);
+				_writer.WriteLine("{0}}}", _indent);
+			}
+
+			private void AddElement(string type, string name)
+			{
+				if (_arrayCount > 1)
+				{
+					_writer.WriteLine("{0}[TagField(Count = {1})] public {2}[] {3};", _indent, _arrayCount, type, MakeName(name));
+				}
+				else
+				{
+					_writer.WriteLine("{0}public {1} {2};", _indent, type, MakeName(name));
+				}
+			}
+
+			private string BuildEnum(EnumLayout layout, TextWriter writer)
+			{
+				var enumName = MakeName(layout.Name + " Value");
+				var valueNameCounts = new Dictionary<string, int>();
+				writer.WriteLine("{0}public enum {1} : {2}", _indent, enumName, GetTypeName(layout.UnderlyingType));
+				writer.WriteLine("{0}{{", _indent);
+				SetIndent(_indentLevel + 1);
+				var nextValue = 0;
+				foreach (var val in layout.Values)
+				{
+					if (val.Value == nextValue)
+						writer.WriteLine("{0}{1},", _indent, MakeName(val.Name, valueNameCounts));
+					else
+						writer.WriteLine("{0}{1} = {2},", _indent, MakeName(val.Name, valueNameCounts), val.Value);
+					nextValue = val.Value + 1;
+				}
+				SetIndent(_indentLevel - 1);
+				writer.WriteLine("{0}}}", _indent);
+				return enumName;
+			}
+
+			private static string GetTypeName(BasicFieldType type)
+			{
+				switch (type)
+				{
+					case BasicFieldType.Int8:
+						return "sbyte";
+					case BasicFieldType.UInt8:
+						return "byte";
+					case BasicFieldType.Int16:
+						return "short";
+					case BasicFieldType.UInt16:
+						return "ushort";
+					case BasicFieldType.Int32:
+						return "int";
+					case BasicFieldType.UInt32:
+						return "uint";
+					case BasicFieldType.Float32:
+						return "float";
+					case BasicFieldType.Vector2:
+						return "Vector2";
+					case BasicFieldType.Vector3:
+						return "Vector3";
+					case BasicFieldType.Vector4:
+						return "Vector4";
+					case BasicFieldType.Angle:
+						return "Angle";
+					case BasicFieldType.StringId:
+						return "StringId";
+					case BasicFieldType.TagReference:
+						return "HaloTag";
+					case BasicFieldType.DataReference:
+						return "byte[]";
+					case BasicFieldType.ResourceReference:
+						return "ResourceReference";
+					default:
+						throw new ArgumentException("Unrecognized basic field type " + type);
+				}
+			}
+
+			private string MakeName(string name)
+			{
+				return MakeName(name, _nameCounts);
+			}
+
+			private static string MakeName(string name, Dictionary<string, int> nameCounts)
+			{
+				// Convert the name to pascal case, and if it's unique, then return it
+				// Otherwise, increment the name's use count, append it to the name, and try again
+				var result = NamingConvention.ToPascalCase(name);
+				while (true)
+				{
+					int count;
+					if (!nameCounts.TryGetValue(result, out count))
+					{
+						nameCounts[result] = 1;
+						return result;
+					}
+					count++;
+					nameCounts[result] = count;
+					if (result.Length > 0 && char.IsDigit(result[result.Length - 1]))
+						result += '_'; // Prepend an underscore to the count if the name ends with a digit
+					result += count;
+				}
+			}
+
+			private void SetIndent(int level)
+			{
+				_indentLevel = level;
+				_indent = new string('\t', level);
+			}
+		}
+	}
+}

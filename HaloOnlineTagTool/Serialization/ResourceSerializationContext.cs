@@ -112,7 +112,7 @@ namespace HaloOnlineTagTool.Serialization
 				Writer.Write(0);
 			}
 
-			public object PreSerialize(TagElementAttribute info, object obj)
+			public object PreSerialize(TagFieldAttribute info, object obj)
 			{
 				if (obj == null)
 					return null;

@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool
 		private const uint FixupPointerBase = 0x40000000;
 
 		private readonly List<HaloTag> _tags = new List<HaloTag>();
-		private readonly HashSet<MagicNumber> _tagClasses = new HashSet<MagicNumber>(); 
+		private readonly HashSet<MagicNumber> _groupTags = new HashSet<MagicNumber>(); 
 		private readonly List<uint> _headerOffsets = new List<uint>();
 
 		/// <summary>
@@ -43,21 +43,21 @@ namespace HaloOnlineTagTool
 		public long Timestamp { get; private set; }
 
 		/// <summary>
-		/// Gets the tag classes in the file.
+		/// Gets the group tags in the file.
 		/// </summary>
-		public IEnumerable<MagicNumber> TagClasses
+		public IEnumerable<MagicNumber> GroupTags
 		{
-			get { return _tagClasses; }
+			get { return _groupTags; }
 		}
 
 		/// <summary>
-		/// Determines whether or not a tag with the given class exists.
+		/// Determines whether or not a tag with the given group tag exists.
 		/// </summary>
-		/// <param name="tagClass">The tag class.</param>
-		/// <returns><c>true</c> if a tag with the given class exists.</returns>
-		public bool ContainsClass(MagicNumber tagClass)
+		/// <param name="tagClass">The group tag.</param>
+		/// <returns><c>true</c> if a tag with the given group tag exists.</returns>
+		public bool ContainsGroup(MagicNumber tagClass)
 		{
-			return _tagClasses.Contains(tagClass);
+			return _groupTags.Contains(tagClass);
 		}
 
 		/// <summary>
@@ -377,29 +377,29 @@ namespace HaloOnlineTagTool
 		private void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
 		{
 			var headerOffset = (uint)reader.BaseStream.Position;
-			var checksum = reader.ReadUInt32();                         // 0x00 uint32 checksum
-			var totalSize = reader.ReadUInt32();                        // 0x04 uint32 total size
-			var numDependencies = reader.ReadInt16();                   // 0x08 int16  dependencies count
-			var numDataFixups = reader.ReadInt16();                     // 0x0A int16  data fixup count
-			var numResourceFixups = reader.ReadInt16();                 // 0x0C int16  resource fixup count
-			reader.BaseStream.Position += 2;                            // 0x0E int16  (padding)
-			var mainStructOffset = reader.ReadUInt32();                 // 0x10 uint32 main struct offset
-			var tagClass = new MagicNumber(reader.ReadInt32());         // 0x14 int32  class
-			var parentClass = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent class
-			var grandparentClass = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent class
-			var classId = new StringId(reader.ReadUInt32());            // 0x20 uint32 class stringid
+			var checksum = reader.ReadUInt32();                            // 0x00 uint32 checksum
+			var totalSize = reader.ReadUInt32();                           // 0x04 uint32 total size
+			var numDependencies = reader.ReadInt16();                      // 0x08 int16  dependencies count
+			var numDataFixups = reader.ReadInt16();                        // 0x0A int16  data fixup count
+			var numResourceFixups = reader.ReadInt16();                    // 0x0C int16  resource fixup count
+			reader.BaseStream.Position += 2;                               // 0x0E int16  (padding)
+			var mainStructOffset = reader.ReadUInt32();                    // 0x10 uint32 main struct offset
+			var groupTag = new MagicNumber(reader.ReadInt32());            // 0x14 int32  group tag
+			var parentGroupTag = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent group tag
+			var grandparentGroupTag = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent group tag
+			var groupName = new StringId(reader.ReadUInt32());             // 0x20 uint32 group name stringid
 			var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
 
 			// Update the tag object
-			_tagClasses.Add(tagClass);
-			resultTag.Class = tagClass;
-			resultTag.ParentClass = parentClass;
-			resultTag.GrandparentClass = grandparentClass;
+			_groupTags.Add(groupTag);
+			resultTag.GroupTag = groupTag;
+			resultTag.ParentGroupTag = parentGroupTag;
+			resultTag.GrandparentGroupTag = grandparentGroupTag;
 			resultTag.MainStructOffset = mainStructOffset - totalHeaderSize;
 			resultTag.Offset = headerOffset + totalHeaderSize;
 			resultTag.Size = totalSize - totalHeaderSize;
 			resultTag.Checksum = checksum;
-			resultTag.ClassId = classId;
+			resultTag.GroupName = groupName;
 
 			// Read dependencies
 			resultTag.Dependencies.Clear();
@@ -471,10 +471,10 @@ namespace HaloOnlineTagTool
 			writer.Write((short)tag.ResourceFixups.Count);
 			writer.Write((short)0);
 			writer.Write(tag.MainStructOffset + newHeaderSize);
-			writer.Write(tag.Class.Value);
-			writer.Write(tag.ParentClass.Value);
-			writer.Write(tag.GrandparentClass.Value);
-			writer.Write(tag.ClassId.Value);
+			writer.Write(tag.GroupTag.Value);
+			writer.Write(tag.ParentGroupTag.Value);
+			writer.Write(tag.GrandparentGroupTag.Value);
+			writer.Write(tag.GroupName.Value);
 
 			// Write dependencies
 			foreach (var dependency in tag.Dependencies)

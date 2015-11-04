@@ -10,17 +10,19 @@ namespace HaloOnlineTagTool.Serialization
 	/// <summary>
 	/// Allows easy enumeration over a tag structure's elements and filtering by version.
 	/// </summary>
-	public class TagElementEnumerator
+	public class TagFieldEnumerator
 	{
+		private static readonly TagFieldAttribute DefaultFieldAttribute = new TagFieldAttribute();
+
 		private readonly EngineVersion _version;
-		private PropertyInfo[] _properties;
+		private FieldInfo[] _fields;
 		private int _nextIndex;
 
 		/// <summary>
 		/// Constructs an enumerator over a structure with no version filtering.
 		/// </summary>
 		/// <param name="structure">The structure type. Must have a <see cref="TagStructureAttribute"/>.</param>
-		public TagElementEnumerator(Type structure)
+		public TagFieldEnumerator(Type structure)
 			: this(structure, EngineVersion.Unknown)
 		{
 		}
@@ -30,7 +32,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="structure">The structure type. Must have a <see cref="TagStructureAttribute"/>.</param>
 		/// <param name="version">The target engine version, or <see cref="EngineVersion.Unknown"/> to disable filtering by version.</param>
-		public TagElementEnumerator(Type structure, EngineVersion version)
+		public TagFieldEnumerator(Type structure, EngineVersion version)
 		{
 			StructureType = structure;
 			_version = version;
@@ -48,14 +50,14 @@ namespace HaloOnlineTagTool.Serialization
 		public TagStructureAttribute Structure { get; private set; }
 
 		/// <summary>
-		/// Gets information about the current property.
+		/// Gets information about the current field.
 		/// </summary>
-		public PropertyInfo Property { get; private set; }
+		public FieldInfo Field { get; private set; }
 
 		/// <summary>
-		/// Gets the current property's <see cref="TagElementAttribute"/>.
+		/// Gets the current property's <see cref="TagFieldAttribute"/>.
 		/// </summary>
-		public TagElementAttribute Element { get; private set; }
+		public TagFieldAttribute Attribute { get; private set; }
 
 		/// <summary>
 		/// Gets the lowest engine version which supports this property, or <see cref="EngineVersion.Unknown"/> if unbounded.
@@ -68,7 +70,7 @@ namespace HaloOnlineTagTool.Serialization
 		public EngineVersion MaxVersion { get; private set; }
 
 		/// <summary>
-		/// Moves to the next tag element in the structure.
+		/// Moves to the next tag field in the structure.
 		/// This must be called before accessing any of the other properties.
 		/// </summary>
 		/// <returns><c>true</c> if the enumerator moved to a new element, or <c>false</c> if the end of the structure has been reached.</returns>
@@ -76,9 +78,9 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			do
 			{
-				if (_properties == null || _nextIndex >= _properties.Length)
+				if (_fields == null || _nextIndex >= _fields.Length)
 					return false;
-				Property = _properties[_nextIndex];
+				Field = _fields[_nextIndex];
 				_nextIndex++;
 			} while (!GetCurrentPropertyInfo());
 			return true;
@@ -99,22 +101,21 @@ namespace HaloOnlineTagTool.Serialization
 			if (Structure == null)
 				throw new InvalidOperationException("No TagStructureAttribute which matches the target version was found on the structure type");
 
-			// Get the property list
-			_properties = StructureType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			// Get the field list
+			_fields = StructureType.GetFields(BindingFlags.Instance | BindingFlags.Public);
 		}
 
 		private bool GetCurrentPropertyInfo()
 		{
-			// Make sure the property has a TagElementAttribute
-			Element = Property.GetCustomAttributes(typeof(TagElementAttribute), false).FirstOrDefault() as TagElementAttribute;
-			if (Element == null)
-				return false; // Ignore it
-			if (Element.Offset >= Structure.Size)
-				throw new InvalidOperationException("Offset for property \"" + Property.Name + "\" is outside of its structure");
+			// If the field has a TagFieldAttribute, use it, otherwise use the default
+			Attribute = Field.GetCustomAttributes(typeof(TagFieldAttribute), false).FirstOrDefault() as TagFieldAttribute ??
+			          DefaultFieldAttribute;
+			if (Attribute.Offset >= Structure.Size)
+				throw new InvalidOperationException("Offset for property \"" + Field.Name + "\" is outside of its structure");
 
 			// Read version restrictions, if any
-			var minVersionAttrib = Property.GetCustomAttributes(typeof(MinVersionAttribute), false).FirstOrDefault() as MinVersionAttribute;
-			var maxVersionAttrib = Property.GetCustomAttributes(typeof(MaxVersionAttribute), false).FirstOrDefault() as MaxVersionAttribute;
+			var minVersionAttrib = Field.GetCustomAttributes(typeof(MinVersionAttribute), false).FirstOrDefault() as MinVersionAttribute;
+			var maxVersionAttrib = Field.GetCustomAttributes(typeof(MaxVersionAttribute), false).FirstOrDefault() as MaxVersionAttribute;
 			MinVersion = (minVersionAttrib != null) ? minVersionAttrib.Version : EngineVersion.Unknown;
 			MaxVersion = (maxVersionAttrib != null) ? maxVersionAttrib.Version : EngineVersion.Unknown;
 			return VersionMatches(MinVersion, MaxVersion);

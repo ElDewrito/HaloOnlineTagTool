@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,94 +12,74 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sncl", Size = 0x10)]
 	public class SoundClasses
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
+		public List<UnknownBlock> Unknown;
+		public float Unknown2;
 
 		[TagStructure(Size = 0xA0)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
-			[TagElement]
-			public int Unknown80 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
-			[TagElement]
-			public int Unknown88 { get; set; }
-			[TagElement]
-			public int Unknown8C { get; set; }
-			[TagElement]
-			public int Unknown90 { get; set; }
-			[TagElement]
-			public int Unknown94 { get; set; }
-			[TagElement]
-			public int Unknown98 { get; set; }
-			[TagElement]
-			public int Unknown9C { get; set; }
+			public short MaxSoundsPerTag;
+			public short MaxSoundsPerObject;
+			public int PreemptionTime;
+			public ushort InternalFlags;
+			public ushort Flags;
+			public short Priority;
+			public CacheMissModeValue CacheMissMode;
+			public sbyte Unknown;
+			public sbyte Unknown2;
+			public sbyte Unknown3;
+			public sbyte Unknown4;
+			public sbyte Unknown5;
+			public float ReverbGain;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public float Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public float Unknown13;
+			public float Unknown14;
+			public float Unknown15;
+			public float DistanceBoundsMin;
+			public float DistanceBoundsMax;
+			public float GainBoundsMin;
+			public float GainBoundsMax;
+			public float CutsceneDucking;
+			public float CutsceneDuckingFadeInTime;
+			public float CutsceneDuckingSustain;
+			public float CutsceneDuckingFadeOutTime;
+			public float ScriptedDialogDucking;
+			public float ScriptedDialogDuckingFadeIn;
+			public float Unknown16;
+			public float Unknown17;
+			public float Unknown18;
+			public float Unknown19;
+			public float Unknown20;
+			public float Unknown21;
+			public float Unknown22;
+			public float UnknowndoplerFactor;
+			public StereoPlaybackTypeValue StereoPlaybackType;
+			public sbyte Unknown23;
+			public sbyte Unknown24;
+			public sbyte Unknown25;
+			public float TransmissionMultiplier;
+			public float ObstructionMaxBend;
+			public float OcclusionMaxBend;
+			public int Unknown26;
+			public float Unknown27;
+
+			public enum CacheMissModeValue : sbyte
+			{
+				Discard,
+				Postpone,
+			}
+
+			public enum StereoPlaybackTypeValue : sbyte
+			{
+				FirstPerson,
+				Ambient,
+			}
 		}
 	}
 }

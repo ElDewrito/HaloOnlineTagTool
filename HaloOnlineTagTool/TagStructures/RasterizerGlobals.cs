@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,76 +12,48 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "rasg", Size = 0xBC)]
 	public class RasterizerGlobals
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public List<TagBlock1> UnknownC { get; set; }
-		[TagElement]
-		public HaloTag Unknown18 { get; set; }
-		[TagElement]
-		public HaloTag Unknown28 { get; set; }
-		[TagElement]
-		public List<TagBlock2> Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown44 { get; set; }
-		[TagElement]
-		public int Unknown48 { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
-		[TagElement]
-		public int Unknown50 { get; set; }
-		[TagElement]
-		public int Unknown54 { get; set; }
-		[TagElement]
-		public HaloTag Unknown58 { get; set; }
-		[TagElement]
-		public HaloTag Unknown68 { get; set; }
-		[TagElement]
-		public HaloTag Unknown78 { get; set; }
-		[TagElement]
-		public HaloTag Unknown88 { get; set; }
-		[TagElement]
-		public int Unknown98 { get; set; }
-		[TagElement]
-		public int Unknown9C { get; set; }
-		[TagElement]
-		public int UnknownA0 { get; set; }
-		[TagElement]
-		public int UnknownA4 { get; set; }
-		[TagElement]
-		public int UnknownA8 { get; set; }
-		[TagElement]
-		public int UnknownAC { get; set; }
-		[TagElement]
-		public int UnknownB0 { get; set; }
-		[TagElement]
-		public int UnknownB4 { get; set; }
-		[TagElement]
-		public int UnknownB8 { get; set; }
+		public List<UnknownBlock> Unknown;
+		public List<UnknownBlock2> Unknown2;
+		public HaloTag Unknown3;
+		public HaloTag Unknown4;
+		public List<UnknownBlock3> Unknown5;
+		public float Unknown6;
+		public float Unknown7;
+		public float Unknown8;
+		public float Unknown9;
+		public float Unknown10;
+		public HaloTag Unknown11;
+		public HaloTag Unknown12;
+		public HaloTag Unknown13;
+		public HaloTag Unknown14;
+		public float Unknown15;
+		public float Unknown16;
+		public float Unknown17;
+		public float Unknown18;
+		public float Unknown19;
+		public float Unknown20;
+		public float Unknown21;
+		public float Unknown22;
+		public float Unknown23;
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown4 { get; set; }
+			public float Unknown;
+			public HaloTag Unknown2;
 		}
 
 		[TagStructure(Size = 0x10)]
-		public class TagBlock1
+		public class UnknownBlock2
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
+			public HaloTag Unknown;
 		}
 
 		[TagStructure(Size = 0x20)]
-		public class TagBlock2
+		public class UnknownBlock3
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown10 { get; set; }
+			public HaloTag Unknown;
+			public HaloTag Unknown2;
 		}
 	}
 }

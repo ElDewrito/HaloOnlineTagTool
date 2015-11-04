@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,28 +12,19 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "<fx>", Size = 0x20)]
 	public class SoundEffectTemplate
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
+		public float TemplateCollectionBlock;
+		public float TemplateCollectionBlock2;
+		public float TemplateCollectionBlock3;
+		public int InputEffectName;
+		public List<AdditionalSoundInput> AdditionalSoundInputs;
+		public float Unknown;
 
 		[TagStructure(Size = 0x1C)]
-		public class TagBlock0
+		public class AdditionalSoundInput
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public byte[] Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
+			public StringId DspEffect;
+			public byte[] LowFrequencySoundFunction;
+			public float TimePeriod;
 		}
 	}
 }

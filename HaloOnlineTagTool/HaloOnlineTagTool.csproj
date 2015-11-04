@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,8 +57,18 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
-    <Compile Include="Analysis\ITagLayoutWriter.cs" />
-    <Compile Include="Analysis\LayoutGuessWriter.cs" />
+    <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
+    <Compile Include="Common\NamingConvention.cs" />
+    <Compile Include="Layouts\ArrayTagLayoutField.cs" />
+    <Compile Include="Layouts\BasicTagLayoutField.cs" />
+    <Compile Include="Layouts\CppLayoutWriter.cs" />
+    <Compile Include="Layouts\EnumTagLayoutField.cs" />
+    <Compile Include="Layouts\TagLayoutWriter.cs" />
+    <Compile Include="Layouts\ITagLayoutFieldVisitor.cs" />
+    <Compile Include="Layouts\StringTagLayoutField.cs" />
+    <Compile Include="Layouts\TagBlockTagLayoutField.cs" />
+    <Compile Include="Layouts\TagLayout.cs" />
+    <Compile Include="Analysis\LayoutGuessFinalizer.cs" />
     <Compile Include="Analysis\ResourceReferenceGuess.cs" />
     <Compile Include="Analysis\TagAnalyzer.cs" />
     <Compile Include="Analysis\TagBlockGuess.cs" />
@@ -65,8 +76,8 @@
     <Compile Include="Analysis\MemoryMap.cs" />
     <Compile Include="Analysis\TagLayoutGuess.cs" />
     <Compile Include="Analysis\TagReferenceGuess.cs" />
-    <Compile Include="Analysis\CppStructWriter.cs" />
-    <Compile Include="Analysis\CSharpClassWriter.cs" />
+    <Compile Include="Layouts\CSharpLayoutWriter.cs" />
+    <Compile Include="Layouts\AssemblyPluginLoader.cs" />
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\Bitm\BitmContextFactory.cs" />
     <Compile Include="Commands\Bitm\BitmImportCommand.cs" />
@@ -115,10 +126,11 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
+    <Compile Include="Layouts\TagLayoutField.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />
-    <Compile Include="Serialization\TagElementEnumerator.cs" />
+    <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="V11_1_498295\StringIdResolver.cs" />
     <Compile Include="Resources\Geometry\IVertexStream.cs" />
     <Compile Include="V1_235640\VertexStream.cs" />
@@ -158,7 +170,7 @@
     <Compile Include="Serialization\TagDeserializer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Serialization\TagElementAttribute.cs">
+    <Compile Include="Serialization\TagFieldAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Serialization\TagSerializationContext.cs" />

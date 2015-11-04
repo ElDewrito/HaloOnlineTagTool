@@ -28,24 +28,24 @@ namespace HaloOnlineTagTool
 		public int Index { get; internal set; }
 
 		/// <summary>
-		/// Gets or sets the tag's class.
+		/// Gets or sets the tag's group tag.
 		/// </summary>
-		public MagicNumber Class { get; set; }
+		public MagicNumber GroupTag { get; set; }
 
 		/// <summary>
-		/// Gets or sets the tag's parent class. Can be -1.
+		/// Gets or sets the tag's parent group tag. Can be -1.
 		/// </summary>
-		public MagicNumber ParentClass { get; set; }
+		public MagicNumber ParentGroupTag { get; set; }
 
 		/// <summary>
-		/// Gets or sets the tag's grandparent class. Can be -1.
+		/// Gets or sets the tag's grandparent group tag. Can be -1.
 		/// </summary>
-		public MagicNumber GrandparentClass { get; set; }
+		public MagicNumber GrandparentGroupTag { get; set; }
 
 		/// <summary>
-		/// Gets or sets the stringID for the tag's class.
+		/// Gets or sets the stringID for the tag's group.
 		/// </summary>
-		public StringId ClassId { get; set; }
+		public StringId GroupName { get; set; }
 
 		/// <summary>
 		/// Gets the offset of the tag's data (after the header).
@@ -91,7 +91,7 @@ namespace HaloOnlineTagTool
 		{
 			if (tagClass.Value == -1)
 				return false;
-			return (Class == tagClass || ParentClass == tagClass || GrandparentClass == tagClass);
+			return (GroupTag == tagClass || ParentGroupTag == tagClass || GrandparentGroupTag == tagClass);
 		}
 
 		/// <summary>

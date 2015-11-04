@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,505 +12,566 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "effe", Size = 0x68)]
 	public class Effect
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public int Unknown1C { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown20 { get; set; }
-		[TagElement]
-		public List<TagBlock1> Unknown2C { get; set; }
-		[TagElement]
-		public HaloTag Unknown38 { get; set; }
-		[TagElement]
-		public int Unknown48 { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
-		[TagElement]
-		public int Unknown50 { get; set; }
-		[TagElement]
-		public int Unknown54 { get; set; }
-		[TagElement]
-		public int Unknown58 { get; set; }
-		[TagElement]
-		public List<TagBlock11> Unknown5C { get; set; }
+		public uint Flags;
+		public int Unknown;
+		public float Unknown2;
+		public float Unknown3;
+		public float Unknown4;
+		public sbyte Unknown5;
+		public sbyte Unknown6;
+		public sbyte Unknown7;
+		public sbyte Unknown8;
+		public short LoopStartEvent;
+		public short Unknown9;
+		public float Unknown10;
+		public List<Location> Locations;
+		public List<Event> Events;
+		public HaloTag LoopingSound;
+		public sbyte LocationIndex;
+		public sbyte EventIndex;
+		public short Unknown11;
+		public float AlwaysPlayDistance;
+		public float NeverPlayDistance;
+		public float Unknown12;
+		public float Unknown13;
+		public List<UnknownBlock> Unknown14;
 
 		[TagStructure(Size = 0xC)]
-		public class TagBlock0
+		public class Location
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
+			public StringId MarkerName;
+			public int Unknown;
+			public sbyte Unknown2;
+			public sbyte Unknown3;
+			public sbyte Unknown4;
+			public sbyte Unknown5;
 		}
 
 		[TagStructure(Size = 0x44)]
-		public class TagBlock1
+		public class Event
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public List<TagBlock2> Unknown20 { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown2C { get; set; }
-			[TagElement]
-			public List<TagBlock4> Unknown38 { get; set; }
+			public StringId Name;
+			public int Unknown;
+			public sbyte Unknown2;
+			public sbyte Unknown3;
+			public sbyte Unknown4;
+			public sbyte Unknown5;
+			public float SkipFraction;
+			public float DelayBoundsMin;
+			public float DelayBoundsMax;
+			public float DurationBoundsMin;
+			public float DurationBoundsMax;
+			public List<Part> Parts;
+			public List<Acceleration> Accelerations;
+			public List<ParticleSystem> ParticleSystems;
 
 			[TagStructure(Size = 0x60)]
-			public class TagBlock2
+			public class Part
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public HaloTag Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public int Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown50 { get; set; }
-				[TagElement]
-				public int Unknown54 { get; set; }
-				[TagElement]
-				public int Unknown58 { get; set; }
-				[TagElement]
-				public int Unknown5C { get; set; }
+				public CreateInEnvironmentValue CreateInEnvironment;
+				public CreateInDispositionValue CreateInDisposition;
+				public short LocationIndex;
+				public short Unknown;
+				public short Unknown2;
+				public sbyte Unknown3;
+				public CameraModeValue CameraMode;
+				public string AnticipatedTagClass;
+				public HaloTag SpawnedTag;
+				public float VelocityBoundsMin;
+				public float VelocityBoundsMax;
+				public float Unknown4;
+				public float Unknown5;
+				public Angle VelocityConeAngle;
+				public Angle AngularVelocityBoundsMin;
+				public Angle AngularVelocityBoundsMax;
+				public float RadiusModifierBoundsMin;
+				public float RadiusModifierBoundsMax;
+				public float OriginOffsetX;
+				public float OriginOffsetY;
+				public float OriginOffsetZ;
+				public Angle OriginRotationI;
+				public Angle OriginRotationJ;
+				public uint AScalesValues;
+				public uint BScalesValues;
+
+				public enum CreateInEnvironmentValue : short
+				{
+					AnyEnvironment,
+					AirOnly,
+					WaterOnly,
+					SpaceOnly,
+				}
+
+				public enum CreateInDispositionValue : short
+				{
+					EitherMode,
+					ViolentModeOnly,
+					NonviolentModeOnly,
+				}
+
+				public enum CameraModeValue : sbyte
+				{
+					IndependentOfCameraMode,
+					FirstPersonOnly,
+					ThirdPersonOnly,
+					BothFirstAndThird,
+				}
 			}
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock3
+			public class Acceleration
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
+				public CreateInEnvironmentValue CreateInEnvironment;
+				public CreateInDispositionValue CreateInDisposition;
+				public short LocationIndex;
+				public short Unknown;
+				public float Acceleration2;
+				public float InnerConeAngle;
+				public float OuterConeAngle;
+
+				public enum CreateInEnvironmentValue : short
+				{
+					AnyEnvironment,
+					AirOnly,
+					WaterOnly,
+					SpaceOnly,
+				}
+
+				public enum CreateInDispositionValue : short
+				{
+					EitherMode,
+					ViolentModeOnly,
+					NonviolentModeOnly,
+				}
 			}
 
 			[TagStructure(Size = 0x5C)]
-			public class TagBlock4
+			public class ParticleSystem
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public List<TagBlock5> Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown58 { get; set; }
+				public sbyte Unknown;
+				public sbyte Unknown2;
+				public sbyte Unknown3;
+				public sbyte Unknown4;
+				public HaloTag Particle;
+				public short Unknown5;
+				public short LocationIndex;
+				public CoordinateSystemValue CoordinateSystem;
+				public EnvironmentValue Environment;
+				public DispositionValue Disposition;
+				public CameraModeValue CameraMode;
+				public short SortBias;
+				public ushort Flags;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+				public float Unknown10;
+				public float Unknown11;
+				public float AmountSize;
+				public float Unknown12;
+				public float LodInDistance;
+				public float LodFeatherInDelta;
+				public List<Emitter> Emitters;
+				public float Unknown13;
+
+				public enum CoordinateSystemValue : short
+				{
+					World,
+					Local,
+					Parent,
+				}
+
+				public enum EnvironmentValue : short
+				{
+					AnyEnvironment,
+					AirOnly,
+					WaterOnly,
+					SpaceOnly,
+				}
+
+				public enum DispositionValue : short
+				{
+					EitherMode,
+					ViolentModeOnly,
+					NonviolentModeOnly,
+				}
+
+				public enum CameraModeValue : short
+				{
+					IndependentOfCameraMode,
+					FirstPersonOnly,
+					ThirdPersonOnly,
+					BothFirstAndThird,
+				}
 
 				[TagStructure(Size = 0x300)]
-				public class TagBlock5
+				public class Emitter
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public int Unknown4 { get; set; }
-					[TagElement]
-					public int Unknown8 { get; set; }
-					[TagElement]
-					public int UnknownC { get; set; }
-					[TagElement]
-					public int Unknown10 { get; set; }
-					[TagElement]
-					public int Unknown14 { get; set; }
-					[TagElement]
-					public int Unknown18 { get; set; }
-					[TagElement]
-					public int Unknown1C { get; set; }
-					[TagElement]
-					public int Unknown20 { get; set; }
-					[TagElement]
-					public int Unknown24 { get; set; }
-					[TagElement]
-					public int Unknown28 { get; set; }
-					[TagElement]
-					public byte[] Unknown2C { get; set; }
-					[TagElement]
-					public int Unknown40 { get; set; }
-					[TagElement]
-					public int Unknown44 { get; set; }
-					[TagElement]
-					public int Unknown48 { get; set; }
-					[TagElement]
-					public int Unknown4C { get; set; }
-					[TagElement]
-					public int Unknown50 { get; set; }
-					[TagElement]
-					public int Unknown54 { get; set; }
-					[TagElement]
-					public int Unknown58 { get; set; }
-					[TagElement]
-					public int Unknown5C { get; set; }
-					[TagElement]
-					public int Unknown60 { get; set; }
-					[TagElement]
-					public byte[] Unknown64 { get; set; }
-					[TagElement]
-					public int Unknown78 { get; set; }
-					[TagElement]
-					public int Unknown7C { get; set; }
-					[TagElement]
-					public int Unknown80 { get; set; }
-					[TagElement]
-					public int Unknown84 { get; set; }
-					[TagElement]
-					public int Unknown88 { get; set; }
-					[TagElement]
-					public int Unknown8C { get; set; }
-					[TagElement]
-					public int Unknown90 { get; set; }
-					[TagElement]
-					public int Unknown94 { get; set; }
-					[TagElement]
-					public int Unknown98 { get; set; }
-					[TagElement]
-					public byte[] Unknown9C { get; set; }
-					[TagElement]
-					public int UnknownB0 { get; set; }
-					[TagElement]
-					public int UnknownB4 { get; set; }
-					[TagElement]
-					public int UnknownB8 { get; set; }
-					[TagElement]
-					public byte[] UnknownBC { get; set; }
-					[TagElement]
-					public int UnknownD0 { get; set; }
-					[TagElement]
-					public int UnknownD4 { get; set; }
-					[TagElement]
-					public int UnknownD8 { get; set; }
-					[TagElement]
-					public byte[] UnknownDC { get; set; }
-					[TagElement]
-					public int UnknownF0 { get; set; }
-					[TagElement]
-					public int UnknownF4 { get; set; }
-					[TagElement]
-					public int UnknownF8 { get; set; }
-					[TagElement]
-					public byte[] UnknownFC { get; set; }
-					[TagElement]
-					public int Unknown110 { get; set; }
-					[TagElement]
-					public int Unknown114 { get; set; }
-					[TagElement]
-					public int Unknown118 { get; set; }
-					[TagElement]
-					public byte[] Unknown11C { get; set; }
-					[TagElement]
-					public int Unknown130 { get; set; }
-					[TagElement]
-					public int Unknown134 { get; set; }
-					[TagElement]
-					public int Unknown138 { get; set; }
-					[TagElement]
-					public byte[] Unknown13C { get; set; }
-					[TagElement]
-					public int Unknown150 { get; set; }
-					[TagElement]
-					public int Unknown154 { get; set; }
-					[TagElement]
-					public int Unknown158 { get; set; }
-					[TagElement]
-					public byte[] Unknown15C { get; set; }
-					[TagElement]
-					public int Unknown170 { get; set; }
-					[TagElement]
-					public int Unknown174 { get; set; }
-					[TagElement]
-					public HaloTag Unknown178 { get; set; }
-					[TagElement]
-					public int Unknown188 { get; set; }
-					[TagElement]
-					public List<TagBlock6> Unknown18C { get; set; }
-					[TagElement]
-					public int Unknown198 { get; set; }
-					[TagElement]
-					public byte[] Unknown19C { get; set; }
-					[TagElement]
-					public int Unknown1B0 { get; set; }
-					[TagElement]
-					public int Unknown1B4 { get; set; }
-					[TagElement]
-					public int Unknown1B8 { get; set; }
-					[TagElement]
-					public int Unknown1BC { get; set; }
-					[TagElement]
-					public int Unknown1C0 { get; set; }
-					[TagElement]
-					public int Unknown1C4 { get; set; }
-					[TagElement]
-					public int Unknown1C8 { get; set; }
-					[TagElement]
-					public int Unknown1CC { get; set; }
-					[TagElement]
-					public int Unknown1D0 { get; set; }
-					[TagElement]
-					public byte[] Unknown1D4 { get; set; }
-					[TagElement]
-					public int Unknown1E8 { get; set; }
-					[TagElement]
-					public int Unknown1EC { get; set; }
-					[TagElement]
-					public int Unknown1F0 { get; set; }
-					[TagElement]
-					public byte[] Unknown1F4 { get; set; }
-					[TagElement]
-					public int Unknown208 { get; set; }
-					[TagElement]
-					public int Unknown20C { get; set; }
-					[TagElement]
-					public int Unknown210 { get; set; }
-					[TagElement]
-					public byte[] Unknown214 { get; set; }
-					[TagElement]
-					public int Unknown228 { get; set; }
-					[TagElement]
-					public int Unknown22C { get; set; }
-					[TagElement]
-					public int Unknown230 { get; set; }
-					[TagElement]
-					public byte[] Unknown234 { get; set; }
-					[TagElement]
-					public int Unknown248 { get; set; }
-					[TagElement]
-					public int Unknown24C { get; set; }
-					[TagElement]
-					public int Unknown250 { get; set; }
-					[TagElement]
-					public byte[] Unknown254 { get; set; }
-					[TagElement]
-					public int Unknown268 { get; set; }
-					[TagElement]
-					public int Unknown26C { get; set; }
-					[TagElement]
-					public int Unknown270 { get; set; }
-					[TagElement]
-					public byte[] Unknown274 { get; set; }
-					[TagElement]
-					public int Unknown288 { get; set; }
-					[TagElement]
-					public int Unknown28C { get; set; }
-					[TagElement]
-					public int Unknown290 { get; set; }
-					[TagElement]
-					public byte[] Unknown294 { get; set; }
-					[TagElement]
-					public int Unknown2A8 { get; set; }
-					[TagElement]
-					public int Unknown2AC { get; set; }
-					[TagElement]
-					public int Unknown2B0 { get; set; }
-					[TagElement]
-					public byte[] Unknown2B4 { get; set; }
-					[TagElement]
-					public int Unknown2C8 { get; set; }
-					[TagElement]
-					public int Unknown2CC { get; set; }
-					[TagElement]
-					public int Unknown2D0 { get; set; }
-					[TagElement]
-					public int Unknown2D4 { get; set; }
-					[TagElement]
-					public int Unknown2D8 { get; set; }
-					[TagElement]
-					public List<TagBlock8> Unknown2DC { get; set; }
-					[TagElement]
-					public List<TagBlock9> Unknown2E8 { get; set; }
-					[TagElement]
-					public List<TagBlock10> Unknown2F4 { get; set; }
+					public StringId Name;
+					public ushort Unknown;
+					public short Unknown2;
+					public HaloTag CustomEmitterPoints;
+					public float Unknown3;
+					public float Unknown4;
+					public float Unknown5;
+					public float Unknown6;
+					public sbyte Input;
+					public sbyte InputRange;
+					public OutputKindValue OutputKind;
+					public sbyte Output;
+					public byte[] Unknown7;
+					public float Unknown8;
+					public float Unknown9;
+					public float Unknown10;
+					public float Unknown11;
+					public float Unknown12;
+					public float Unknown13;
+					public float Unknown14;
+					public float Unknown15;
+					public sbyte Input2;
+					public sbyte InputRange2;
+					public OutputKindValue2 OutputKind2;
+					public sbyte Output2;
+					public byte[] Unknown16;
+					public float Unknown17;
+					public float Unknown18;
+					public float Unknown19;
+					public float Unknown20;
+					public float Unknown21;
+					public float Unknown22;
+					public float Unknown23;
+					public float Unknown24;
+					public sbyte Input3;
+					public sbyte InputRange3;
+					public OutputKindValue3 OutputKind3;
+					public sbyte Output3;
+					public byte[] Unknown25;
+					public float Unknown26;
+					public float Unknown27;
+					public sbyte Input4;
+					public sbyte InputRange4;
+					public OutputKindValue4 OutputKind4;
+					public sbyte Output4;
+					public byte[] Unknown28;
+					public float Unknown29;
+					public float Unknown30;
+					public sbyte Input5;
+					public sbyte InputRange5;
+					public OutputKindValue5 OutputKind5;
+					public sbyte Output5;
+					public byte[] Unknown31;
+					public float Unknown32;
+					public float Unknown33;
+					public sbyte Input6;
+					public sbyte InputRange6;
+					public OutputKindValue6 OutputKind6;
+					public sbyte Output6;
+					public byte[] Unknown34;
+					public float Unknown35;
+					public float Unknown36;
+					public sbyte Input7;
+					public sbyte InputRange7;
+					public OutputKindValue7 OutputKind7;
+					public sbyte Output7;
+					public byte[] Unknown37;
+					public float Unknown38;
+					public float Unknown39;
+					public sbyte Input8;
+					public sbyte InputRange8;
+					public OutputKindValue8 OutputKind8;
+					public sbyte Output8;
+					public byte[] Unknown40;
+					public float Unknown41;
+					public float Unknown42;
+					public sbyte Input9;
+					public sbyte InputRange9;
+					public OutputKindValue9 OutputKind9;
+					public sbyte Output9;
+					public byte[] Unknown43;
+					public float Unknown44;
+					public float Unknown45;
+					public HaloTag ParticlePhysics;
+					public float Unknown46;
+					public List<UnknownBlock> Unknown47;
+					public sbyte Input10;
+					public sbyte InputRange10;
+					public OutputKindValue10 OutputKind10;
+					public sbyte Output10;
+					public byte[] Unknown48;
+					public float Unknown49;
+					public float Unknown50;
+					public float Unknown51;
+					public float Unknown52;
+					public float Unknown53;
+					public float Unknown54;
+					public float Unknown55;
+					public float Unknown56;
+					public sbyte Input11;
+					public sbyte InputRange11;
+					public OutputKindValue11 OutputKind11;
+					public sbyte Output11;
+					public byte[] Unknown57;
+					public float Unknown58;
+					public float Unknown59;
+					public sbyte Input12;
+					public sbyte InputRange12;
+					public OutputKindValue12 OutputKind12;
+					public sbyte Output12;
+					public byte[] Unknown60;
+					public float Unknown61;
+					public float Unknown62;
+					public sbyte Input13;
+					public sbyte InputRange13;
+					public OutputKindValue13 OutputKind13;
+					public sbyte Output13;
+					public byte[] Unknown63;
+					public float Unknown64;
+					public float Unknown65;
+					public sbyte Input14;
+					public sbyte InputRange14;
+					public OutputKindValue14 OutputKind14;
+					public sbyte Output14;
+					public byte[] Unknown66;
+					public float Unknown67;
+					public float Unknown68;
+					public sbyte Input15;
+					public sbyte InputRange15;
+					public OutputKindValue15 OutputKind15;
+					public sbyte Output15;
+					public byte[] ParticleScale;
+					public float Unknown69;
+					public float Unknown70;
+					public sbyte Input16;
+					public sbyte InputRange16;
+					public OutputKindValue16 OutputKind16;
+					public sbyte Output16;
+					public byte[] ParticleTint;
+					public float Unknown71;
+					public float Unknown72;
+					public sbyte Input17;
+					public sbyte InputRange17;
+					public OutputKindValue17 OutputKind17;
+					public sbyte Output17;
+					public byte[] ParticleAlpha;
+					public float Unknown73;
+					public float Unknown74;
+					public sbyte Input18;
+					public sbyte InputRange18;
+					public OutputKindValue18 OutputKind18;
+					public sbyte Output18;
+					public byte[] ParticleAlphaBlackPoint;
+					public float Unknown75;
+					public float Unknown76;
+					public int Unknown77;
+					public int Unknown78;
+					public int Unknown79;
+					public List<UnknownBlock2> Unknown80;
+					public List<CompiledFunction> CompiledFunctions;
+					public List<CompiledColorValue> CompiledColorValues;
+
+					public enum OutputKindValue : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue2 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue3 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue4 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue5 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue6 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue7 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue8 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue9 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
 
 					[TagStructure(Size = 0x18)]
-					public class TagBlock6
+					public class UnknownBlock
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public List<TagBlock7> Unknown4 { get; set; }
-						[TagElement]
-						public int Unknown10 { get; set; }
-						[TagElement]
-						public int Unknown14 { get; set; }
+						public float Unknown;
+						public List<UnknownBlock2> Unknown2;
+						public float Unknown3;
+						public float Unknown4;
 
 						[TagStructure(Size = 0x24)]
-						public class TagBlock7
+						public class UnknownBlock2
 						{
-							[TagElement]
-							public int Unknown0 { get; set; }
-							[TagElement]
-							public int Unknown4 { get; set; }
-							[TagElement]
-							public byte[] Unknown8 { get; set; }
-							[TagElement]
-							public int Unknown1C { get; set; }
-							[TagElement]
-							public int Unknown20 { get; set; }
+							public float Unknown;
+							public sbyte Input;
+							public sbyte InputRange;
+							public OutputKindValue OutputKind;
+							public sbyte Output;
+							public byte[] Unknown2;
+							public float Unknown3;
+							public float Unknown4;
+
+							public enum OutputKindValue : sbyte
+							{
+								None,
+								Plus,
+								Times,
+							}
 						}
 					}
 
-					[TagStructure(Size = 0x10)]
-					public class TagBlock8
+					public enum OutputKindValue10 : sbyte
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
-						[TagElement]
-						public int Unknown8 { get; set; }
-						[TagElement]
-						public int UnknownC { get; set; }
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue11 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue12 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue13 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue14 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue15 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue16 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue17 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					public enum OutputKindValue18 : sbyte
+					{
+						None,
+						Plus,
+						Times,
+					}
+
+					[TagStructure(Size = 0x10)]
+					public class UnknownBlock2
+					{
+						public float Unknown;
+						public float Unknown2;
+						public float Unknown3;
+						public float Unknown4;
 					}
 
 					[TagStructure(Size = 0x40)]
-					public class TagBlock9
+					public class CompiledFunction
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
-						[TagElement]
-						public int Unknown8 { get; set; }
-						[TagElement]
-						public int UnknownC { get; set; }
-						[TagElement]
-						public int Unknown10 { get; set; }
-						[TagElement]
-						public int Unknown14 { get; set; }
-						[TagElement]
-						public int Unknown18 { get; set; }
-						[TagElement]
-						public int Unknown1C { get; set; }
-						[TagElement]
-						public int Unknown20 { get; set; }
-						[TagElement]
-						public int Unknown24 { get; set; }
-						[TagElement]
-						public int Unknown28 { get; set; }
-						[TagElement]
-						public int Unknown2C { get; set; }
-						[TagElement]
-						public int Unknown30 { get; set; }
-						[TagElement]
-						public int Unknown34 { get; set; }
-						[TagElement]
-						public int Unknown38 { get; set; }
-						[TagElement]
-						public int Unknown3C { get; set; }
+						public float Unknown;
+						public float Unknown2;
+						public float Unknown3;
+						public float Unknown4;
+						public float Unknown5;
+						public float Unknown6;
+						public float Unknown7;
+						public float Unknown8;
+						public float Unknown9;
+						public float Unknown10;
+						public float Unknown11;
+						public float Unknown12;
+						public float Unknown13;
+						public float Unknown14;
+						public float Unknown15;
+						public float Unknown16;
 					}
 
 					[TagStructure(Size = 0x10)]
-					public class TagBlock10
+					public class CompiledColorValue
 					{
-						[TagElement]
-						public int Unknown0 { get; set; }
-						[TagElement]
-						public int Unknown4 { get; set; }
-						[TagElement]
-						public int Unknown8 { get; set; }
-						[TagElement]
-						public int UnknownC { get; set; }
+						public float Red;
+						public float Green;
+						public float Blue;
+						public float Magnitude;
 					}
 				}
 			}
 		}
 
 		[TagStructure(Size = 0xC)]
-		public class TagBlock11
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
 		}
 	}
 }

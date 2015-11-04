@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,94 +12,80 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sqtm", Size = 0x10)]
 	public class SquadTemplate
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown4 { get; set; }
+		public StringId Name;
+		public List<SquadBlock> Squad;
 
 		[TagStructure(Size = 0x60)]
-		public class TagBlock0
+		public class SquadBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown14 { get; set; }
-			[TagElement]
-			public List<TagBlock2> Unknown20 { get; set; }
-			[TagElement]
-			public List<TagBlock3> Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public HaloTag Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
+			public StringId Name;
+			public ushort Difficulty;
+			public short Unknown;
+			public short MinimumRound;
+			public short MaximumRound;
+			public short Unknown2;
+			public short Unknown3;
+			public short Count;
+			public short Unknown4;
+			public List<Actor> Actors;
+			public List<Weapon> Weapons;
+			public List<SecondaryWeapon> SecondaryWeapons;
+			public List<EquipmentBlock> Equipment;
+			public float Unknown5;
+			public HaloTag Vehicle;
+			public StringId VehicleVariant;
+			public float Unknown6;
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock1
+			public class Actor
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public short Unknown;
+				public short Unknown2;
+				public short MinimumRound;
+				public short MaximumRound;
+				public float Unknown3;
+				public HaloTag Character;
+				public short Probability;
+				public short Unknown4;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock2
+			public class Weapon
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public HaloTag UnknownC { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public short Unknown;
+				public short Unknown2;
+				public short MinimumRound;
+				public short MaximumRound;
+				public float Unknown3;
+				public HaloTag Weapon2;
+				public short Probability;
+				public short Unknown4;
 			}
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock3
+			public class SecondaryWeapon
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public HaloTag UnknownC { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
+				public short Unknown;
+				public short Unknown2;
+				public short MinimumRound;
+				public short MaximumRound;
+				public float Unknown3;
+				public HaloTag Weapon;
+				public short Probability;
+				public short Unknown4;
+			}
+
+			[TagStructure(Size = 0x20)]
+			public class EquipmentBlock
+			{
+				public short Unknown;
+				public short Unknown2;
+				public short MinimumRound;
+				public short MaximumRound;
+				public float Unknown3;
+				public HaloTag Equipment;
+				public short Probability;
+				public short Unknown4;
 			}
 		}
 	}

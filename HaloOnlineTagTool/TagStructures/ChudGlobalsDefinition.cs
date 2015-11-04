@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,723 +12,485 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "chgd", Size = 0x2C0)]
 	public class ChudGlobalsDefinition
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public List<TagBlock5> UnknownC { get; set; }
-		[TagElement]
-		public List<TagBlock6> Unknown18 { get; set; }
-		[TagElement]
-		public List<TagBlock7> Unknown24 { get; set; }
-		[TagElement]
-		public List<TagBlock9> Unknown30 { get; set; }
-		[TagElement]
-		public HaloTag Unknown3C { get; set; }
-		[TagElement]
-		public HaloTag Unknown4C { get; set; }
-		[TagElement]
-		public HaloTag Unknown5C { get; set; }
-		[TagElement]
-		public int Unknown6C { get; set; }
-		[TagElement]
-		public int Unknown70 { get; set; }
-		[TagElement]
-		public int Unknown74 { get; set; }
-		[TagElement]
-		public int Unknown78 { get; set; }
-		[TagElement]
-		public int Unknown7C { get; set; }
-		[TagElement]
-		public int Unknown80 { get; set; }
-		[TagElement]
-		public int Unknown84 { get; set; }
-		[TagElement]
-		public HaloTag Unknown88 { get; set; }
-		[TagElement]
-		public int Unknown98 { get; set; }
-		[TagElement]
-		public int Unknown9C { get; set; }
-		[TagElement]
-		public int UnknownA0 { get; set; }
-		[TagElement]
-		public int UnknownA4 { get; set; }
-		[TagElement]
-		public int UnknownA8 { get; set; }
-		[TagElement]
-		public int UnknownAC { get; set; }
-		[TagElement]
-		public int UnknownB0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownB4 { get; set; }
-		[TagElement]
-		public HaloTag UnknownC4 { get; set; }
-		[TagElement]
-		public HaloTag UnknownD4 { get; set; }
-		[TagElement]
-		public HaloTag UnknownE4 { get; set; }
-		[TagElement]
-		public int UnknownF4 { get; set; }
-		[TagElement]
-		public int UnknownF8 { get; set; }
-		[TagElement]
-		public int UnknownFC { get; set; }
-		[TagElement]
-		public int Unknown100 { get; set; }
-		[TagElement]
-		public int Unknown104 { get; set; }
-		[TagElement]
-		public int Unknown108 { get; set; }
-		[TagElement]
-		public int Unknown10C { get; set; }
-		[TagElement]
-		public int Unknown110 { get; set; }
-		[TagElement]
-		public int Unknown114 { get; set; }
-		[TagElement]
-		public int Unknown118 { get; set; }
-		[TagElement]
-		public int Unknown11C { get; set; }
-		[TagElement]
-		public int Unknown120 { get; set; }
-		[TagElement]
-		public int Unknown124 { get; set; }
-		[TagElement]
-		public int Unknown128 { get; set; }
-		[TagElement]
-		public int Unknown12C { get; set; }
-		[TagElement]
-		public int Unknown130 { get; set; }
-		[TagElement]
-		public int Unknown134 { get; set; }
-		[TagElement]
-		public int Unknown138 { get; set; }
-		[TagElement]
-		public int Unknown13C { get; set; }
-		[TagElement]
-		public int Unknown140 { get; set; }
-		[TagElement]
-		public int Unknown144 { get; set; }
-		[TagElement]
-		public int Unknown148 { get; set; }
-		[TagElement]
-		public int Unknown14C { get; set; }
-		[TagElement]
-		public byte[] Unknown150 { get; set; }
-		[TagElement]
-		public int Unknown164 { get; set; }
-		[TagElement]
-		public int Unknown168 { get; set; }
-		[TagElement]
-		public int Unknown16C { get; set; }
-		[TagElement]
-		public int Unknown170 { get; set; }
-		[TagElement]
-		public int Unknown174 { get; set; }
-		[TagElement]
-		public int Unknown178 { get; set; }
-		[TagElement]
-		public int Unknown17C { get; set; }
-		[TagElement]
-		public int Unknown180 { get; set; }
-		[TagElement]
-		public int Unknown184 { get; set; }
-		[TagElement]
-		public int Unknown188 { get; set; }
-		[TagElement]
-		public int Unknown18C { get; set; }
-		[TagElement]
-		public int Unknown190 { get; set; }
-		[TagElement]
-		public int Unknown194 { get; set; }
-		[TagElement]
-		public int Unknown198 { get; set; }
-		[TagElement]
-		public int Unknown19C { get; set; }
-		[TagElement]
-		public int Unknown1A0 { get; set; }
-		[TagElement]
-		public byte[] Unknown1A4 { get; set; }
-		[TagElement]
-		public int Unknown1B8 { get; set; }
-		[TagElement]
-		public int Unknown1BC { get; set; }
-		[TagElement]
-		public int Unknown1C0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1C4 { get; set; }
-		[TagElement]
-		public int Unknown1D4 { get; set; }
-		[TagElement]
-		public byte[] Unknown1D8 { get; set; }
-		[TagElement]
-		public byte[] Unknown1EC { get; set; }
-		[TagElement]
-		public byte[] Unknown200 { get; set; }
-		[TagElement]
-		public byte[] Unknown214 { get; set; }
-		[TagElement]
-		public byte[] Unknown228 { get; set; }
-		[TagElement]
-		public int Unknown23C { get; set; }
-		[TagElement]
-		public byte[] Unknown240 { get; set; }
-		[TagElement]
-		public byte[] Unknown254 { get; set; }
-		[TagElement]
-		public byte[] Unknown268 { get; set; }
-		[TagElement]
-		public byte[] Unknown27C { get; set; }
-		[TagElement]
-		public byte[] Unknown290 { get; set; }
-		[TagElement]
-		public int Unknown2A4 { get; set; }
-		[TagElement]
-		public int Unknown2A8 { get; set; }
-		[TagElement]
-		public int Unknown2AC { get; set; }
-		[TagElement]
-		public int Unknown2B0 { get; set; }
-		[TagElement]
-		public int Unknown2B4 { get; set; }
-		[TagElement]
-		public int Unknown2B8 { get; set; }
-		[TagElement]
-		public int Unknown2BC { get; set; }
+		public List<HudGlobal> HudGlobals;
+		public List<HudShader> HudShaders;
+		public List<UnknownBlock> Unknown;
+		public List<UnknownBlock2> Unknown2;
+		public List<PlayerTrainingDatum> PlayerTrainingData;
+		public HaloTag StartMenuEmblems;
+		public HaloTag CampaignMedals;
+		public HaloTag CampaignMedalHudAnimation;
+		public short Unknown3;
+		public short Unknown4;
+		public float CampaignMedalScale;
+		public float CampaignMedalSpacing;
+		public float CampaignMedalOffsetX;
+		public float CampaignMedalOffsetY;
+		public float MetagameScoreboardTopY;
+		public float MetagameScoreboardSpacing;
+		public HaloTag UnitDamageGrid;
+		public float MicroTextureTileAmount;
+		public float MediumSensorBlipScale;
+		public float SmallSensorBlipScale;
+		public float LargeSensorBlipScale;
+		public float SensorBlipGlowAmount;
+		public float SensorBlipGlowRadius;
+		public float SensorBlipGlowOpacity;
+		public HaloTag MotionSensorBlip;
+		public HaloTag BirthdayPartyEffect;
+		public HaloTag CampaignFloodMask;
+		public HaloTag CampaignFloodMaskTile;
+		public float Unknown5;
+		public float Unknown6;
+		public float Unknown7;
+		public float Unknown8;
+		public float Unknown9;
+		public float Unknown10;
+		public float Unknown11;
+		public float Unknown12;
+		public float Unknown13;
+		public float Unknownundefined;
+		public float Unknown14;
+		public float Unknown15;
+		public float Unknown16;
+		public float Unknown17;
+		public float Unknown18;
+		public float Unknown19;
+		public float Unknown20;
+		public float Unknown21;
+		public float Unknown22;
+		public float Unknown23;
+		public float Unknown24;
+		public float Unknown25;
+		public float Unknown26;
+		public byte[] Unknown27;
+		public float Unknown28;
+		public float Unknown29;
+		public float Unknown30;
+		public float Unknown31;
+		public float Unknown32;
+		public float Unknown33;
+		public float Unknown34;
+		public float Unknown35;
+		public float Unknown36;
+		public float Unknown37;
+		public float Unknown38;
+		public float Unknown39;
+		public float Unknown40;
+		public float Unknown41;
+		public float Unknown42;
+		public float Unknown43;
+		public byte[] Unknown44;
+		public float Unknown45;
+		public float Unknown46;
+		public float Unknown47;
+		public HaloTag Unknown48;
+		public float Unknown49;
+		public byte[] Unknown50;
+		public byte[] Unknown51;
+		public byte[] Unknown52;
+		public byte[] Unknown53;
+		public byte[] Unknown54;
+		public float Unknown55;
+		public byte[] Unknown56;
+		public byte[] Unknown57;
+		public byte[] Unknown58;
+		public byte[] Unknown59;
+		public byte[] Unknown60;
+		public HaloTag Unknown61;
+		public float Unknown62;
+		public float Unknown63;
+		public float Unknown64;
 
 		[TagStructure(Size = 0x2B0)]
-		public class TagBlock0
+		public class HudGlobal
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
-			[TagElement]
-			public int Unknown80 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
-			[TagElement]
-			public int Unknown88 { get; set; }
-			[TagElement]
-			public int Unknown8C { get; set; }
-			[TagElement]
-			public int Unknown90 { get; set; }
-			[TagElement]
-			public int Unknown94 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown98 { get; set; }
-			[TagElement]
-			public List<TagBlock2> UnknownA4 { get; set; }
-			[TagElement]
-			public int UnknownB0 { get; set; }
-			[TagElement]
-			public int UnknownB4 { get; set; }
-			[TagElement]
-			public int UnknownB8 { get; set; }
-			[TagElement]
-			public int UnknownBC { get; set; }
-			[TagElement]
-			public HaloTag UnknownC0 { get; set; }
-			[TagElement]
-			public HaloTag UnknownD0 { get; set; }
-			[TagElement]
-			public HaloTag UnknownE0 { get; set; }
-			[TagElement]
-			public HaloTag UnknownF0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown100 { get; set; }
-			[TagElement]
-			public HaloTag Unknown110 { get; set; }
-			[TagElement]
-			public HaloTag Unknown120 { get; set; }
-			[TagElement]
-			public HaloTag Unknown130 { get; set; }
-			[TagElement]
-			public HaloTag Unknown140 { get; set; }
-			[TagElement]
-			public int Unknown150 { get; set; }
-			[TagElement]
-			public int Unknown154 { get; set; }
-			[TagElement]
-			public int Unknown158 { get; set; }
-			[TagElement]
-			public int Unknown15C { get; set; }
-			[TagElement]
-			public int Unknown160 { get; set; }
-			[TagElement]
-			public int Unknown164 { get; set; }
-			[TagElement]
-			public HaloTag Unknown168 { get; set; }
-			[TagElement]
-			public HaloTag Unknown178 { get; set; }
-			[TagElement]
-			public HaloTag Unknown188 { get; set; }
-			[TagElement]
-			public HaloTag Unknown198 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1A8 { get; set; }
-			[TagElement]
-			public int Unknown1B8 { get; set; }
-			[TagElement]
-			public int Unknown1BC { get; set; }
-			[TagElement]
-			public int Unknown1C0 { get; set; }
-			[TagElement]
-			public int Unknown1C4 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1C8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1D8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1E8 { get; set; }
-			[TagElement]
-			public HaloTag Unknown1F8 { get; set; }
-			[TagElement]
-			public List<TagBlock4> Unknown208 { get; set; }
-			[TagElement]
-			public HaloTag Unknown214 { get; set; }
-			[TagElement]
-			public HaloTag Unknown224 { get; set; }
-			[TagElement]
-			public HaloTag Unknown234 { get; set; }
-			[TagElement]
-			public int Unknown244 { get; set; }
-			[TagElement]
-			public int Unknown248 { get; set; }
-			[TagElement]
-			public int Unknown24C { get; set; }
-			[TagElement]
-			public int Unknown250 { get; set; }
-			[TagElement]
-			public int Unknown254 { get; set; }
-			[TagElement]
-			public int Unknown258 { get; set; }
-			[TagElement]
-			public int Unknown25C { get; set; }
-			[TagElement]
-			public int Unknown260 { get; set; }
-			[TagElement]
-			public int Unknown264 { get; set; }
-			[TagElement]
-			public int Unknown268 { get; set; }
-			[TagElement]
-			public int Unknown26C { get; set; }
-			[TagElement]
-			public int Unknown270 { get; set; }
-			[TagElement]
-			public int Unknown274 { get; set; }
-			[TagElement]
-			public int Unknown278 { get; set; }
-			[TagElement]
-			public int Unknown27C { get; set; }
-			[TagElement]
-			public int Unknown280 { get; set; }
-			[TagElement]
-			public int Unknown284 { get; set; }
-			[TagElement]
-			public int Unknown288 { get; set; }
-			[TagElement]
-			public int Unknown28C { get; set; }
-			[TagElement]
-			public int Unknown290 { get; set; }
-			[TagElement]
-			public int Unknown294 { get; set; }
-			[TagElement]
-			public int Unknown298 { get; set; }
-			[TagElement]
-			public int Unknown29C { get; set; }
-			[TagElement]
-			public int Unknown2A0 { get; set; }
-			[TagElement]
-			public int Unknown2A4 { get; set; }
-			[TagElement]
-			public int Unknown2A8 { get; set; }
-			[TagElement]
-			public int Unknown2AC { get; set; }
+			public BipedValue Biped;
+			public byte _0Alpha;
+			public byte _0R;
+			public byte _0G;
+			public byte _0B;
+			public byte _1Alpha;
+			public byte _1R;
+			public byte _1G;
+			public byte _1B;
+			public byte _2Alpha;
+			public byte _2R;
+			public byte _2G;
+			public byte _2B;
+			public byte _3Alpha;
+			public byte _3R;
+			public byte _3G;
+			public byte _3B;
+			public byte _4Alpha;
+			public byte _4R;
+			public byte _4G;
+			public byte _4B;
+			public byte _5Alpha;
+			public byte _5R;
+			public byte _5G;
+			public byte _5B;
+			public byte _6Alpha;
+			public byte _6R;
+			public byte _6G;
+			public byte _6B;
+			public byte _7Alpha;
+			public byte _7R;
+			public byte _7G;
+			public byte _7B;
+			public byte _8Alpha;
+			public byte _8R;
+			public byte _8G;
+			public byte _8B;
+			public byte _9Alpha;
+			public byte _9R;
+			public byte _9G;
+			public byte _9B;
+			public byte _10Alpha;
+			public byte _10R;
+			public byte _10G;
+			public byte _10B;
+			public byte _11Alpha;
+			public byte _11R;
+			public byte _11G;
+			public byte _11B;
+			public byte _12Alpha;
+			public byte _12R;
+			public byte _12G;
+			public byte _12B;
+			public byte _13Alpha;
+			public byte _13R;
+			public byte _13G;
+			public byte _13B;
+			public byte _14Alpha;
+			public byte _14R;
+			public byte _14G;
+			public byte _14B;
+			public byte _15Alpha;
+			public byte _15R;
+			public byte _15G;
+			public byte _15B;
+			public byte _16Alpha;
+			public byte _16R;
+			public byte _16G;
+			public byte _16B;
+			public byte _17Alpha;
+			public byte _17R;
+			public byte _17G;
+			public byte _17B;
+			public byte _18Alpha;
+			public byte _18R;
+			public byte _18G;
+			public byte _18B;
+			public byte _19Alpha;
+			public byte _19R;
+			public byte _19G;
+			public byte _19B;
+			public byte _20Alpha;
+			public byte _20R;
+			public byte _20G;
+			public byte _20B;
+			public byte _21Alpha;
+			public byte _21R;
+			public byte _21G;
+			public byte _21B;
+			public byte _22Alpha;
+			public byte _22R;
+			public byte _22G;
+			public byte _22B;
+			public byte _23Alpha;
+			public byte _23R;
+			public byte _23G;
+			public byte _23B;
+			public byte _24Alpha;
+			public byte _24R;
+			public byte _24G;
+			public byte _24B;
+			public byte _25Alpha;
+			public byte _25R;
+			public byte _25G;
+			public byte _25B;
+			public byte _26Alpha;
+			public byte _26R;
+			public byte _26G;
+			public byte _26B;
+			public byte _27Alpha;
+			public byte _27R;
+			public byte _27G;
+			public byte _27B;
+			public byte _28Alpha;
+			public byte _28R;
+			public byte _28G;
+			public byte _28B;
+			public byte _29Alpha;
+			public byte _29R;
+			public byte _29G;
+			public byte _29B;
+			public byte _30Alpha;
+			public byte _30DefaultItemVersionR;
+			public byte _30DefaultItemVersionG;
+			public byte _30DefaultItemVersionB;
+			public byte _31Alpha;
+			public byte _31Version1ItemR;
+			public byte _31Version1ItemG;
+			public byte _31Version1ItemB;
+			public byte _32Alpha;
+			public byte _32Version2ItemR;
+			public byte _32Version2ItemG;
+			public byte _32Version2ItemB;
+			public byte _33Alpha;
+			public byte _33Version3ItemR;
+			public byte _33Version3ItemG;
+			public byte _33Version3ItemB;
+			public byte _34Alpha;
+			public byte _34Version4ItemR;
+			public byte _34Version4ItemG;
+			public byte _34Version4ItemB;
+			public byte _35Alpha;
+			public byte _35Version5ItemR;
+			public byte _35Version5ItemG;
+			public byte _35Version5ItemB;
+			public byte _36Alpha;
+			public byte _36Version6ItemR;
+			public byte _36Version6ItemG;
+			public byte _36Version6ItemB;
+			public List<HudAttribute> HudAttributes;
+			public List<HudSound> HudSounds;
+			public HaloTag Unknown;
+			public HaloTag FragGrenadeSwapSound;
+			public HaloTag PlasmaGrenadeSwapSound;
+			public HaloTag SpikeGrenadeSwapSound;
+			public HaloTag FirebombGrenadeSwapSound;
+			public HaloTag DamageMicrotexture;
+			public HaloTag DamageNoise;
+			public HaloTag DirectionalArrow;
+			public HaloTag Unknown2;
+			public HaloTag Unknown3;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public HaloTag Waypoints;
+			public HaloTag Unknown10;
+			public HaloTag ScoreboardHud;
+			public HaloTag MetagameScoreboardHud;
+			public HaloTag SurvivalHud;
+			public HaloTag MetagameScoreboardHud2;
+			public HaloTag TheaterHud;
+			public HaloTag ForgeHud;
+			public HaloTag HudStrings;
+			public HaloTag Medals;
+			public List<MultiplayerMedal> MultiplayerMedals;
+			public HaloTag MedalHudAnimation;
+			public HaloTag MedalHudAnimation2;
+			public HaloTag CortanaChannel;
+			public HaloTag Unknown11;
+			public HaloTag Unknown12;
+			public HaloTag Unknown13;
+			public HaloTag Unknown14;
+			public float Unknown15;
+			public float Unknown16;
+			public float GrenadeScematicsSpacing;
+			public float EquipmentScematicOffsetY;
+			public float DualEquipmentScematicOffsetY;
+			public float Unknown17;
+			public float Unknown18;
+			public float ScoreboardLeaderOffsetY;
+			public float Unknown19;
+			public float WaypointScale;
+			public float Unknown20;
+
+			public enum BipedValue : int
+			{
+				Spartan,
+				Elite,
+				Monitor,
+			}
 
 			[TagStructure(Size = 0xE8)]
-			public class TagBlock1
+			public class HudAttribute
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public int Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown50 { get; set; }
-				[TagElement]
-				public int Unknown54 { get; set; }
-				[TagElement]
-				public HaloTag Unknown58 { get; set; }
-				[TagElement]
-				public HaloTag Unknown68 { get; set; }
-				[TagElement]
-				public int Unknown78 { get; set; }
-				[TagElement]
-				public int Unknown7C { get; set; }
-				[TagElement]
-				public int Unknown80 { get; set; }
-				[TagElement]
-				public int Unknown84 { get; set; }
-				[TagElement]
-				public int Unknown88 { get; set; }
-				[TagElement]
-				public int Unknown8C { get; set; }
-				[TagElement]
-				public int Unknown90 { get; set; }
-				[TagElement]
-				public int Unknown94 { get; set; }
-				[TagElement]
-				public int Unknown98 { get; set; }
-				[TagElement]
-				public int Unknown9C { get; set; }
-				[TagElement]
-				public int UnknownA0 { get; set; }
-				[TagElement]
-				public int UnknownA4 { get; set; }
-				[TagElement]
-				public int UnknownA8 { get; set; }
-				[TagElement]
-				public int UnknownAC { get; set; }
-				[TagElement]
-				public int UnknownB0 { get; set; }
-				[TagElement]
-				public int UnknownB4 { get; set; }
-				[TagElement]
-				public int UnknownB8 { get; set; }
-				[TagElement]
-				public int UnknownBC { get; set; }
-				[TagElement]
-				public int UnknownC0 { get; set; }
-				[TagElement]
-				public int UnknownC4 { get; set; }
-				[TagElement]
-				public int UnknownC8 { get; set; }
-				[TagElement]
-				public int UnknownCC { get; set; }
-				[TagElement]
-				public int UnknownD0 { get; set; }
-				[TagElement]
-				public int UnknownD4 { get; set; }
-				[TagElement]
-				public int UnknownD8 { get; set; }
-				[TagElement]
-				public int UnknownDC { get; set; }
-				[TagElement]
-				public int UnknownE0 { get; set; }
-				[TagElement]
-				public int UnknownE4 { get; set; }
+				public uint ResolutionFlags;
+				public Angle WarpAngle;
+				public float WarpAmount;
+				public float WarpDirection;
+				public uint ResolutionWidth;
+				public uint ResolutionHeight;
+				public float MotionSensorOffsetX;
+				public float MotionSensorOffsetY;
+				public float MotionSensorRadius;
+				public float MotionSensorScale;
+				public float HorizontalScale;
+				public float VerticalScale;
+				public float HorizontalStretch;
+				public float VerticalStretch;
+				public HaloTag Unknown;
+				public HaloTag Unknown2;
+				public HaloTag FirstPersonDamageBorder;
+				public HaloTag ThirdPersonDamageBorder;
+				public float Unknown3;
+				public float Unknown4;
+				public float Unknown5;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+				public float StateCenterOffsetY;
+				public float Unknown10;
+				public float Unknown11;
+				public float Unknown12;
+				public float Unknown13;
+				public float Unknown14;
+				public float Unknown15;
+				public float Unknown16;
+				public float Unknown17;
+				public float NotificationScale;
+				public float NotificationLineSpacing;
+				public float Unknown18;
+				public float Unknown19;
+				public float NotificationOffsetY;
+				public float Unknown20;
+				public float Unknown21;
+				public float Unknown22;
+				public float Unknown23;
+				public float Unknown24;
+				public float Unknown25;
+				public float Unknown26;
 			}
 
 			[TagStructure(Size = 0x14)]
-			public class TagBlock2
+			public class HudSound
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public List<TagBlock3> Unknown8 { get; set; }
+				public uint LatchedTo;
+				public float Scale;
+				public List<UnknownBlock> Unknown;
 
 				[TagStructure(Size = 0x14)]
-				public class TagBlock3
+				public class UnknownBlock
 				{
-					[TagElement]
-					public int Unknown0 { get; set; }
-					[TagElement]
-					public HaloTag Unknown4 { get; set; }
+					public BipedValue Biped;
+					public HaloTag Sound;
+
+					public enum BipedValue : int
+					{
+						Spartan,
+						Elite,
+						Monitor,
+					}
 				}
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class TagBlock4
+			public class MultiplayerMedal
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
+				public StringId Medal;
 			}
 		}
 
 		[TagStructure(Size = 0x20)]
-		public class TagBlock5
+		public class HudShader
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public HaloTag Unknown10 { get; set; }
+			public HaloTag VertexShader;
+			public HaloTag PixelShader;
 		}
 
 		[TagStructure(Size = 0x40)]
-		public class TagBlock6
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public int Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown30 { get; set; }
-			[TagElement]
-			public int Unknown34 { get; set; }
-			[TagElement]
-			public int Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public float Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public float Unknown13;
+			public float Unknown14;
+			public float Unknown15;
+			public float Unknown16;
 		}
 
 		[TagStructure(Size = 0x10)]
-		public class TagBlock7
+		public class UnknownBlock2
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public List<TagBlock8> Unknown4 { get; set; }
+			public float Unknown;
+			public List<UnknownBlock> Unknown2;
 
 			[TagStructure(Size = 0xE4)]
-			public class TagBlock8
+			public class UnknownBlock
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
-				[TagElement]
-				public int Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown14 { get; set; }
-				[TagElement]
-				public int Unknown18 { get; set; }
-				[TagElement]
-				public int Unknown1C { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
-				[TagElement]
-				public int Unknown2C { get; set; }
-				[TagElement]
-				public int Unknown30 { get; set; }
-				[TagElement]
-				public int Unknown34 { get; set; }
-				[TagElement]
-				public int Unknown38 { get; set; }
-				[TagElement]
-				public int Unknown3C { get; set; }
-				[TagElement]
-				public int Unknown40 { get; set; }
-				[TagElement]
-				public int Unknown44 { get; set; }
-				[TagElement]
-				public int Unknown48 { get; set; }
-				[TagElement]
-				public int Unknown4C { get; set; }
-				[TagElement]
-				public int Unknown50 { get; set; }
-				[TagElement]
-				public int Unknown54 { get; set; }
-				[TagElement]
-				public int Unknown58 { get; set; }
-				[TagElement]
-				public int Unknown5C { get; set; }
-				[TagElement]
-				public int Unknown60 { get; set; }
-				[TagElement]
-				public int Unknown64 { get; set; }
-				[TagElement]
-				public int Unknown68 { get; set; }
-				[TagElement]
-				public int Unknown6C { get; set; }
-				[TagElement]
-				public int Unknown70 { get; set; }
-				[TagElement]
-				public int Unknown74 { get; set; }
-				[TagElement]
-				public int Unknown78 { get; set; }
-				[TagElement]
-				public int Unknown7C { get; set; }
-				[TagElement]
-				public int Unknown80 { get; set; }
-				[TagElement]
-				public int Unknown84 { get; set; }
-				[TagElement]
-				public int Unknown88 { get; set; }
-				[TagElement]
-				public int Unknown8C { get; set; }
-				[TagElement]
-				public int Unknown90 { get; set; }
-				[TagElement]
-				public int Unknown94 { get; set; }
-				[TagElement]
-				public int Unknown98 { get; set; }
-				[TagElement]
-				public int Unknown9C { get; set; }
-				[TagElement]
-				public int UnknownA0 { get; set; }
-				[TagElement]
-				public int UnknownA4 { get; set; }
-				[TagElement]
-				public int UnknownA8 { get; set; }
-				[TagElement]
-				public int UnknownAC { get; set; }
-				[TagElement]
-				public int UnknownB0 { get; set; }
-				[TagElement]
-				public int UnknownB4 { get; set; }
-				[TagElement]
-				public int UnknownB8 { get; set; }
-				[TagElement]
-				public int UnknownBC { get; set; }
-				[TagElement]
-				public int UnknownC0 { get; set; }
-				[TagElement]
-				public int UnknownC4 { get; set; }
-				[TagElement]
-				public int UnknownC8 { get; set; }
-				[TagElement]
-				public int UnknownCC { get; set; }
-				[TagElement]
-				public int UnknownD0 { get; set; }
-				[TagElement]
-				public int UnknownD4 { get; set; }
-				[TagElement]
-				public int UnknownD8 { get; set; }
-				[TagElement]
-				public int UnknownDC { get; set; }
-				[TagElement]
-				public int UnknownE0 { get; set; }
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
+				public float Unknown5;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
+				public float Unknown10;
+				public float Unknown11;
+				public float Unknown12;
+				public float Unknown13;
+				public float Unknown14;
+				public float Unknown15;
+				public float Unknown16;
+				public float Unknown17;
+				public float Unknown18;
+				public float Unknown19;
+				public float Unknown20;
+				public float Unknown21;
+				public float Unknown22;
+				public float Unknown23;
+				public float Unknown24;
+				public float Unknown25;
+				public HaloTag Sound;
+				public float Unknown26;
+				public float Unknown27;
+				public float Unknown28;
+				public float Unknown29;
+				public float Unknown30;
+				public float Unknown31;
+				public float Unknown32;
+				public float Unknown33;
+				public float Unknown34;
+				public float Unknown35;
+				public float Unknown36;
+				public float Unknown37;
+				public float Unknown38;
+				public float Unknown39;
+				public float Unknown40;
+				public float Unknown41;
+				public float Unknown42;
+				public float Unknown43;
+				public float Unknown44;
+				public float Unknown45;
+				public float Unknown46;
+				public float Unknown47;
+				public float Unknown48;
+				public float Unknown49;
+				public HaloTag Sound2;
 			}
 		}
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock9
+		public class PlayerTrainingDatum
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
+			public StringId DisplayString;
+			public short MaxDisplayTime;
+			public short DisplayCount;
+			public short DisappearDelay;
+			public short RedisplayDelay;
+			public float DisplayDelay;
+			public ushort Flags;
+			public short Unknown;
 		}
 	}
 }

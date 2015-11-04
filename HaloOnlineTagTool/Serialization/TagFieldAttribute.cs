@@ -9,10 +9,10 @@ namespace HaloOnlineTagTool.Serialization
 	/// <summary>
 	/// Attribute for automatically-serializable values in a tag.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Property)]
-	public class TagElementAttribute : Attribute
+	[AttributeUsage(AttributeTargets.Field)]
+	public class TagFieldAttribute : Attribute
 	{
-		public TagElementAttribute()
+		public TagFieldAttribute()
 		{
 			Offset = -1;
 		}

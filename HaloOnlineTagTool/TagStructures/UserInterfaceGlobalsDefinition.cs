@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,24 +12,17 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wgtz", Size = 0x50)]
 	public class UserInterfaceGlobalsDefinition
 	{
-		[TagElement]
-		public HaloTag Unknown0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown10 { get; set; }
-		[TagElement]
-		public HaloTag Unknown20 { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown30 { get; set; }
-		[TagElement]
-		public HaloTag Unknown3C { get; set; }
-		[TagElement]
-		public int Unknown4C { get; set; }
+		public HaloTag SharedUiGlobals;
+		public HaloTag EditableSettings;
+		public HaloTag MatchmakingHopperStrings;
+		public List<ScreenWidget> ScreenWidgets;
+		public HaloTag TextureRenderList;
+		public float Unknown;
 
 		[TagStructure(Size = 0x10)]
-		public class TagBlock0
+		public class ScreenWidget
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
+			public HaloTag Widget;
 		}
 	}
 }

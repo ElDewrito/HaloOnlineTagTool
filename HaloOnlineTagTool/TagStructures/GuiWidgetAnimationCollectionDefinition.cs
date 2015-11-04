@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,121 +12,45 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wacd", Size = 0x280)]
 	public class GuiWidgetAnimationCollectionDefinition
 	{
-		[TagElement]
-		public HaloTag Unknown0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown10 { get; set; }
-		[TagElement]
-		public HaloTag Unknown20 { get; set; }
-		[TagElement]
-		public HaloTag Unknown30 { get; set; }
-		[TagElement]
-		public HaloTag Unknown40 { get; set; }
-		[TagElement]
-		public HaloTag Unknown50 { get; set; }
-		[TagElement]
-		public HaloTag Unknown60 { get; set; }
-		[TagElement]
-		public HaloTag Unknown70 { get; set; }
-		[TagElement]
-		public HaloTag Unknown80 { get; set; }
-		[TagElement]
-		public HaloTag Unknown90 { get; set; }
-		[TagElement]
-		public HaloTag UnknownA0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownB0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownC0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownD0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownE0 { get; set; }
-		[TagElement]
-		public HaloTag UnknownF0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown100 { get; set; }
-		[TagElement]
-		public HaloTag Unknown110 { get; set; }
-		[TagElement]
-		public HaloTag Unknown120 { get; set; }
-		[TagElement]
-		public HaloTag Unknown130 { get; set; }
-		[TagElement]
-		public HaloTag Unknown140 { get; set; }
-		[TagElement]
-		public HaloTag Unknown150 { get; set; }
-		[TagElement]
-		public HaloTag Unknown160 { get; set; }
-		[TagElement]
-		public HaloTag Unknown170 { get; set; }
-		[TagElement]
-		public int Unknown180 { get; set; }
-		[TagElement]
-		public int Unknown184 { get; set; }
-		[TagElement]
-		public int Unknown188 { get; set; }
-		[TagElement]
-		public int Unknown18C { get; set; }
-		[TagElement]
-		public int Unknown190 { get; set; }
-		[TagElement]
-		public int Unknown194 { get; set; }
-		[TagElement]
-		public int Unknown198 { get; set; }
-		[TagElement]
-		public int Unknown19C { get; set; }
-		[TagElement]
-		public HaloTag Unknown1A0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1B0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1C0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1D0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1E0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1F0 { get; set; }
-		[TagElement]
-		public HaloTag Unknown200 { get; set; }
-		[TagElement]
-		public HaloTag Unknown210 { get; set; }
-		[TagElement]
-		public HaloTag Unknown220 { get; set; }
-		[TagElement]
-		public HaloTag Unknown230 { get; set; }
-		[TagElement]
-		public int Unknown240 { get; set; }
-		[TagElement]
-		public int Unknown244 { get; set; }
-		[TagElement]
-		public int Unknown248 { get; set; }
-		[TagElement]
-		public int Unknown24C { get; set; }
-		[TagElement]
-		public int Unknown250 { get; set; }
-		[TagElement]
-		public int Unknown254 { get; set; }
-		[TagElement]
-		public int Unknown258 { get; set; }
-		[TagElement]
-		public int Unknown25C { get; set; }
-		[TagElement]
-		public int Unknown260 { get; set; }
-		[TagElement]
-		public int Unknown264 { get; set; }
-		[TagElement]
-		public int Unknown268 { get; set; }
-		[TagElement]
-		public int Unknown26C { get; set; }
-		[TagElement]
-		public int Unknown270 { get; set; }
-		[TagElement]
-		public int Unknown274 { get; set; }
-		[TagElement]
-		public int Unknown278 { get; set; }
-		[TagElement]
-		public int Unknown27C { get; set; }
+		public HaloTag Unknown;
+		public HaloTag Unknown2;
+		public HaloTag Unknown3;
+		public HaloTag Unknown4;
+		public HaloTag Unknown5;
+		public HaloTag Unknown6;
+		public HaloTag Unknown7;
+		public HaloTag Unknown8;
+		public HaloTag Unknown9;
+		public HaloTag Unknown10;
+		public HaloTag Unknown11;
+		public HaloTag Unknown12;
+		public HaloTag Unknown13;
+		public HaloTag Unknown14;
+		public HaloTag Unknown15;
+		public HaloTag Unknown16;
+		public HaloTag Unknown17;
+		public HaloTag Unknown18;
+		public HaloTag Unknown19;
+		public HaloTag Unknown20;
+		public HaloTag Unknown21;
+		public HaloTag Unknown22;
+		public HaloTag Unknown23;
+		public HaloTag Unknown24;
+		public HaloTag Unknown25;
+		public HaloTag Unknown26;
+		public HaloTag Unknown27;
+		public HaloTag Unknown28;
+		public HaloTag Unknown29;
+		public HaloTag Unknown30;
+		public HaloTag Unknown31;
+		public HaloTag Unknown32;
+		public HaloTag Unknown33;
+		public HaloTag Unknown34;
+		public HaloTag Unknown35;
+		public HaloTag Unknown36;
+		public HaloTag Unknown37;
+		public HaloTag Unknown38;
+		public HaloTag Unknown39;
+		public HaloTag Unknown40;
 	}
 }

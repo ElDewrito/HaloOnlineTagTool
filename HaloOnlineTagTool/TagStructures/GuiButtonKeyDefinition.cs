@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,105 +12,90 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "bkey", Size = 0x54)]
 	public class GuiButtonKeyDefinition
 	{
-		[TagElement]
-		public int Unknown0 { get; set; }
-		[TagElement]
-		public int Unknown4 { get; set; }
-		[TagElement]
-		public int Unknown8 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
-		[TagElement]
-		public int Unknown10 { get; set; }
-		[TagElement]
-		public int Unknown14 { get; set; }
-		[TagElement]
-		public int Unknown18 { get; set; }
-		[TagElement]
-		public HaloTag Unknown1C { get; set; }
-		[TagElement]
-		public HaloTag Unknown2C { get; set; }
-		[TagElement]
-		public List<TagBlock0> Unknown3C { get; set; }
-		[TagElement]
-		public List<TagBlock1> Unknown48 { get; set; }
+		public uint Flags;
+		public StringId Name;
+		public short Unknown;
+		public short Layer;
+		public short WidescreenYBoundsMin;
+		public short WidescreenXBoundsMin;
+		public short WidescreenYBoundsMax;
+		public short WidescreenXBoundsMax;
+		public short StandardYBoundsMin;
+		public short StandardXBoundsMin;
+		public short StandardYBoundsMax;
+		public short StandardXBoundsMax;
+		public HaloTag Animation;
+		public HaloTag Strings;
+		public List<TextWidget> TextWidgets;
+		public List<BitmapWidget> BitmapWidgets;
 
 		[TagStructure(Size = 0x4C)]
-		public class TagBlock0
+		public class TextWidget
 		{
-			[TagElement]
-			public HaloTag Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public HaloTag Unknown2C { get; set; }
-			[TagElement]
-			public int Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown40 { get; set; }
-			[TagElement]
-			public int Unknown44 { get; set; }
-			[TagElement]
-			public int Unknown48 { get; set; }
+			public HaloTag Parent;
+			public uint Flags;
+			public StringId Name;
+			public short Unknown;
+			public short Layer;
+			public short WidescreenYBoundsMin;
+			public short WidescreenXBoundsMin;
+			public short WidescreenYBoundsMax;
+			public short WidescreenXBoundsMax;
+			public short StandardYBoundsMin;
+			public short StandardXBoundsMin;
+			public short StandardYBoundsMax;
+			public short StandardXBoundsMax;
+			public HaloTag Animation;
+			public StringId DataSourceName;
+			public StringId TextString;
+			public StringId TextColor;
+			public short TextFont;
+			public short Unknown2;
 		}
 
 		[TagStructure(Size = 0x6C)]
-		public class TagBlock1
+		public class BitmapWidget
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public int UnknownC { get; set; }
-			[TagElement]
-			public int Unknown10 { get; set; }
-			[TagElement]
-			public int Unknown14 { get; set; }
-			[TagElement]
-			public int Unknown18 { get; set; }
-			[TagElement]
-			public int Unknown1C { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public int Unknown24 { get; set; }
-			[TagElement]
-			public int Unknown28 { get; set; }
-			[TagElement]
-			public HaloTag Unknown2C { get; set; }
-			[TagElement]
-			public HaloTag Unknown3C { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
+			public HaloTag Parent;
+			public uint Flags;
+			public StringId Name;
+			public short Unknown;
+			public short Layer;
+			public short WidescreenYBoundsMin;
+			public short WidescreenXBoundsMin;
+			public short WidescreenYBoundsMax;
+			public short WidescreenXBoundsMax;
+			public short StandardYBoundsMin;
+			public short StandardXBoundsMin;
+			public short StandardYBoundsMax;
+			public short StandardXBoundsMax;
+			public HaloTag Animation;
+			public HaloTag Bitmap;
+			public HaloTag Unknown2;
+			public BlendMethodValue BlendMethod;
+			public short Unknown3;
+			public short SpriteIndex;
+			public short Unknown4;
+			public StringId DataSourceName;
+			public StringId SpriteDataSourceName;
+
+			public enum BlendMethodValue : short
+			{
+				Standard,
+				Unknown,
+				Unknown2,
+				Alpha,
+				Overlay,
+				Unknown3,
+				LighterColor,
+				Unknown4,
+				Unknown5,
+				Unknown6,
+				InvertedAlpha,
+				Unknown7,
+				Unknown8,
+				Unknown9,
+			}
 		}
 	}
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,32 +12,23 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "effg", Size = 0x10)]
 	public class EffectGlobals
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
-		[TagElement]
-		public int UnknownC { get; set; }
+		public List<UnknownBlock> Unknown;
+		public float Unknown2;
 
 		[TagStructure(Size = 0x14)]
-		public class TagBlock0
+		public class UnknownBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public List<TagBlock1> Unknown8 { get; set; }
+			public float Unknown;
+			public float Unknown2;
+			public List<UnknownBlock2> Unknown3;
 
 			[TagStructure(Size = 0x10)]
-			public class TagBlock1
+			public class UnknownBlock2
 			{
-				[TagElement]
-				public int Unknown0 { get; set; }
-				[TagElement]
-				public int Unknown4 { get; set; }
-				[TagElement]
-				public int Unknown8 { get; set; }
-				[TagElement]
-				public int UnknownC { get; set; }
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
 			}
 		}
 	}

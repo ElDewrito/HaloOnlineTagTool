@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,60 +12,36 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sefc", Size = 0xC)]
 	public class AreaScreenEffect
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
+		public List<ScreenEffectBlock> ScreenEffect;
 
 		[TagStructure(Size = 0x9C)]
-		public class TagBlock0
+		public class ScreenEffectBlock
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public byte[] UnknownC { get; set; }
-			[TagElement]
-			public int Unknown20 { get; set; }
-			[TagElement]
-			public byte[] Unknown24 { get; set; }
-			[TagElement]
-			public byte[] Unknown38 { get; set; }
-			[TagElement]
-			public int Unknown4C { get; set; }
-			[TagElement]
-			public int Unknown50 { get; set; }
-			[TagElement]
-			public int Unknown54 { get; set; }
-			[TagElement]
-			public int Unknown58 { get; set; }
-			[TagElement]
-			public int Unknown5C { get; set; }
-			[TagElement]
-			public int Unknown60 { get; set; }
-			[TagElement]
-			public int Unknown64 { get; set; }
-			[TagElement]
-			public int Unknown68 { get; set; }
-			[TagElement]
-			public int Unknown6C { get; set; }
-			[TagElement]
-			public int Unknown70 { get; set; }
-			[TagElement]
-			public int Unknown74 { get; set; }
-			[TagElement]
-			public int Unknown78 { get; set; }
-			[TagElement]
-			public int Unknown7C { get; set; }
-			[TagElement]
-			public int Unknown80 { get; set; }
-			[TagElement]
-			public int Unknown84 { get; set; }
-			[TagElement]
-			public int Unknown88 { get; set; }
-			[TagElement]
-			public HaloTag Unknown8C { get; set; }
+			public StringId Name;
+			public short Unknown;
+			public short Unknown2;
+			public float Unknown3;
+			public byte[] Function;
+			public float Duration;
+			public byte[] Function2;
+			public byte[] Function3;
+			public float LightIntensity;
+			public float PrimaryHue;
+			public float SecondaryHue;
+			public float Saturation;
+			public float ColorMuting;
+			public float Brightness;
+			public float Darkness;
+			public float ShadowBrightness;
+			public float TintR;
+			public float TintG;
+			public float TintB;
+			public float ToneR;
+			public float ToneG;
+			public float ToneB;
+			public float Tracing;
+			public float Unknown4;
+			public HaloTag ScreenShader;
 		}
 	}
 }

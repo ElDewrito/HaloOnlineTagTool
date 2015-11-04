@@ -63,53 +63,53 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
-		/// Finds the first tag with a given class.
+		/// Finds the first tag in a given group.
 		/// </summary>
-		/// <param name="tagClass">The tag class.</param>
-		/// <returns>The first tag with the given class, or <c>null</c> otherwise.</returns>
-		public HaloTag FindFirstByClass(MagicNumber tagClass)
+		/// <param name="groupTag">The group tag.</param>
+		/// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
+		public HaloTag FindFirstInGroup(MagicNumber groupTag)
 		{
-			return _tags.FirstOrDefault(t => t != null && (t.Class == tagClass || t.ParentClass == tagClass || t.GrandparentClass == tagClass));
+			return _tags.FirstOrDefault(t => t != null && (t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag));
 		}
 
 		/// <summary>
-		/// Finds the first tag with a given class.
+		/// Finds the first tag in a given group.
 		/// </summary>
-		/// <param name="tagClass">The tag class as a string.</param>
-		/// <returns>The first tag with the given class, or <c>null</c> otherwise.</returns>
-		public HaloTag FindFirstByClass(string tagClass)
+		/// <param name="groupTag">The group tag as a string.</param>
+		/// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
+		public HaloTag FindFirstInGroup(string groupTag)
 		{
-			return FindFirstByClass(new MagicNumber(tagClass));
+			return FindFirstInGroup(new MagicNumber(groupTag));
 		}
 
 		/// <summary>
-		/// Finds all tags with a given class.
+		/// Finds all tags in a given group.
 		/// </summary>
-		/// <param name="tagClass">The tag class.</param>
-		/// <returns>All tags with the given class.</returns>
-		public IEnumerable<HaloTag> FindAllByClass(MagicNumber tagClass)
+		/// <param name="groupTag">The group tag.</param>
+		/// <returns>All tags in the given group.</returns>
+		public IEnumerable<HaloTag> FindAllInGroup(MagicNumber groupTag)
 		{
-			return _tags.Where(t => t != null && (t.Class == tagClass || t.ParentClass == tagClass || t.GrandparentClass == tagClass));
+			return _tags.Where(t => t != null && (t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag));
 		}
 
 		/// <summary>
-		/// Finds all tags with a given class.
+		/// Finds all tags in a given group.
 		/// </summary>
-		/// <param name="tagClass">The tag class as a string.</param>
-		/// <returns>All tags with the given class.</returns>
-		public IEnumerable<HaloTag> FindAllByClass(string tagClass)
+		/// <param name="groupTag">The group tag as a string.</param>
+		/// <returns>All tags in the given group.</returns>
+		public IEnumerable<HaloTag> FindAllInGroup(string groupTag)
 		{
-			return FindAllByClass(new MagicNumber(tagClass));
+			return FindAllInGroup(new MagicNumber(groupTag));
 		}
 
 		/// <summary>
-		/// Finds all tags whose class is in a set of classes.
+		/// Finds all tags belonging to at least one group in a collection of groups.
 		/// </summary>
-		/// <param name="tagClasses">The tag classes.</param>
-		/// <returns>All tags with a matching class.</returns>
-		public IEnumerable<HaloTag> FindAllByClasses(ICollection<MagicNumber> tagClasses)
+		/// <param name="groupTags">The group tags.</param>
+		/// <returns>All tags which belong to at least one of the groups.</returns>
+		public IEnumerable<HaloTag> FindAllByClasses(ICollection<MagicNumber> groupTags)
 		{
-			return _tags.Where(t => t != null && (tagClasses.Contains(t.Class) || tagClasses.Contains(t.ParentClass) || tagClasses.Contains(t.GrandparentClass)));
+			return _tags.Where(t => t != null && (groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag)));
 		}
 
 		/// <summary>

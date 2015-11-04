@@ -35,7 +35,7 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="info">Information about the tag element.</param>
 		/// <param name="obj">The object intended to be serialized.</param>
 		/// <returns>The object which should actually be serialized.</returns>
-		object PreSerialize(TagElementAttribute info, object obj);
+		object PreSerialize(TagFieldAttribute info, object obj);
 
 		/// <summary>
 		/// Finalizes the block, writing it out to a stream.

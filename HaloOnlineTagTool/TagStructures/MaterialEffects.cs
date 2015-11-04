@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
+using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -10,51 +12,70 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "foot", Size = 0xC)]
 	public class MaterialEffects
 	{
-		[TagElement]
-		public List<TagBlock0> Unknown0 { get; set; }
+		public List<Effect> Effects;
 
 		[TagStructure(Size = 0x24)]
-		public class TagBlock0
+		public class Effect
 		{
-			[TagElement]
-			public int Unknown0 { get; set; }
-			[TagElement]
-			public int Unknown4 { get; set; }
-			[TagElement]
-			public int Unknown8 { get; set; }
-			[TagElement]
-			public List<TagBlock1> UnknownC { get; set; }
-			[TagElement]
-			public List<TagBlock2> Unknown18 { get; set; }
+			public List<OldMaterial> OldMaterials;
+			public List<Sound> Sounds;
+			public List<Effect2> Effects;
 
 			[TagStructure(Size = 0x2C)]
-			public class TagBlock1
+			public class OldMaterial
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
+				public HaloTag Effect;
+				public HaloTag Sound;
+				public StringId MaterialName;
+				public short GlobalMaterialIndex;
+				public SweetenerModeValue SweetenerMode;
+				public sbyte Unknown;
+				public float Unknown2;
+
+				public enum SweetenerModeValue : sbyte
+				{
+					SweetenerDefault,
+					SweetenerEnabled,
+					SweetenerDisabled,
+				}
 			}
 
 			[TagStructure(Size = 0x2C)]
-			public class TagBlock2
+			public class Sound
 			{
-				[TagElement]
-				public HaloTag Unknown0 { get; set; }
-				[TagElement]
-				public HaloTag Unknown10 { get; set; }
-				[TagElement]
-				public int Unknown20 { get; set; }
-				[TagElement]
-				public int Unknown24 { get; set; }
-				[TagElement]
-				public int Unknown28 { get; set; }
+				public HaloTag Tag;
+				public HaloTag SecondaryTag;
+				public StringId MaterialName;
+				public short GlobalMaterialIndex;
+				public SweetenerModeValue SweetenerMode;
+				public sbyte Unknown;
+				public float Unknown2;
+
+				public enum SweetenerModeValue : sbyte
+				{
+					SweetenerDefault,
+					SweetenerEnabled,
+					SweetenerDisabled,
+				}
+			}
+
+			[TagStructure(Size = 0x2C)]
+			public class Effect2
+			{
+				public HaloTag Tag;
+				public HaloTag SecondaryTag;
+				public StringId MaterialName;
+				public short GlobalMaterialIndex;
+				public SweetenerModeValue SweetenerMode;
+				public sbyte Unknown;
+				public float Unknown2;
+
+				public enum SweetenerModeValue : sbyte
+				{
+					SweetenerDefault,
+					SweetenerEnabled,
+					SweetenerDisabled,
+				}
 			}
 		}
 	}

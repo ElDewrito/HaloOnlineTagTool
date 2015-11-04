@@ -24,21 +24,16 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// Gets or sets the size of the referenced data in bytes.
 		/// </summary>
-		[TagElement]
-		public int Size { get; set; }
+		public int Size;
 
-		[TagElement]
-		public int Unused4 { get; set; }
-		[TagElement]
-		public int Unused8 { get; set; }
+		public int Unused4;
+		public int Unused8;
 
 		/// <summary>
 		/// Gets or sets the address of the referenced data.
 		/// </summary>
-		[TagElement]
-		public ResourceAddress Address { get; set; }
+		public ResourceAddress Address;
 
-		[TagElement]
-		public int Unused10 { get; set; }
+		public int Unused10;
 	}
 }

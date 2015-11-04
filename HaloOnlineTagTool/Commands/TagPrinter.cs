@@ -8,7 +8,7 @@ namespace HaloOnlineTagTool.Commands
 	{
 		public static void PrintTagShort(HaloTag tag)
 		{
-			Console.WriteLine("{0} {1:X8} [Offset = 0x{2:X}, Size = 0x{3:X}]", tag.Class, tag.Index, tag.Offset, tag.Size);
+			Console.WriteLine("{0} {1:X8} [Offset = 0x{2:X}, Size = 0x{3:X}]", tag.GroupTag, tag.Index, tag.Offset, tag.Size);
 		}
 
 		public static void PrintTagsShort(IEnumerable<HaloTag> tags)
@@ -21,7 +21,7 @@ namespace HaloOnlineTagTool.Commands
 
 		private static int CompareTags(HaloTag lhs, HaloTag rhs)
 		{
-			var classCompare = lhs.Class.CompareTo(rhs.Class);
+			var classCompare = lhs.GroupTag.CompareTo(rhs.GroupTag);
 			if (classCompare != 0)
 				return classCompare;
 			return lhs.Index.CompareTo(rhs.Index);
