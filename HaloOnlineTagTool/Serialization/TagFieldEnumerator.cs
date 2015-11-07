@@ -15,7 +15,7 @@ namespace HaloOnlineTagTool.Serialization
 		private static readonly TagFieldAttribute DefaultFieldAttribute = new TagFieldAttribute();
 
 		private readonly EngineVersion _version;
-		private FieldInfo[] _fields;
+		private readonly List<FieldInfo> _fields = new List<FieldInfo>();
 		private int _nextIndex;
 
 		/// <summary>
@@ -43,6 +43,11 @@ namespace HaloOnlineTagTool.Serialization
 		/// Gets the type of the structure being enumerated.
 		/// </summary>
 		public Type StructureType { get; private set; }
+
+		/// <summary>
+		/// Gets the total size of the structure, including parent structures.
+		/// </summary>
+		public uint StructureSize { get; private set; }
 
 		/// <summary>
 		/// Gets the current <see cref="TagStructureAttribute"/>.
@@ -78,7 +83,7 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			do
 			{
-				if (_fields == null || _nextIndex >= _fields.Length)
+				if (_fields == null || _nextIndex >= _fields.Count)
 					return false;
 				Field = _fields[_nextIndex];
 				_nextIndex++;
@@ -88,21 +93,42 @@ namespace HaloOnlineTagTool.Serialization
 
 		private void Begin()
 		{
+			// Get the attribute for the main structure type
+			Structure = GetStructureAttribute(StructureType);
+			if (Structure == null)
+				throw new InvalidOperationException("No TagStructure attribute which matches the target version was found on " + StructureType.Name);
+
+			// Build the field list. Scan through the type's inheritance
+			// hierarchy and add any fields belonging to parent classes that
+			// also have TagStructure attributes.
+			var currentType = StructureType;
+			while (currentType != null)
+			{
+				var attrib = (currentType != StructureType) ? GetStructureAttribute(currentType) : Structure;
+				if (attrib != null)
+				{
+					_fields.AddRange(currentType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly));
+					StructureSize += attrib.Size;
+				}
+				currentType = currentType.BaseType;
+			}
+
+			// Order the field list in declaration order using the MetadataToken
+			_fields.Sort((x, y) => x.MetadataToken - y.MetadataToken);
+		}
+
+		private TagStructureAttribute GetStructureAttribute(Type type)
+		{
 			// First match against any TagStructureAttributes that have version restrictions
-			Structure = StructureType.GetCustomAttributes(typeof(TagStructureAttribute), false)
+			var attrib = type.GetCustomAttributes(typeof(TagStructureAttribute), false)
 				.Cast<TagStructureAttribute>()
 				.Where(a => a.MinVersion != EngineVersion.Unknown || a.MaxVersion != EngineVersion.Unknown)
 				.FirstOrDefault(a => VersionMatches(a.MinVersion, a.MaxVersion));
 
 			// If nothing was found, find the first attribute without any version restrictions
-			Structure = Structure ?? StructureType.GetCustomAttributes(typeof(TagStructureAttribute), false)
+			return attrib ?? type.GetCustomAttributes(typeof(TagStructureAttribute), false)
 				.Cast<TagStructureAttribute>()
 				.FirstOrDefault(a => a.MinVersion == EngineVersion.Unknown && a.MaxVersion == EngineVersion.Unknown);
-			if (Structure == null)
-				throw new InvalidOperationException("No TagStructureAttribute which matches the target version was found on the structure type");
-
-			// Get the field list
-			_fields = StructureType.GetFields(BindingFlags.Instance | BindingFlags.Public);
 		}
 
 		private bool GetCurrentPropertyInfo()

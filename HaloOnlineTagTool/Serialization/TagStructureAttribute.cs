@@ -25,8 +25,7 @@ namespace HaloOnlineTagTool.Serialization
 		public string Class { get; set; }
 
 		/// <summary>
-		/// Gets or sets the size of the structure in bytes.
-		/// If this is zero, then the size will be calculated automatically.
+		/// Gets or sets the size of the structure in bytes, NOT including parent structures.
 		/// </summary>
 		public uint Size { get; set; }
 

@@ -7,6 +7,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
+	// TODO: Convert over a newer plugin and make this inherit from GameObject once versioning issues are sorted out
 	[TagStructure(Class = "ctrl", Size = 0x1FC)]
 	public class DeviceControl
 	{
