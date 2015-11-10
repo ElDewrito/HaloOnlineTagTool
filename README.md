@@ -7,4 +7,4 @@ The command 'phmotest' has been added to load phmo models into Halo Online. The 
 
 Use Blender to create and export multiple polyhedra into the JSON format. Find the .blend file in the top directory of the repo. After opening the .blend file, follow the instructions in the text editor window.
 
-Currently, the only spatial optimisation for the models are the bounding-boxes for individual polyhedra. MOPP is not yet supported. If you're interested in MOPP, see file <host> 
+Currently, the only spatial optimisation for the models are the bounding-boxes for individual polyhedra. MOPP is not yet supported. If you're interested in MOPP, see [this file](https://github.com/Gurten/HaloOnlineTagTool/blob/master/mopp_research.txt).
