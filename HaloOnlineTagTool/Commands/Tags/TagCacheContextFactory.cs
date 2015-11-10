@@ -23,6 +23,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new ExtractBitmapsCommand(info));
 			context.AddCommand(new ResourceDataCommand());
 			context.AddCommand(new TagBlockCommand(info));
+            context.AddCommand(new PhysicsModelTestCommand(info));
 			if (info.StringIds != null)
 			{
 				context.AddCommand(new StringIdCommand(info));

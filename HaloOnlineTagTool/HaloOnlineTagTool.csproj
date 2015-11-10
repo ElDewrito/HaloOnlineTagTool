@@ -58,7 +58,9 @@
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
+    <Compile Include="Commands\Tags\PhysicsModelTestCommand.cs" />
     <Compile Include="Common\NamingConvention.cs" />
+    <Compile Include="Common\SimpleJson.cs" />
     <Compile Include="Layouts\ArrayTagLayoutField.cs" />
     <Compile Include="Layouts\BasicTagLayoutField.cs" />
     <Compile Include="Layouts\CppLayoutWriter.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
     <Compile Include="Layouts\TagLayoutField.cs" />
+    <Compile Include="Resources\Geometry\BlenderPhmoReader.cs" />
+    <Compile Include="Resources\Geometry\PhysicsModelBuilder.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />

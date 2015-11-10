@@ -251,7 +251,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown9;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			[TagField(Count = 4)] public byte[] NewPointerReadComment;
+			//[TagField(Count = 4)] public byte[] NewPointerReadComment; //this is overlap
 			public float Mass;
 			public float CenterOfMassI;
 			public float CenterOfMassJ;
