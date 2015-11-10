@@ -17,10 +17,10 @@ namespace HaloOnlineTagTool.Commands.Tags
             CommandFlags.None,
             "phmotest",
             "Physics Model Import Command (Test)",
-            "phmotest <filepath> [index]",
+            "phmotest <filepath> <index>|<new> [force]" ,
             "injects a physics model from the file specified exported from Blender in JSON format.\n" +
-            "A tag-index can be specified to override an existing tag.\n"+
-            "The default behaviour is to duplicate an existing phmo tag and insert into that."
+            "A tag-index can be specified to override an existing tag, or 'new' can be used to create a new tag.\n" +
+            "Tags that are not type- 'phmo' will not be overridden unless the third argument is specified- 'force'. "
         )
         {
             _info = info;
@@ -28,24 +28,40 @@ namespace HaloOnlineTagTool.Commands.Tags
 
         public override bool Execute(List<string> args)
         {
-            if (args.Count < 1) {
+            //Arguments needed: filepath, <new>|<tagIndex>
+            if (args.Count < 2) {
                 return false;
             }
-            HaloTag tag = null;
-            bool duplicate = true;
 
-            if (args.Count >= 2) { 
+            HaloTag tag = null;
+            bool b_duplicate;
+            // optional argument: forces overwriting of tags that are not type: phmo
+            bool b_force = (args.Count >= 3 && args[2].ToLower().Equals("force"));
+
+            if (args[1].ToLower().Equals("new")) {
+                b_duplicate = true;
+            }
+            else
+            {
                 tag = ArgumentParser.ParseTagIndex(_info.Cache, args[1]);
-                if (tag == null) {
+                if (tag == null)
+                {
                     return false;
                 }
-                duplicate = false;
+                b_duplicate = false;
             }
+
+            if (!b_force && !b_duplicate && !tag.IsClass("phmo")) {
+                Console.WriteLine("Tag to override was not of class- 'phmo'. Use third argument- 'force' to inject.");
+                return false;
+            }
+
             var filename = args[0];
-            //Console.WriteLine(filename);
 
             var modelbuilder = new PhysicsModelBuilder();
-            modelbuilder.ParseFromFile(filename);
+            if (!modelbuilder.ParseFromFile(filename)) {
+                return false;
+            }
             //modelbuilder must also make a node for the physics model
             var phmo = modelbuilder.Build();
 
@@ -55,12 +71,13 @@ namespace HaloOnlineTagTool.Commands.Tags
 
             using (var stream = _info.OpenCacheReadWrite()) {
 
-                if (duplicate)
+                if (b_duplicate)
                 {
-                    tag = _info.Cache.DuplicateTag(stream, _info.Cache.Tags[0x4436]); //trashcan phmo
+                    //duplicate an existing tag, trashcan phmo
+                    tag = _info.Cache.DuplicateTag(stream, _info.Cache.Tags[0x4436]);
                     if (tag == null)
                     {
-                        Console.WriteLine("Failed tag duplication");
+                        Console.WriteLine("Failed tag duplication.");
                         return false;
                     }
                 }
