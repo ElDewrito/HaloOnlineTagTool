@@ -1,7 +1,12 @@
 This document contains raw notes taken during experimenting. It is not well refined. 
 
-0xD0E3A0 is the address of the routine: MOPP byte code interpreter. Opcodes are usually grouped in clusters of 3 or 4, where during the instruction decoding phase the coordinate (x/y/z) is obtained. A lot of the instructions are range tests for one coordinate. When put in sequence, these tests are almost like a k-d tree. 
-this is a good resource: http://niftools.sourceforge.net/wiki/Nif_Format/Mopp . Although it's quite dated and incomplete, it probably has a better description of Mopp. The third theory on mopp seems to be most accurate (being a bounding volume tree). It also limits the physics objects to 'triangle' (which is a class of physics object), but this could be 'polyhedron', 'sphere', 'box' etc.  
+0xD0E3A0 is the address of the routine: MOPP byte code interpreter. Opcodes are usually grouped in clusters of 3 or 4,
+where during the instruction decoding phase the coordinate (x/y/z) is obtained. 
+A lot of the instructions are range tests for one coordinate. When put in sequence, these tests are almost like a k-d tree. 
+this is a good resource: http://niftools.sourceforge.net/wiki/Nif_Format/Mopp . Although it's quite dated and incomplete,
+it probably has a better description of Mopp. The third theory on mopp seems to be most accurate (being a bounding 
+volume tree). It also limits the physics objects to 'triangle' (which is a class of physics object), but this could 
+be 'polyhedron', 'sphere', 'box' etc.  
 
 There are four phmos that use MOPP. They are:
 {phmo:2E26} : fork-lift. Mopp code begins 0x890 into the tag
@@ -9,8 +14,10 @@ There are four phmos that use MOPP. They are:
 {phmo:41BF} : lod pelican. Mopp code begins 0x600 into the tag
 {phmo:430a} : electric-cart. Mopp code begins 0x1380 into the tag
 
-The Mopp codes in these tags begin with what I suspect to be a 0x30 byte header. To see Mopp in action, put a data-breakpoint on- {address of tag in memory} + {mopp code offset into tag} + {0x30} , then put another physics object spatially close to the object in game.
-electric-cart on Icebox works great for this. 
+The Mopp codes in these tags begin with what I suspect to be a 0x30 byte header. To see Mopp in action, 
+put a data-breakpoint on- {address of tag in memory} + {mopp code offset into tag} + {0x30} , 
+then put another physics object spatially close to the object in game.
+Electric-cart on Icebox works great for this. 
 
 --------------------------------------------------------------------
 eldorado.exe+85CCC0 - 53                    - push ebx
