@@ -902,19 +902,19 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x98)]
 		public class MetagameGlobal
 		{
-			public List<Event> Events;
+			public List<Medal> Medals;
 			public List<DifficultyBlock> Difficulty;
-			public List<Skull> Skulls;
-			public List<UnknownBlock> Unknown;
-			public int Unknown2;
+			public List<PrimarySkull> PrimarySkulls;
+			public List<SecondarySkull> SecondarySkulls;
+			public int Unknown;
 			public int DeathPenalty;
-			public int Unknown3;
-			public int Unknown4;
-			public float TallyWait;
+			public int BetrayalPenalty;
+			public int Unknown2;
+			public float MultikillWindow;
+			public float EmpWindow;
+			public float Unknown3;
+			public float Unknown4;
 			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
 			public int FirstWeaponSpree;
 			public int SecondWeaponSpree;
 			public int KillingSpree;
@@ -934,7 +934,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Killionaire;
 
 			[TagStructure(Size = 0x10)]
-			public class Event
+			public class Medal
 			{
 				public float Multiplier;
 				public int AwardedPoints;
@@ -949,15 +949,15 @@ namespace HaloOnlineTagTool.TagStructures
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class Skull
+			public class PrimarySkull
 			{
 				public float Multiplier;
 			}
 
 			[TagStructure(Size = 0x4)]
-			public class UnknownBlock
+			public class SecondarySkull
 			{
-				public short Unknown;
+				public float Multiplier;
 			}
 		}
 

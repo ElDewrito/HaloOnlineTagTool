@@ -147,18 +147,12 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x8)]
 		public class MetagameProperty
 		{
-			public UnitKindValue UnitKind;
+			public byte Flags;
 			public UnitValue Unit;
 			public ClassificationValue Classification;
 			public sbyte Unknown;
-			public short BasePointWorth;
+			public short Points;
 			public short Unknown2;
-
-			public enum UnitKindValue : sbyte
-			{
-				Actor,
-				Vehicle,
-			}
 
 			public enum UnitValue : sbyte
 			{
@@ -166,22 +160,22 @@ namespace HaloOnlineTagTool.TagStructures
 				Grunt,
 				Jackal,
 				Marine,
-				Drone,
+				Bugger,
 				Hunter,
-				Unknown,
+				FloodInfection,
 				FloodCarrier,
 				FloodCombat,
 				FloodPureform,
-				Forerunner,
+				Sentinel,
 				Elite,
-				Unknown2,
+				Turret,
 				Mongoose,
 				Warthog,
 				Scorpion,
 				Hornet,
 				Pelican,
 				Shade,
-				Unknown3,
+				Watchtower,
 				Ghost,
 				Chopper,
 				Mauler,
@@ -189,8 +183,9 @@ namespace HaloOnlineTagTool.TagStructures
 				Banshee,
 				Phantom,
 				Scarab,
-				Unknown4,
+				Guntower,
 				Engineer,
+				EngineerRehargeStation,
 			}
 
 			public enum ClassificationValue : sbyte
@@ -202,7 +197,7 @@ namespace HaloOnlineTagTool.TagStructures
 				LightVehicle,
 				HeavyVehicle,
 				GiantVehicle,
-				MediumVehicle,
+				StandardVehicle,
 			}
 		}
 

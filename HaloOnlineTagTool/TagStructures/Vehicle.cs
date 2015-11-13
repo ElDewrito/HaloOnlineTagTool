@@ -147,28 +147,25 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4C)]
 		public class DropshipMotionProperty
 		{
-			public float Unknown;
 			public float ForwardAcceleration;
-			public float Unknown2;
 			public float BackwardAcceleration;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public float Unknown;
+			public float Unknown2;
 			public float LeftStrafeAcceleration;
 			public float RightStrafeAcceleration;
-			public float Unknown6;
-			public float Unknown7;
+			public float Unknown3;
+			public float Unknown4;
 			public float LiftAcceleration;
 			public float DropAcceleration;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
 			public float Unknown8;
 			public float Unknown9;
 			public float Unknown10;
-			public float Unknown11;
+			public Angle Unknown11;
 			public float Unknown12;
-			public float Unknown13;
-			public Angle Unknown14;
-			public float Unknown15;
-			public Angle Unknown16;
+			public Angle Unknown13;
 		}
 
 		[TagStructure(Size = 0x70)]

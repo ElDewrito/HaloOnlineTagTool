@@ -63,8 +63,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<UnknownBlock4> Unknown7;
 		public HaloTag ShieldImpactThirdPerson;
 		public HaloTag ShieldImpactFirstPerson;
-		public HaloTag Unknown8;
-		public HaloTag Unknown9;
+		public HaloTag OvershieldThirdPerson;
+		public HaloTag OvershieldFirstPerson;
 
 		[TagStructure(Size = 0x50)]
 		public class Variant

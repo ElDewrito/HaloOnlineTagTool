@@ -30,25 +30,30 @@ namespace HaloOnlineTagTool.Serialization
 		public uint Size { get; set; }
 
 		/// <summary>
-		/// If the value is an inline array, sets the number of elements in the array.
+		/// If the value is an inline array, gets or sets the number of elements in the array.
 		/// </summary>
 		public int Count { get; set; }
 
 		/// <summary>
 		/// Gets or sets flags for the tag element.
 		/// </summary>
-		public TagElementFlags Flags { get; set; }
+		public TagFieldFlags Flags { get; set; }
 	}
 
 	/// <summary>
 	/// Tag element flags.
 	/// </summary>
 	[Flags]
-	public enum TagElementFlags
+	public enum TagFieldFlags
 	{
 		/// <summary>
 		/// The tag element is a pointer to a structure.
 		/// </summary>
-		Indirect = 1 << 0
+		Indirect = 1 << 0,
+
+		/// <summary>
+		/// The tag element is "short" and doesn't have debug info. Currently only valid for tag references.
+		/// </summary>
+		Short = 1 << 1,
 	}
 }

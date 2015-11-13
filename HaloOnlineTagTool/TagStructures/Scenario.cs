@@ -285,7 +285,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown139;
 		public float Unknown140;
 		public float Unknown141;
-		public List<MetagameScoringBlock> MetagameScoring;
+		public List<ScenarioMetagameBlock> ScenarioMetagame;
 		public List<UnknownBlock6> Unknown142;
 		public List<UnknownBlock7> Unknown143;
 		public float Unknown144;
@@ -2696,7 +2696,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<GroupLocation> GroupLocations;
 			public List<SingleLocation> SingleLocations;
 			public StringId SquadTemplateName;
-			public HaloTag SquadTemplate;
+			[TagField(Flags = TagFieldFlags.Short)] public HaloTag SquadTemplate;
 			public List<SquadABlock> SquadA;
 			public List<SquadBBlock> SquadB;
 
@@ -2801,8 +2801,6 @@ namespace HaloOnlineTagTool.TagStructures
 				public StringId InitialState;
 				public short Unknown9;
 				public short Unknown10;
-				public short Unknown11;
-				public short Unknown12;
 				public List<MultiStateBlock> MultiState;
 
 				public enum SeatTypeValue : short
@@ -3733,7 +3731,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0xC)]
 		public class UnitSeatsMappingBlock
 		{
-			public HaloTag Unit;
+			[TagField(Flags = TagFieldFlags.Short)] public HaloTag Unit;
 			public uint Seats;
 			public uint Seats2;
 		}
@@ -4337,7 +4335,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4)]
 		public class SimulationDefinitionTableBlock
 		{
-			public HaloTag Tag;
+			[TagField(Flags = TagFieldFlags.Short)] public HaloTag Tag;
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -4593,17 +4591,26 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag CinematicLight;
 		}
 
-		[TagStructure(Size = 0x10)]
-		public class MetagameScoringBlock
+		[TagStructure(Size = 0x1C)]
+		public class ScenarioMetagameBlock
 		{
-			public List<TimeBasedMultiplier> TimeBasedMultipliers;
-			public float AchievementPointGoal;
+			public List<TimeMultiplier> TimeMultipliers;
+			public float ParScore;
+			public List<SurvivalBlock> Survival;
 
 			[TagStructure(Size = 0x8)]
-			public class TimeBasedMultiplier
+			public class TimeMultiplier
 			{
 				public float Time;
-				public float AppliedMultiplier;
+				public float Multiplier;
+			}
+
+			[TagStructure(Size = 0x8)]
+			public class SurvivalBlock
+			{
+				public short InsertionIndex;
+				public short Unknown;
+				public float ParScore;
 			}
 		}
 

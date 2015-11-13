@@ -58,6 +58,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			// writer for the output type. We need an actual tag reference in
 			// order to look up the group name without using a static table.
 			var processedGroups = new HashSet<MagicNumber>();
+			var numConflicts = 0;
 			foreach (var tag in _cache.Tags.Where(tag => tag != null && !processedGroups.Contains(tag.GroupTag)))
 			{
 				processedGroups.Add(tag.GroupTag);
@@ -74,16 +75,23 @@ namespace HaloOnlineTagTool.Commands.Tags
 				Console.WriteLine("Converting {0}...", pluginFileName);
 
 				// Load the plugin into a layout
-				TagLayout layout;
+				AssemblyPluginLoadResults loadedPlugin;
 				var groupName = _info.StringIds.GetString(tag.GroupName);
 				using (var reader = XmlReader.Create(pluginPath))
-					layout = AssemblyPluginLoader.LoadPlugin(reader, groupName, tag.GroupTag);
+					loadedPlugin = AssemblyPluginLoader.LoadPlugin(reader, groupName, tag.GroupTag);
+
+				// Warn the user about conflicts
+				numConflicts += loadedPlugin.Conflicts.Count;
+				foreach (var conflict in loadedPlugin.Conflicts)
+					Console.WriteLine("WARNING: Field \"{0}\" at offset 0x{1:X} in block \"{2}\" conflicts!", conflict.Name, conflict.Offset, conflict.Block ?? "(root)");
 
 				// Write it
-				var outPath = Path.Combine(outDir, writer.GetSuggestedFileName(layout));
-				writer.WriteLayout(layout, outPath);
+				var outPath = Path.Combine(outDir, writer.GetSuggestedFileName(loadedPlugin.Layout));
+				writer.WriteLayout(loadedPlugin.Layout, outPath);
 			}
 			Console.WriteLine("Successfully converted {0} plugins!", processedGroups.Count);
+			if (numConflicts > 0)
+				Console.WriteLine("However, {0} conflicts were found. You MUST fix these yourself!", numConflicts);
 			return true;
 		}
 

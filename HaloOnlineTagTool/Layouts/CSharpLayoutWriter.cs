@@ -55,6 +55,7 @@ namespace HaloOnlineTagTool.Layouts
 			private string _indent;
 			private int _indentLevel;
 			private int _arrayCount = 1;
+			private bool _short = false;
 			private readonly Queue<string> _subBlocks = new Queue<string>();
 			private readonly Dictionary<string, int> _nameCounts = new Dictionary<string, int>(); 
 
@@ -78,7 +79,9 @@ namespace HaloOnlineTagTool.Layouts
 
 			public void Visit(BasicTagLayoutField field)
 			{
+				_short = (field.Type == BasicFieldType.ShortTagReference);
 				AddElement(GetTypeName(field.Type), field.Name);
+				_short = false;
 			}
 
 			public void Visit(ArrayTagLayoutField field)
@@ -139,11 +142,11 @@ namespace HaloOnlineTagTool.Layouts
 			{
 				if (_arrayCount > 1)
 				{
-					_writer.WriteLine("{0}[TagField(Count = {1})] public {2}[] {3};", _indent, _arrayCount, type, MakeName(name));
+					_writer.WriteLine("{0}[TagField(Count = {1}{2})] public {3}[] {4};", _indent, _arrayCount, _short ? ", Flags = TagFieldFlags.Short" : "", type, MakeName(name));
 				}
 				else
 				{
-					_writer.WriteLine("{0}public {1} {2};", _indent, type, MakeName(name));
+					_writer.WriteLine("{0}{1}public {2} {3};", _indent, _short ? "[TagField(Flags = TagFieldFlags.Short)] " : "", type, MakeName(name));
 				}
 			}
 
@@ -197,6 +200,7 @@ namespace HaloOnlineTagTool.Layouts
 					case BasicFieldType.StringId:
 						return "StringId";
 					case BasicFieldType.TagReference:
+					case BasicFieldType.ShortTagReference:
 						return "HaloTag";
 					case BasicFieldType.DataReference:
 						return "byte[]";

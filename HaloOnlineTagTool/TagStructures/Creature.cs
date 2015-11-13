@@ -61,9 +61,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown14;
 		public HaloTag ImpactDamage;
 		public HaloTag ImpactShieldDamage;
-		public float Unknown15;
-		public float Unknown16;
-		public float Unknown17;
+		public List<MetagameProperty> MetagameProperties;
 		public float DestroyAfterDeathTimeMin;
 		public float DestroyAfterDeathTimeMax;
 
@@ -204,6 +202,63 @@ namespace HaloOnlineTagTool.TagStructures
 			public float TranslationJ;
 			public float TranslationK;
 			public float TranslationRadius;
+		}
+
+		[TagStructure(Size = 0x8)]
+		public class MetagameProperty
+		{
+			public byte Flags;
+			public UnitValue Unit;
+			public ClassificationValue Classification;
+			public sbyte Unknown;
+			public short Points;
+			public short Unknown2;
+
+			public enum UnitValue : sbyte
+			{
+				Brute,
+				Grunt,
+				Jackal,
+				Marine,
+				Bugger,
+				Hunter,
+				FloodInfection,
+				FloodCarrier,
+				FloodCombat,
+				FloodPureform,
+				Sentinel,
+				Elite,
+				Turret,
+				Mongoose,
+				Warthog,
+				Scorpion,
+				Hornet,
+				Pelican,
+				Shade,
+				Watchtower,
+				Ghost,
+				Chopper,
+				Mauler,
+				Wraith,
+				Banshee,
+				Phantom,
+				Scarab,
+				Guntower,
+				Engineer,
+				EngineerRehargeStation,
+			}
+
+			public enum ClassificationValue : sbyte
+			{
+				Infantry,
+				Leader,
+				Hero,
+				Specialist,
+				LightVehicle,
+				HeavyVehicle,
+				GiantVehicle,
+				StandardVehicle,
+			}
 		}
 	}
 }

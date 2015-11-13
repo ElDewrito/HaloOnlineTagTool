@@ -178,14 +178,14 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueType">Type of the value.</param>
 		private void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagFieldAttribute valueInfo, Type valueType)
 		{
-			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
+			if (valueInfo != null && ((valueInfo.Flags & TagFieldFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
 				SerializeIndirectValue(context, tagStream, block, val, valueType);
 			else if (valueType.IsEnum)
 				SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
 			else if (valueType == typeof(string))
 				SerializeString(block.Writer, (string)val);
 			else if (valueType == typeof(HaloTag))
-				SerializeTagReference(block.Writer, (HaloTag)val);
+				SerializeTagReference(block.Writer, (HaloTag)val, valueInfo);
 			else if (valueType == typeof(ResourceAddress))
 				block.Writer.Write(((ResourceAddress)val).Value);
 			else if (valueType == typeof(byte[]))
@@ -227,12 +227,16 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="writer">The writer to write to.</param>
 		/// <param name="referencedTag">The referenced tag.</param>
-		private static void SerializeTagReference(BinaryWriter writer, HaloTag referencedTag)
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
+		private static void SerializeTagReference(BinaryWriter writer, HaloTag referencedTag, TagFieldAttribute valueInfo)
 		{
 			// Write the reference out
-			writer.Write((referencedTag != null) ? referencedTag.GroupTag.Value : -1);
-			writer.Write(0);
-			writer.Write(0);
+			if (valueInfo == null || (valueInfo.Flags & TagFieldFlags.Short) == 0)
+			{
+				writer.Write((referencedTag != null) ? referencedTag.GroupTag.Value : -1);
+				writer.Write(0);
+				writer.Write(0);
+			}
 			writer.Write((referencedTag != null) ? referencedTag.Index : -1);
 		}
 

@@ -155,7 +155,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public float Unknown12;
 					public float Unknown13;
 					public float Unknown14;
-					public HaloTag Model;
+					[TagField(Flags = TagFieldFlags.Short)] public HaloTag Model;
 					public float Unknown15;
 					public float Unknown16;
 					public short Unknown17;

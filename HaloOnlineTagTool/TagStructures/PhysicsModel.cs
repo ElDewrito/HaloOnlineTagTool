@@ -251,7 +251,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown9;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			[TagField(Count = 4)] public byte[] NewPointerReadComment;
 			public float Mass;
 			public float CenterOfMassI;
 			public float CenterOfMassJ;
@@ -594,7 +593,6 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			[TagField(Count = 4)] public byte[] NewPointer;
 			public float Unknown;
 			public uint Unknown2;
 			public int Unknown3;
@@ -631,7 +629,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown3;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			[TagField(Count = 4)] public byte[] NewPointer;
 			public float Unknown4;
 			public float Unknown5;
 
@@ -817,7 +814,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown2;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			[TagField(Count = 16)] public byte[] NewPointer;
 			public float Unknown3;
 			public float Unknown4;
 			public int Unknown5;

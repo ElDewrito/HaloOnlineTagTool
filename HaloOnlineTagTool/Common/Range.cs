@@ -49,6 +49,23 @@ namespace HaloOnlineTagTool.Common
 			return Min.Equals(other.Min) && Max.Equals(other.Max);
 		}
 
+		public override bool Equals(object obj)
+		{
+			if (!(obj is Range<T>))
+				return false;
+			return Equals((Range<T>)obj);
+		}
+
+		public static bool operator ==(Range<T> lhs, Range<T> rhs)
+		{
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(Range<T> lhs, Range<T> rhs)
+		{
+			return !(lhs == rhs);
+		}
+
 		public override string ToString()
 		{
 			return string.Format("[{0}, {1}]", Min, Max);

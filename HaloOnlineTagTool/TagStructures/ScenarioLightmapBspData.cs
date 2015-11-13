@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Common;
 using HaloOnlineTagTool.Resources;
+using HaloOnlineTagTool.Resources.Geometry;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
@@ -71,19 +72,19 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown50;
 		public HaloTag PrimaryMap;
 		public HaloTag IntensityMap;
-		public List<InstancedSection> InstancedSections;
+		public List<InstancedMesh> InstancedMeshes;
 		public List<UnknownBlock> Unknown51;
 		public List<InstancedGeometryBlock> InstancedGeometry;
 		public List<UnknownBBlock> UnknownB;
 		public int Unknown52;
-		public List<Section> Sections;
+		public List<Mesh> Meshes;
 		public List<CompressionInfoBlock> CompressionInfo;
 		public List<UnknownNodeyBlock> UnknownNodey;
 		public List<UnknownBlock2> Unknown53;
 		public float Unknown54;
 		public float Unknown55;
 		public float Unknown56;
-		public List<UnknownSection> UnknownSections;
+		public List<UnknownMesh> UnknownMeshes;
 		public List<NodeMap> NodeMaps;
 		public List<UnknownBlock3> Unknown57;
 		public float Unknown58;
@@ -102,7 +103,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown68;
 
 		[TagStructure(Size = 0x10)]
-		public class InstancedSection
+		public class InstancedMesh
 		{
 			public float Unknown;
 			public float Unknown2;
@@ -121,7 +122,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class InstancedGeometryBlock
 		{
 			public short Unknown;
-			public short InstancedSectionIndex;
+			public short InstancedMeshIndex;
 			public short UnknownBIndex;
 			public short Unknown2;
 		}
@@ -147,101 +148,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown16;
 			public float Unknown17;
 			public float Unknown18;
-		}
-
-		[TagStructure(Size = 0x4C)]
-		public class Section
-		{
-			public List<Submesh> Submeshes;
-			public List<VertexGroup> VertexGroups;
-			public short ValidMeshIndex;
-			public short ValidWorldMeshIndex;
-			public short ValidTransparent3MeshIndex;
-			public short ValidOpaqueMeshIndex;
-			public int RawId;
-			public short ValidWaterMeshIndex1;
-			public short ValidWaterMeshIndex2;
-			public short ValidSectionIndex;
-			public short ValidWaterSectionIndex;
-			public sbyte TransparentNodesPerVertex;
-			public sbyte RigidNode;
-			public MeshTypeValue MeshType;
-			public sbyte OpaqueMaxNodesVertex;
-			public sbyte Unknown;
-			public sbyte Unknown2;
-			public sbyte Unknown3;
-			public sbyte Unknown4;
-			public List<InstancedGeometryIndex> InstancedGeometryIndices;
-			public List<UnknownWaterBlock> UnknownWater;
-
-			[TagStructure(Size = 0x10)]
-			public class Submesh
-			{
-				public short MaterialIndex;
-				public short UnknownNodeyIndex;
-				public short IndexBufferStart;
-				public short IndexBufferCount;
-				public short VertexGroupIndex;
-				public short VertexGroupCount;
-				public sbyte UnknownEnum;
-				public byte Flags;
-				public short VertexBufferCount;
-			}
-
-			[TagStructure(Size = 0x8)]
-			public class VertexGroup
-			{
-				public short IndexBufferStart;
-				public short IndexBufferCount;
-				public short ParentSubmeshIndex;
-				public short VertexBufferCount;
-			}
-
-			public enum MeshTypeValue : sbyte
-			{
-				World,
-				Rigid,
-				Skinned,
-				ParticleModel,
-				FlatWorld,
-				FlatRigid,
-				FlatSkinned,
-				Screen,
-				Debug,
-				Transparent,
-				Particle,
-				Contrail,
-				LightVolume,
-				ChudSimple,
-				ChudFancy,
-				Decorator,
-				TinyPosition,
-				PatchyFog,
-				Water,
-				Ripple,
-				Implicit,
-				Beam,
-			}
-
-			[TagStructure(Size = 0x10)]
-			public class InstancedGeometryIndex
-			{
-				public short InstancedGeometrySectionIndex1;
-				public short InstancedGeometrySectionIndex2;
-				public List<InstancedGeometrySectionContent> InstancedGeometrySectionContents;
-
-				[TagStructure(Size = 0x2)]
-				public class InstancedGeometrySectionContent
-				{
-					public short InstancedGeometryIndex;
-				}
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class UnknownWaterBlock
-			{
-				public short Unknown;
-			}
 		}
 
 		[TagStructure(Size = 0x2C)]
@@ -290,7 +196,7 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x20)]
-		public class UnknownSection
+		public class UnknownMesh
 		{
 			public byte[] Unknown;
 			public List<UnknownBlock> Unknown2;

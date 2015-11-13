@@ -66,9 +66,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown13;
 		public float TargetedLeadingFraction;
 		public float Unknown14;
+		public float Unknown15;
 		public List<MaterialRespons> MaterialResponses;
 		public List<ImpactProperty> ImpactProperties;
-		public List<UnknownBlock> Unknown15;
+		public List<UnknownBlock> Unknown16;
 		public List<ShotgunProperty> ShotgunProperties;
 
 		public enum DetonationTimerStartsValue : short

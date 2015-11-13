@@ -148,7 +148,7 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			// Indirect objects
 			// TODO: Remove ResourceReference hax, the Indirect flag wasn't available when I generated the tag structures
-			if (valueInfo != null && ((valueInfo.Flags & TagElementFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
+			if (valueInfo != null && ((valueInfo.Flags & TagFieldFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
 				return DeserializeIndirectValue(reader, context, valueType);
 
 			// enum = Enum type
@@ -161,7 +161,7 @@ namespace HaloOnlineTagTool.Serialization
 
 			// HaloTag = Tag reference
 			if (valueType == typeof(HaloTag))
-				return DeserializeTagReference(reader, context);
+				return DeserializeTagReference(reader, context, valueInfo);
 
 			// ResourceAddress = Resource address
 			if (valueType == typeof(ResourceAddress))
@@ -267,10 +267,12 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="reader">The reader.</param>
 		/// <param name="context">The serialization context to use.</param>
+		/// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
 		/// <returns>The deserialized tag reference.</returns>
-		private static HaloTag DeserializeTagReference(BinaryReader reader, ISerializationContext context)
+		private static HaloTag DeserializeTagReference(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo)
 		{
-			reader.BaseStream.Position += 0xC; // Skip the class name and zero bytes, it's not important
+			if (valueInfo == null || (valueInfo.Flags & TagFieldFlags.Short) == 0)
+				reader.BaseStream.Position += 0xC; // Skip the class name and zero bytes, it's not important
 			var index = reader.ReadInt32();
 			return context.GetTagByIndex(index);
 		}

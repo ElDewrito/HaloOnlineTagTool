@@ -46,6 +46,7 @@ namespace HaloOnlineTagTool.Layouts
 		Angle,
 		StringId,
 		TagReference,
+		ShortTagReference, // Tag reference which is just a 4-byte index
 		DataReference,
 		ResourceReference
 	}

@@ -11,7 +11,7 @@ namespace HaloOnlineTagTool.Resources
 		/// <summary>
 		/// Gets or sets the definition data for the object.
 		/// </summary>
-		[TagField(Flags = TagElementFlags.Indirect)] public TDefinition Definition;
+		[TagField(Flags = TagFieldFlags.Indirect)] public TDefinition Definition;
 
 		/// <summary>
 		/// Gets or sets the address of the object in memory.

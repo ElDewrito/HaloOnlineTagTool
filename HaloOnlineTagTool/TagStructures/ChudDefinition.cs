@@ -165,6 +165,15 @@ namespace HaloOnlineTagTool.TagStructures
 				public float Unknown12;
 			}
 
+			[TagStructure(Size = 0x4)]
+			public class RgbaColor
+			{
+				public byte R;
+				public byte G;
+				public byte B;
+				public byte A;
+			}
+
 			[TagStructure(Size = 0x48)]
 			public class RenderDatum
 			{
@@ -172,22 +181,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown;
 				public InputValue Input;
 				public RangeInputValue RangeInput;
-				public byte LocalColorAlphaA;
-				public byte LocalColorAR;
-				public byte LocalColorAG;
-				public byte LocalColorAB;
-				public byte LocalColorAlphaB;
-				public byte LocalColorBR;
-				public byte LocalColorBG;
-				public byte LocalColorBB;
-				public byte LocalColorAlphaC;
-				public byte LocalColorCR;
-				public byte LocalColorCG;
-				public byte LocalColorCB;
-				public byte LocalColorAlphaD;
-				public byte LocalColorDR;
-				public byte LocalColorDG;
-				public byte LocalColorDB;
+				[TagField(Count = 0x4)] public RgbaColor[] Colors;
 				public float LocalScalarA;
 				public float LocalScalarB;
 				public float LocalScalarC;
@@ -1038,22 +1032,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public short Unknown;
 					public InputValue Input;
 					public RangeInputValue RangeInput;
-					public byte LocalColorAlphaA;
-					public byte LocalColorAR;
-					public byte LocalColorAG;
-					public byte LocalColorAB;
-					public byte LocalColorAlphaB;
-					public byte LocalColorBR;
-					public byte LocalColorBG;
-					public byte LocalColorBB;
-					public byte LocalColorAlphaC;
-					public byte LocalColorCR;
-					public byte LocalColorCG;
-					public byte LocalColorCB;
-					public byte LocalColorAlphaD;
-					public byte LocalColorDR;
-					public byte LocalColorDG;
-					public byte LocalColorDB;
+					[TagField(Count = 0x4)] public RgbaColor[] Colors;
 					public float LocalScalarA;
 					public float LocalScalarB;
 					public float LocalScalarC;
@@ -1903,22 +1882,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public short Unknown;
 					public InputValue Input;
 					public RangeInputValue RangeInput;
-					public byte LocalColorAlphaA;
-					public byte LocalColorAR;
-					public byte LocalColorAG;
-					public byte LocalColorAB;
-					public byte LocalColorAlphaB;
-					public byte LocalColorBR;
-					public byte LocalColorBG;
-					public byte LocalColorBB;
-					public byte LocalColorAlphaC;
-					public byte LocalColorCR;
-					public byte LocalColorCG;
-					public byte LocalColorCB;
-					public byte LocalColorAlphaD;
-					public byte LocalColorDR;
-					public byte LocalColorDG;
-					public byte LocalColorDB;
+					[TagField(Count = 0x4)] public RgbaColor[] Colors;
 					public float LocalScalarA;
 					public float LocalScalarB;
 					public float LocalScalarC;

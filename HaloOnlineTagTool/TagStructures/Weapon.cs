@@ -131,6 +131,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown23;
 		public StringId WeaponClass;
 		public StringId WeaponName;
+		public float Unknown24;
 		public MultiplayerWeaponTypeValue MultiplayerWeaponType;
 		public WeaponTypeValue WeaponType;
 		public SpecialHudVersionValue SpecialHudVersion;
@@ -141,8 +142,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Magazine> Magazines;
 		public List<Trigger> Triggers;
 		public List<Barrel> Barrels;
-		public float Unknown24;
 		public float Unknown25;
+		public float Unknown26;
 		public float MaximumMovementAcceleration;
 		public float MaximumMovementVelocity;
 		public float MaximumTurningAcceleration;
@@ -318,7 +319,7 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short Type;
 			public short ResourceIndex;
-			public HaloTag TagIndex;
+			[TagField(Flags = TagFieldFlags.Short)] public HaloTag TagIndex;
 		}
 
 		[TagStructure(Size = 0x80)]
