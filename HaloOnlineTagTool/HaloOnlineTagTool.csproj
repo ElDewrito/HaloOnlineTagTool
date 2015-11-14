@@ -127,6 +127,7 @@
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
     <Compile Include="Layouts\TagLayoutField.cs" />
+    <Compile Include="Resources\Geometry\GeometryReference.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />

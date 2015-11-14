@@ -86,24 +86,24 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 				var renderModelContext = new TagSerializationContext(cacheStream, _cache, _model.RenderModel);
 				renderModel = _info.Deserializer.Deserialize<RenderModel>(renderModelContext);
 			}
-			if (renderModel.Resource == null)
+			if (renderModel.Geometry.Resource == null)
 			{
 				Console.Error.WriteLine("Render model does not have a resource associated with it");
 				return true;
 			}
 			
 			// Deserialize the resource definition
-			var resourceContext = new ResourceSerializationContext(renderModel.Resource);
+			var resourceContext = new ResourceSerializationContext(renderModel.Geometry.Resource);
 			var definition = _info.Deserializer.Deserialize<RenderGeometryResourceDefinition>(resourceContext);
 
 			using (var resourceStream = new MemoryStream())
 			{
 				// Extract the resource data
-				resourceManager.Extract(renderModel.Resource, resourceStream);
+				resourceManager.Extract(renderModel.Geometry.Resource, resourceStream);
 				using (var objFile = new StreamWriter(File.Open(fileName, FileMode.Create, FileAccess.Write)))
 				{
 					var objExtractor = new ObjExtractor(objFile);
-					var vertexCompressor = new VertexCompressor(renderModel.Compression[0]); // Create a (de)compressor from the first compression block
+					var vertexCompressor = new VertexCompressor(renderModel.Geometry.Compression[0]); // Create a (de)compressor from the first compression block
 					if (variant != null)
 					{
 						// Extract each region in the variant
@@ -132,7 +132,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 							for (var i = 0; i < meshCount; i++)
 							{
 								// Create a MeshReader for the mesh and pass it to the obj extractor
-								var meshReader = new MeshReader(_info.Version, renderModel.Meshes[meshIndex + i], definition);
+								var meshReader = new MeshReader(_info.Version, renderModel.Geometry.Meshes[meshIndex + i], definition);
 								objExtractor.ExtractMesh(meshReader, vertexCompressor, resourceStream);
 							}
 						}
@@ -140,8 +140,8 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 					else
 					{
 						// No variant - just extract every mesh
-						Console.WriteLine("Extracting {0} mesh(es)...", renderModel.Meshes.Count);
-						foreach (var mesh in renderModel.Meshes)
+						Console.WriteLine("Extracting {0} mesh(es)...", renderModel.Geometry.Meshes.Count);
+						foreach (var mesh in renderModel.Geometry.Meshes)
 						{
 							// Create a MeshReader for the mesh and pass it to the obj extractor
 							var meshReader = new MeshReader(_info.Version, mesh, definition);

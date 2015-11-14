@@ -62,7 +62,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		public PrimitiveType IndexBufferType;
 
 		public List<TagBlock20> Unknown34; // Instanced geometry
-		public List<TagBlock22> Unknown40; // Water
+		public List<short> Unknown40; // Water
 
 		/// <summary>
 		/// Associates geometry with a specific material.
@@ -141,19 +141,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		public class TagBlock20
 		{
 			public int Unknown0;
-			public List<TagBlock21> Unknown4;
-
-			[TagStructure(Size = 0x2)]
-			public class TagBlock21
-			{
-				public short Unknown0;
-			}
-		}
-
-		[TagStructure(Size = 0x4)]
-		public class TagBlock22
-		{
-			public int Unknown0;
+			public List<short> Unknown4;
 		}
 	}
 }

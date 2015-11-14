@@ -143,7 +143,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var resources = new ResourceDataManager();
 			resources.LoadCachesFromDirectory(_fileInfo.DirectoryName);
 			resourceStream.Position = 0;
-			resources.Add(renderModel.Resource, ResourceLocation.Resources, resourceStream);
+			resources.Add(renderModel.Geometry.Resource, ResourceLocation.Resources, resourceStream);
 
 			Console.WriteLine("Writing tag data...");
 
@@ -151,7 +151,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			{
 				// Correct the resource owner
 				var tag = _cache.Tags[0x3317];
-				renderModel.Resource.Owner = tag;
+				renderModel.Geometry.Resource.Owner = tag;
 
 				var context = new TagSerializationContext(cacheStream, _cache, tag);
 				_info.Serializer.Serialize(context, renderModel);

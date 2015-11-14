@@ -33,9 +33,12 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			_model.Nodes = new List<RenderModel.Node>();
 			_model.RuntimeNodes = new List<RenderModel.RuntimeNode>();
 			_model.Materials = new List<RenderModel.Material>();
-			_model.Meshes = new List<Mesh>();
 			_model.Unknown1C = -1; // "Flair Starting Model Section Index" in Assembly
-			_model.Unknown64 = 7; // TODO: Figure out what this does, if anything
+			_model.Geometry = new GeometryReference
+			{
+				Meshes = new List<Mesh>(),
+				Unknown = 7 // TODO: Figure out what this does, if anything
+			};
 		}
 
 		/// <summary>
@@ -197,7 +200,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 				throw new InvalidOperationException("Cannot end a mesh if no permutation is active");
 
 			_meshes.Add(_currentMesh);
-			_model.Meshes.Add(_currentMesh.Mesh);
+			_model.Geometry.Meshes.Add(_currentMesh.Mesh);
 			_currentPermutation.MeshCount++;
 			_currentMesh = null;
 		}
@@ -335,9 +338,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			}
 		}
 
-		private RenderModel.CompressionInfo BuildCompressionInfo()
+		private GeometryCompressionInfo BuildCompressionInfo()
 		{
-			var result = new RenderModel.CompressionInfo();
+			var result = new GeometryCompressionInfo();
 			foreach (var mesh in _meshes)
 			{
 				// TODO: Refactor how vertices work, this is just ugly
@@ -372,7 +375,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 					result.TextureMaxV = Math.Max(result.TextureMaxV, texCoords.Max(v => v.Y));
 				}
 			}
-			_model.Compression = new List<RenderModel.CompressionInfo> { result };
+			_model.Geometry.Compression = new List<GeometryCompressionInfo> { result };
 			return result;
 		}
 
@@ -422,14 +425,14 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		private void SerializeDefinitionData(TagSerializer serializer, RenderGeometryResourceDefinition definition)
 		{
-			_model.Resource = new ResourceReference
+			_model.Geometry.Resource = new ResourceReference
 			{
 				Type = 5, // FIXME: hax
 				DefinitionFixups = new List<ResourceDefinitionFixup>(),
 				D3DObjectFixups = new List<D3DObjectFixup>(),
 				Unknown68 = 1,
 			};
-			var context = new ResourceSerializationContext(_model.Resource);
+			var context = new ResourceSerializationContext(_model.Geometry.Resource);
 			serializer.Serialize(context, definition);
 		}
 

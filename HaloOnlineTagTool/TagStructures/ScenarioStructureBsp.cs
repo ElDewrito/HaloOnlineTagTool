@@ -93,23 +93,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown56;
 		public List<InstancedGeometryInstance> InstancedGeometryInstances;
 		public List<Decorator> Decorators;
-		public int Unknown57;
-		public List<Mesh> Meshes;
-		public List<CompressionInfoBlock> CompressionInfo;
-		public List<UnknownNodeyBlock> UnknownNodey;
-		public List<UnknownBlock3> Unknown58;
-		public float Unknown59;
-		public float Unknown60;
-		public float Unknown61;
-		public List<UnknownMesh> UnknownMeshes;
-		public List<NodeMap> NodeMaps;
-		public List<UnknownBlock4> Unknown62;
-		public float Unknown63;
-		public float Unknown64;
-		public float Unknown65;
-		public List<UnknownYoBlock> UnknownYo;
-		public ResourceReference Resource1;
-		public int UselessPadding;
+		public GeometryReference Geometry;
 		public List<UnknownSoundClustersABlock> UnknownSoundClustersA;
 		public List<UnknownSoundClustersBBlock> UnknownSoundClustersB;
 		public List<UnknownSoundClustersCBlock> UnknownSoundClustersC;
@@ -133,23 +117,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown73;
 		public float Unknown74;
 		public float Unknown75;
-		public int Unknown76;
-		public List<Mesh> Meshes2;
-		public List<CompressionInfoBlock2> CompressionInfo2;
-		public List<UnknownNodeyPossiblyPositionalDataNodesBlock> UnknownNodeyPossiblyPositionalDataNodes;
-		public List<UnknownBlock5> Unknown77;
-		public float Unknown78;
-		public float Unknown79;
-		public float Unknown80;
-		public List<UnknownMesh2> UnknownMeshes2;
-		public List<NodeMap2> NodeMaps2;
-		public List<UnknownBlock6> Unknown81;
-		public float Unknown82;
-		public float Unknown83;
-		public float Unknown84;
-		public List<UnknownYoBlock2> UnknownYo2;
-		public ResourceReference Resource2;
-		public int UselessPadding2;
+		public GeometryReference Geometry2;
 		public float Unknown85;
 		public float Unknown86;
 		public List<LeafSystem> LeafSystems;
@@ -622,109 +590,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Decorator2;
 		}
 
-		[TagStructure(Size = 0x2C)]
-		public class CompressionInfoBlock
-		{
-			public short Unknown;
-			public short Unknown2;
-			public float PositionBoundsXMin;
-			public float PositionBoundsXMax;
-			public float PositionBoundsYMin;
-			public float PositionBoundsYMax;
-			public float PositionBoundsZMin;
-			public float PositionBoundsZMax;
-			public float TexcoordBoundsXMin;
-			public float TexcoordBoundsXMax;
-			public float TexcoordBoundsYMin;
-			public float TexcoordBoundsYMax;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class UnknownNodeyBlock
-		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public sbyte NodeIndex;
-			public sbyte NodeIndex2;
-			public sbyte NodeIndex3;
-			public sbyte NodeIndex4;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-		}
-
-		[TagStructure(Size = 0x18)]
-		public class UnknownBlock3
-		{
-			public short Unknown;
-			public short Unknown2;
-			public byte[] Unknown3;
-		}
-
-		[TagStructure(Size = 0x20)]
-		public class UnknownMesh
-		{
-			public byte[] Unknown;
-			public List<UnknownBlock> Unknown2;
-
-			[TagStructure(Size = 0x2)]
-			public class UnknownBlock
-			{
-				public short Unknown;
-			}
-		}
-
-		[TagStructure(Size = 0xC)]
-		public class NodeMap
-		{
-			public List<UnknownBlock> Unknown;
-
-			[TagStructure(Size = 0x1)]
-			public class UnknownBlock
-			{
-				public byte NodeIndex;
-			}
-		}
-
-		[TagStructure(Size = 0xC)]
-		public class UnknownBlock4
-		{
-			public List<UnknownBlock> Unknown;
-
-			[TagStructure(Size = 0x30)]
-			public class UnknownBlock
-			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-			}
-		}
-
-		[TagStructure(Size = 0x10)]
-		public class UnknownYoBlock
-		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public short UnknownIndex;
-			public short Unknown4;
-		}
-
 		[TagStructure(Size = 0x1C)]
 		public class UnknownSoundClustersABlock
 		{
@@ -870,109 +735,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Y1;
 			public float Z0;
 			public float Z1;
-		}
-
-		[TagStructure(Size = 0x2C)]
-		public class CompressionInfoBlock2
-		{
-			public short Unknown;
-			public short Unknown2;
-			public float PositionBoundsXMin;
-			public float PositionBoundsXMax;
-			public float PositionBoundsYMin;
-			public float PositionBoundsYMax;
-			public float PositionBoundsZMin;
-			public float PositionBoundsZMax;
-			public float TexcoordBoundsXMin;
-			public float TexcoordBoundsXMax;
-			public float TexcoordBoundsYMin;
-			public float TexcoordBoundsYMax;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class UnknownNodeyPossiblyPositionalDataNodesBlock
-		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public sbyte NodeIndex;
-			public sbyte NodeIndex2;
-			public sbyte NodeIndex3;
-			public sbyte NodeIndex4;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-		}
-
-		[TagStructure(Size = 0x18)]
-		public class UnknownBlock5
-		{
-			public short Unknown;
-			public short Unknown2;
-			public byte[] Unknown3;
-		}
-
-		[TagStructure(Size = 0x20)]
-		public class UnknownMesh2
-		{
-			public byte[] Unknown;
-			public List<UnknownBlock> Unknown2;
-
-			[TagStructure(Size = 0x2)]
-			public class UnknownBlock
-			{
-				public short Unknown;
-			}
-		}
-
-		[TagStructure(Size = 0xC)]
-		public class NodeMap2
-		{
-			public List<UnknownBlock> Unknown;
-
-			[TagStructure(Size = 0x1)]
-			public class UnknownBlock
-			{
-				public byte NodeIndex;
-			}
-		}
-
-		[TagStructure(Size = 0xC)]
-		public class UnknownBlock6
-		{
-			public List<UnknownBlock> Unknown;
-
-			[TagStructure(Size = 0x30)]
-			public class UnknownBlock
-			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-			}
-		}
-
-		[TagStructure(Size = 0x10)]
-		public class UnknownYoBlock2
-		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public short UnknownIndex;
-			public short Unknown4;
 		}
 
 		[TagStructure(Size = 0x14)]

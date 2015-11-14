@@ -29,27 +29,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown58;
 		public int Unknown5C;
 		public int Unknown60;
-		public int Unknown64;
-		public List<Mesh> Meshes;
-		public List<CompressionInfo> Compression;
-		public List<TagBlock11> Unknown80;
-		public List<TagBlock12> Unknown8C;
-		public int Unknown98;
-		public int Unknown9C;
-		public int UnknownA0;
-		public int UnknownA4;
-		public int UnknownA8;
-		public int UnknownAC;
-		public List<TagBlock13> UnknownB0;
-		public List<TagBlock15> UnknownBC;
-		public int UnknownC8;
-		public int UnknownCC;
-		public int UnknownD0;
-		public int UnknownD4;
-		public int UnknownD8;
-		public int UnknownDC;
-		public ResourceReference Resource;
-		public int UnknownE4;
+		public GeometryReference Geometry;
 		public List<TagBlock17> UnknownE8;
 		public int UnknownF4;
 		public int UnknownF8;
@@ -216,83 +196,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown21;
 			public sbyte Unknown22;
 			public sbyte Unknown23;
-		}
-
-		[TagStructure(Size = 0x2C)]
-		public class CompressionInfo
-		{
-			public short Unknown0;
-			public short Unknown2;
-			public float PositionMinX;
-			public float PositionMaxX;
-			public float PositionMinY;
-			public float PositionMaxY;
-			public float PositionMinZ;
-			public float PositionMaxZ;
-			public float TextureMinU;
-			public float TextureMaxU;
-			public float TextureMinV;
-			public float TextureMaxV;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class TagBlock11
-		{
-			public int Unknown0;
-			public int Unknown4;
-			public int Unknown8;
-			public int UnknownC;
-			public int Unknown10;
-			public int Unknown14;
-			public int Unknown18;
-			public int Unknown1C;
-			public int Unknown20;
-			public int Unknown24;
-			public int Unknown28;
-			public int Unknown2C;
-		}
-
-		[TagStructure(Size = 0x18)]
-		public class TagBlock12
-		{
-			public int Unknown0;
-			public byte[] Unknown4;
-		}
-
-		[TagStructure(Size = 0x10)] // TODO: Check this size, it's 0xC in H3
-		public class TagBlock13
-		{
-			public List<TagBlock14> Unknown0;
-			public int UnknownC;
-
-			[TagStructure(Size = 0x4)]
-			public class TagBlock14
-			{
-				public int Unknown0;
-			}
-		}
-
-		[TagStructure(Size = 0xC)]
-		public class TagBlock15
-		{
-			public List<TagBlock16> Unknown0;
-
-			[TagStructure(Size = 0x30)]
-			public class TagBlock16
-			{
-				public int Unknown0;
-				public int Unknown4;
-				public int Unknown8;
-				public int UnknownC;
-				public int Unknown10;
-				public int Unknown14;
-				public int Unknown18;
-				public int Unknown1C;
-				public int Unknown20;
-				public int Unknown24;
-				public int Unknown28;
-				public int Unknown2C;
-			}
 		}
 
 		[TagStructure(Size = 0x1C)]

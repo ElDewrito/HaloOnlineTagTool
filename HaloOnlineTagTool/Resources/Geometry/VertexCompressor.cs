@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 	/// </summary>
 	public class VertexCompressor
 	{
-		private readonly RenderModel.CompressionInfo _info;
+		private readonly GeometryCompressionInfo _info;
 		private readonly float _xScale;
 		private readonly float _yScale;
 		private readonly float _zScale;
@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// Initializes a new instance of the <see cref="VertexCompressor"/> class.
 		/// </summary>
 		/// <param name="info">The compression info to use.</param>
-		public VertexCompressor(RenderModel.CompressionInfo info)
+		public VertexCompressor(GeometryCompressionInfo info)
 		{
 			_info = info;
 			_xScale = info.PositionMaxX - info.PositionMinX;
