@@ -9,41 +9,9 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "eqip", Size = 0x264)]
-	public class Equipment : GameObject
+	[TagStructure(Class = "eqip", Size = 0x1B0)]
+	public class Equipment : Item
 	{
-		public uint Flags2;
-		public short OldMessageIndex;
-		public short SortOrder;
-		public float OldMultiplayerOnGroundScale;
-		public float OldCampaignOnGroundScale;
-		public StringId PickupMessage;
-		public StringId SwapMessage;
-		public StringId PickupOrDualWieldMessage;
-		public StringId SwapOrDualWieldMessage;
-		public StringId PickedUpMessage;
-		public StringId SwitchToMessage;
-		public StringId SwitchToFromAiMessage;
-		public StringId AllWeaponsEmptyMessage;
-		public HaloTag CollisionSound;
-		public List<PredictedBitmap> PredictedBitmaps;
-		public HaloTag DetonationDamageEffect;
-		public float DetonationDelayMin;
-		public float DetonationDelayMax;
-		public HaloTag DetonatingEffect;
-		public HaloTag DetonationEffect;
-		public float CampaignGroundScale;
-		public float MultiplayerGroundScale;
-		public float SmallHoldScale;
-		public float SmallHolsterScale;
-		public float MediumHoldScale;
-		public float MediumHolsterScale;
-		public float LargeHoldScale;
-		public float LargeHolsterScale;
-		public float HugeHoldScale;
-		public float HugeHolsterScale;
-		public float GroundedFrictionLength;
-		public float GroundedFrictionUnknown;
 		public float UseDuration;
 		public float Unknown8;
 		public short NumberOfUses;
@@ -89,12 +57,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public StringId EnterAnimation;
 		public StringId IdleAnimation;
 		public StringId ExitAnimation;
-
-		[TagStructure(Size = 0x10)]
-		public class PredictedBitmap
-		{
-			public HaloTag Bitmap;
-		}
 
 		[TagStructure(Size = 0x3C)]
 		public class EquipmentCameraBlock

@@ -133,6 +133,7 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="TagStructures\GameObject.cs" />
+    <Compile Include="TagStructures\Item.cs" />
     <Compile Include="TagStructures\Unit.cs" />
     <Compile Include="V11_1_498295\StringIdResolver.cs" />
     <Compile Include="Resources\Geometry\IVertexStream.cs" />

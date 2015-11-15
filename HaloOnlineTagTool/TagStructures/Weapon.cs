@@ -9,41 +9,9 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "weap", Size = 0x438)]
-	public class Weapon : GameObject
+	[TagStructure(Class = "weap", Size = 0x384)]
+	public class Weapon : Item
 	{
-		public uint Flags2;
-		public short OldMessageIndex;
-		public short SortOrder;
-		public float OldMultiplayerOnGroundScale;
-		public float OldCampaignOnGroundScale;
-		public StringId PickupMessage;
-		public StringId SwapMessage;
-		public StringId PickupOrDualWieldMessage;
-		public StringId SwapOrDualWieldMessage;
-		public StringId PickedUpMessage;
-		public StringId SwitchToMessage;
-		public StringId SwitchToFromAiMessage;
-		public StringId AllWeaponsEmptyMessage;
-		public HaloTag CollisionSound;
-		public List<PredictedBitmap> PredictedBitmaps;
-		public HaloTag DetonationDamageEffect;
-		public float DetonationDelayMin;
-		public float DetonationDelayMax;
-		public HaloTag DetonatingEffect;
-		public HaloTag DetonationEffect;
-		public float CampaignGroundScale;
-		public float MultiplayerGroundScale;
-		public float SmallHoldScale;
-		public float SmallHolsterScale;
-		public float MediumHoldScale;
-		public float MediumHolsterScale;
-		public float LargeHoldScale;
-		public float LargeHolsterScale;
-		public float HugeHoldScale;
-		public float HugeHolsterScale;
-		public float GroundedFrictionLength;
-		public float GroundedFrictionUnknown;
 		public uint Flags3;
 		public uint MoreFlags;
 		public StringId Unknown8;
@@ -166,12 +134,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public float MeleeWeaponDelay;
 		public float ReadyAnimationDuration;
 		public StringId WeaponHolsterMarker;
-
-		[TagStructure(Size = 0x10)]
-		public class PredictedBitmap
-		{
-			public HaloTag Bitmap;
-		}
 
 		public enum SecondaryTriggerModeValue : short
 		{
