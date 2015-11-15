@@ -18,8 +18,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<UnknownBlock2> Unknown3;
 		public HaloTag Unknown4;
 		public HaloTag Unknown5;
-		public float Unknown6;
-		public float Unknown7;
+		public uint Unknown6;
+		public uint Unknown7;
 
 		[TagStructure(Size = 0x18)]
 		public class Method
@@ -42,19 +42,19 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x10)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public List<UnknownBlock2> Unknown2;
 
 			[TagStructure(Size = 0x10)]
 			public class UnknownBlock2
 			{
-				public float Unknown;
+				public uint Unknown;
 				public List<UnknownBlock> Unknown2;
 
 				[TagStructure(Size = 0x4)]
 				public class UnknownBlock
 				{
-					public float Unknown;
+					public uint Unknown;
 				}
 			}
 		}
@@ -62,10 +62,10 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x10)]
 		public class UnknownBlock2
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 		}
 	}
 }

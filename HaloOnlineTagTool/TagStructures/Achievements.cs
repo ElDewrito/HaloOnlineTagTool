@@ -13,9 +13,9 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Achievements
 	{
 		public List<AchievementInformationBlock> AchievementInformation;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 
 		[TagStructure(Size = 0x18)]
 		public class AchievementInformationBlock

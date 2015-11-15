@@ -14,9 +14,9 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public uint Flags;
 		public float MartySMusicTime;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 		public HaloTag Unused;
 		public SoundClassValue SoundClass;
 		public short Unknown4;
@@ -99,7 +99,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Flags;
 			public float Gain;
 			public float FadeInDuration;
-			public float Unknown;
+			public uint Unknown;
 			public float FadeOutDuration;
 			public short Unknown2;
 			public short Unknown3;
@@ -113,9 +113,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag AlternateTransitionIn;
 			public HaloTag AlternateTransitionOut;
 			public float AlternateCrossfadeDuration;
-			public float Unknown5;
+			public uint Unknown5;
 			public float AlternateFadeOutDuration;
-			public float Unknown6;
+			public uint Unknown6;
 
 			public enum OutputEffectValue : short
 			{
@@ -133,7 +133,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Sound;
 			public float RandomPeriodBoundsMin;
 			public float RandomPeriodBoundsMax;
-			public float Unknown;
+			public uint Unknown;
 			public uint Flags;
 			public Angle YawBoundsMin;
 			public Angle YawBoundsMax;

@@ -14,16 +14,16 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public uint Flags;
 		public int Unknown;
-		public float Unknown2;
-		public float Unknown3;
-		public float Unknown4;
+		public uint Unknown2;
+		public uint Unknown3;
+		public uint Unknown4;
 		public sbyte Unknown5;
 		public sbyte Unknown6;
 		public sbyte Unknown7;
 		public sbyte Unknown8;
 		public short LoopStartEvent;
 		public short Unknown9;
-		public float Unknown10;
+		public uint Unknown10;
 		public List<Location> Locations;
 		public List<Event> Events;
 		public HaloTag LoopingSound;
@@ -32,8 +32,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public short Unknown11;
 		public float AlwaysPlayDistance;
 		public float NeverPlayDistance;
-		public float Unknown12;
-		public float Unknown13;
+		public uint Unknown12;
+		public uint Unknown13;
 		public List<UnknownBlock> Unknown14;
 
 		[TagStructure(Size = 0xC)]
@@ -79,8 +79,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag SpawnedTag;
 				public float VelocityBoundsMin;
 				public float VelocityBoundsMax;
-				public float Unknown4;
-				public float Unknown5;
+				public uint Unknown4;
+				public uint Unknown5;
 				public Angle VelocityConeAngle;
 				public Angle AngularVelocityBoundsMin;
 				public Angle AngularVelocityBoundsMax;
@@ -161,18 +161,18 @@ namespace HaloOnlineTagTool.TagStructures
 				public CameraModeValue CameraMode;
 				public short SortBias;
 				public ushort Flags;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
 				public float AmountSize;
-				public float Unknown12;
+				public uint Unknown12;
 				public float LodInDistance;
 				public float LodFeatherInDelta;
 				public List<Emitter> Emitters;
-				public float Unknown13;
+				public uint Unknown13;
 
 				public enum CoordinateSystemValue : short
 				{
@@ -211,157 +211,157 @@ namespace HaloOnlineTagTool.TagStructures
 					public ushort Unknown;
 					public short Unknown2;
 					public HaloTag CustomEmitterPoints;
-					public float Unknown3;
-					public float Unknown4;
-					public float Unknown5;
-					public float Unknown6;
+					public uint Unknown3;
+					public uint Unknown4;
+					public uint Unknown5;
+					public uint Unknown6;
 					public sbyte Input;
 					public sbyte InputRange;
 					public OutputKindValue OutputKind;
 					public sbyte Output;
 					public byte[] Unknown7;
-					public float Unknown8;
-					public float Unknown9;
-					public float Unknown10;
-					public float Unknown11;
-					public float Unknown12;
-					public float Unknown13;
-					public float Unknown14;
-					public float Unknown15;
+					public uint Unknown8;
+					public uint Unknown9;
+					public uint Unknown10;
+					public uint Unknown11;
+					public uint Unknown12;
+					public uint Unknown13;
+					public uint Unknown14;
+					public uint Unknown15;
 					public sbyte Input2;
 					public sbyte InputRange2;
 					public OutputKindValue2 OutputKind2;
 					public sbyte Output2;
 					public byte[] Unknown16;
-					public float Unknown17;
-					public float Unknown18;
-					public float Unknown19;
-					public float Unknown20;
-					public float Unknown21;
-					public float Unknown22;
-					public float Unknown23;
-					public float Unknown24;
+					public uint Unknown17;
+					public uint Unknown18;
+					public uint Unknown19;
+					public uint Unknown20;
+					public uint Unknown21;
+					public uint Unknown22;
+					public uint Unknown23;
+					public uint Unknown24;
 					public sbyte Input3;
 					public sbyte InputRange3;
 					public OutputKindValue3 OutputKind3;
 					public sbyte Output3;
 					public byte[] Unknown25;
-					public float Unknown26;
-					public float Unknown27;
+					public uint Unknown26;
+					public uint Unknown27;
 					public sbyte Input4;
 					public sbyte InputRange4;
 					public OutputKindValue4 OutputKind4;
 					public sbyte Output4;
 					public byte[] Unknown28;
-					public float Unknown29;
-					public float Unknown30;
+					public uint Unknown29;
+					public uint Unknown30;
 					public sbyte Input5;
 					public sbyte InputRange5;
 					public OutputKindValue5 OutputKind5;
 					public sbyte Output5;
 					public byte[] Unknown31;
-					public float Unknown32;
-					public float Unknown33;
+					public uint Unknown32;
+					public uint Unknown33;
 					public sbyte Input6;
 					public sbyte InputRange6;
 					public OutputKindValue6 OutputKind6;
 					public sbyte Output6;
 					public byte[] Unknown34;
-					public float Unknown35;
-					public float Unknown36;
+					public uint Unknown35;
+					public uint Unknown36;
 					public sbyte Input7;
 					public sbyte InputRange7;
 					public OutputKindValue7 OutputKind7;
 					public sbyte Output7;
 					public byte[] Unknown37;
-					public float Unknown38;
-					public float Unknown39;
+					public uint Unknown38;
+					public uint Unknown39;
 					public sbyte Input8;
 					public sbyte InputRange8;
 					public OutputKindValue8 OutputKind8;
 					public sbyte Output8;
 					public byte[] Unknown40;
-					public float Unknown41;
-					public float Unknown42;
+					public uint Unknown41;
+					public uint Unknown42;
 					public sbyte Input9;
 					public sbyte InputRange9;
 					public OutputKindValue9 OutputKind9;
 					public sbyte Output9;
 					public byte[] Unknown43;
-					public float Unknown44;
-					public float Unknown45;
+					public uint Unknown44;
+					public uint Unknown45;
 					public HaloTag ParticlePhysics;
-					public float Unknown46;
+					public uint Unknown46;
 					public List<UnknownBlock> Unknown47;
 					public sbyte Input10;
 					public sbyte InputRange10;
 					public OutputKindValue10 OutputKind10;
 					public sbyte Output10;
 					public byte[] Unknown48;
-					public float Unknown49;
-					public float Unknown50;
-					public float Unknown51;
-					public float Unknown52;
-					public float Unknown53;
-					public float Unknown54;
-					public float Unknown55;
-					public float Unknown56;
+					public uint Unknown49;
+					public uint Unknown50;
+					public uint Unknown51;
+					public uint Unknown52;
+					public uint Unknown53;
+					public uint Unknown54;
+					public uint Unknown55;
+					public uint Unknown56;
 					public sbyte Input11;
 					public sbyte InputRange11;
 					public OutputKindValue11 OutputKind11;
 					public sbyte Output11;
 					public byte[] Unknown57;
-					public float Unknown58;
-					public float Unknown59;
+					public uint Unknown58;
+					public uint Unknown59;
 					public sbyte Input12;
 					public sbyte InputRange12;
 					public OutputKindValue12 OutputKind12;
 					public sbyte Output12;
 					public byte[] Unknown60;
-					public float Unknown61;
-					public float Unknown62;
+					public uint Unknown61;
+					public uint Unknown62;
 					public sbyte Input13;
 					public sbyte InputRange13;
 					public OutputKindValue13 OutputKind13;
 					public sbyte Output13;
 					public byte[] Unknown63;
-					public float Unknown64;
-					public float Unknown65;
+					public uint Unknown64;
+					public uint Unknown65;
 					public sbyte Input14;
 					public sbyte InputRange14;
 					public OutputKindValue14 OutputKind14;
 					public sbyte Output14;
 					public byte[] Unknown66;
-					public float Unknown67;
-					public float Unknown68;
+					public uint Unknown67;
+					public uint Unknown68;
 					public sbyte Input15;
 					public sbyte InputRange15;
 					public OutputKindValue15 OutputKind15;
 					public sbyte Output15;
 					public byte[] ParticleScale;
-					public float Unknown69;
-					public float Unknown70;
+					public uint Unknown69;
+					public uint Unknown70;
 					public sbyte Input16;
 					public sbyte InputRange16;
 					public OutputKindValue16 OutputKind16;
 					public sbyte Output16;
 					public byte[] ParticleTint;
-					public float Unknown71;
-					public float Unknown72;
+					public uint Unknown71;
+					public uint Unknown72;
 					public sbyte Input17;
 					public sbyte InputRange17;
 					public OutputKindValue17 OutputKind17;
 					public sbyte Output17;
 					public byte[] ParticleAlpha;
-					public float Unknown73;
-					public float Unknown74;
+					public uint Unknown73;
+					public uint Unknown74;
 					public sbyte Input18;
 					public sbyte InputRange18;
 					public OutputKindValue18 OutputKind18;
 					public sbyte Output18;
 					public byte[] ParticleAlphaBlackPoint;
-					public float Unknown75;
-					public float Unknown76;
+					public uint Unknown75;
+					public uint Unknown76;
 					public int Unknown77;
 					public int Unknown78;
 					public int Unknown79;
@@ -435,22 +435,22 @@ namespace HaloOnlineTagTool.TagStructures
 					[TagStructure(Size = 0x18)]
 					public class UnknownBlock
 					{
-						public float Unknown;
+						public uint Unknown;
 						public List<UnknownBlock2> Unknown2;
-						public float Unknown3;
-						public float Unknown4;
+						public uint Unknown3;
+						public uint Unknown4;
 
 						[TagStructure(Size = 0x24)]
 						public class UnknownBlock2
 						{
-							public float Unknown;
+							public uint Unknown;
 							public sbyte Input;
 							public sbyte InputRange;
 							public OutputKindValue OutputKind;
 							public sbyte Output;
 							public byte[] Unknown2;
-							public float Unknown3;
-							public float Unknown4;
+							public uint Unknown3;
+							public uint Unknown4;
 
 							public enum OutputKindValue : sbyte
 							{
@@ -527,31 +527,31 @@ namespace HaloOnlineTagTool.TagStructures
 					[TagStructure(Size = 0x10)]
 					public class UnknownBlock2
 					{
-						public float Unknown;
-						public float Unknown2;
-						public float Unknown3;
-						public float Unknown4;
+						public uint Unknown;
+						public uint Unknown2;
+						public uint Unknown3;
+						public uint Unknown4;
 					}
 
 					[TagStructure(Size = 0x40)]
 					public class CompiledFunction
 					{
-						public float Unknown;
-						public float Unknown2;
-						public float Unknown3;
-						public float Unknown4;
-						public float Unknown5;
-						public float Unknown6;
-						public float Unknown7;
-						public float Unknown8;
-						public float Unknown9;
-						public float Unknown10;
-						public float Unknown11;
-						public float Unknown12;
-						public float Unknown13;
-						public float Unknown14;
-						public float Unknown15;
-						public float Unknown16;
+						public uint Unknown;
+						public uint Unknown2;
+						public uint Unknown3;
+						public uint Unknown4;
+						public uint Unknown5;
+						public uint Unknown6;
+						public uint Unknown7;
+						public uint Unknown8;
+						public uint Unknown9;
+						public uint Unknown10;
+						public uint Unknown11;
+						public uint Unknown12;
+						public uint Unknown13;
+						public uint Unknown14;
+						public uint Unknown15;
+						public uint Unknown16;
 					}
 
 					[TagStructure(Size = 0x10)]
@@ -569,9 +569,9 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0xC)]
 		public class UnknownBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 	}
 }

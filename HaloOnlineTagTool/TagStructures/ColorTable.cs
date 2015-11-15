@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.TagStructures
 	public class ColorTable
 	{
 		public List<ColorTableBlock> ColorTable2;
-		public float Unknown;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x30)]
 		public class ColorTableBlock

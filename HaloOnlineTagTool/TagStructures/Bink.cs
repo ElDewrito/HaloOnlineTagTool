@@ -15,8 +15,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public int FrameCount;
 		public ResourceReference Resource;
 		public int UselessPadding;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 	}
 }

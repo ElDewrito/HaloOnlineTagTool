@@ -30,6 +30,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public StringId TextColor;
 		public short TextFont;
 		public short Unknown2;
-		public float Unknown3;
+		public uint Unknown3;
 	}
 }

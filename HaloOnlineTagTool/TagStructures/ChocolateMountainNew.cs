@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 		}
 	}
 }

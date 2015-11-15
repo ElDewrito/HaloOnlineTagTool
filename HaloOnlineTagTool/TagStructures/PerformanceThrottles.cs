@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.TagStructures
 	public class PerformanceThrottles
 	{
 		public List<PerformanceBlock> Performance;
-		public float Unknown;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x38)]
 		public class PerformanceBlock

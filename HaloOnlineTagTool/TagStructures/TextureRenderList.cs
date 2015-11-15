@@ -17,16 +17,16 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<UnknownBlock3> Unknown3;
 		public List<UnknownBlock4> Unknown4;
 		public List<UnknownBlock5> Unknown5;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
 
 		[TagStructure(Size = 0x110)]
 		public class UnknownBlock
 		{
 			public int Unknown;
 			public string String;
-			public float Unknown2;
+			public uint Unknown2;
 			public int Unknown3;
 			public int Unknown4;
 		}
@@ -35,20 +35,20 @@ namespace HaloOnlineTagTool.TagStructures
 		public class UnknownBlock2
 		{
 			public List<UnknownBlock> Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 
 			[TagStructure(Size = 0x28)]
 			public class UnknownBlock
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
 				public Angle Unknown4;
 				public Angle Unknown5;
-				public float Unknown6;
+				public uint Unknown6;
 				public HaloTag Unknown7;
 			}
 		}
@@ -63,22 +63,22 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4C)]
 		public class UnknownBlock4
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
 		}
 
 		[TagStructure(Size = 0x64)]
@@ -86,19 +86,19 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public string String;
 			public HaloTag Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
 		}
 	}
 }

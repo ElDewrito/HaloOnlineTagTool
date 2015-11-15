@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "pdm!", Size = 0x3C)]
 	public class PodiumSettings
 	{
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 		public Angle Unknown4;
 		public Angle Unknown5;
-		public float Unknown6;
+		public uint Unknown6;
 		public Angle Unknown7;
 		public int Unknown8;
 		public HaloTag Unknown9;
@@ -26,12 +26,12 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x2C)]
 		public class UnknownBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 			public Angle Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown5;
+			public uint Unknown6;
 			public int Unknown7;
 			public HaloTag Effect;
 		}

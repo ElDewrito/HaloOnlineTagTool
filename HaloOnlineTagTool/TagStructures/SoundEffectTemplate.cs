@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float TemplateCollectionBlock3;
 		public int InputEffectName;
 		public List<AdditionalSoundInput> AdditionalSoundInputs;
-		public float Unknown;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x1C)]
 		public class AdditionalSoundInput

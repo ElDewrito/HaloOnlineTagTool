@@ -12,19 +12,19 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "decs", Size = 0x24)]
 	public class DecalSystem
 	{
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
-		public float Unknown4;
-		public float Unknown5;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
+		public uint Unknown4;
+		public uint Unknown5;
 		public List<DecalSystemBlock> DecalSystem2;
-		public float Unknown6;
+		public uint Unknown6;
 
 		[TagStructure(Size = 0x74)]
 		public class DecalSystemBlock
 		{
 			public StringId Name;
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag BaseRenderMethod;
 			public List<UnknownBlock> Unknown2;
 			public List<ImportDatum> ImportData;
@@ -33,19 +33,19 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown4;
 			public sbyte Unknown5;
 			public sbyte Unknown6;
-			public float Unknown7;
+			public uint Unknown7;
 			public int Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
 
 			[TagStructure(Size = 0x2)]
 			public class UnknownBlock
@@ -59,7 +59,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public StringId MaterialType;
 				public int Unknown;
 				public HaloTag Bitmap;
-				public float Unknown2;
+				public uint Unknown2;
 				public int Unknown3;
 				public short Unknown4;
 				public short Unknown5;
@@ -67,7 +67,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown7;
 				public short Unknown8;
 				public short Unknown9;
-				public float Unknown10;
+				public uint Unknown10;
 				public List<Function> Functions;
 
 				[TagStructure(Size = 0x24)]
@@ -75,8 +75,8 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public int Unknown;
 					public StringId Name;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown2;
+					public uint Unknown3;
 					public byte[] Function2;
 				}
 			}
@@ -88,14 +88,14 @@ namespace HaloOnlineTagTool.TagStructures
 				public List<ShaderMap> ShaderMaps;
 				public List<Argument> Arguments;
 				public List<UnknownBlock> Unknown;
-				public float Unknown2;
+				public uint Unknown2;
 				public List<UnknownBlock2> Unknown3;
 				public List<UnknownBlock3> Unknown4;
 				public List<UnknownBlock4> Unknown5;
 				public List<Function> Functions;
 				public int Unknown6;
 				public int Unknown7;
-				public float Unknown8;
+				public uint Unknown8;
 				public short Unknown9;
 				public short Unknown10;
 				public short Unknown11;
@@ -131,7 +131,7 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x4)]
 				public class UnknownBlock
 				{
-					public float Unknown;
+					public uint Unknown;
 				}
 
 				[TagStructure(Size = 0x2)]
@@ -143,7 +143,7 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x6)]
 				public class UnknownBlock3
 				{
-					public float Unknown;
+					public uint Unknown;
 					public sbyte Unknown2;
 					public sbyte Unknown3;
 				}
@@ -160,8 +160,8 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public int Unknown;
 					public StringId Name;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown2;
+					public uint Unknown3;
 					public byte[] Function2;
 				}
 			}

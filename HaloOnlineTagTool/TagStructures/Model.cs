@@ -31,7 +31,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Target> Targets;
 		public List<CollisionRegion> CollisionRegions;
 		public List<Node> Nodes;
-		public float Unknown2;
+		public uint Unknown2;
 		public List<ModelObjectDatum> ModelObjectData;
 		public HaloTag PrimaryDialogue;
 		public HaloTag SecondaryDialogue;
@@ -97,8 +97,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<Region> Regions;
 			public List<Object> Objects;
 			public int Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown6;
+			public uint Unknown7;
 
 			[TagStructure(Size = 0x18)]
 			public class Region
@@ -121,9 +121,9 @@ namespace HaloOnlineTagTool.TagStructures
 					public byte Flags;
 					public float Probability;
 					public List<State> States;
-					public float Unknown3;
-					public float Unknown4;
-					public float Unknown5;
+					public uint Unknown3;
+					public uint Unknown4;
+					public uint Unknown5;
 
 					[TagStructure(Size = 0x20)]
 					public class State
@@ -177,7 +177,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 		}
 
 		[TagStructure(Size = 0x18)]
@@ -186,18 +186,18 @@ namespace HaloOnlineTagTool.TagStructures
 			public StringId Name;
 			public int Unknown;
 			public List<UnknownBlock> Unknown2;
-			public float Unknown3;
+			public uint Unknown3;
 
 			[TagStructure(Size = 0x1C)]
 			public class UnknownBlock
 			{
 				public int Unknown;
 				public StringId Unknown2;
-				public float Unknown3;
+				public uint Unknown3;
 				public uint FlairFlags1;
 				public uint FlairFlags2;
-				public float Unknown4;
-				public float Unknown5;
+				public uint Unknown4;
+				public uint Unknown5;
 			}
 		}
 
@@ -221,36 +221,36 @@ namespace HaloOnlineTagTool.TagStructures
 			public StringId GlobalIndirectMaterialName;
 			public short IndirectDamageSection;
 			public short Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 			public CollisionDamageReportingTypeValue CollisionDamageReportingType;
 			public ResponseDamageReportingTypeValue ResponseDamageReportingType;
 			public short Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 			public float MaxVitality;
 			public float MinStunDamage;
 			public float StunTime;
 			public float RechargeTime;
 			public float RechargeFraction;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
-			public float Unknown20;
-			public float Unknown21;
-			public float Unknown22;
-			public float Unknown23;
-			public float Unknown24;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
+			public uint Unknown20;
+			public uint Unknown21;
+			public uint Unknown22;
+			public uint Unknown23;
+			public uint Unknown24;
 			public float MaxShieldVitality;
 			public StringId GlobalShieldMaterialName;
 			public float MinStunDamage2;
@@ -264,8 +264,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<Node> Nodes;
 			public short GlobalShieldMaterialIndex;
 			public short GlobalIndirectMaterialIndex;
-			public float Unknown25;
-			public float Unknown26;
+			public uint Unknown25;
+			public uint Unknown26;
 			public List<DamageSeat> DamageSeats;
 			public List<DamageConstraint> DamageConstraints;
 
@@ -412,15 +412,15 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Flags;
 				public float VitalityPercentage;
 				public List<InstantRespons> InstantResponses;
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
 				public float StunTime;
 				public float RechargeTime;
-				public float Unknown7;
+				public uint Unknown7;
 				public StringId ResurrectionRegionName;
 				public short RessurectionRegionRuntimeIndex;
 				public short Unknown8;
@@ -504,9 +504,9 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				public short Unknown;
 				public short Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
 			}
 
 			[TagStructure(Size = 0x20)]
@@ -523,16 +523,16 @@ namespace HaloOnlineTagTool.TagStructures
 				public class UnknownBlock
 				{
 					public StringId Node;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
-					public float Unknown4;
-					public float Unknown5;
-					public float Unknown6;
-					public float Unknown7;
-					public float Unknown8;
-					public float Unknown9;
-					public float Unknown10;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
+					public uint Unknown4;
+					public uint Unknown5;
+					public uint Unknown6;
+					public uint Unknown7;
+					public uint Unknown8;
+					public uint Unknown9;
+					public uint Unknown10;
 				}
 			}
 
@@ -561,14 +561,14 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x28)]
 		public class Target
 		{
-			public float Unknown;
+			public uint Unknown;
 			public StringId MarkerName;
 			public float Size;
 			public Angle ConeAngle;
 			public short DamageSection;
 			public short Variant;
 			public float TargetingRelevance;
-			public float Unknown2;
+			public uint Unknown2;
 			public uint Flags;
 			public float LockOnDistance;
 			public StringId TargetFilter;
@@ -654,17 +654,17 @@ namespace HaloOnlineTagTool.TagStructures
 		public class UnknownBlock3
 		{
 			public StringId Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock4
 		{
 			public StringId Marker;
-			public float Unknown;
+			public uint Unknown;
 			public StringId Marker2;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 	}
 }

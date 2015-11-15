@@ -23,10 +23,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public float BrightnessUnknown3;
 		public ushort Flags2;
 		public short Unknown2;
-		public float Unknown3;
+		public uint Unknown3;
 		public ushort Flags3;
 		public short Unknown4;
-		public float Unknown5;
+		public uint Unknown5;
 		public ushort Flags4;
 		public short Unknown6;
 		public float Base;
@@ -59,19 +59,19 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Blue3;
 		public ushort Flags10;
 		public short Unknown12;
-		public float Unknown13;
-		public float Unknown14;
-		public float Unknown15;
+		public uint Unknown13;
+		public uint Unknown14;
+		public uint Unknown15;
 		public ushort Flags11;
 		public short Unknown16;
-		public float Unknown17;
-		public float Unknown18;
-		public float Unknown19;
+		public uint Unknown17;
+		public uint Unknown18;
+		public uint Unknown19;
 		public ushort Flags12;
 		public short Unknown20;
-		public float Unknown21;
-		public float Unknown22;
-		public float Unknown23;
+		public uint Unknown21;
+		public uint Unknown22;
+		public uint Unknown23;
 		public int Unknown24;
 		public ushort Flags13;
 		public short Unknown25;
@@ -85,12 +85,12 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Max5;
 		public ushort Flags15;
 		public short Unknown27;
-		public float Unknown28;
-		public float Unknown29;
-		public float Unknown30;
+		public uint Unknown28;
+		public uint Unknown29;
+		public uint Unknown30;
 		public ushort Flags16;
 		public short Unknown31;
-		public float Unknown32;
+		public uint Unknown32;
 		public List<UnknownBlock> Unknown33;
 		public List<UnknownBlock2> Unknown34;
 		public List<UnknownBlock3> Unknown35;
@@ -99,21 +99,21 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<UnknownBlock6> Unknown38;
 		public ushort Flags17;
 		public short Unknown39;
-		public float Unknown40;
-		public float Unknown41;
+		public uint Unknown40;
+		public uint Unknown41;
 		public float ColorR;
 		public float ColorG;
 		public float ColorB;
-		public float Unknown42;
-		public float Unknown43;
-		public float Unknown44;
-		public float Unknown45;
-		public float Unknown46;
+		public uint Unknown42;
+		public uint Unknown43;
+		public uint Unknown44;
+		public uint Unknown45;
+		public uint Unknown46;
 
 		[TagStructure(Size = 0x58)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public int Unknown2;
 			public byte[] Unknown3;
 			public byte[] Unknown4;
@@ -125,85 +125,85 @@ namespace HaloOnlineTagTool.TagStructures
 		public class UnknownBlock2
 		{
 			public int Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock3
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock4
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 
 		[TagStructure(Size = 0x94)]
 		public class UnknownBlock5
 		{
 			public int Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
-			public float Unknown20;
-			public float Unknown21;
-			public float Unknown22;
-			public float Unknown23;
-			public float Unknown24;
-			public float Unknown25;
-			public float Unknown26;
-			public float Unknown27;
-			public float Unknown28;
-			public float Unknown29;
-			public float Unknown30;
-			public float Unknown31;
-			public float Unknown32;
-			public float Unknown33;
-			public float Unknown34;
-			public float Unknown35;
-			public float Unknown36;
-			public float Unknown37;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
+			public uint Unknown20;
+			public uint Unknown21;
+			public uint Unknown22;
+			public uint Unknown23;
+			public uint Unknown24;
+			public uint Unknown25;
+			public uint Unknown26;
+			public uint Unknown27;
+			public uint Unknown28;
+			public uint Unknown29;
+			public uint Unknown30;
+			public uint Unknown31;
+			public uint Unknown32;
+			public uint Unknown33;
+			public uint Unknown34;
+			public uint Unknown35;
+			public uint Unknown36;
+			public uint Unknown37;
 		}
 
 		[TagStructure(Size = 0x28)]
 		public class UnknownBlock6
 		{
 			public int Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
 		}
 	}
 }

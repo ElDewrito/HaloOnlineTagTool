@@ -12,9 +12,9 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "trak", Size = 0x14)]
 	public class CameraTrack
 	{
-		public float Unknown;
+		public uint Unknown;
 		public List<CameraPoint> CameraPoints;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x1C)]
 		public class CameraPoint

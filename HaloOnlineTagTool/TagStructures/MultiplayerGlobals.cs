@@ -158,7 +158,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public StringId LoopAnimation;
 					public StringId UnarmedTransition;
 					public StringId ArmedTransition;
-					public float Unknown;
+					public uint Unknown;
 				}
 
 				[TagStructure(Size = 0x50)]
@@ -251,8 +251,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -275,10 +275,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -364,8 +364,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -388,10 +388,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -477,8 +477,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -501,10 +501,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -590,8 +590,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -614,10 +614,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -703,8 +703,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -727,10 +727,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -816,8 +816,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -840,10 +840,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -929,8 +929,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -953,10 +953,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1042,8 +1042,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -1066,10 +1066,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1155,8 +1155,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -1179,10 +1179,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1268,8 +1268,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -1292,10 +1292,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1381,8 +1381,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -1405,10 +1405,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1494,8 +1494,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public StringId DisplayString;
 				public StringId DisplayMedal;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 				public RequiredFieldValue RequiredField;
 				public ExcludedAudienceValue ExcludedAudience;
 				public RequiredField2Value RequiredField2;
@@ -1518,10 +1518,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag ChineseSimplifiedSound;
 				public HaloTag PortugueseSound;
 				public HaloTag PolishSound;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
 
 				public enum TypeValue : short
 				{
@@ -1598,76 +1598,76 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x220)]
 			public class MultiplayerConstant
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-				public float Unknown13;
-				public float Unknown14;
-				public float Unknown15;
-				public float Unknown16;
-				public float Unknown17;
-				public float Unknown18;
-				public float Unknown19;
-				public float Unknown20;
-				public float Unknown21;
-				public float Unknown22;
-				public float Unknown23;
-				public float Unknown24;
-				public float Unknown25;
-				public float Unknown26;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
+				public uint Unknown12;
+				public uint Unknown13;
+				public uint Unknown14;
+				public uint Unknown15;
+				public uint Unknown16;
+				public uint Unknown17;
+				public uint Unknown18;
+				public uint Unknown19;
+				public uint Unknown20;
+				public uint Unknown21;
+				public uint Unknown22;
+				public uint Unknown23;
+				public uint Unknown24;
+				public uint Unknown25;
+				public uint Unknown26;
 				public List<Weapon> Weapons;
 				public List<Vehicle> Vehicles;
 				public List<Projectile> Projectiles;
 				public List<EquipmentBlock> Equipment;
-				public float Unknown27;
-				public float Unknown28;
-				public float Unknown29;
-				public float Unknown30;
-				public float Unknown31;
-				public float Unknown32;
-				public float Unknown33;
-				public float Unknown34;
-				public float Unknown35;
-				public float Unknown36;
-				public float Unknown37;
-				public float Unknown38;
-				public float Unknown39;
-				public float Unknown40;
-				public float Unknown41;
-				public float Unknown42;
-				public float Unknown43;
-				public float Unknown44;
-				public float Unknown45;
-				public float Unknown46;
-				public float Unknown47;
-				public float Unknown48;
-				public float Unknown49;
-				public float Unknown50;
-				public float Unknown51;
-				public float Unknown52;
-				public float Unknown53;
-				public float Unknown54;
-				public float Unknown55;
-				public float Unknown56;
-				public float Unknown57;
-				public float Unknown58;
-				public float Unknown59;
-				public float Unknown60;
-				public float Unknown61;
-				public float Unknown62;
-				public float Unknown63;
-				public float Unknown64;
-				public float Unknown65;
-				public float Unknown66;
+				public uint Unknown27;
+				public uint Unknown28;
+				public uint Unknown29;
+				public uint Unknown30;
+				public uint Unknown31;
+				public uint Unknown32;
+				public uint Unknown33;
+				public uint Unknown34;
+				public uint Unknown35;
+				public uint Unknown36;
+				public uint Unknown37;
+				public uint Unknown38;
+				public uint Unknown39;
+				public uint Unknown40;
+				public uint Unknown41;
+				public uint Unknown42;
+				public uint Unknown43;
+				public uint Unknown44;
+				public uint Unknown45;
+				public uint Unknown46;
+				public uint Unknown47;
+				public uint Unknown48;
+				public uint Unknown49;
+				public uint Unknown50;
+				public uint Unknown51;
+				public uint Unknown52;
+				public uint Unknown53;
+				public uint Unknown54;
+				public uint Unknown55;
+				public uint Unknown56;
+				public uint Unknown57;
+				public uint Unknown58;
+				public uint Unknown59;
+				public uint Unknown60;
+				public uint Unknown61;
+				public uint Unknown62;
+				public uint Unknown63;
+				public uint Unknown64;
+				public uint Unknown65;
+				public uint Unknown66;
 				public float MaximumRandomSpawnBias;
 				public float TeleporterRechargeTime;
 				public float GrenadeDangerWeight;
@@ -1680,10 +1680,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public float VehicleDangerLeadTime;
 				public float VehicleNearbyPlayerDistance;
 				public HaloTag HillShader;
-				public float Unknown67;
-				public float Unknown68;
-				public float Unknown69;
-				public float Unknown70;
+				public uint Unknown67;
+				public uint Unknown68;
+				public uint Unknown69;
+				public uint Unknown70;
 				public HaloTag BombExplodeEffect;
 				public HaloTag Unknown71;
 				public HaloTag BombExplodeDamageEffect;
@@ -1713,36 +1713,36 @@ namespace HaloOnlineTagTool.TagStructures
 				public class Weapon
 				{
 					public HaloTag Weapon2;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
-					public float Unknown4;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
+					public uint Unknown4;
 				}
 
 				[TagStructure(Size = 0x20)]
 				public class Vehicle
 				{
 					public HaloTag Vehicle2;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
-					public float Unknown4;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
+					public uint Unknown4;
 				}
 
 				[TagStructure(Size = 0x1C)]
 				public class Projectile
 				{
 					public HaloTag Projectile2;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
 				}
 
 				[TagStructure(Size = 0x14)]
 				public class EquipmentBlock
 				{
 					public HaloTag Equipment;
-					public float Unknown;
+					public uint Unknown;
 				}
 			}
 
@@ -1756,7 +1756,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public StringId FreeForAllMessage;
 				public StringId TeamMessage;
 				public HaloTag Unknown3;
-				public float Unknown4;
+				public uint Unknown4;
 
 				public enum StateValue : short
 				{

@@ -45,9 +45,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<NodeMap> NodeMaps;
 		public List<MultiplayerObjectProperty> MultiplayerObjectProperties;
 		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag UnknownTag;
-		public float Unknown3;
-		public float Unknown4;
-		public float Unknown5;
+		public uint Unknown3;
+		public uint Unknown4;
+		public uint Unknown5;
 		public List<ModelObjectDatum> ModelObjectData;
 
 		public enum LightmapShadowModeSizeValue : short
@@ -80,15 +80,15 @@ namespace HaloOnlineTagTool.TagStructures
 		public class EarlyMoverProperty
 		{
 			public StringId Name;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
 		}
 
 		[TagStructure(Size = 0xC)]
@@ -218,9 +218,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Length;
 			public float Top;
 			public float Bottom;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 			public int Unknown5;
 			public int Unknown6;
 			public HaloTag ChildObject;

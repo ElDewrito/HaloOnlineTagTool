@@ -16,9 +16,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Flags;
 		public List<Vocalization> Vocalizations;
 		public StringId MissionDialogueDesignator;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 
 		[TagStructure(Size = 0x18)]
 		public class Vocalization

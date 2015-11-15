@@ -31,10 +31,10 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<Weapon> Weapons;
 			public List<SecondaryWeapon> SecondaryWeapons;
 			public List<EquipmentBlock> Equipment;
-			public float Unknown5;
+			public uint Unknown5;
 			public HaloTag Vehicle;
 			public StringId VehicleVariant;
-			public float Unknown6;
+			public uint Unknown6;
 
 			[TagStructure(Size = 0x20)]
 			public class Actor
@@ -43,7 +43,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public short MinimumRound;
 				public short MaximumRound;
-				public float Unknown3;
+				public uint Unknown3;
 				public HaloTag Character;
 				public short Probability;
 				public short Unknown4;
@@ -56,7 +56,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public short MinimumRound;
 				public short MaximumRound;
-				public float Unknown3;
+				public uint Unknown3;
 				public HaloTag Weapon2;
 				public short Probability;
 				public short Unknown4;
@@ -69,7 +69,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public short MinimumRound;
 				public short MaximumRound;
-				public float Unknown3;
+				public uint Unknown3;
 				public HaloTag Weapon;
 				public short Probability;
 				public short Unknown4;
@@ -82,7 +82,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public short MinimumRound;
 				public short MaximumRound;
-				public float Unknown3;
+				public uint Unknown3;
 				public HaloTag Equipment;
 				public short Probability;
 				public short Unknown4;

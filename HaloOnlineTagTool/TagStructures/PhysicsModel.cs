@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "phmo", Size = 0x198)]
 	public class PhysicsModel
 	{
-		public float Unknown;
+		public uint Unknown;
 		public float Mass;
 		public float LowFrequencyDecativationScale;
 		public float HighFrequencyDecativationScale;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown2;
+		public uint Unknown3;
 		public sbyte Unknown4;
 		public sbyte Unknown5;
 		public sbyte Unknown6;
@@ -50,12 +50,12 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<RagdollConstraint> RagdollConstraints;
 		public List<Region> Regions;
 		public List<Node> Nodes;
-		public float Unknown11;
-		public float Unknown12;
-		public float Unknown13;
-		public float Unknown14;
-		public float Unknown15;
-		public float Unknown16;
+		public uint Unknown11;
+		public uint Unknown12;
+		public uint Unknown13;
+		public uint Unknown14;
+		public uint Unknown15;
+		public uint Unknown16;
 		public List<LimitedHingeConstraint> LimitedHingeConstraints;
 		public float BallAndSocketConstraintBlock;
 		public float BallAndSocketConstraintBlock2;
@@ -72,24 +72,24 @@ namespace HaloOnlineTagTool.TagStructures
 		public class UnknownBlock
 		{
 			public StringId Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 		}
 
 		[TagStructure(Size = 0x20)]
 		public class UnknownBlock2
 		{
 			public StringId Name;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
 		}
 
 		[TagStructure(Size = 0x68)]
@@ -101,8 +101,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown;
 			public StringId MarkerName;
 			public StringId AlignmentMarkerName;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 			public float HookeSLawE;
 			public float LinearDeadRadius;
 			public float CenterAcceleration;
@@ -111,18 +111,18 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AxisMaxVelocity;
 			public float DirectionAcceleration;
 			public float DirectionMaxVelocity;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
 			public float AlignmentHookeSLawE;
 			public Angle AlignmentAcceleration;
 			public Angle AlignmentMaxVelocity;
-			public float Unknown11;
-			public float Unknown12;
+			public uint Unknown11;
+			public uint Unknown12;
 
 			public enum MinimumSizeValue : sbyte
 			{
@@ -162,10 +162,10 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x10)]
 			public class UnknownBlock2
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
 			}
 		}
 
@@ -241,14 +241,14 @@ namespace HaloOnlineTagTool.TagStructures
 			public float CenterOfMassOffsetX;
 			public float CenterOfMassOffsetY;
 			public float CenterOfMassOffsetZ;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
 			public float Mass;
@@ -269,9 +269,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public float InertiaTensorZK;
 			public float InertiaTensorZRadius;
 			public float BoundingSpherePad;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
 
 			public enum MotionTypeValue : short
 			{
@@ -345,18 +345,18 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Offset;
 			public int Unknown3;
 			public float Radius;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public int Unknown7;
 			public short Size2;
 			public short Count2;
 			public int Offset2;
 			public int Unknown8;
 			public float Radius2;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
 			public float TranslationI;
 			public float TranslationJ;
 			public float TranslationK;
@@ -384,9 +384,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Offset;
 			public int Unknown3;
 			public float Radius;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public float BottomI;
 			public float BottomJ;
 			public float BottomK;
@@ -418,9 +418,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Offset;
 			public int Unknown3;
 			public float Radius;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public float HalfExtentsI;
 			public float HalfExtentsJ;
 			public float HalfExtentsK;
@@ -431,9 +431,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Offset2;
 			public int Unknown8;
 			public float Radius2;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
 			public float RotationII;
 			public float RotationIJ;
 			public float RotationIK;
@@ -472,26 +472,26 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Count;
 			public int Offset;
 			public int Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
-			public float Unknown20;
-			public float Unknown21;
-			public float Unknown22;
-			public float Unknown23;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
+			public uint Unknown20;
+			public uint Unknown21;
+			public uint Unknown22;
+			public uint Unknown23;
 		}
 
 		[TagStructure(Size = 0x80)]
@@ -515,9 +515,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Offset;
 			public int Unknown3;
 			public float Radius;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public float AabbHalfExtentsI;
 			public float AabbHalfExtentsJ;
 			public float AabbHalfExtentsK;
@@ -526,14 +526,14 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AabbCenterJ;
 			public float AabbCenterK;
 			public float AabbCenterRadius;
-			public float Unknown7;
+			public uint Unknown7;
 			public int FourVectorsSize;
 			public uint FourVectorsCapacity;
 			public int Unknown8;
-			public float Unknown9;
+			public uint Unknown9;
 			public int PlaneEquationsSize;
 			public uint PlaneEquationsCapacity;
-			public float Unknown10;
+			public uint Unknown10;
 		}
 
 		[TagStructure(Size = 0x30)]
@@ -556,10 +556,10 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x10)]
 		public class PolyhedronPlaneEquation
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 		}
 
 		[TagStructure(Size = 0x50)]
@@ -570,22 +570,22 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Count;
 			public int Offset;
 			public int Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public int ChildShapesSize;
 			public uint ChildShapesCapacity;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -593,7 +593,7 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			public float Unknown;
+			public uint Unknown;
 			public uint Unknown2;
 			public int Unknown3;
 
@@ -626,11 +626,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Count;
 			public int Offset;
 			public int Unknown2;
-			public float Unknown3;
+			public uint Unknown3;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown4;
+			public uint Unknown5;
 
 			public enum ShapeTypeValue : short
 			{
@@ -687,7 +687,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float BPositionK;
 			public short EdgeIndex;
 			public short Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x94)]
@@ -724,7 +724,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float BPositionZ;
 			public short EdgeIndex;
 			public short Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 			public float MinTwist;
 			public float MaxTwist;
 			public float MinCone;
@@ -798,7 +798,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float BPositionZ;
 			public short EdgeIndex;
 			public short Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 			public float LimitFriction;
 			public Angle LimitMinAngle;
 			public Angle LimitMaxAngle;
@@ -814,8 +814,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public int Unknown2;
 			public ShapeTypeValue ShapeType;
 			public short ShapeIndex;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown3;
+			public uint Unknown4;
 			public int Unknown5;
 			public short Size2;
 			public short Count2;

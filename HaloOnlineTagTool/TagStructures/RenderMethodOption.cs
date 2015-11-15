@@ -13,26 +13,26 @@ namespace HaloOnlineTagTool.TagStructures
 	public class RenderMethodOption
 	{
 		public List<UnknownBlock> Unknown;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x48)]
 		public class UnknownBlock
 		{
 			public StringId Type;
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 			public HaloTag Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
 		}
 	}
 }

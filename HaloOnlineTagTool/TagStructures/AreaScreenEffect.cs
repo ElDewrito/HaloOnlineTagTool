@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public StringId Name;
 			public short Unknown;
 			public short Unknown2;
-			public float Unknown3;
+			public uint Unknown3;
 			public byte[] Function;
 			public float Duration;
 			public byte[] Function2;
@@ -40,7 +40,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float ToneG;
 			public float ToneB;
 			public float Tracing;
-			public float Unknown4;
+			public uint Unknown4;
 			public HaloTag ScreenShader;
 		}
 	}

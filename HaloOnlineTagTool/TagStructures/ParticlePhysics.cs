@@ -13,28 +13,28 @@ namespace HaloOnlineTagTool.TagStructures
 	public class ParticlePhysics
 	{
 		public HaloTag Unknown;
-		public float Unknown2;
+		public uint Unknown2;
 		public List<UnknownBlock> Unknown3;
-		public float Unknown4;
-		public float Unknown5;
-		public float Unknown6;
+		public uint Unknown4;
+		public uint Unknown5;
+		public uint Unknown6;
 
 		[TagStructure(Size = 0x18)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public List<UnknownBlock2> Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown3;
+			public uint Unknown4;
 
 			[TagStructure(Size = 0x24)]
 			public class UnknownBlock2
 			{
-				public float Unknown;
-				public float Unknown2;
+				public uint Unknown;
+				public uint Unknown2;
 				public byte[] Unknown3;
-				public float Unknown4;
-				public float Unknown5;
+				public uint Unknown4;
+				public uint Unknown5;
 			}
 		}
 	}

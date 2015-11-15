@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.TagStructures
 	public class CacheFileGlobalTags
 	{
 		public List<UnknownBlock> Unknown;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x10)]
 		public class UnknownBlock

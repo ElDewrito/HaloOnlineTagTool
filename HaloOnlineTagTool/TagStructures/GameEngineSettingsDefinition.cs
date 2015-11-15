@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wezr", Size = 0x8C)]
 	public class GameEngineSettingsDefinition
 	{
-		public float Unknown;
+		public uint Unknown;
 		public List<TraitProfile> TraitProfiles;
 		public List<SlayerVariant> SlayerVariants;
 		public List<OddballVariant> OddballVariants;
@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<JuggernautVariant> JuggernautVariants;
 		public List<VipVariant> VipVariants;
 		public List<SandboxEditorVariant> SandboxEditorVariants;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x40)]
 		public class TraitProfile

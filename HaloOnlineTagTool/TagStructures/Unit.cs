@@ -91,10 +91,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Posture> Postures;
 		public List<HudInterface> HudInterfaces;
 		public List<DialogueVariant> DialogueVariants;
-		public float Unknown16;
-		public float Unknown17;
-		public float Unknown18;
-		public float Unknown19;
+		public uint Unknown16;
+		public uint Unknown17;
+		public uint Unknown18;
+		public uint Unknown19;
 		public float GrenadeVelocity;
 		public GrenadeTypeValue GrenadeType;
 		public short GrenadeCount;
@@ -210,25 +210,25 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4C)]
 		public class UnknownBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -240,25 +240,25 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4C)]
 		public class UnknownBlock2
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
 		}
 
 		public enum MotionSensorBlipSizeValue : short
@@ -363,7 +363,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float YawRateBoundsMax;
 			public float PitchRateBoundsMin;
 			public float PitchRateBoundsMax;
-			public float Unknown;
+			public uint Unknown;
 			public float MinimumSpeedReference;
 			public float MaximumSpeedReference;
 			public float SpeedExponent;
@@ -410,25 +410,25 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x4C)]
 			public class UnknownBlock
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-				public float Unknown13;
-				public float Unknown14;
-				public float Unknown15;
-				public float Unknown16;
-				public float Unknown17;
-				public float Unknown18;
-				public float Unknown19;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
+				public uint Unknown12;
+				public uint Unknown13;
+				public uint Unknown14;
+				public uint Unknown15;
+				public uint Unknown16;
+				public uint Unknown17;
+				public uint Unknown18;
+				public uint Unknown19;
 			}
 
 			[TagStructure(Size = 0x10)]

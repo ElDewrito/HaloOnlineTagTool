@@ -19,9 +19,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<AntigravityMotionProperty> AntigravityMotionProperties;
 		public List<JetEngineMotionProperty> JetEngineMotionProperties;
 		public List<TurretProperty> TurretProperties;
-		public float Unknown20;
-		public float Unknown21;
-		public float Unknown22;
+		public uint Unknown20;
+		public uint Unknown21;
+		public uint Unknown22;
 		public List<HelicopterMotionProperty> HelicopterMotionProperties;
 		public List<AntigravityEngineMotionProperty> AntigravityEngineMotionProperties;
 		public List<AutoturretEquipmentBlock> AutoturretEquipment;
@@ -32,14 +32,14 @@ namespace HaloOnlineTagTool.TagStructures
 		public float GroundMovingFriction;
 		public float GroundMaximumSlope0;
 		public float GroundMaximumSlope1LessThanSlope0;
-		public float Unknown23;
+		public uint Unknown23;
 		public float AntiGravityBankLift;
 		public float SteeringBankReactionScale;
 		public float GravityScale;
 		public float Radius;
-		public float Unknown24;
-		public float Unknown25;
-		public float Unknown26;
+		public uint Unknown24;
+		public uint Unknown25;
+		public uint Unknown26;
 		public List<AntiGravityPoint> AntiGravityPoints;
 		public List<FrictionPoint> FrictionPoints;
 		public List<PhantomShape> PhantomShapes;
@@ -49,8 +49,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public sbyte Unknown28;
 		public float MinimumFlippingAngularVelocity;
 		public float MaximumFlippingAngularVelocity;
-		public float Unknown29;
-		public float Unknown30;
+		public uint Unknown29;
+		public uint Unknown30;
 		public float SeatEntranceAccelerationScale;
 		public float SeatExitAccelerationScale;
 		public float FlipTime;
@@ -59,15 +59,15 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag RunningEffect;
 		public HaloTag UnknownResponse;
 		public HaloTag UnknownResponse2;
-		public float Unknown31;
-		public float Unknown32;
+		public uint Unknown31;
+		public uint Unknown32;
 
 		[TagStructure(Size = 0x58)]
 		public class TankEngineMotionProperty
 		{
 			public Angle SteeringOverdampenCuspAngle;
 			public float SteeringOverdamenExponent;
-			public float Unknown;
+			public uint Unknown;
 			public float SpeedLeft;
 			public float SpeedRight;
 			public float TurningSpeedLeft;
@@ -80,8 +80,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public float EngineMaximumAngularVelocity;
 			public List<Gear> Gears;
 			public HaloTag ChangeGearSound;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 
 			[TagStructure(Size = 0x44)]
 			public class Gear
@@ -118,8 +118,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public float EngineMaximumAngularVelocity;
 			public List<Gear> Gears;
 			public HaloTag ChangeGearSound;
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 
 			[TagStructure(Size = 0x44)]
 			public class Gear
@@ -149,22 +149,22 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public float ForwardAcceleration;
 			public float BackwardAcceleration;
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 			public float LeftStrafeAcceleration;
 			public float RightStrafeAcceleration;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown3;
+			public uint Unknown4;
 			public float LiftAcceleration;
 			public float DropAcceleration;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
 			public Angle Unknown11;
-			public float Unknown12;
+			public uint Unknown12;
 			public Angle Unknown13;
 		}
 
@@ -186,21 +186,21 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown3;
 			public sbyte Unknown4;
 			public float Traction;
-			public float Unknown5;
+			public uint Unknown5;
 			public float TurningRate;
 			public StringId Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
 			public StringId Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
 			public Angle Unknown19;
 		}
 
@@ -221,25 +221,25 @@ namespace HaloOnlineTagTool.TagStructures
 			public float PitchRate;
 			public float UnpitchRate;
 			public float FlightStability;
-			public float Unknown;
+			public uint Unknown;
 			public float NoseAngle;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 			public float FallingSpeed;
 			public float FallingSpeed2;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown5;
+			public uint Unknown6;
 			public float IdleRise;
 			public float IdleForward;
-			public float Unknown7;
+			public uint Unknown7;
 		}
 
 		[TagStructure(Size = 0x8)]
 		public class TurretProperty
 		{
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x74)]
@@ -255,25 +255,25 @@ namespace HaloOnlineTagTool.TagStructures
 			public Angle Unknown3;
 			public Angle Unknown4;
 			public Angle Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
-			public float Unknown20;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
+			public uint Unknown20;
 			public Angle Unknown21;
 			public Angle Unknown22;
-			public float Unknown23;
-			public float Unknown24;
+			public uint Unknown23;
+			public uint Unknown24;
 		}
 
 		[TagStructure(Size = 0x70)]
@@ -288,20 +288,20 @@ namespace HaloOnlineTagTool.TagStructures
 			public float EngineMaximumAngularVelocity;
 			public List<Gear> Gears;
 			public HaloTag ChangeGearSound;
-			public float Unknown;
+			public uint Unknown;
 			public StringId Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 			public Angle Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
 
 			[TagStructure(Size = 0x44)]
 			public class Gear
@@ -330,17 +330,17 @@ namespace HaloOnlineTagTool.TagStructures
 		public class AutoturretEquipmentBlock
 		{
 			public Angle Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
 		}
 
 		[TagStructure(Size = 0x4C)]
@@ -355,9 +355,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AntigravNormalK1;
 			public float AntigravNormalK0;
 			public float Radius;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 			public short Unknown4;
 			public short DamageSourceRegionIndex;
 			public StringId DamageSourceRegionName;
@@ -382,11 +382,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public float EBrakeMovingFriction;
 			public float EBrakeFriction;
 			public float EBrakeMovingFrictionVelocityDiff;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public StringId CollisionMaterialName;
 			public short CollisionGlobalMaterialIndex;
 			public ModelStateDestroyedValue ModelStateDestroyed;
@@ -417,22 +417,22 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Count;
 			public int OverallShapeIndex;
 			public int Offset;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 			public int Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
 			public int MultisphereCount;
 			public uint Flags;
 			public float X0;
@@ -447,9 +447,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int OverallShapeIndex2;
 			public int Offset2;
 			public int NumberOfSpheres;
-			public float Unknown19;
-			public float Unknown20;
-			public float Unknown21;
+			public uint Unknown19;
+			public uint Unknown20;
+			public uint Unknown21;
 			public float Sphere0X;
 			public float Sphere0Y;
 			public float Sphere0Z;
@@ -488,9 +488,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int OverallShapeIndex3;
 			public int Offset3;
 			public int NumberOfSpheres2;
-			public float Unknown23;
-			public float Unknown24;
-			public float Unknown25;
+			public uint Unknown23;
+			public uint Unknown24;
+			public uint Unknown25;
 			public float Sphere0X2;
 			public float Sphere0Y2;
 			public float Sphere0Z2;
@@ -529,9 +529,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int OverallShapeIndex4;
 			public int Offset4;
 			public int NumberOfSpheres3;
-			public float Unknown27;
-			public float Unknown28;
-			public float Unknown29;
+			public uint Unknown27;
+			public uint Unknown28;
+			public uint Unknown29;
 			public float Sphere0X3;
 			public float Sphere0Y3;
 			public float Sphere0Z3;
@@ -570,9 +570,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public int OverallShapeIndex5;
 			public int Offset5;
 			public int NumberOfSpheres4;
-			public float Unknown31;
-			public float Unknown32;
-			public float Unknown33;
+			public uint Unknown31;
+			public uint Unknown32;
+			public uint Unknown33;
 			public float Sphere0X4;
 			public float Sphere0Y4;
 			public float Sphere0Z4;
@@ -605,22 +605,22 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Sphere7Y4;
 			public float Sphere7Z4;
 			public float Sphere7Radius4;
-			public float Unknown34;
-			public float Unknown35;
-			public float Unknown36;
-			public float Unknown37;
-			public float Unknown38;
-			public float Unknown39;
-			public float Unknown40;
-			public float Unknown41;
-			public float Unknown42;
-			public float Unknown43;
-			public float Unknown44;
-			public float Unknown45;
-			public float Unknown46;
-			public float Unknown47;
-			public float Unknown48;
-			public float Unknown49;
+			public uint Unknown34;
+			public uint Unknown35;
+			public uint Unknown36;
+			public uint Unknown37;
+			public uint Unknown38;
+			public uint Unknown39;
+			public uint Unknown40;
+			public uint Unknown41;
+			public uint Unknown42;
+			public uint Unknown43;
+			public uint Unknown44;
+			public uint Unknown45;
+			public uint Unknown46;
+			public uint Unknown47;
+			public uint Unknown48;
+			public uint Unknown49;
 		}
 
 		public enum PlayerTrainingVehicleTypeValue : sbyte

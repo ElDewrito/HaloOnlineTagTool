@@ -12,9 +12,9 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "pixl", Size = 0x20)]
 	public class PixelShader
 	{
-		public float Unknown;
+		public uint Unknown;
 		public List<UnknownBlock> Unknown2;
-		public float Unknown3;
+		public uint Unknown3;
 		public List<PixelShader2> PixelShaders;
 
 		[TagStructure(Size = 0x2)]
@@ -28,20 +28,20 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public byte[] Unknown;
 			public byte[] Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public List<UnknownBlock> Unknown7;
-			public float Unknown8;
-			public float Unknown9;
+			public uint Unknown8;
+			public uint Unknown9;
 			public uint PixelShader;
 
 			[TagStructure(Size = 0x8)]
 			public class UnknownBlock
 			{
 				public StringId Unknown;
-				public float Unknown2;
+				public uint Unknown2;
 			}
 		}
 	}

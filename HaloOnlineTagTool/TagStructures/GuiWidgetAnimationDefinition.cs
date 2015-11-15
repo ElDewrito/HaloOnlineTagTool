@@ -12,19 +12,19 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wgan", Size = 0x80)]
 	public class GuiWidgetAnimationDefinition
 	{
-		public float Unknown;
-		public float Unknown2;
+		public uint Unknown;
+		public uint Unknown2;
 		public HaloTag Unknown3;
 		public HaloTag Unknown4;
 		public HaloTag Unknown5;
 		public HaloTag Unknown6;
 		public HaloTag Unknown7;
 		public HaloTag Unknown8;
-		public float Unknown9;
-		public float Unknown10;
-		public float Unknown11;
-		public float Unknown12;
-		public float Unknown13;
-		public float Unknown14;
+		public uint Unknown9;
+		public uint Unknown10;
+		public uint Unknown11;
+		public uint Unknown12;
+		public uint Unknown13;
+		public uint Unknown14;
 	}
 }

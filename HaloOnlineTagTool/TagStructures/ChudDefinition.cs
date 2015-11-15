@@ -145,24 +145,24 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x90)]
 			public class AnimationDatum
 			{
-				public float Unknown;
+				public uint Unknown;
 				public HaloTag Animation1;
-				public float Unknown2;
-				public float Unknown3;
+				public uint Unknown2;
+				public uint Unknown3;
 				public HaloTag Animation2;
-				public float Unknown4;
-				public float Unknown5;
+				public uint Unknown4;
+				public uint Unknown5;
 				public HaloTag Animation3;
-				public float Unknown6;
-				public float Unknown7;
+				public uint Unknown6;
+				public uint Unknown7;
 				public HaloTag Animation4;
-				public float Unknown8;
-				public float Unknown9;
+				public uint Unknown8;
+				public uint Unknown9;
 				public HaloTag Animation5;
-				public float Unknown10;
-				public float Unknown11;
+				public uint Unknown10;
+				public uint Unknown11;
 				public HaloTag Animation6;
-				public float Unknown12;
+				public uint Unknown12;
 			}
 
 			[TagStructure(Size = 0x4)]
@@ -1005,24 +1005,24 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x90)]
 				public class AnimationDatum
 				{
-					public float Unknown;
+					public uint Unknown;
 					public HaloTag Animation1;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown2;
+					public uint Unknown3;
 					public HaloTag Animation2;
-					public float Unknown4;
-					public float Unknown5;
+					public uint Unknown4;
+					public uint Unknown5;
 					public HaloTag Animation3;
-					public float Unknown6;
-					public float Unknown7;
+					public uint Unknown6;
+					public uint Unknown7;
 					public HaloTag Animation4;
-					public float Unknown8;
-					public float Unknown9;
+					public uint Unknown8;
+					public uint Unknown9;
 					public HaloTag Animation5;
-					public float Unknown10;
-					public float Unknown11;
+					public uint Unknown10;
+					public uint Unknown11;
 					public HaloTag Animation6;
-					public float Unknown12;
+					public uint Unknown12;
 				}
 
 				[TagStructure(Size = 0x48)]
@@ -1855,24 +1855,24 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x78)]
 				public class AnimationDatum
 				{
-					public float Unknown;
+					public uint Unknown;
 					public HaloTag Animation1;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown2;
+					public uint Unknown3;
 					public HaloTag Animation2;
-					public float Unknown4;
-					public float Unknown5;
+					public uint Unknown4;
+					public uint Unknown5;
 					public HaloTag Animation3;
-					public float Unknown6;
-					public float Unknown7;
+					public uint Unknown6;
+					public uint Unknown7;
 					public HaloTag Animation4;
-					public float Unknown8;
-					public float Unknown9;
+					public uint Unknown8;
+					public uint Unknown9;
 					public HaloTag Animation5;
-					public float Unknown10;
-					public float Unknown11;
+					public uint Unknown10;
+					public uint Unknown11;
 					public HaloTag Animation6;
-					public float Unknown12;
+					public uint Unknown12;
 				}
 
 				[TagStructure(Size = 0x48)]

@@ -41,9 +41,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public float AiStunBoundsMax;
 		public float ShakeRadius;
 		public float EmpRadius;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 		public List<PlayerRespons> PlayerResponses;
 		public HaloTag DamageResponse;
 		public float Duration;

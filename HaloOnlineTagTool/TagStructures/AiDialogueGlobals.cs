@@ -12,21 +12,21 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "adlg", Size = 0x5C)]
 	public class AiDialogueGlobals
 	{
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
-		public float Unknown4;
-		public float Unknown5;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
+		public uint Unknown4;
+		public uint Unknown5;
 		public List<Vocalization> Vocalizations;
 		public List<Pattern> Patterns;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
 		public List<DialogDatum> DialogData;
 		public List<InvoluntaryDatum> InvoluntaryData;
-		public float Unknown9;
-		public float Unknown10;
-		public float Unknown11;
+		public uint Unknown9;
+		public uint Unknown10;
+		public uint Unknown11;
 
 		[TagStructure(Size = 0x60)]
 		public class Vocalization
@@ -90,7 +90,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown2;
 			public short CauseType;
 			public StringId CauseAiTypeName;
-			public float Unknown3;
+			public uint Unknown3;
 			public short Unknown4;
 			public short Unknown5;
 			public short Attitude;

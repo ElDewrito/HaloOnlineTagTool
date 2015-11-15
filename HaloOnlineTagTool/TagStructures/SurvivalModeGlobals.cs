@@ -12,13 +12,13 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "smdt", Size = 0x48)]
 	public class SurvivalModeGlobals
 	{
-		public float Unknown;
+		public uint Unknown;
 		public HaloTag InGameStrings;
 		public HaloTag TimerSound;
 		public HaloTag TimerSoundZero;
 		public List<SurvivalEvent> SurvivalEvents;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown2;
+		public uint Unknown3;
 
 		[TagStructure(Size = 0x10C)]
 		public class SurvivalEvent
@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public TeamValue Team;
 			public StringId DisplayString;
 			public StringId DisplayMedal;
-			public float Unknown3;
+			public uint Unknown3;
 			public float DisplayDuration;
 			public RequiredFieldValue RequiredField;
 			public ExcludedAudienceValue ExcludedAudience;
@@ -56,10 +56,10 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag ChineseSimplifiedSound;
 			public HaloTag PortugueseSound;
 			public HaloTag PolishSound;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 
 			public enum TypeValue : short
 			{

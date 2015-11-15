@@ -30,7 +30,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short GlobalMaterialIndex;
 				public SweetenerModeValue SweetenerMode;
 				public sbyte Unknown;
-				public float Unknown2;
+				public uint Unknown2;
 
 				public enum SweetenerModeValue : sbyte
 				{
@@ -49,7 +49,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short GlobalMaterialIndex;
 				public SweetenerModeValue SweetenerMode;
 				public sbyte Unknown;
-				public float Unknown2;
+				public uint Unknown2;
 
 				public enum SweetenerModeValue : sbyte
 				{
@@ -68,7 +68,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short GlobalMaterialIndex;
 				public SweetenerModeValue SweetenerMode;
 				public sbyte Unknown;
-				public float Unknown2;
+				public uint Unknown2;
 
 				public enum SweetenerModeValue : sbyte
 				{

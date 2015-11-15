@@ -14,11 +14,11 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public HaloTag Unknown;
 		public HaloTag Unknown2;
-		public float Unknown3;
-		public float Unknown4;
+		public uint Unknown3;
+		public uint Unknown4;
 		public HaloTag Unknown5;
 		public HaloTag Unknown6;
-		public float Unknown7;
-		public float Unknown8;
+		public uint Unknown7;
+		public uint Unknown8;
 	}
 }

@@ -13,27 +13,27 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Equipment : Item
 	{
 		public float UseDuration;
-		public float Unknown8;
+		public uint Unknown8;
 		public short NumberOfUses;
 		public ushort Flags3;
-		public float Unknown9;
-		public float Unknown10;
-		public float Unknown11;
+		public uint Unknown9;
+		public uint Unknown10;
+		public uint Unknown11;
 		public List<EquipmentCameraBlock> EquipmentCamera;
 		public List<HealthPackBlock> HealthPack;
 		public List<PowerupBlock> Powerup;
 		public List<ObjectCreationBlock> ObjectCreation;
 		public List<DestructionBlock> Destruction;
 		public List<RadarManipulationBlock> RadarManipulation;
-		public float Unknown12;
-		public float Unknown13;
-		public float Unknown14;
+		public uint Unknown12;
+		public uint Unknown13;
+		public uint Unknown14;
 		public List<InvisibilityBlock> Invisibility;
 		public List<InvincibilityBlock> Invincibility;
 		public List<RegeneratorBlock> Regenerator;
-		public float Unknown15;
-		public float Unknown16;
-		public float Unknown17;
+		public uint Unknown15;
+		public uint Unknown16;
+		public uint Unknown17;
 		public List<ForcedReloadBlock> ForcedReload;
 		public List<ConcussiveBlastBlock> ConcussiveBlast;
 		public List<TankModeBlock> TankMode;
@@ -83,33 +83,33 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x4C)]
 			public class UnknownBlock
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-				public float Unknown13;
-				public float Unknown14;
-				public float Unknown15;
-				public float Unknown16;
-				public float Unknown17;
-				public float Unknown18;
-				public float Unknown19;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
+				public uint Unknown12;
+				public uint Unknown13;
+				public uint Unknown14;
+				public uint Unknown15;
+				public uint Unknown16;
+				public uint Unknown17;
+				public uint Unknown18;
+				public uint Unknown19;
 			}
 		}
 
 		[TagStructure(Size = 0x3C)]
 		public class HealthPackBlock
 		{
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 			public float ShieldsGiven;
 			public HaloTag Unknown3;
 			public HaloTag Unknown4;
@@ -134,11 +134,11 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public HaloTag Object;
 			public HaloTag Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 			public float ObjectForce;
-			public float Unknown5;
+			public uint Unknown5;
 		}
 
 		[TagStructure(Size = 0x30)]
@@ -146,26 +146,26 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public HaloTag DestroyEffect;
 			public HaloTag DestroyDamageEffect;
-			public float Unknown;
+			public uint Unknown;
 			public float SelfDestructionTime;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 
 		[TagStructure(Size = 0x10)]
 		public class RadarManipulationBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public float FakeBlipRadius;
 			public int FakeBlipCount;
-			public float Unknown2;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x8)]
 		public class InvisibilityBlock
 		{
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x2C)]
@@ -174,7 +174,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public StringId NewPlayerMaterial;
 			public short NewPlayerMaterialGlobalIndex;
 			public short Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 			public HaloTag Unknown3;
 			public HaloTag Unknown4;
 		}
@@ -189,7 +189,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class ForcedReloadBlock
 		{
 			public HaloTag Effect;
-			public float Unknown;
+			public uint Unknown;
 		}
 
 		[TagStructure(Size = 0x20)]
@@ -203,11 +203,11 @@ namespace HaloOnlineTagTool.TagStructures
 		public class TankModeBlock
 		{
 			public StringId NewPlayerMaterial;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public HaloTag ActiveHud;
 		}
 
@@ -217,21 +217,21 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Unknown;
 			public HaloTag Unknown2;
 			public HaloTag Unknown3;
-			public float Unknown4;
+			public uint Unknown4;
 		}
 
 		[TagStructure(Size = 0x6C)]
 		public class HologramBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag ActiveEffect;
 			public HaloTag Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public HaloTag DeathEffect;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown6;
+			public uint Unknown7;
 			public byte[] Function;
 			public HaloTag NavPointHud;
 		}
@@ -239,9 +239,9 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x4C)]
 		public class ReactiveArmorBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 			public HaloTag Unknown4;
 			public HaloTag Unknown5;
 			public HaloTag Unknown6;
@@ -252,10 +252,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public class BombRunBlock
 		{
 			public int Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public HaloTag Projectile;
 			public HaloTag ThrowSound;
 		}
@@ -270,7 +270,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x24)]
 		public class AdrenalineBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
 			public HaloTag Unknown3;
 		}
@@ -278,14 +278,14 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x14)]
 		public class LightningStrikeBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
 		}
 
 		[TagStructure(Size = 0x24)]
 		public class ScramblerBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
 			public int Unknown3;
 			public int Unknown4;
@@ -296,7 +296,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x24)]
 		public class WeaponJammerBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
 			public int Unknown3;
 			public int Unknown4;
@@ -307,10 +307,10 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x34)]
 		public class AmmoPackBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public int Unknown2;
 			public int Unknown3;
-			public float Unknown4;
+			public uint Unknown4;
 			public int Unknown5;
 			public int Unknown6;
 			public List<Weapon> Weapons;

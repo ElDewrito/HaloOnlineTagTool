@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<ScreenWidget> ScreenWidgets;
 		public HaloTag TextureRenderList;
 		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SwearFilter; // TODO: Version number
-		public float Unknown;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x10)]
 		public class ScreenWidget

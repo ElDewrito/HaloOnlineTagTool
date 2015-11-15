@@ -67,17 +67,17 @@ namespace HaloOnlineTagTool.TagStructures
 		public float MagnetismRangeShort;
 		public float MagnetismSafeRadius;
 		public Angle DeviationAngle;
-		public float Unknown10;
-		public float Unknown11;
-		public float Unknown12;
-		public float Unknown13;
-		public float Unknown14;
-		public float Unknown15;
+		public uint Unknown10;
+		public uint Unknown11;
+		public uint Unknown12;
+		public uint Unknown13;
+		public uint Unknown14;
+		public uint Unknown15;
 		public List<TargetTrackingBlock> TargetTracking;
-		public float Unknown16;
-		public float Unknown17;
-		public float Unknown18;
-		public float Unknown19;
+		public uint Unknown16;
+		public uint Unknown17;
+		public uint Unknown18;
+		public uint Unknown19;
 		public MovementPenalizedValue MovementPenalized;
 		public short Unknown20;
 		public float ForwardsMovementPenalty;
@@ -95,12 +95,12 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag ZoomInSound;
 		public HaloTag ZoomOutSound;
 		public float ActiveCamoDing;
-		public float Unknown21;
-		public float Unknown22;
-		public float Unknown23;
+		public uint Unknown21;
+		public uint Unknown22;
+		public uint Unknown23;
 		public StringId WeaponClass;
 		public StringId WeaponName;
-		public float Unknown24;
+		public uint Unknown24;
 		public MultiplayerWeaponTypeValue MultiplayerWeaponType;
 		public WeaponTypeValue WeaponType;
 		public SpecialHudVersionValue SpecialHudVersion;
@@ -111,8 +111,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Magazine> Magazines;
 		public List<Trigger> Triggers;
 		public List<Barrel> Barrels;
-		public float Unknown25;
-		public float Unknown26;
+		public uint Unknown25;
+		public uint Unknown26;
 		public float MaximumMovementAcceleration;
 		public float MaximumMovementVelocity;
 		public float MaximumTurningAcceleration;
@@ -123,7 +123,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag AgeWeapon;
 		public HaloTag AgedMaterialEffects;
 		public float HammerAgePerUse;
-		public float UnknownSwordAgePerUse;
+		public uint UnknownSwordAgePerUse;
 		public float FirstPersonWeaponOffsetI;
 		public float FirstPersonWeaponOffsetJ;
 		public float FirstPersonWeaponOffsetK;
@@ -300,12 +300,12 @@ namespace HaloOnlineTagTool.TagStructures
 			public short RoundsReloaded;
 			public short Unknown2;
 			public float ChamberTime;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 			public HaloTag ReloadingEffect;
 			public HaloTag ReloadingDamageEffect;
 			public HaloTag ChamberingEffect;
@@ -347,9 +347,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public float ChargingAgeDegeneration;
 			public HaloTag Unknown2;
 			public HaloTag Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 
 			public enum ButtonUsedValue : short
 			{
@@ -432,8 +432,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public Angle DynamicTurningSpeedMax;
 			public float AccelerationTime3;
 			public float DecelerationTime3;
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 			public Angle MinimumError;
 			public Angle ErrorAngleMin;
 			public Angle ErrorAngleMax;
@@ -479,13 +479,13 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AngleChangeDecelerationTime;
 			public AngleChangeFunctionValue AngleChangeFunction;
 			public short Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown6;
+			public uint Unknown7;
 			public float FiringEffectDecelerationTime;
-			public float Unknown8;
+			public uint Unknown8;
 			public float RateOfFireAccelerationTime;
 			public float RateOfFireDecelerationTime;
-			public float Unknown9;
+			public uint Unknown9;
 			public float BloomRateOfDecay;
 			public List<FiringEffect> FiringEffects;
 

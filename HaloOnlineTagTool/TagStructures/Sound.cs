@@ -13,8 +13,8 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Sound
 	{
 		public uint Flags;
-		public float Unknown;
-		public float Unknown2;
+		public uint Unknown;
+		public uint Unknown2;
 		public SoundClassValue SoundClass;
 		public SampleRateValue SampleRate;
 		public sbyte Unknown3;
@@ -49,18 +49,18 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Rule> Rules;
 		public List<RuntimeTimer> RuntimeTimers;
 		public int Unknown5;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
-		public float Unknown9;
-		public float Unknown10;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
+		public uint Unknown9;
+		public uint Unknown10;
 		public List<PitchRange> PitchRanges;
 		public List<CustomPlayback> CustomPlaybacks;
 		public List<ExtraInfoBlock> ExtraInfo;
 		public List<Language> Languages;
 		public ResourceReference Resource;
 		public int UselessPadding;
-		public float Unknown11;
+		public uint Unknown11;
 
 		public enum SoundClassValue : sbyte
 		{
@@ -182,12 +182,12 @@ namespace HaloOnlineTagTool.TagStructures
 			public short MaxGainPitchBoundsMax;
 			public short UnknownBoundsMin;
 			public short UnknownBoundsMax;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
 			public List<Permutation> Permutations;
 
 			[TagStructure(Size = 0x2C)]
@@ -197,11 +197,11 @@ namespace HaloOnlineTagTool.TagStructures
 				public float SkipFractionMin;
 				public float SkipFractionMax;
 				public uint SampleSize;
-				public float Unknown;
-				public float Unknown2;
+				public uint Unknown;
+				public uint Unknown2;
 				public List<PermutationChunk> PermutationChunks;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 
 				[TagStructure(Size = 0x14)]
 				public class PermutationChunk
@@ -220,47 +220,47 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x54)]
 		public class CustomPlayback
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 			public List<UnknownBlock> Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
 
 			[TagStructure(Size = 0x48)]
 			public class UnknownBlock
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-				public float Unknown13;
-				public float Unknown14;
-				public float Unknown15;
-				public float Unknown16;
-				public float Unknown17;
-				public float Unknown18;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
+				public uint Unknown12;
+				public uint Unknown13;
+				public uint Unknown14;
+				public uint Unknown15;
+				public uint Unknown16;
+				public uint Unknown17;
+				public uint Unknown18;
 			}
 		}
 
@@ -269,10 +269,10 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public List<LanguagePermutationInfoBlock> LanguagePermutationInfo;
 			public List<EncodedPermuationSectionBlock> EncodedPermuationSection;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 
 			[TagStructure(Size = 0xC)]
 			public class LanguagePermutationInfoBlock
@@ -283,24 +283,24 @@ namespace HaloOnlineTagTool.TagStructures
 				public class RawInfoBlockBlock
 				{
 					public StringId SkipFractionName;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
-					public float Unknown4;
-					public float Unknown5;
-					public float Unknown6;
-					public float Unknown7;
-					public float Unknown8;
-					public float Unknown9;
-					public float Unknown10;
-					public float Unknown11;
-					public float Unknown12;
-					public float Unknown13;
-					public float Unknown14;
-					public float Unknown15;
-					public float Unknown16;
-					public float Unknown17;
-					public float Unknown18;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
+					public uint Unknown4;
+					public uint Unknown5;
+					public uint Unknown6;
+					public uint Unknown7;
+					public uint Unknown8;
+					public uint Unknown9;
+					public uint Unknown10;
+					public uint Unknown11;
+					public uint Unknown12;
+					public uint Unknown13;
+					public uint Unknown14;
+					public uint Unknown15;
+					public uint Unknown16;
+					public uint Unknown17;
+					public uint Unknown18;
 					public List<UnknownBlock> Unknown19;
 					public short Compression;
 					public sbyte Language;
@@ -308,10 +308,10 @@ namespace HaloOnlineTagTool.TagStructures
 					public uint SampleCount;
 					public uint ResourceSampleOffset;
 					public uint ResourceSampleSize;
-					public float Unknown21;
-					public float Unknown22;
-					public float Unknown23;
-					public float Unknown24;
+					public uint Unknown21;
+					public uint Unknown22;
+					public uint Unknown23;
+					public uint Unknown24;
 					public int Unknown25;
 
 					[TagStructure(Size = 0x18)]
@@ -346,9 +346,9 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0xC)]
 				public class UnknownBlock
 				{
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
 				}
 			}
 		}

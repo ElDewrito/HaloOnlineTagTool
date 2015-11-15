@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag RankUp;
 		public HaloTag MatchmakingPartyUpSound;
 		public List<AtlasSound> AtlasSounds;
-		public float Unknown;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x14)]
 		public class AtlasSound

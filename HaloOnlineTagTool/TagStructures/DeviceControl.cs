@@ -19,8 +19,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag On;
 		public HaloTag Off;
 		public HaloTag Deny;
-		public float Unknown8;
-		public float Unknown9;
+		public uint Unknown8;
+		public uint Unknown9;
 
 		public enum TypeValue : short
 		{

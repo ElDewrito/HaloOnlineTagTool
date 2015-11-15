@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.TagStructures
 	public class ArmorSounds
 	{
 		public List<UnknownBlock> Unknown;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x24)]
 		public class UnknownBlock

@@ -44,9 +44,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint UnknownNodes7;
 		public uint UnknownNodes8;
 		public byte[] LastImportResults;
-		public float Unknown;
-		public float Unknown2;
-		public float Unknown3;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 		public List<ResourceGroup> ResourceGroups;
 
 		[TagStructure(Size = 0x20)]
@@ -144,11 +144,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<UnknownBlock> Unknown3;
 			public List<ObjectSpaceParentNode> ObjectSpaceParentNodes;
 			public List<LegAnchoringBlock> LegAnchoring;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 
 			public enum DesiredCompressionValue : sbyte
 			{
@@ -259,9 +259,9 @@ namespace HaloOnlineTagTool.TagStructures
 					public short Frame2a;
 					public short Frame1b;
 					public short Frame2b;
-					public float Unknown;
-					public float Unknown2;
-					public float Unknown3;
+					public uint Unknown;
+					public uint Unknown2;
+					public uint Unknown3;
 				}
 			}
 		}
@@ -272,9 +272,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public StringId Label;
 			public List<WeaponClassBlock> WeaponClass;
 			public List<ModeIkBlock> ModeIk;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 
 			[TagStructure(Size = 0x28)]
 			public class WeaponClassBlock
@@ -390,22 +390,22 @@ namespace HaloOnlineTagTool.TagStructures
 							public int Unknown;
 							public short GraphIndex;
 							public short Animation;
-							public float Unknown2;
-							public float Unknown3;
-							public float Unknown4;
-							public float Unknown5;
-							public float Unknown6;
-							public float Unknown7;
-							public float Unknown8;
-							public float Unknown9;
-							public float Unknown10;
-							public float Unknown11;
+							public uint Unknown2;
+							public uint Unknown3;
+							public uint Unknown4;
+							public uint Unknown5;
+							public uint Unknown6;
+							public uint Unknown7;
+							public uint Unknown8;
+							public uint Unknown9;
+							public uint Unknown10;
+							public uint Unknown11;
 						}
 
 						[TagStructure(Size = 0x14)]
 						public class SyncBipedBlock
 						{
-							public float Unknown;
+							public uint Unknown;
 							public HaloTag Biped;
 						}
 					}
@@ -445,7 +445,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown;
 			public FunctionControlsValue FunctionControls;
 			public StringId Function;
-			public float Unknown2;
+			public uint Unknown2;
 
 			public enum FunctionControlsValue : short
 			{

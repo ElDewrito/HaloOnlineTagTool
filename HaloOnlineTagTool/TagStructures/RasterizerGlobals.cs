@@ -17,29 +17,29 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag Unknown3;
 		public HaloTag Unknown4;
 		public List<UnknownBlock3> Unknown5;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
-		public float Unknown9;
-		public float Unknown10;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
+		public uint Unknown9;
+		public uint Unknown10;
 		public HaloTag Unknown11;
 		public HaloTag Unknown12;
 		public HaloTag Unknown13;
 		public HaloTag Unknown14;
-		public float Unknown15;
-		public float Unknown16;
-		public float Unknown17;
-		public float Unknown18;
-		public float Unknown19;
-		public float Unknown20;
-		public float Unknown21;
-		public float Unknown22;
-		public float Unknown23;
+		public uint Unknown15;
+		public uint Unknown16;
+		public uint Unknown17;
+		public uint Unknown18;
+		public uint Unknown19;
+		public uint Unknown20;
+		public uint Unknown21;
+		public uint Unknown22;
+		public uint Unknown23;
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock
 		{
-			public float Unknown;
+			public uint Unknown;
 			public HaloTag Unknown2;
 		}
 

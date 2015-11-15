@@ -16,8 +16,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public float DistanceMax;
 		public Angle ConeAngleMin;
 		public Angle ConeAngleMax;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
 	}
 }

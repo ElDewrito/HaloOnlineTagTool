@@ -155,6 +155,7 @@ namespace HaloOnlineTagTool.Layouts
 					RegisterField(offset, 2);
 					break;
 				case "uint32":
+				case "undefined":
 					if (name.Contains("Resource Reference Address"))
 						_results.Layout.Add(new BasicTagLayoutField(name.Replace(" Reference Address", ""), BasicFieldType.ResourceReference)); // hack
 					else
@@ -167,7 +168,6 @@ namespace HaloOnlineTagTool.Layouts
 					break;
 				case "float32":
 				case "float":
-				case "undefined":
 					_results.Layout.Add(new BasicTagLayoutField(name, BasicFieldType.Float32));
 					RegisterField(offset, 4);
 					break;

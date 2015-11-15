@@ -40,12 +40,12 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<VocalizationProperty> VocalizationProperties;
 		public List<BoardingProperty> BoardingProperties;
 		public List<UnknownBlock2> Unknown2;
-		public float Unknown3;
-		public float Unknown4;
-		public float Unknown5;
-		public float Unknown6;
-		public float Unknown7;
-		public float Unknown8;
+		public uint Unknown3;
+		public uint Unknown4;
+		public uint Unknown5;
+		public uint Unknown6;
+		public uint Unknown7;
+		public uint Unknown8;
 		public List<EngineerProperty> EngineerProperties;
 		public List<UnknownBlock3> Unknown9;
 		public List<UnknownBlock4> Unknown10;
@@ -71,7 +71,7 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				public HaloTag Dialogue;
 				public StringId Name;
-				public float Unknown;
+				public uint Unknown;
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				public HaloTag Dialogue;
 				public StringId Name;
-				public float Unknown;
+				public uint Unknown;
 			}
 		}
 
@@ -97,8 +97,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown;
 			public short Unknown2;
 			public short Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown4;
+			public uint Unknown5;
 			public float Scariness;
 			public short Unknown6;
 			public short Unknown7;
@@ -162,15 +162,15 @@ namespace HaloOnlineTagTool.TagStructures
 			public float ExtendedShieldDamageThreshold;
 			public float ExtendedBodyDamageThreshold;
 			public float SuicideRadius;
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 			public HaloTag BackupWeapon;
 		}
 
 		[TagStructure(Size = 0x34)]
 		public class PlacementProperty
 		{
-			public float Unknown;
+			public uint Unknown;
 			public float FewUpgradeChanceEasy;
 			public float FewUpgradeChanceNormal;
 			public float FewUpgradeChanceHeroic;
@@ -197,7 +197,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float HearingDistance;
 			public float NoticeProjectileChance;
 			public float NoticeVehicleChance;
-			public float Unknown;
+			public uint Unknown;
 			public float FirstAcknowledgeSurpriseDistance;
 		}
 
@@ -208,10 +208,10 @@ namespace HaloOnlineTagTool.TagStructures
 			public Angle MaximumAimingDeviationP;
 			public Angle MaximumLookingDeviationY;
 			public Angle MaximumLookingDeviationP;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
 			public Angle NoncombatLookDeltaL;
 			public Angle NoncombatLookDeltaR;
 			public Angle CombatLookDeltaL;
@@ -239,9 +239,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public ObstaceSmashableSizeValue ObstaceSmashableSize;
 			public JumpHeightValue JumpHeight;
 			public uint MovementHintFlags;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 
 			public enum ObstaceLeapMinimumSizeValue : short
 			{
@@ -303,12 +303,12 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x18)]
 		public class UnknownBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 		}
 
 		[TagStructure(Size = 0x38)]
@@ -316,8 +316,8 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short ScatterKilledCount;
 			public short Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 			public float ScatterRadius;
 			public float ScatterDistance;
 			public float HoundMinDistance;
@@ -327,8 +327,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public float OffsetPeriodMax;
 			public float PerlinIdleMovementThreshold;
 			public float PerlinCombatMovementThreshold;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 
 		[TagStructure(Size = 0x8)]
@@ -342,16 +342,16 @@ namespace HaloOnlineTagTool.TagStructures
 		public class EngageProperty
 		{
 			public uint EngageFlags;
-			public float Unknown;
+			public uint Unknown;
 			public float CrouchDangerThreshold;
 			public float StandDangerThreshold;
 			public float FightDangerMoveThreshold;
-			public float Unknown2;
+			public uint Unknown2;
 			public HaloTag Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
 		}
 
 		[TagStructure(Size = 0x7C)]
@@ -371,17 +371,17 @@ namespace HaloOnlineTagTool.TagStructures
 			public float MaxLeapVelocity;
 			public float MeleeLeapBallistic;
 			public float MeleeDelayTimer;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public HaloTag BerserkWeapon;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
-			public float Unknown10;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
+			public uint Unknown10;
 			public List<UnknownBlock> Unknown11;
 
 			[TagStructure(Size = 0x6)]
@@ -416,17 +416,17 @@ namespace HaloOnlineTagTool.TagStructures
 			public float DangerUpperThreshold;
 			public float CoverChanceMin;
 			public float CoverChanceMax;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
 			public float ProximitySelfPreserve;
 			public float DisallowCoverDistance;
 			public float ProximityMeleeDistance;
 			public float UnreachableEnemyDangerThreashold;
 			public float ScaryTargetThreshold;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 		}
 
 		[TagStructure(Size = 0x58)]
@@ -442,11 +442,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public float CowerTimeBoundsMin;
 			public float CowerTimeBoundsMax;
 			public float ProximityAmbushThreshold;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public Angle ZigZagAngle;
 			public float ZigZagPeriod;
 			public float RetreatGrenadeChance;
@@ -459,11 +459,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint SearchFlags;
 			public float SearchTimeMin;
 			public float SearchTimeMax;
-			public float Unknown;
+			public uint Unknown;
 			public float UncoverDistanceBoundsMin;
 			public float UncoverDistanceBoundsMax;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 
 		[TagStructure(Size = 0x28)]
@@ -475,7 +475,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float MaximumPresearchTimeMin;
 			public float MaximumPresearchTimeMax;
 			public float MinimumCertaintyRadius;
-			public float Unknown;
+			public uint Unknown;
 			public float MinimumSuppressingTimeMin;
 			public float MinimumSuppressingTimeMax;
 			public short Unknown2;
@@ -485,17 +485,17 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x14)]
 		public class IdleProperty
 		{
-			public float Unknown;
+			public uint Unknown;
 			public float IdlePoseDelayTimeMin;
 			public float IdlePoseDelayTimeMax;
-			public float Unknown2;
-			public float Unknown3;
+			public uint Unknown2;
+			public uint Unknown3;
 		}
 
 		[TagStructure(Size = 0xC)]
 		public class VocalizationProperty
 		{
-			public float Unknown;
+			public uint Unknown;
 			public float LookCommentTime;
 			public float LookLongCommentTime;
 		}
@@ -507,51 +507,51 @@ namespace HaloOnlineTagTool.TagStructures
 			public float MaxDistance;
 			public float AbortDistance;
 			public float MaxSpeed;
-			public float Unknown;
+			public uint Unknown;
 		}
 
 		[TagStructure(Size = 0x8)]
 		public class UnknownBlock2
 		{
-			public float Unknown;
-			public float Unknown2;
+			public uint Unknown;
+			public uint Unknown2;
 		}
 
 		[TagStructure(Size = 0x38)]
 		public class EngineerProperty
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 			public float ShieldAmount;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
-			public float Unknown9;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
+			public uint Unknown9;
 			public HaloTag Unknown10;
 		}
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock3
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 
 		[TagStructure(Size = 0x18)]
 		public class UnknownBlock4
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
 		}
 
 		[TagStructure(Size = 0xE0)]
@@ -732,7 +732,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AiAvoidanceDistance;
 			public float AiMinimumUrgency;
 			public Angle Unknown;
-			public float Unknown2;
+			public uint Unknown2;
 			public float AiThrottleMaximum;
 			public float AiGoalMinimumThrottleScale;
 			public float AiTurnMinimumThrottleScale;
@@ -784,39 +784,39 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag MorphWeapon1;
 			public HaloTag MorphWeapon2;
 			public HaloTag MorphWeapon3;
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
-			public float Unknown8;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
+			public uint Unknown8;
 			public HaloTag Character;
-			public float Unknown9;
+			public uint Unknown9;
 			public StringId Unknown10;
-			public float Unknown11;
-			public float Unknown12;
-			public float Unknown13;
-			public float Unknown14;
-			public float Unknown15;
-			public float Unknown16;
-			public float Unknown17;
-			public float Unknown18;
-			public float Unknown19;
-			public float Unknown20;
-			public float Unknown21;
-			public float Unknown22;
-			public float Unknown23;
-			public float Unknown24;
-			public float Unknown25;
+			public uint Unknown11;
+			public uint Unknown12;
+			public uint Unknown13;
+			public uint Unknown14;
+			public uint Unknown15;
+			public uint Unknown16;
+			public uint Unknown17;
+			public uint Unknown18;
+			public uint Unknown19;
+			public uint Unknown20;
+			public uint Unknown21;
+			public uint Unknown22;
+			public uint Unknown23;
+			public uint Unknown24;
+			public uint Unknown25;
 		}
 
 		[TagStructure(Size = 0x24)]
 		public class EquipmentProperty
 		{
 			public HaloTag Equipment;
-			public float Unknown;
+			public uint Unknown;
 			public float UsageChance;
 			public List<UsageCondition> UsageConditions;
 
@@ -825,8 +825,8 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				public short Unknown;
 				public short Unknown2;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown3;
+				public uint Unknown4;
 			}
 		}
 

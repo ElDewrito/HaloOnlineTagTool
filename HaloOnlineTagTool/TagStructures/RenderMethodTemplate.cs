@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public HaloTag VertexShader;
 		public HaloTag PixelShader;
-		public float Unknown;
+		public uint Unknown;
 		public List<UnknownBlock> Unknown2;
 		public List<UnknownBlock2> Unknown3;
 		public List<UnknownBlock3> Unknown4;
@@ -22,9 +22,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<UnknownBlock4> Unknown5;
 		public List<UnknownBlock5> Unknown6;
 		public List<ShaderMap> ShaderMaps;
-		public float Unknown7;
-		public float Unknown8;
-		public float Unknown9;
+		public uint Unknown7;
+		public uint Unknown8;
+		public uint Unknown9;
 
 		[TagStructure(Size = 0x2)]
 		public class UnknownBlock
@@ -35,19 +35,19 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x1C)]
 		public class UnknownBlock2
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
-			public float Unknown6;
-			public float Unknown7;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
+			public uint Unknown6;
+			public uint Unknown7;
 		}
 
 		[TagStructure(Size = 0x4)]
 		public class UnknownBlock3
 		{
-			public float Unknown;
+			public uint Unknown;
 		}
 
 		[TagStructure(Size = 0x4)]

@@ -12,20 +12,20 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wspr", Size = 0x2C)]
 	public class GuiWidgetSpriteAnimationDefinition
 	{
-		public float Unknown;
+		public uint Unknown;
 		public List<UnknownBlock> Unknown2;
 		public byte[] Unknown3;
-		public float Unknown4;
-		public float Unknown5;
+		public uint Unknown4;
+		public uint Unknown5;
 
 		[TagStructure(Size = 0x14)]
 		public class UnknownBlock
 		{
-			public float Unknown;
-			public float Unknown2;
-			public float Unknown3;
-			public float Unknown4;
-			public float Unknown5;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 	}
 }

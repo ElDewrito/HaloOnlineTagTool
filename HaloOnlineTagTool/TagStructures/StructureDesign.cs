@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<WaterMoppCode> WaterMoppCodes;
 		public List<WaterName> WaterNames;
 		public List<UnderwaterDefinition> UnderwaterDefinitions;
-		public float Unknown2;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x40)]
 		public class DesignMoppCode
@@ -27,12 +27,12 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Size;
 			public short Count;
 			public int Offset;
-			public float Unknown2;
+			public uint Unknown2;
 			public float OffsetX;
 			public float OffsetY;
 			public float OffsetZ;
 			public float OffsetScale;
-			public float Unknown3;
+			public uint Unknown3;
 			public int DataSize;
 			public uint DataCapacity;
 			public sbyte Unknown4;
@@ -40,7 +40,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown6;
 			public sbyte Unknown7;
 			public List<Datum> Data;
-			public float Unknown8;
+			public uint Unknown8;
 
 			[TagStructure(Size = 0x1)]
 			public class Datum
@@ -60,23 +60,23 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x44)]
 			public class Unknown2Block
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
-				public float Unknown5;
-				public float Unknown6;
-				public float Unknown7;
-				public float Unknown8;
-				public float Unknown9;
-				public float Unknown10;
-				public float Unknown11;
-				public float Unknown12;
-				public float Unknown13;
-				public float Unknown14;
-				public float Unknown15;
-				public float Unknown16;
-				public float Unknown17;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
+				public uint Unknown5;
+				public uint Unknown6;
+				public uint Unknown7;
+				public uint Unknown8;
+				public uint Unknown9;
+				public uint Unknown10;
+				public uint Unknown11;
+				public uint Unknown12;
+				public uint Unknown13;
+				public uint Unknown14;
+				public uint Unknown15;
+				public uint Unknown16;
+				public uint Unknown17;
 			}
 		}
 
@@ -87,12 +87,12 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Size;
 			public short Count;
 			public int Offset;
-			public float Unknown2;
+			public uint Unknown2;
 			public float OffsetX;
 			public float OffsetY;
 			public float OffsetZ;
 			public float OffsetScale;
-			public float Unknown3;
+			public uint Unknown3;
 			public int DataSize;
 			public uint DataCapacity;
 			public sbyte Unknown4;
@@ -100,7 +100,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown6;
 			public sbyte Unknown7;
 			public List<Datum> Data;
-			public float Unknown8;
+			public uint Unknown8;
 
 			[TagStructure(Size = 0x1)]
 			public class Datum
@@ -130,10 +130,10 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x10)]
 			public class UnknownBlock
 			{
-				public float Unknown;
-				public float Unknown2;
-				public float Unknown3;
-				public float Unknown4;
+				public uint Unknown;
+				public uint Unknown2;
+				public uint Unknown3;
+				public uint Unknown4;
 			}
 
 			[TagStructure(Size = 0x24)]
