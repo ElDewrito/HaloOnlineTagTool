@@ -871,7 +871,7 @@ namespace HaloOnlineTagTool.TagStructures
 				Scarab,
 				Guntower,
 				Engineer,
-				EngineerRehargeStation,
+				EngineerRechargeStation,
 			}
 
 			public enum ClassificationValue : sbyte

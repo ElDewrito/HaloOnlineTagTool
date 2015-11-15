@@ -185,7 +185,7 @@ namespace HaloOnlineTagTool.TagStructures
 				Scarab,
 				Guntower,
 				Engineer,
-				EngineerRehargeStation,
+				EngineerRechargeStation,
 			}
 
 			public enum ClassificationValue : sbyte
@@ -270,10 +270,10 @@ namespace HaloOnlineTagTool.TagStructures
 
 		public enum ItemScaleValue : short
 		{
-			Human,
-			Player,
-			Covenant,
-			Boss,
+			Small,
+			Medium,
+			Large,
+			Huge,
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -304,7 +304,7 @@ namespace HaloOnlineTagTool.TagStructures
 			HumanFragmentation,
 			CovenantPlasma,
 			BruteSpike,
-			Incendiary,
+			Firebomb,
 		}
 
 		[TagStructure(Size = 0x8)]

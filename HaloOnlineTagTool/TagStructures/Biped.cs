@@ -16,8 +16,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Flags4;
 		public Angle StationaryTurningSpeed;
 		public float Unknown20;
-		public float Unknown21;
-		public float JumpVelcoity;
+		public StringId Unknown21;
+		public float JumpVelocity;
 		public float MaximumSoftLandingTime;
 		public float MinimumHardLandingTime;
 		public float MinimumSoftLandingVelocity;
@@ -32,38 +32,34 @@ namespace HaloOnlineTagTool.TagStructures
 		public float CrouchTransitionTime;
 		public byte[] CrouchingCameraFunction;
 		public List<WeaponCameraHeightBlock> WeaponCameraHeight;
-		public Angle Unknown22;
-		public Angle Unknown23;
+		public Angle CameraInterpolationStart;
+		public Angle CameraInterpolationEnd;
+		public float Unknown22;
+		public float Unknown23;
 		public float Unknown24;
 		public float Unknown25;
-		public float Unknown26;
-		public float Unknown27;
+		public float AutoaimWidth;
+		public short Unknown26;
+		public short Unknown27;
 		public float Unknown28;
+		public short PhysicsControlNodeIndex;
 		public short Unknown29;
-		public short Unknown30;
+		public float Unknown30;
 		public float Unknown31;
-		public short Unknown32;
-		public short Unknown33;
-		public float Unknown34;
-		public float Unknown35;
-		public float Unknown36;
-		public short Unknown37;
-		public short Unknown38;
-		public float Unknown39;
+		public float Unknown32;
+		public short PelvisNodeIndex;
+		public short HeadNodeIndex;
+		public float Unknown33;
 		public float HeadshotAccelerationScale;
 		public HaloTag AreaDamageEffect;
+		public List<UnknownBlock3> Unknown34;
+		public List<UnknownBlock4> Unknown35;
+		public float Unknown36;
+		public float Unknown37;
+		public float Unknown38;
+		public float Unknown39;
 		public float Unknown40;
 		public float Unknown41;
-		public float Unknown42;
-		public float Unknown43;
-		public float Unknown44;
-		public float Unknown45;
-		public float Unknown46;
-		public float Unknown47;
-		public float Unknown48;
-		public float Unknown49;
-		public float Unknown50;
-		public float Unknown51;
 		public uint Flags5;
 		public float HeightStanding;
 		public float HeightCrouching;
@@ -83,16 +79,16 @@ namespace HaloOnlineTagTool.TagStructures
 		public Angle UphillCutoffAngle;
 		public float DownhillVelocityScale;
 		public float UphillVelocityScale;
-		public float Unknown52;
-		public float Unknown53;
-		public float Unknown54;
-		public float Unknown55;
-		public float Unknown56;
-		public float Unknown57;
-		public float Unknown58;
-		public float Unknown59;
-		public float Unknown60;
-		public float Unknown61;
+		public float Unknown42;
+		public float Unknown43;
+		public float Unknown44;
+		public float Unknown45;
+		public float Unknown46;
+		public float Unknown47;
+		public float Unknown48;
+		public float Unknown49;
+		public float Unknown50;
+		public float Unknown51;
 		public Angle BankAngle;
 		public float BankApplyTime;
 		public float BankDecayTime;
@@ -109,9 +105,19 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag TransformationMuffin;
 		public HaloTag DeathSpawnCharacter;
 		public short DeathSpawnCount;
-		public short Unknown62;
-		public Angle Unknown63;
-		public Angle Unknown64;
+		public short Unknown52;
+		public Angle Unknown53;
+		public Angle Unknown54;
+		public float Unknown55;
+		public float Unknown56;
+		public float Unknown57;
+		public float Unknown58;
+		public float Unknown59;
+		public float Unknown60;
+		public float Unknown61;
+		public float Unknown62;
+		public float Unknown63;
+		public float Unknown64;
 		public float Unknown65;
 		public float Unknown66;
 		public float Unknown67;
@@ -125,16 +131,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown75;
 		public float Unknown76;
 		public float Unknown77;
-		public float Unknown78;
-		public float Unknown79;
-		public float Unknown80;
-		public float Unknown81;
-		public float Unknown82;
-		public float Unknown83;
-		public float Unknown84;
-		public float Unknown85;
-		public float Unknown86;
-		public float Unknown87;
 
 		[TagStructure(Size = 0x18)]
 		public class WeaponCameraHeightBlock
@@ -145,6 +141,26 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown;
 			public float Unknown2;
 			public float Unknown3;
+		}
+
+		[TagStructure(Size = 0x24)]
+		public class UnknownBlock3
+		{
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public byte[] Function;
+		}
+
+		[TagStructure(Size = 0x24)]
+		public class UnknownBlock4
+		{
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public byte[] Function;
 		}
 
 		[TagStructure(Size = 0x70)]
