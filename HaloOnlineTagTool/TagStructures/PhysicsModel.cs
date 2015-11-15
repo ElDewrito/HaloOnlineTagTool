@@ -95,7 +95,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x68)]
 		public class PhantomType
 		{
-			public uint Flags;
+			public uint Flags; // NOTE: This has to be adjusted when converting because of the new armor object type. The "Ignores Armor" bit was inserted at position 8.
 			public MinimumSizeValue MinimumSize;
 			public MaximumSizeValue MaximumSize;
 			public short Unknown;

@@ -222,10 +222,12 @@ namespace HaloOnlineTagTool.TagStructures
 				public float Unknown26;
 			}
 
-			[TagStructure(Size = 0x14)]
+			[TagStructure(Size = 0x14, MaxVersion = EngineVersion.V10_1_449175_Live)]
+			[TagStructure(Size = 0x18, MinVersion = EngineVersion.V11_1_498295_Live)]
 			public class HudSound
 			{
 				public uint LatchedTo;
+				[MinVersion(EngineVersion.V11_1_498295_Live)] public uint LatchedTo2;
 				public float Scale;
 				public List<UnknownBlock> Unknown;
 

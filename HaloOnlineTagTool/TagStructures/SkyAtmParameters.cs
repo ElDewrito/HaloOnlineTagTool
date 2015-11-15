@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "skya", Size = 0x4C)]
+	[TagStructure(Class = "skya", Size = 0x4C, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "skya", Size = 0x54, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class SkyAtmParameters
 	{
 		public float Unknown;
@@ -22,8 +23,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown8;
 		public float Unknown9;
 		public float Unknown10;
-		public List<UnknownBlock> Unknown11;
-		public List<UnknownBlock2> Unknown12;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown11;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown12;
+		public List<UnknownBlock> Unknown13;
+		public List<UnknownBlock2> Unknown14;
 
 		[TagStructure(Size = 0xA4)]
 		public class UnknownBlock

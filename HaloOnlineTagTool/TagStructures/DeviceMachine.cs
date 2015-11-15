@@ -9,26 +9,9 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mach", Size = 0xB0)]
-	public class DeviceMachine : GameObject
+	[TagStructure(Class = "mach", Size = 0x18)]
+	public class DeviceMachine : Device
 	{
-		public uint Flags2;
-		public float PowerTransitionTime;
-		public float PowerAccelerationTime;
-		public float PositionTransitionTime;
-		public float PositionAccelerationTime;
-		public float DepoweredPositionTransitionTime;
-		public float DepoweredPositionAccelerationTime;
-		public uint LightmapFlags;
-		public HaloTag OpenUp;
-		public HaloTag CloseDown;
-		public HaloTag Opened;
-		public HaloTag Closed;
-		public HaloTag Depowered;
-		public HaloTag Repowered;
-		public float DelayTime;
-		public HaloTag DelayEffect;
-		public float AutomaticActivationRadius;
 		public TypeValue Type;
 		public ushort Flags3;
 		public float DoorOpenTime;

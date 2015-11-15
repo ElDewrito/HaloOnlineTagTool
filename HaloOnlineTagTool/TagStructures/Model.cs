@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "hlmt", Size = 0x1B4)]
+	[TagStructure(Class = "hlmt", Size = 0x1B4, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "hlmt", Size = 0x1B8, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Model
 	{
 		public HaloTag RenderModel;
@@ -53,14 +54,15 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint RenderOnlySectionFlags7;
 		public uint RenderOnlySectionFlags8;
 		public uint RuntimeFlags;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown3; // TODO: Version number
 		public float ScenarioLoadParametersBlock;
 		public float ScenarioLoadParametersBlock2;
 		public float ScenarioLoadParametersBlock3;
-		public short Unknown3;
 		public short Unknown4;
-		public List<UnknownBlock2> Unknown5;
-		public List<UnknownBlock3> Unknown6;
-		public List<UnknownBlock4> Unknown7;
+		public short Unknown5;
+		public List<UnknownBlock2> Unknown6;
+		public List<UnknownBlock3> Unknown7;
+		public List<UnknownBlock4> Unknown8;
 		public HaloTag ShieldImpactThirdPerson;
 		public HaloTag ShieldImpactFirstPerson;
 		public HaloTag OvershieldThirdPerson;

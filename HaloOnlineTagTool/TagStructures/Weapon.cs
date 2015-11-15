@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "weap", Size = 0x384)]
+	[TagStructure(Class = "weap", Size = 0x384, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "weap", Size = 0x390, MaxVersion = EngineVersion.V11_1_498295_Live)]
 	public class Weapon : Item
 	{
 		public uint Flags3;
@@ -126,6 +127,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public float FirstPersonWeaponOffsetI;
 		public float FirstPersonWeaponOffsetJ;
 		public float FirstPersonWeaponOffsetK;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public List<NewFirstPersonWeaponOffset> NewFirstPersonWeaponOffsets;
 		public float FirstPersonScopeSizeI;
 		public float FirstPersonScopeSizeJ;
 		public float ThirdPersonPitchBoundsMin;
@@ -663,6 +665,14 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag RiderEmptyResponse;
 				public HaloTag RiderUnknownResponse;
 			}
+		}
+
+		[TagStructure(Size = 0xC)]
+		public class NewFirstPersonWeaponOffset
+		{
+			public float OffsetI;
+			public float OffsetJ;
+			public float OffsetK;
 		}
 	}
 }

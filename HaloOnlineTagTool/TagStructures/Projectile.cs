@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "proj", Size = 0x1AC)]
+	[TagStructure(Class = "proj", Size = 0x1AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "proj", Size = 0x1B4, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Projectile : GameObject
 	{
 		public uint Flags2;
@@ -23,6 +24,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public float MinimumVelocity;
 		public float MaximumRange;
 		public float DetonationChargeTime;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown17;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown18;
 		public DetonationNoiseValue DetonationNoise;
 		public short SuperDetonationProjectileCount;
 		public float SuperDetonationDelay;

@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "scnr", Size = 0x824)]
+	[TagStructure(Class = "scnr", Size = 0x824, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "scnr", Size = 0x834, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Scenario
 	{
 		public MapTypeValue MapType;
@@ -175,6 +176,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<CutsceneTitle> CutsceneTitles;
 		public HaloTag CustomObjectNameStrings;
 		public HaloTag ChapterTitleStrings;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag Unknown156;
 		public List<ScenarioResource> ScenarioResources;
 		public List<UnitSeatsMappingBlock> UnitSeatsMapping;
 		public List<ScenarioKillTrigger> ScenarioKillTriggers;
@@ -536,28 +538,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public class ObjectName
 		{
 			public string Name;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public short PlacementIndex;
-
-			public enum TypeValue : short
-			{
-				Null = -1,
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
 		}
 
 		[TagStructure(Size = 0xB8)]
@@ -580,7 +563,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -660,25 +644,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -782,7 +747,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -839,25 +805,6 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
-
 			public enum SourceValue : sbyte
 			{
 				Structure,
@@ -908,7 +855,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -985,25 +933,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -1084,7 +1013,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1138,25 +1068,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -1237,7 +1148,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1315,25 +1227,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -1424,7 +1317,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1484,25 +1378,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -1571,7 +1446,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1630,25 +1506,6 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
-
 			public enum SourceValue : sbyte
 			{
 				Structure,
@@ -1699,7 +1556,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1761,25 +1619,6 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
-
 			public enum SourceValue : sbyte
 			{
 				Structure,
@@ -1830,7 +1669,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1891,25 +1731,6 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
-
 			public enum SourceValue : sbyte
 			{
 				Structure,
@@ -1960,7 +1781,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -1998,25 +1820,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -2069,7 +1872,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -2129,25 +1933,6 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
-			}
-
 			public enum SourceValue : sbyte
 			{
 				Structure,
@@ -2205,7 +1990,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -2236,25 +2022,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -2307,7 +2074,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -2355,25 +2123,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte
@@ -4077,7 +3826,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort UniqueIdSalt;
 			public ushort UniqueIdIndex;
 			public short OriginBspIndex;
-			public TypeValue Type;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public SourceValue Source;
 			public BspPolicyValue BspPolicy;
 			public sbyte Unknown3;
@@ -4154,25 +3904,6 @@ namespace HaloOnlineTagTool.TagStructures
 				{
 					public short Unknown;
 				}
-			}
-
-			public enum TypeValue : sbyte
-			{
-				Biped,
-				Vehicle,
-				Weapon,
-				Equipment,
-				ArgDevice,
-				Terminal,
-				Projectile,
-				Scenery,
-				Machine,
-				Control,
-				SoundScenery,
-				Crate,
-				Creature,
-				Giant,
-				EffectScenery,
 			}
 
 			public enum SourceValue : sbyte

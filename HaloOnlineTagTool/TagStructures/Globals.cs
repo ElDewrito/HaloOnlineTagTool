@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "matg", Size = 0x608)]
+	[TagStructure(Class = "matg", Size = 0x608, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "matg", Size = 0x618, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Globals
 	{
 		public float Unknown;
@@ -89,6 +90,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Material> Materials;
 		public HaloTag MultiplayerGlobals;
 		public HaloTag SurvivalGlobals;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag ArmorGlobals;
 		public List<CinematicAnchor> CinematicAnchors;
 		public List<MetagameGlobal> MetagameGlobals;
 		public float Unknown61;
@@ -501,14 +503,16 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Unknown38;
 		}
 
-		[TagStructure(Size = 0x70)]
+		[TagStructure(Size = 0x70, MaxVersion = EngineVersion.V10_1_449175_Live)]
+		[TagStructure(Size = 0x78, MinVersion = EngineVersion.V11_1_498295_Live)]
 		public class PlayerControlBlock
 		{
 			public float MagnetismFriction;
 			public float MagnetismAdhesion;
 			public float InconsequentialTargetScale;
-			public float CrosshairLocationX;
-			public float CrosshairLocationY;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public float CrosshairLocationX;
+			[MaxVersion(EngineVersion.V10_1_449175_Live)] public float CrosshairLocationY;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public List<CrosshairLocation> CrosshairLocations;
 			public float SecondsToStart;
 			public float SecondsToFullSpeed;
 			public float DecayRate;
@@ -517,6 +521,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float PeggedAngularThreshold;
 			public float Unknown;
 			public float Unknown2;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown3;
 			public float LookDefaultPitchRate;
 			public float LookDefaultYawRate;
 			public float LookPegThreshold;
@@ -525,12 +530,26 @@ namespace HaloOnlineTagTool.TagStructures
 			public float LookPitchAccelerationTime;
 			public float LookPitchAccelerationScale;
 			public float LookAutolevelingScale;
-			public float Unknown3;
 			public float Unknown4;
+			public float Unknown5;
 			public float GravityScale;
-			public short Unknown5;
+			public short Unknown6;
 			public short MinimumAutolevelingTicks;
 			public List<LookFunctionBlock> LookFunction;
+
+			[TagStructure(Size = 0x28)]
+			public class CrosshairLocation
+			{
+				public float DefaultCrosshairLocationY;
+				public float Unknown;
+				public float CenteredCrosshairLocationY;
+				public float Unknown2;
+				public float Unknown3;
+				public float Unknown4;
+				public float Unknown5;
+				public float Unknown6;
+				public float Unknown7;
+			}
 
 			[TagStructure(Size = 0x4)]
 			public class LookFunctionBlock
