@@ -76,10 +76,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<AnimationBlock> Animation;
 			public byte[] Function;
 
-			[TagStructure(Size = 0x4)]
+			[TagStructure(Size = 0x8)]
 			public class AnimationBlock
 			{
 				public int FrameNumber;
+				public uint Unknown;
 			}
 		}
 

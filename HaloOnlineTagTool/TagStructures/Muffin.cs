@@ -12,16 +12,16 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "mffn", Size = 0x38)]
 	public class Muffin
 	{
-		public HaloTag Unknown;
+		public HaloTag RenderModel;
+		public uint Unknown;
 		public uint Unknown2;
 		public uint Unknown3;
-		public uint Unknown4;
-		public uint Unknown5;
-		public List<UnknownBlock> Unknown6;
-		public List<UnknownBlock2> Unknown7;
+		public int Unknown4;
+		public List<LocationsBlock> Locations;
+		public List<UnknownBlock> Unknown5;
 
 		[TagStructure(Size = 0x8)]
-		public class UnknownBlock
+		public class LocationsBlock
 		{
 			public StringId Name;
 			public short Unknown;
@@ -29,26 +29,26 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x70)]
-		public class UnknownBlock2
+		public class UnknownBlock
 		{
 			public short Unknown;
 			public short Unknown2;
 			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
 			public byte[] Unknown7;
-			public uint Unknown8;
+			public float Unknown8;
 			public byte[] Unknown9;
-			public uint Unknown10;
-			public uint Unknown11;
-			public uint Unknown12;
-			public uint Unknown13;
-			public uint Unknown14;
-			public uint Unknown15;
-			public uint Unknown16;
-			public uint Unknown17;
-			public HaloTag Unknown18;
+			public float Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public float Unknown13;
+			public float Unknown14;
+			public float Unknown15;
+			public float Unknown16;
+			public float Unknown17;
+			public HaloTag Effect;
 		}
 	}
 }

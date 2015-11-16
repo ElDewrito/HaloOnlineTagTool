@@ -12,6 +12,10 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "spk!", Size = 0x30)]
 	public class SoundDialogueConstants
 	{
+		public float AlmostNever;
+		public float Rarely;
+		public float Somewhat;
+		public float Often;
 		public uint Unknown;
 		public uint Unknown2;
 		public uint Unknown3;
@@ -20,9 +24,5 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown6;
 		public uint Unknown7;
 		public uint Unknown8;
-		public uint Unknown9;
-		public uint Unknown10;
-		public uint Unknown11;
-		public uint Unknown12;
 	}
 }

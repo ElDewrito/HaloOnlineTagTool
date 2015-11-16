@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "chmt", Size = 0xC)]
 	public class ChocolateMountainNew
 	{
-		public List<UnknownBlock> Unknown;
+		public List<LightingVariable> LightingVariables;
 
 		[TagStructure(Size = 0x4)]
-		public class UnknownBlock
+		public class LightingVariable
 		{
-			public uint Unknown;
+			public float LightmapBrightnessOffset;
 		}
 	}
 }

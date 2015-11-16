@@ -144,11 +144,11 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<UnknownBlock> Unknown3;
 			public List<ObjectSpaceParentNode> ObjectSpaceParentNodes;
 			public List<LegAnchoringBlock> LegAnchoring;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
 
 			public enum DesiredCompressionValue : sbyte
 			{
@@ -405,7 +405,7 @@ namespace HaloOnlineTagTool.TagStructures
 						[TagStructure(Size = 0x14)]
 						public class SyncBipedBlock
 						{
-							public uint Unknown;
+							public int Unknown;
 							public HaloTag Biped;
 						}
 					}

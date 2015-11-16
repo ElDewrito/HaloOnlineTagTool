@@ -12,23 +12,38 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wrot", Size = 0x2C)]
 	public class GuiWidgetRotationAnimationDefinition
 	{
+		public uint AnimationFlags;
+		public List<AnimationDefinitionBlock> AnimationDefinition;
+		public byte[] Date;
 		public uint Unknown;
-		public List<UnknownBlock> Unknown2;
-		public byte[] Unknown3;
-		public uint Unknown4;
-		public uint Unknown5;
+		public uint Unknown2;
 
 		[TagStructure(Size = 0x20)]
-		public class UnknownBlock
+		public class AnimationDefinitionBlock
 		{
-			public uint Unknown;
+			public uint Frame;
+			public AnchorValue Anchor;
+			public short Unknown;
+			public float CustomAnchorX;
+			public float CustomAnchorY;
+			public float RotationAmount;
 			public uint Unknown2;
 			public uint Unknown3;
 			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
+
+			public enum AnchorValue : short
+			{
+				Custom,
+				Center,
+				TopCenter,
+				BottomCenter,
+				LeftCenter,
+				RightCenter,
+				TopLeft,
+				TopRight,
+				BottomRight,
+				BottomLeft,
+			}
 		}
 	}
 }

@@ -12,17 +12,17 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "bsdt", Size = 0x60)]
 	public class BreakableSurface
 	{
+		public float MaximumVitality;
+		public HaloTag Effect;
+		public HaloTag Sound;
 		public uint Unknown;
-		public HaloTag Unknown2;
-		public HaloTag Unknown3;
+		public uint Unknown2;
+		public uint Unknown3;
 		public uint Unknown4;
+		public HaloTag CrackBitmap;
+		public HaloTag HoleBitmap;
 		public uint Unknown5;
 		public uint Unknown6;
 		public uint Unknown7;
-		public HaloTag Unknown8;
-		public HaloTag Unknown9;
-		public uint Unknown10;
-		public uint Unknown11;
-		public uint Unknown12;
 	}
 }

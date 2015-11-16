@@ -12,93 +12,93 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "trdf", Size = 0x48)]
 	public class TextureRenderList
 	{
-		public List<UnknownBlock> Unknown;
-		public List<UnknownBlock2> Unknown2;
-		public List<UnknownBlock3> Unknown3;
-		public List<UnknownBlock4> Unknown4;
-		public List<UnknownBlock5> Unknown5;
-		public uint Unknown6;
-		public uint Unknown7;
-		public uint Unknown8;
+		public List<Bitmap> Bitmaps;
+		public List<Light> Lights;
+		public List<Bink> Binks;
+		public List<Mannequin> Mannequins;
+		public List<Weapon> Weapons;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
 
 		[TagStructure(Size = 0x110)]
-		public class UnknownBlock
+		public class Bitmap
 		{
+			public int Index;
+			public string Filename;
 			public int Unknown;
-			public string String;
-			public uint Unknown2;
-			public int Unknown3;
-			public int Unknown4;
+			public int Width;
+			public int Height;
 		}
 
 		[TagStructure(Size = 0x1C)]
-		public class UnknownBlock2
+		public class Light
 		{
 			public List<UnknownBlock> Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public float Unknown5;
 
 			[TagStructure(Size = 0x28)]
 			public class UnknownBlock
 			{
-				public uint Unknown;
-				public uint Unknown2;
-				public uint Unknown3;
+				public float Unknown;
+				public float Unknown2;
+				public float Unknown3;
 				public Angle Unknown4;
 				public Angle Unknown5;
-				public uint Unknown6;
-				public HaloTag Unknown7;
+				public Angle Unknown6;
+				public HaloTag Light;
 			}
 		}
 
 		[TagStructure(Size = 0x30)]
-		public class UnknownBlock3
+		public class Bink
 		{
-			public string String;
-			public HaloTag Unknown;
+			public string Name;
+			public HaloTag Bink2;
 		}
 
 		[TagStructure(Size = 0x4C)]
-		public class UnknownBlock4
+		public class Mannequin
 		{
-			public uint Unknown;
-			public HaloTag Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-			public uint Unknown9;
-			public uint Unknown10;
-			public uint Unknown11;
-			public uint Unknown12;
-			public uint Unknown13;
-			public uint Unknown14;
-			public uint Unknown15;
-			public uint Unknown16;
+			public int Unknown;
+			public HaloTag Biped;
+			public int Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public float Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public float Unknown13;
+			public float Unknown14;
+			public float Unknown15;
 		}
 
 		[TagStructure(Size = 0x64)]
-		public class UnknownBlock5
+		public class Weapon
 		{
-			public string String;
-			public HaloTag Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-			public uint Unknown9;
-			public uint Unknown10;
-			public uint Unknown11;
-			public uint Unknown12;
-			public uint Unknown13;
-			public uint Unknown14;
+			public string Name;
+			public HaloTag Weapon2;
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
+			public float Unknown5;
+			public float Unknown6;
+			public float Unknown7;
+			public float Unknown8;
+			public float Unknown9;
+			public float Unknown10;
+			public float Unknown11;
+			public float Unknown12;
+			public float Unknown13;
 		}
 	}
 }

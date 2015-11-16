@@ -12,48 +12,48 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "rasg", Size = 0xBC)]
 	public class RasterizerGlobals
 	{
-		public List<UnknownBlock> Unknown;
-		public List<UnknownBlock2> Unknown2;
-		public HaloTag Unknown3;
-		public HaloTag Unknown4;
-		public List<UnknownBlock3> Unknown5;
-		public uint Unknown6;
-		public uint Unknown7;
-		public uint Unknown8;
-		public uint Unknown9;
-		public uint Unknown10;
-		public HaloTag Unknown11;
-		public HaloTag Unknown12;
-		public HaloTag Unknown13;
-		public HaloTag Unknown14;
-		public uint Unknown15;
-		public uint Unknown16;
-		public uint Unknown17;
-		public uint Unknown18;
-		public uint Unknown19;
-		public uint Unknown20;
-		public uint Unknown21;
-		public uint Unknown22;
-		public uint Unknown23;
+		public List<DefaultBitmap> DefaultBitmaps;
+		public List<DefaultRasterizerBitmap> DefaultRasterizerBitmaps;
+		public HaloTag VertexShaderSimple;
+		public HaloTag PixelShaderSimple;
+		public List<DefaultShader> DefaultShaders;
+		public uint Unknown;
+		public uint Unknown2;
+		public uint Unknown3;
+		public int Unknown4;
+		public int Unknown5;
+		public HaloTag ActiveCamoDistortion;
+		public HaloTag DefaultPerformanceTemplate;
+		public HaloTag DefaultShieldImpact;
+		public HaloTag DefaultVisionMode;
+		public int Unknown6;
+		public float Unknown7;
+		public float Unknown8;
+		public float Unknown9;
+		public float Unknown10;
+		public float Unknown11;
+		public float Unknown12;
+		public uint Unknown13;
+		public uint Unknown14;
 
 		[TagStructure(Size = 0x14)]
-		public class UnknownBlock
+		public class DefaultBitmap
 		{
-			public uint Unknown;
-			public HaloTag Unknown2;
+			public int Unknown;
+			public HaloTag Bitmap;
 		}
 
 		[TagStructure(Size = 0x10)]
-		public class UnknownBlock2
+		public class DefaultRasterizerBitmap
 		{
-			public HaloTag Unknown;
+			public HaloTag Bitmap;
 		}
 
 		[TagStructure(Size = 0x20)]
-		public class UnknownBlock3
+		public class DefaultShader
 		{
-			public HaloTag Unknown;
-			public HaloTag Unknown2;
+			public HaloTag VertexShader;
+			public HaloTag PixelShader;
 		}
 	}
 }

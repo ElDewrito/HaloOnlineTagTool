@@ -12,21 +12,21 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "wclr", Size = 0x24)]
 	public class GuiWidgetColorAnimationDefinition
 	{
-		public uint Unknown;
-		public List<UnknownBlock> Unknown2;
-		public byte[] Unknown3;
+		public uint AnimationFlags;
+		public List<AnimationDefinitionBlock> AnimationDefinition;
+		public byte[] Data;
 
 		[TagStructure(Size = 0x20)]
-		public class UnknownBlock
+		public class AnimationDefinitionBlock
 		{
+			public uint Frame;
+			public float ColorA;
+			public float ColorR;
+			public float ColorG;
+			public float ColorB;
 			public uint Unknown;
 			public uint Unknown2;
 			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
 		}
 	}
 }

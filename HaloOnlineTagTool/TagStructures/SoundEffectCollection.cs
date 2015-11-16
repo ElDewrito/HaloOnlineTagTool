@@ -12,32 +12,57 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sfx+", Size = 0x10)]
 	public class SoundEffectCollection
 	{
-		public List<UnknownBlock> Unknown;
-		public uint Unknown2;
+		public List<SoundEffect> SoundEffects;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x4C)]
-		public class UnknownBlock
+		public class SoundEffect
 		{
+			public StringId Name;
 			public uint Unknown;
 			public uint Unknown2;
 			public uint Unknown3;
+			public uint Flags;
 			public uint Unknown4;
 			public uint Unknown5;
+			public List<FilterBlock> Filter;
 			public uint Unknown6;
 			public uint Unknown7;
-			public List<UnknownBlock2> Unknown8;
+			public uint Unknown8;
 			public uint Unknown9;
 			public uint Unknown10;
 			public uint Unknown11;
-			public uint Unknown12;
-			public uint Unknown13;
-			public uint Unknown14;
-			public List<UnknownBlock3> Unknown15;
+			public List<SoundEffectBlock> SoundEffect2;
 
 			[TagStructure(Size = 0x48)]
-			public class UnknownBlock2
+			public class FilterBlock
 			{
-				public uint Unknown;
+				public int FilterType;
+				public int FilterWidth;
+				public uint LeftFreqScaleMin;
+				public uint LeftFreqScaleMax;
+				public uint LeftFreqRandomBaseVarianceMin;
+				public uint LeftFreqRandomBaseVarianceMax;
+				public uint LeftGainScaleMin;
+				public uint LeftGainScaleMax;
+				public uint LeftGainRandomBaseVarianceMin;
+				public uint LeftGainRandomBaseVarianceMax;
+				public uint RightFreqScaleMin;
+				public uint RightFreqScaleMax;
+				public uint RightFreqRandomBaseVarianceMin;
+				public uint RightFreqRandomBaseVarianceMax;
+				public uint RightGainScaleMin;
+				public uint RightGainScaleMax;
+				public uint RightGainRandomBaseVarianceMin;
+				public uint RightGainRandomBaseVarianceMax;
+			}
+
+			[TagStructure(Size = 0x48)]
+			public class SoundEffectBlock
+			{
+				public HaloTag Unknown;
+				public List<Component> Components;
+				public List<TemplateCollectionBlock> TemplateCollection;
 				public uint Unknown2;
 				public uint Unknown3;
 				public uint Unknown4;
@@ -46,56 +71,31 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown7;
 				public uint Unknown8;
 				public uint Unknown9;
-				public uint Unknown10;
-				public uint Unknown11;
-				public uint Unknown12;
-				public uint Unknown13;
-				public uint Unknown14;
-				public uint Unknown15;
-				public uint Unknown16;
-				public uint Unknown17;
-				public uint Unknown18;
-			}
-
-			[TagStructure(Size = 0x48)]
-			public class UnknownBlock3
-			{
-				public HaloTag Unknown;
-				public List<UnknownBlock> Unknown2;
-				public List<UnknownBlock2> Unknown3;
-				public uint Unknown4;
-				public uint Unknown5;
-				public uint Unknown6;
-				public uint Unknown7;
-				public uint Unknown8;
-				public uint Unknown9;
-				public uint Unknown10;
-				public uint Unknown11;
 
 				[TagStructure(Size = 0x18)]
-				public class UnknownBlock
+				public class Component
 				{
-					public HaloTag Unknown;
-					public uint Unknown2;
-					public uint Unknown3;
+					public HaloTag Sound;
+					public uint Gain;
+					public int Flags;
 				}
 
 				[TagStructure(Size = 0x10)]
-				public class UnknownBlock2
+				public class TemplateCollectionBlock
 				{
-					public uint Unknown;
-					public List<UnknownBlock> Unknown2;
+					public StringId DspEffect;
+					public List<Parameter> Parameters;
 
 					[TagStructure(Size = 0x2C)]
-					public class UnknownBlock
+					public class Parameter
 					{
+						public StringId Name;
 						public uint Unknown;
 						public uint Unknown2;
+						public uint HardwareOffset;
 						public uint Unknown3;
-						public uint Unknown4;
-						public uint Unknown5;
-						public uint Unknown6;
-						public byte[] Unknown7;
+						public uint DefaultScalarValue;
+						public byte[] Function;
 					}
 				}
 			}

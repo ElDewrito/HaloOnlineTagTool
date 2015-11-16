@@ -12,23 +12,45 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "bmp3", Size = 0x60)]
 	public class GuiBitmapWidgetDefinition
 	{
-		public uint Unknown;
-		public uint Unknown2;
-		public uint Unknown3;
-		public uint Unknown4;
+		public uint Flags;
+		public StringId Name;
+		public short Unknown;
+		public short Layer;
+		public short WidescreenYBoundsMin;
+		public short WidescreenXBoundsMin;
+		public short WidescreenYBoundsMax;
+		public short WidescreenXBoundsMax;
+		public short StandardYBoundsMin;
+		public short StandardXBoundsMin;
+		public short StandardYBoundsMax;
+		public short StandardXBoundsMax;
+		public HaloTag Animation;
+		public HaloTag Bitmap;
+		public HaloTag Unknown2;
+		public BlendMethodValue BlendMethod;
+		public short Unknown3;
+		public short SpriteIndex;
+		public short Unknown4;
+		public StringId DataSourceName;
+		public StringId SpriteDataSourceName;
 		public uint Unknown5;
-		public uint Unknown6;
-		public uint Unknown7;
-		public HaloTag Unknown8;
-		public HaloTag Unknown9;
-		public uint Unknown10;
-		public uint Unknown11;
-		public uint Unknown12;
-		public uint Unknown13;
-		public uint Unknown14;
-		public uint Unknown15;
-		public uint Unknown16;
-		public uint Unknown17;
-		public uint Unknown18;
+
+		public enum BlendMethodValue : short
+		{
+			Standard,
+			Unknown,
+			Unknown2,
+			Alpha,
+			Overlay,
+			Unknown3,
+			LighterColor,
+			Unknown4,
+			Unknown5,
+			Unknown6,
+			InvertedAlpha,
+			Unknown7,
+			Unknown8,
+			Unknown9,
+		}
 	}
 }

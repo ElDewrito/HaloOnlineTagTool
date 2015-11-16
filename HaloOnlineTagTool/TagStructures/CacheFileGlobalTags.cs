@@ -12,13 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "cfgt", Size = 0x10)]
 	public class CacheFileGlobalTags
 	{
-		public List<UnknownBlock> Unknown;
-		public uint Unknown2;
-
-		[TagStructure(Size = 0x10)]
-		public class UnknownBlock
-		{
-			public HaloTag Unknown;
-		}
+		public List<HaloTag> GlobalTags;
+		public uint Unknown;
 	}
 }

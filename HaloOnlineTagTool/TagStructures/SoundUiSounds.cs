@@ -12,13 +12,13 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "sus!", Size = 0x10)]
 	public class SoundUiSounds
 	{
-		public List<UnknownBlock> Unknown;
-		public uint Unknown2;
+		public List<UiSound> UiSounds;
+		public uint Unknown;
 
 		[TagStructure(Size = 0x10)]
-		public class UnknownBlock
+		public class UiSound
 		{
-			public HaloTag Unknown;
+			public HaloTag Sound;
 		}
 	}
 }

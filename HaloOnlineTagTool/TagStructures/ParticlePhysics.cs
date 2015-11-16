@@ -12,29 +12,43 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "pmov", Size = 0x2C)]
 	public class ParticlePhysics
 	{
-		public HaloTag Unknown;
+		public HaloTag Template;
+		public uint Flags;
+		public List<Movement> Movements;
+		public uint Unknown;
 		public uint Unknown2;
-		public List<UnknownBlock> Unknown3;
-		public uint Unknown4;
-		public uint Unknown5;
-		public uint Unknown6;
+		public uint Unknown3;
 
 		[TagStructure(Size = 0x18)]
-		public class UnknownBlock
+		public class Movement
 		{
-			public uint Unknown;
-			public List<UnknownBlock2> Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
+			public TypeValue Type;
+			public short Unknown;
+			public List<Parameter> Parameters;
+			public short Unknown2;
+			public short Unknown3;
+			public int Unknown4;
+
+			public enum TypeValue : short
+			{
+				Physics,
+				Collider,
+				Swarm,
+				Wind,
+			}
 
 			[TagStructure(Size = 0x24)]
-			public class UnknownBlock2
+			public class Parameter
 			{
-				public uint Unknown;
-				public uint Unknown2;
-				public byte[] Unknown3;
-				public uint Unknown4;
-				public uint Unknown5;
+				public int ParameterId;
+				public short Unknown;
+				public short Unknown2;
+				public byte[] Function;
+				public float Unknown3;
+				public byte Unknown4;
+				public sbyte Unknown5;
+				public sbyte Unknown6;
+				public sbyte Unknown7;
 			}
 		}
 	}
