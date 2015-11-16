@@ -13,6 +13,7 @@ namespace HaloOnlineTagTool.Resources
 	public class ResourceCache
 	{
 		private const int ChunkHeaderSize = 0x8;
+		private const int MaxDecompressedBlockSize = 0x7FFF8; // Decompressed chunks cannot exceed this size
 
 		private readonly List<Resource> _resources = new List<Resource>();
 
@@ -105,12 +106,21 @@ namespace HaloOnlineTagTool.Resources
 			if (resourceIndex < 0 || resourceIndex > _resources.Count)
 				throw new ArgumentOutOfRangeException("resourceIndex");
 
-			// Compress the data (just use a single chunk)
-			var compressed = LZ4Codec.EncodeHC(data, 0, data.Length);
+			// Divide the data into chunks with decompressed sizes no larger than the maximum allowed size
+			var chunks = new List<byte[]>();
+			var startOffset = 0;
+			var newSize = 0;
+			while (startOffset < data.Length)
+			{
+				var chunkSize = Math.Min(data.Length - startOffset, MaxDecompressedBlockSize);
+				var chunk = LZ4Codec.EncodeHC(data, startOffset, chunkSize);
+				chunks.Add(chunk);
+				startOffset += chunkSize;
+				newSize += ChunkHeaderSize + chunk.Length;
+			}
 
-			// Resize the resource's data so that the chunk can fit
+			// Resize the resource's data so that the chunks can fit
 			var resource = _resources[resourceIndex];
-			var newSize = (uint)compressed.Length + ChunkHeaderSize;
 			var roundedSize = (newSize + 0xF) & ~0xFU; // Round up to a multiple of 0x10
 			var sizeDelta = (int)(roundedSize - resource.Size);
 			if (sizeDelta > 0)
@@ -126,20 +136,26 @@ namespace HaloOnlineTagTool.Resources
 				StreamUtil.Remove(inStream, -sizeDelta);
 			}
 
-			// Write the chunk in
+			// Write the chunks in
 			inStream.Position = resource.Offset;
 			var writer = new BinaryWriter(inStream);
-			writer.Write(data.Length);
-			writer.Write(compressed.Length);
-			writer.Write(compressed, 0, compressed.Length);
+			var sizeRemaining = data.Length;
+			foreach (var chunk in chunks)
+			{
+				var decompressedSize = Math.Min(sizeRemaining, MaxDecompressedBlockSize);
+				writer.Write(decompressedSize);
+				writer.Write(chunk.Length);
+				writer.Write(chunk);
+				sizeRemaining -= decompressedSize;
+			}
 			StreamUtil.Fill(inStream, 0, (int)(roundedSize - newSize)); // Padding
 
 			// Adjust resource offsets
-			resource.Size = roundedSize;
+			resource.Size = (uint)roundedSize;
 			for (var i = resourceIndex + 1; i < _resources.Count; i++)
 				_resources[i].Offset = (uint)(_resources[i].Offset + sizeDelta);
 			UpdateResourceTable(writer);
-			return (uint)compressed.Length + ChunkHeaderSize;
+			return (uint)newSize;
 		}
 
 		private void Load(Stream stream)
