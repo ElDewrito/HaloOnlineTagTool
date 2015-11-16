@@ -110,12 +110,12 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the name of the file (e.g. "hf2p_weapons_categories.ps").
 		/// </summary>
-		[TagField(Size = 0x100)] public string Name;
+		[TagField(Length = 0x100)] public string Name;
 
 		/// <summary>
 		/// Gets or sets the folder the file is located in (e.g. "ps\autogen\").
 		/// </summary>
-		[TagField(Size = 0x100)] public string Folder;
+		[TagField(Length = 0x100)] public string Folder;
 
 		/// <summary>
 		/// Gets or sets the starting offset of the file from the file data block.

@@ -445,7 +445,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x3C)]
 		public class Marker
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public float RotationI;
 			public float RotationJ;
 			public float RotationK;
@@ -494,7 +494,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x6C)]
 		public class EnvironmentObject
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public float RotationI;
 			public float RotationJ;
 			public float RotationK;
@@ -506,7 +506,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short PaletteIndex;
 			public short Unknown;
 			public int UniqueId;
-			public string ScenarioObjectName;
+			[TagField(Length = 32)] public string ScenarioObjectName;
 			public uint Unknown2;
 		}
 

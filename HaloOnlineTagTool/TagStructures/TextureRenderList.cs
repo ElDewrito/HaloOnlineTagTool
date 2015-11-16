@@ -25,7 +25,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class Bitmap
 		{
 			public int Index;
-			public string Filename;
+			[TagField(Length = 256)] public string Filename;
 			public int Unknown;
 			public int Width;
 			public int Height;
@@ -56,7 +56,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x30)]
 		public class Bink
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public HaloTag Bink2;
 		}
 
@@ -84,7 +84,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x64)]
 		public class Weapon
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public HaloTag Weapon2;
 			public float Unknown;
 			public float Unknown2;

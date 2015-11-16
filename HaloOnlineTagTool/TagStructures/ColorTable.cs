@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x30)]
 		public class ColorTableBlock
 		{
-			public string String;
+			[TagField(Length = 32)] public string String;
 			public float ColorA;
 			public float ColorR;
 			public float ColorG;

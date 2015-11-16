@@ -109,7 +109,7 @@ namespace HaloOnlineTagTool.TagStructures
 		/// <summary>
 		/// Gets or sets the stringID's string value. Can be empty.
 		/// </summary>
-		[TagField(Size = 0x20)] public string StringIdStr;
+		[TagField(Length = 0x20)] public string StringIdStr;
 
 		/// <summary>
 		/// Gets or sets the array of offsets for each language.

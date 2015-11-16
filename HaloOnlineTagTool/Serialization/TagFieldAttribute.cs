@@ -35,6 +35,11 @@ namespace HaloOnlineTagTool.Serialization
 		public int Count { get; set; }
 
 		/// <summary>
+		/// If the value is a string, gets or sets the maximum number of characters in the string (including the null terminator).
+		/// </summary>
+		public int Length { get; set; }
+
+		/// <summary>
 		/// Gets or sets flags for the tag element.
 		/// </summary>
 		public TagFieldFlags Flags { get; set; }

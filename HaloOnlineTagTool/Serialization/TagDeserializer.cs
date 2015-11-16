@@ -157,7 +157,7 @@ namespace HaloOnlineTagTool.Serialization
 
 			// string = ASCII string
 			if (valueType == typeof(string))
-				return DeserializeString(reader);
+				return DeserializeString(reader, valueInfo);
 
 			// HaloTag = Tag reference
 			if (valueType == typeof(HaloTag))
@@ -331,12 +331,16 @@ namespace HaloOnlineTagTool.Serialization
 		/// Deserializes a null-terminated ASCII string.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
+		/// <param name="valueInfo">The value information.</param>
 		/// <returns>The deserialized string.</returns>
-		private static string DeserializeString(BinaryReader reader)
+		private static string DeserializeString(BinaryReader reader, TagFieldAttribute valueInfo)
 		{
+			if (valueInfo == null || valueInfo.Length == 0)
+				throw new ArgumentException("Cannot deserialize a string with no length set");
+
 			// Keep reading until a null terminator is found
-			// TODO: Fix this for UTF-8 strings
 			var result = new StringBuilder();
+			var startPos = reader.BaseStream.Position;
 			while (true)
 			{
 				var ch = reader.ReadByte();
@@ -344,6 +348,7 @@ namespace HaloOnlineTagTool.Serialization
 					break;
 				result.Append((char)ch);
 			}
+			reader.BaseStream.Position = startPos + valueInfo.Length;
 			return result.ToString();
 		}
 

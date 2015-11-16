@@ -183,7 +183,7 @@ namespace HaloOnlineTagTool.Serialization
 			else if (valueType.IsEnum)
 				SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
 			else if (valueType == typeof(string))
-				SerializeString(block.Writer, (string)val);
+				SerializeString(block.Writer, (string)val, valueInfo);
 			else if (valueType == typeof(HaloTag))
 				SerializeTagReference(block.Writer, (HaloTag)val, valueInfo);
 			else if (valueType == typeof(ResourceAddress))
@@ -215,11 +215,16 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="writer">The writer to write to.</param>
 		/// <param name="str">The string to serialize.</param>
-		private static void SerializeString(BinaryWriter writer, string str)
+		/// <param name="valueInfo">Information about the value.</param>
+		private static void SerializeString(BinaryWriter writer, string str, TagFieldAttribute valueInfo)
 		{
-			var bytes = Encoding.UTF8.GetBytes(str);
-			writer.Write(bytes);
-			writer.Write((byte)0);
+			if (valueInfo == null || valueInfo.Length == 0)
+				throw new ArgumentException("Cannot serialize a string with no length set");
+			var bytes = Encoding.ASCII.GetBytes(str);
+			var clampedLength = Math.Min(valueInfo.Length - 1, bytes.Length);
+			writer.Write(bytes, 0, clampedLength);
+			for (var i = clampedLength; i < valueInfo.Length; i++)
+				writer.Write((byte)0);
 		}
 
 		/// <summary>

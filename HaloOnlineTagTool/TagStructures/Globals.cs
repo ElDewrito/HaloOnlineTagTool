@@ -764,7 +764,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x30)]
 			public class GfxUiString
 			{
-				public string Name;
+				[TagField(Length = 32)] public string Name;
 				public HaloTag Strings;
 			}
 		}
@@ -985,7 +985,7 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short Index;
 			public short Version;
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 		}
 	}
 }

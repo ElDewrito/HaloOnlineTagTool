@@ -14,9 +14,9 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public uint Flags;
 		public int Unknown;
-		public uint Unknown2;
+		public float Unknown2;
 		public uint Unknown3;
-		public uint Unknown4;
+		public float Unknown4;
 		public sbyte Unknown5;
 		public sbyte Unknown6;
 		public sbyte Unknown7;
@@ -32,8 +32,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public short Unknown11;
 		public float AlwaysPlayDistance;
 		public float NeverPlayDistance;
-		public uint Unknown12;
-		public uint Unknown13;
+		public float Unknown12;
+		public float Unknown13;
 		public List<UnknownBlock> Unknown14;
 
 		[TagStructure(Size = 0xC)]
@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public sbyte Unknown3;
 				public CameraModeValue CameraMode;
-				public string AnticipatedTagClass;
+				[TagField(Length = 4)] public string AnticipatedTagClass;
 				public HaloTag SpawnedTag;
 				public float VelocityBoundsMin;
 				public float VelocityBoundsMax;
@@ -161,14 +161,14 @@ namespace HaloOnlineTagTool.TagStructures
 				public CameraModeValue CameraMode;
 				public short SortBias;
 				public ushort Flags;
-				public uint Unknown6;
-				public uint Unknown7;
-				public uint Unknown8;
-				public uint Unknown9;
+				public float Unknown6;
+				public float Unknown7;
+				public float Unknown8;
+				public float Unknown9;
 				public uint Unknown10;
-				public uint Unknown11;
+				public float Unknown11;
 				public float AmountSize;
-				public uint Unknown12;
+				public float Unknown12;
 				public float LodInDistance;
 				public float LodFeatherInDelta;
 				public List<Emitter> Emitters;

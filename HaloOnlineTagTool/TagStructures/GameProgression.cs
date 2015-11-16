@@ -55,7 +55,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Unknown3;
 			public int MapId;
 			public int Unknown4;
-			public string MapScenarioPath;
+			[TagField(Length = 256)] public string MapScenarioPath;
 		}
 	}
 }

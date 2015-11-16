@@ -38,7 +38,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public class StringValue
 			{
 				public StringId DataType;
-				public string Value;
+				[TagField(Length = 20)] public string Value;
 			}
 
 			[TagStructure(Size = 0x8)]

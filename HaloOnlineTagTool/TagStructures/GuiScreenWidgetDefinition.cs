@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<GroupWidget> GroupWidgets;
 		public List<ButtonKeyLegend> ButtonKeyLegends;
 		public HaloTag UiSounds;
-		public string ScriptTitle;
+		[TagField(Length = 32)] public string ScriptTitle;
 		public short ScriptIndex;
 		public short Unknown2;
 

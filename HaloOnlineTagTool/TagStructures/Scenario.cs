@@ -537,7 +537,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x24)]
 		public class ObjectName
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
 			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public short PlacementIndex;
@@ -1290,7 +1290,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x2C)]
 		public class DeviceGroup
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public float InitialValue;
 			public uint Flags;
 			public short EditorFolderIndex;
@@ -1593,8 +1593,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
-			public string TapScriptName;
-			public string HoldScriptName;
+			[TagField(Length = 32)] public string TapScriptName;
+			[TagField(Length = 32)] public string HoldScriptName;
 			public short TapScriptIndex;
 			public short HoldScriptIndex;
 
@@ -2280,7 +2280,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x60)]
 		public class PlayerStartingProfileBlock
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public float StartingHealthDamage;
 			public float StartingShieldDamage;
 			public HaloTag PrimaryWeapon;
@@ -2424,7 +2424,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x28)]
 		public class SquadGroup
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public short ParentIndex;
 			public short ObjectiveIndex;
 			public short Unknown;
@@ -2434,7 +2434,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x68)]
 		public class Squad
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public uint Flags;
 			public TeamValue Team;
 			public short ParentSquadGroupIndex;
@@ -2489,7 +2489,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown6;
 				public short Unknown7;
 				public short CommandScriptIndex;
-				public string CommandScriptName;
+				[TagField(Length = 32)] public string CommandScriptName;
 				public StringId InitialState;
 				public short Unknown8;
 				public short Unknown9;
@@ -2504,7 +2504,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public uint Unknown4;
 					public StringId State;
 					public uint Unknown5;
-					public string CommandScriptName;
+					[TagField(Length = 32)] public string CommandScriptName;
 					public short CommandScriptIndex;
 					public short Unknown6;
 				}
@@ -2544,7 +2544,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short EmitterVehicle;
 				public short EmitterGiant;
 				public short EmitterBiped;
-				public string CommandScriptName;
+				[TagField(Length = 32)] public string CommandScriptName;
 				public short CommandScriptIndex;
 				public short Unknown8;
 				public StringId InitialState;
@@ -2588,7 +2588,7 @@ namespace HaloOnlineTagTool.TagStructures
 					public uint Unknown4;
 					public StringId State;
 					public uint Unknown5;
-					public string CommandScriptName;
+					[TagField(Length = 32)] public string CommandScriptName;
 					public short CommandScriptIndex;
 					public short Unknown6;
 				}
@@ -2768,7 +2768,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x3C)]
 		public class Zone
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public int Unknown;
 			public List<FiringPosition> FiringPositions;
 			public List<Area> Areas;
@@ -2795,7 +2795,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0xA8)]
 			public class Area
 			{
-				public string Name;
+				[TagField(Length = 32)] public string Name;
 				public uint AreaFlags;
 				public float PositionX;
 				public float PositionY;
@@ -2951,7 +2951,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x34)]
 		public class Script
 		{
-			public string ScriptName;
+			[TagField(Length = 32)] public string ScriptName;
 			public ScriptTypeValue ScriptType;
 			public ReturnTypeValue ReturnType;
 			public ushort RootExpressionSalt;
@@ -3059,7 +3059,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x24)]
 			public class Parameter
 			{
-				public string Name;
+				[TagField(Length = 32)] public string Name;
 				public TypeValue Type;
 				public short Unknown;
 
@@ -3156,7 +3156,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x28)]
 		public class Global
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public TypeValue Type;
 			public short Unknown;
 			public ushort InitializationExpressionSalt;
@@ -3295,7 +3295,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x38)]
 			public class PointSet
 			{
-				public string Name;
+				[TagField(Length = 32)] public string Name;
 				public List<Point> Points;
 				public short BspIndex;
 				public short ManualReferenceFrame;
@@ -3306,7 +3306,7 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x3C)]
 				public class Point
 				{
-					public string Name;
+					[TagField(Length = 32)] public string Name;
 					public float PositionX;
 					public float PositionY;
 					public float PositionZ;
@@ -3338,7 +3338,7 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public ushort Flags;
 			public TypeValue Type;
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public int Unknown;
 			public float PositionX;
 			public float PositionY;
@@ -3625,7 +3625,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x78)]
 		public class UnknownBlock3
 		{
-			public string Name;
+			[TagField(Length = 32)] public string Name;
 			public uint Unknown;
 			public uint Unknown2;
 			public uint Unknown3;
@@ -4043,7 +4043,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class EditorFolder
 		{
 			public int ParentFolder;
-			public string Name;
+			[TagField(Length = 256)] public string Name;
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -4100,9 +4100,9 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown5;
 				public short Unknown6;
 				public uint Unknown7;
-				public string CommandScriptName1;
-				public string CommandScriptName2;
-				public string CommandScriptName3;
+				[TagField(Length = 32)] public string CommandScriptName1;
+				[TagField(Length = 32)] public string CommandScriptName2;
+				[TagField(Length = 32)] public string CommandScriptName3;
 				public short CommandScriptIndex1;
 				public short CommandScriptIndex2;
 				public short CommandScriptIndex3;
@@ -4138,8 +4138,8 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x124)]
 				public class Condition
 				{
-					public string Name;
-					public string Condition2;
+					[TagField(Length = 32)] public string Name;
+					[TagField(Length = 256)] public string Condition2;
 					public short Unknown;
 					public short Unknown2;
 				}

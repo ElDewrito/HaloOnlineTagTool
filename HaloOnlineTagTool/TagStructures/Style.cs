@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "styl", Size = 0x5C)]
 	public class Style
 	{
-		public string Name;
+		[TagField(Length = 32)] public string Name;
 		public CombatStatusDecayOptionsValue CombatStatusDecayOptions;
 		public short Unknown;
 		public uint StyleControl;
@@ -42,7 +42,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x20)]
 		public class BehaviorListBlock
 		{
-			public string BehaviorName;
+			[TagField(Length = 32)] public string BehaviorName;
 		}
 	}
 }

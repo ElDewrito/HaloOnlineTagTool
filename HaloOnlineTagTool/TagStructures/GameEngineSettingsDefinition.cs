@@ -293,7 +293,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x70)]
 		public class SlayerVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -391,7 +391,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x70)]
 		public class OddballVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -484,7 +484,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x70)]
 		public class CaptureTheFlagVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -589,7 +589,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x80)]
 		public class AssaultVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -701,7 +701,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x7C)]
 		public class InfectionVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -805,7 +805,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x70)]
 		public class KingOfTheHillVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -916,7 +916,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x6C)]
 		public class TerritoriesVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -1003,7 +1003,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x74)]
 		public class JuggernautVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -1127,7 +1127,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x7C)]
 		public class VipVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
@@ -1247,7 +1247,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x64)]
 		public class SandboxEditorVariant
 		{
-			public string NameAscii;
+			[TagField(Length = 32)] public string NameAscii;
 			public StringId Name;
 			public StringId Description;
 			public List<GeneralSetting> GeneralSettings;
