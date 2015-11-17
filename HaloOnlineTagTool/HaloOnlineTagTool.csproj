@@ -58,6 +58,7 @@
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
+    <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
     <Compile Include="Common\NamingConvention.cs" />
     <Compile Include="Layouts\ArrayTagLayoutField.cs" />
     <Compile Include="Layouts\BasicTagLayoutField.cs" />

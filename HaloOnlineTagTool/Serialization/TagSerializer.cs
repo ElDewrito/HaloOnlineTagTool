@@ -220,9 +220,13 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			if (valueInfo == null || valueInfo.Length == 0)
 				throw new ArgumentException("Cannot serialize a string with no length set");
-			var bytes = Encoding.ASCII.GetBytes(str);
-			var clampedLength = Math.Min(valueInfo.Length - 1, bytes.Length);
-			writer.Write(bytes, 0, clampedLength);
+			var clampedLength = 0;
+			if (str != null)
+			{
+				var bytes = Encoding.ASCII.GetBytes(str);
+				clampedLength = Math.Min(valueInfo.Length - 1, bytes.Length);
+				writer.Write(bytes, 0, clampedLength);
+			}
 			for (var i = clampedLength; i < valueInfo.Length; i++)
 				writer.Write((byte)0);
 		}

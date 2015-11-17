@@ -14,7 +14,8 @@ namespace HaloOnlineTagTool.TagStructures
 	public class Bitmap
 	{
 		public int Unknown0;
-		public int Unknown4;
+		public RuntimeFlags Flags;
+		public short Unknown6;
 		public int Unknown8;
 		public int UnknownC;
 		public int Unknown10;
@@ -32,7 +33,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown58;
 		public int Unknown5C;
 		public int Unknown60;
-		public List<TagBlock4> Unknown64;
+		public List<Sequence> Sequences;
 		public List<Image> Images;
 		public int Unknown7C;
 		public int Unknown80;
@@ -50,6 +51,15 @@ namespace HaloOnlineTagTool.TagStructures
 		public int UnknownB0;
 		[MaxVersion(EngineVersion.V1_106708_cert_ms23)]
 		public int UnknownB4;
+
+		[Flags]
+		public enum RuntimeFlags : ushort
+		{
+			/// <summary>
+			/// Indicates that the renderer should look in the <see cref="Resources"/> block to get the image data.
+			/// </summary>
+			UseResource = 1 << 4,
+		}
 
 		[TagStructure(Size = 0x8)]
 		public class TagBlock0
@@ -106,34 +116,30 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x40)]
-		public class TagBlock4
+		public class Sequence
 		{
-			public int Unknown0;
-			public int Unknown4;
-			public int Unknown8;
-			public int UnknownC;
-			public int Unknown10;
-			public int Unknown14;
-			public int Unknown18;
-			public int Unknown1C;
-			public int Unknown20;
-			public int Unknown24;
-			public int Unknown28;
-			public int Unknown2C;
-			public int Unknown30;
-			public List<TagBlock5> Unknown34;
+			[TagField(Length = 32)]
+			public string Name;
+			public short FirstBitmapIndex;
+			public short BitmapCount;
+			public uint Unknown;
+			public uint Unknown2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public List<Sprite> Sprites;
 
 			[TagStructure(Size = 0x20)]
-			public class TagBlock5
+			public class Sprite
 			{
-				public int Unknown0;
-				public int Unknown4;
-				public int Unknown8;
-				public int UnknownC;
-				public int Unknown10;
-				public int Unknown14;
-				public int Unknown18;
-				public int Unknown1C;
+				public short BitmapIndex;
+				public short Unknown;
+				public uint Unknown2;
+				public float Left;
+				public float Right;
+				public float Top;
+				public float Bottom;
+				public float RegistrationPointX;
+				public float RegistrationPointY;
 			}
 		}
 
@@ -153,7 +159,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short OriginX;
 			public short OriginY;
 			public sbyte MipmapCount;
-			public sbyte Unknown15;
+			public byte Unknown15; // Unknown35 in the definition data
 			public sbyte Unknown16;
 			public sbyte Unknown17;
 			public int DataOffset;

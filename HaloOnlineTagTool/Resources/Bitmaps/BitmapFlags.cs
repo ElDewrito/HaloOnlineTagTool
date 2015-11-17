@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 	{
 		None = 0,
 
-		Unknown0 = 1 << 0,
+		PowerOfTwoDimensions = 1 << 0,
 
 		/// <summary>
 		/// The texture is in a "compressed" format (DXT, DXN, etc.).

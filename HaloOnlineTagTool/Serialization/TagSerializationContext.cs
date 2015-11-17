@@ -22,6 +22,7 @@ namespace HaloOnlineTagTool.Serialization
 		private readonly List<TagFixup> _dataFixups = new List<TagFixup>();
 		private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
 		private readonly HashSet<int> _dependencies = new HashSet<int>();
+		private bool _newTag = false;
 
 		/// <summary>
 		/// Creates a tag serialization context which serializes data into a new tag.
@@ -59,12 +60,23 @@ namespace HaloOnlineTagTool.Serialization
 			_dataFixups.Clear();
 			_resourceFixups.Clear();
 			_dependencies.Clear();
+			if (Tag == null)
+			{
+				// Creating a new tag - set up an empty description for it
+				Tag = new HaloTag
+				{
+					Index = _cache.Tags.Count,
+					GroupTag = info.GroupTag,
+					ParentGroupTag = info.ParentGroupTag,
+					GrandparentGroupTag = info.GrandparentGroupTag
+				};
+				_newTag = true;
+			}
 		}
 
 		public void EndSerialize(TagStructureInfo info, byte[] data, uint mainStructOffset)
 		{
-			if (Tag == null)
-				Tag = new HaloTag();
+			// Set up the tag description
 			Tag.DataFixups.Clear();
 			Tag.ResourceFixups.Clear();
 			Tag.Dependencies.Clear();
@@ -75,7 +87,7 @@ namespace HaloOnlineTagTool.Serialization
 			Tag.GroupTag = info.GroupTag;
 			Tag.ParentGroupTag = info.ParentGroupTag;
 			Tag.GrandparentGroupTag = info.GrandparentGroupTag;
-			if (Tag.Index >= 0)
+			if (!_newTag)
 			{
 				_cache.OverwriteTag(_stream, Tag, data);
 				_cache.UpdateTag(_stream, Tag);
@@ -83,6 +95,7 @@ namespace HaloOnlineTagTool.Serialization
 			else
 			{
 				_cache.AddTag(_stream, Tag, data);
+				_newTag = false;
 			}
 		}
 
@@ -118,7 +131,7 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			private readonly TagSerializationContext _context;
 			private readonly List<TagFixup> _fixups = new List<TagFixup>();
-			private readonly List<TagFixup> _resourceFixups = new List<TagFixup>(); 
+			private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
 
 			public TagDataBlock(TagSerializationContext context)
 			{
@@ -154,6 +167,11 @@ namespace HaloOnlineTagTool.Serialization
 				var type = obj.GetType();
 				if (type == typeof(ResourceDataReference) || (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(D3DPointer<>)))
 					throw new InvalidOperationException(type + " cannot be serialized as tag data");
+
+				// HACK: If the object is a ResourceReference, fix the Owner property
+				var resource = obj as ResourceReference;
+				if (resource != null)
+					resource.Owner = _context.Tag;
 
 				if (type == typeof(HaloTag))
 				{

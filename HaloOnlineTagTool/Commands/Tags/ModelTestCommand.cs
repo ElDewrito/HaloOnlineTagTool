@@ -149,10 +149,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 			using (var cacheStream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
 			{
-				// Correct the resource owner
 				var tag = _cache.Tags[0x3317];
-				renderModel.Geometry.Resource.Owner = tag;
-
 				var context = new TagSerializationContext(cacheStream, _cache, tag);
 				_info.Serializer.Serialize(context, renderModel);
 			}

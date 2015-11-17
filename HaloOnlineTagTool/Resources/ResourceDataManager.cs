@@ -45,6 +45,17 @@ namespace HaloOnlineTagTool.Resources
 		}
 
 		/// <summary>
+		/// Loads a resource cache from a directory using its default name.
+		/// </summary>
+		/// <param name="directory">The directory to find the cache in.</param>
+		/// <param name="cache">The type of cache to load.</param>
+		public void LoadCacheFromDirectory(string directory, ResourceLocation cache)
+		{
+			var path = Path.Combine(directory, _cacheNames[cache]);
+			LoadCache(cache, path);
+		}
+
+		/// <summary>
 		/// Loads resource caches from a directory using their default filenames.
 		/// </summary>
 		/// <param name="directory">The directory to find files in.</param>

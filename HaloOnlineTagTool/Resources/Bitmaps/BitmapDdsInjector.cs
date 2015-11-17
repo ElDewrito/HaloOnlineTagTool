@@ -21,12 +21,40 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 
 		public void InjectDds(TagSerializer serializer, TagDeserializer deserializer, Bitmap bitmap, int imageIndex, Stream ddsStream)
 		{
-			// Deserialize the old definition
-			var resourceContext = new ResourceSerializationContext(bitmap.Resources[imageIndex].Resource);
-			var definition = deserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
+			var resource = bitmap.Resources[imageIndex].Resource;
+			var newResource = (resource == null);
+			ResourceSerializationContext resourceContext;
+			BitmapTextureResourceDefinition definition;
+			if (newResource)
+			{
+				// Create a new resource reference
+				resource = new ResourceReference
+				{
+					DefinitionFixups = new List<ResourceDefinitionFixup>(),
+					D3DObjectFixups = new List<D3DObjectFixup>(),
+					Type = 1, // TODO: Map out this type enum instead of using numbers
+					Unknown68 = 1
+				};
+				bitmap.Resources[imageIndex].Resource = resource;
+				resourceContext = new ResourceSerializationContext(resource);
+				definition = new BitmapTextureResourceDefinition
+				{
+					Texture = new D3DPointer<BitmapTextureResourceDefinition.BitmapDefinition>
+					{
+						Definition = new BitmapTextureResourceDefinition.BitmapDefinition()
+					}
+				};
+			}
+			else
+			{
+				// Deserialize the old definition
+				resourceContext = new ResourceSerializationContext(resource);
+				definition = deserializer.Deserialize<BitmapTextureResourceDefinition>(resourceContext);
+			}
 			if (definition.Texture == null || definition.Texture.Definition == null)
 				throw new ArgumentException("Invalid bitmap definition");
 			var texture = definition.Texture.Definition;
+			var imageData = bitmap.Images[imageIndex];
 
 			// Read the DDS header and modify the definition to match
 			var dds = DdsHeader.Read(ddsStream);
@@ -41,27 +69,31 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			texture.Format = BitmapDdsFormatDetection.DetectFormat(dds);
 
 			// Set flags based on the format
-			switch (definition.Texture.Definition.Format)
+			switch (texture.Format)
 			{
 				case BitmapFormat.Dxt1:
 				case BitmapFormat.Dxt3:
 				case BitmapFormat.Dxt5:
 				case BitmapFormat.Dxn:
-					definition.Texture.Definition.Flags = BitmapFlags.Compressed;
+					texture.Flags = BitmapFlags.Compressed;
 					break;
 				default:
-					definition.Texture.Definition.Flags = BitmapFlags.None;
+					texture.Flags = BitmapFlags.None;
 					break;
 			}
+			if ((texture.Width & (texture.Width - 1)) == 0 && (texture.Height & (texture.Height - 1)) == 0)
+				texture.Flags |= BitmapFlags.PowerOfTwoDimensions;
 
-			// Inject the resource data
-			_resourceManager.Replace(bitmap.Resources[imageIndex].Resource, ddsStream);
+			// If creating a new image, then add a new resource, otherwise replace the existing one
+			if (newResource)
+				_resourceManager.Add(resource, ResourceLocation.Textures, ddsStream);
+			else
+				_resourceManager.Replace(resource, ddsStream);
 
 			// Serialize the new resource definition
 			serializer.Serialize(resourceContext, definition);
 
 			// Modify the image data in the bitmap tag to match the definition
-			var imageData = bitmap.Images[imageIndex];
 			imageData.Width = texture.Width;
 			imageData.Height = texture.Height;
 			imageData.Depth = texture.Depth;
@@ -71,6 +103,7 @@ namespace HaloOnlineTagTool.Resources.Bitmaps
 			imageData.MipmapCount = (sbyte)(texture.Levels - 1);
 			imageData.DataOffset = texture.Data.Address.Offset;
 			imageData.DataSize = texture.Data.Size;
+			imageData.Unknown15 = texture.Unknown35;
 		}
 	}
 }
