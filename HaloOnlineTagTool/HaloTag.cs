@@ -20,10 +20,11 @@ namespace HaloOnlineTagTool
 			Dependencies = new HashSet<int>();
 			DataFixups = new List<TagFixup>();
 			ResourceFixups = new List<TagFixup>();
+			Index = -1;
 		}
 
 		/// <summary>
-		/// Gets the tag's index.
+		/// Gets the tag's index, or -1 if it is not in the table.
 		/// </summary>
 		public int Index { get; internal set; }
 

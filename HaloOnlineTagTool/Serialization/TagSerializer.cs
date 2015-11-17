@@ -31,21 +31,21 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Serializes a tag structure into a context.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStructure">The tag structure.</param>
-		public void Serialize<T>(ISerializationContext context, T tagStructure)
+		public void Serialize(ISerializationContext context, object tagStructure)
 		{
 			// Serialize the structure to a data block
-			context.BeginSerialize();
+			var info = new TagStructureInfo(tagStructure.GetType(), _version);
+			context.BeginSerialize(info);
 			var tagStream = new MemoryStream();
 			var structBlock = context.CreateBlock();
-			SerializeStruct(context, tagStream, structBlock, tagStructure);
+			SerializeStruct(context, tagStream, structBlock, info, tagStructure);
 
 			// Finalize the block and write all of the tag data out
 			var mainStructOffset = structBlock.Finalize(tagStream);
 			var data = tagStream.ToArray();
-			context.EndSerialize(data, mainStructOffset);
+			context.EndSerialize(info, data, mainStructOffset);
 		}
 
 		/// <summary>
@@ -54,20 +54,20 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="context">The serialization context to use.</param>
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
+		/// <param name="info">Information about the tag structure type.</param>
 		/// <param name="structure">The structure to serialize.</param>
 		/// <exception cref="System.InvalidOperationException">Structure type must have TagStructureAttribute</exception>
-		private void SerializeStruct(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object structure)
+		private void SerializeStruct(ISerializationContext context, MemoryStream tagStream, IDataBlock block, TagStructureInfo info, object structure)
 		{
-			var structType = structure.GetType();
 			var baseOffset = block.Stream.Position;
-			var enumerator = new TagFieldEnumerator(structType, _version);
+			var enumerator = new TagFieldEnumerator(info);
 			while (enumerator.Next())
 				SerializeProperty(context, tagStream, block, structure, enumerator, baseOffset);
 
 			// Honor the struct size if it's defined
-			if (enumerator.Structure.Size > 0)
+			if (enumerator.Info.TotalSize > 0)
 			{
-				block.Stream.Position = baseOffset + enumerator.Structure.Size;
+				block.Stream.Position = baseOffset + enumerator.Info.TotalSize;
 				if (block.Stream.Position > block.Stream.Length)
 					block.Stream.SetLength(block.Stream.Position);
 			}
@@ -207,7 +207,7 @@ namespace HaloOnlineTagTool.Serialization
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
 				SerializeRange(block, val);
 			else
-				SerializeStruct(context, tagStream, block, val);
+				SerializeStruct(context, tagStream, block, new TagStructureInfo(val.GetType(), _version), val);
 		}
 
 		/// <summary>

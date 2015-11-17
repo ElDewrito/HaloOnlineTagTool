@@ -27,24 +27,23 @@ namespace HaloOnlineTagTool.Serialization
 			_resource = resource;
 		}
 
-		public void BeginSerialize()
+		public void BeginSerialize(TagStructureInfo info)
 		{
 			_fixups.Clear();
 			_d3dFixups.Clear();
 		}
 
-		public void EndSerialize(byte[] data, uint mainStructOffset)
+		public void EndSerialize(TagStructureInfo info, byte[] data, uint mainStructOffset)
 		{
 			_resource.DefinitionFixups.Clear();
 			_resource.D3DObjectFixups.Clear();
 			_resource.DefinitionFixups.AddRange(_fixups);
 			_resource.D3DObjectFixups.AddRange(_d3dFixups);
-
 			_resource.DefinitionData = data;
 			_resource.DefinitionAddress = new ResourceAddress(ResourceAddressType.Definition, (int)mainStructOffset);
 		}
 
-		public BinaryReader BeginDeserialize()
+		public BinaryReader BeginDeserialize(TagStructureInfo info)
 		{
 			if (_resource.DefinitionAddress.Value == 0 || _resource.DefinitionAddress.Type != ResourceAddressType.Definition)
 				throw new InvalidOperationException("Invalid resource definition address");
@@ -64,7 +63,7 @@ namespace HaloOnlineTagTool.Serialization
 			return new BinaryReader(stream);
 		}
 
-		public void EndDeserialize(object obj)
+		public void EndDeserialize(TagStructureInfo info, object obj)
 		{
 		}
 

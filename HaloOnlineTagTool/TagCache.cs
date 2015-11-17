@@ -177,6 +177,36 @@ namespace HaloOnlineTagTool
 
 		/// <summary>
 		/// Adds a tag to the file.
+		/// Any pointers in the data to write will be adjusted to be relative to the start of the tag's header.
+		/// </summary>
+		/// <param name="stream">The stream to write to.</param>
+		/// <param name="tag">A description of the tag to create.</param>
+		/// <param name="data">The data, not including the header.</param>
+		/// <returns>The index of the tag that was added.</returns>
+		public int AddTag(Stream stream, HaloTag tag, byte[] data)
+		{
+			// Reserve space for the tag
+			var newTagOffset = GetTagDataEndOffset();
+			var headerSize = CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
+			var totalSize = headerSize + data.Length;
+			StreamUtil.Copy(stream, newTagOffset, newTagOffset + totalSize, stream.Length - newTagOffset);
+			tag.Size = (uint)data.Length;
+			tag.Offset = newTagOffset + headerSize;
+			_headerOffsets.Add(newTagOffset);
+
+			// Write the data in
+			stream.Position = tag.Offset;
+			stream.Write(data, 0, data.Length);
+
+			// Add the tag to the tag list and then update it
+			tag.Index = _tags.Count;
+			_tags.Add(tag);
+			UpdateTag(stream, tag);
+			return tag.Index;
+		}
+
+		/// <summary>
+		/// Adds a tag to the file.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="data">The tag data. Must include the header.</param>

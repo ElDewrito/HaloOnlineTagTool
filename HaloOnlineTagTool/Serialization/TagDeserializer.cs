@@ -36,10 +36,22 @@ namespace HaloOnlineTagTool.Serialization
 		/// <returns>The object that was read.</returns>
 		public T Deserialize<T>(ISerializationContext context)
 		{
-			// TODO: Add support for tag inheritance
-			var reader = context.BeginDeserialize();
-			var result = (T)DeserializeStruct(reader, context, typeof(T));
-			context.EndDeserialize(result);
+			var result = Deserialize(context, typeof(T));
+			return (T)Convert.ChangeType(result, typeof(T));
+		}
+
+		/// <summary>
+		/// Deserializes tag data into an object.
+		/// </summary>
+		/// <param name="context">The serialization context to use.</param>
+		/// <param name="structureType">The type of object to deserialize the tag data as.</param>
+		/// <returns>The object that was read.</returns>
+		public object Deserialize(ISerializationContext context, Type structureType)
+		{
+			var info = new TagStructureInfo(structureType, _version);
+			var reader = context.BeginDeserialize(info);
+			var result = DeserializeStruct(reader, context, info);
+			context.EndDeserialize(info, result);
 			return result;
 		}
 
@@ -48,18 +60,18 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="reader">The reader.</param>
 		/// <param name="context">The serialization context to use.</param>
-		/// <param name="structType">The type of the structure to deserialize.</param>
+		/// <param name="info">Information about the structure to deserialize.</param>
 		/// <returns>The deserialized structure.</returns>
 		/// <exception cref="System.InvalidOperationException">Target type must have TagStructureAttribute</exception>
-		private object DeserializeStruct(BinaryReader reader, ISerializationContext context, Type structType)
+		private object DeserializeStruct(BinaryReader reader, ISerializationContext context, TagStructureInfo info)
 		{
 			var baseOffset = reader.BaseStream.Position;
-			var instance = Activator.CreateInstance(structType);
-			var enumerator = new TagFieldEnumerator(structType, _version);
+			var instance = Activator.CreateInstance(info.Types[0]);
+			var enumerator = new TagFieldEnumerator(info);
 			while (enumerator.Next())
 				DeserializeProperty(reader, context, instance, enumerator, baseOffset);
-			if (enumerator.Structure.Size > 0)
-				reader.BaseStream.Position = baseOffset + enumerator.Structure.Size;
+			if (enumerator.Info.TotalSize > 0)
+				reader.BaseStream.Position = baseOffset + enumerator.Info.TotalSize;
 			return instance;
 		}
 
@@ -202,7 +214,7 @@ namespace HaloOnlineTagTool.Serialization
 				return DeserializeRange(reader, valueType);
 
 			// Assume the value is a structure
-			return DeserializeStruct(reader, context, valueType);
+			return DeserializeStruct(reader, context, new TagStructureInfo(valueType, _version));
 		}
 
 		/// <summary>

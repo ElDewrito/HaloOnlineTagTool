@@ -132,6 +132,8 @@
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
+    <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="TagStructures\TagStructureTypes.cs" />
     <Compile Include="TagStructures\Device.cs" />
     <Compile Include="TagStructures\GameObject.cs" />
     <Compile Include="TagStructures\Item.cs" />

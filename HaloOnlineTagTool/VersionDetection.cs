@@ -99,6 +99,22 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Determines whether a version number is between two other version numbers (inclusive).
+		/// </summary>
+		/// <param name="compare">The version number to compare. If this is <see cref="EngineVersion.Unknown"/>, this function will always return <c>true</c>.</param>
+		/// <param name="min">The minimum version number. If this is <see cref="EngineVersion.Unknown"/>, then the lower bound will be ignored.</param>
+		/// <param name="max">The maximum version number. If this is <see cref="EngineVersion.Unknown"/>, then the upper bound will be ignored.</param>
+		/// <returns></returns>
+		public static bool IsBetween(EngineVersion compare, EngineVersion min, EngineVersion max)
+		{
+			if (compare == EngineVersion.Unknown)
+				return true;
+			if (min != EngineVersion.Unknown && Compare(compare, min) < 0)
+				return false;
+			return (max == EngineVersion.Unknown || Compare(compare, max) <= 0);
+		}
+
+		/// <summary>
 		/// Detects the engine that a tags.dat was built for based on its timestamp.
 		/// </summary>
 		/// <param name="timestamp">The timestamp.</param>

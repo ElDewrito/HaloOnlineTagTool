@@ -15,26 +15,30 @@ namespace HaloOnlineTagTool.Serialization
 		/// <summary>
 		/// Begins serializing tag data.
 		/// </summary>
-		void BeginSerialize();
+		/// <param name="info">Information about the structure that is being serialized.</param>
+		void BeginSerialize(TagStructureInfo info);
 
 		/// <summary>
 		/// Finishes serializing tag data.
 		/// </summary>
+		/// <param name="info">Information about the structure that was serialized.</param>
 		/// <param name="data">The data that was serialized.</param>
 		/// <param name="mainStructOffset">The offset of the main structure within the data.</param>
-		void EndSerialize(byte[] data, uint mainStructOffset);
+		void EndSerialize(TagStructureInfo info, byte[] data, uint mainStructOffset);
 
 		/// <summary>
 		/// Begins deserializing tag data.
 		/// </summary>
+		/// <param name="info">Information about the structure that is being deserialized.</param>
 		/// <returns>The reader to read from.</returns>
-		BinaryReader BeginDeserialize();
+		BinaryReader BeginDeserialize(TagStructureInfo info);
 
 		/// <summary>
 		/// Finishes deserializing tag data.
 		/// </summary>
+		/// <param name="info">Information about the structure that was deserialized.</param>
 		/// <param name="obj">The resulting object.</param>
-		void EndDeserialize(object obj);
+		void EndDeserialize(TagStructureInfo info, object obj);
 
 		/// <summary>
 		/// Converts an address to an offset.
