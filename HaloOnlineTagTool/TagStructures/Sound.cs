@@ -9,7 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "snd!", Size = 0xD8)]
+	[TagStructure(Class = "snd!", Size = 0xD8, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Class = "snd!", Size = 0xD4, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Sound
 	{
 		public uint Flags;
@@ -60,7 +61,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<Language> Languages;
 		public ResourceReference Resource;
 		public int UselessPadding;
-		public uint Unknown11;
+		[MaxVersion(EngineVersion.V10_1_449175_Live)] public uint Unknown11;
 
 		public enum SoundClassValue : sbyte
 		{

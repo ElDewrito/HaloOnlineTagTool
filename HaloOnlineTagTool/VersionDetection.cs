@@ -45,6 +45,40 @@ namespace HaloOnlineTagTool
 		}
 
 		/// <summary>
+		/// Detects the engine that a tags.dat was built for based on its timestamp.
+		/// </summary>
+		/// <param name="timestamp">The timestamp.</param>
+		/// <param name="closestGuess">On return, the closest guess for the engine's version.</param>
+		/// <returns>The engine version if the timestamp matched directly, otherwise <see cref="EngineVersion.Unknown"/>.</returns>
+		public static EngineVersion DetectVersionFromTimestamp(long timestamp, out EngineVersion closestGuess)
+		{
+			var index = Array.BinarySearch(VersionTimestamps, timestamp);
+			if (index >= 0)
+			{
+				// Version matches a timestamp directly
+				closestGuess = (EngineVersion)index;
+				return closestGuess;
+			}
+
+			// Match the closest timestamp
+			index = Math.Max(0, Math.Min(~index - 1, VersionTimestamps.Length - 1));
+			closestGuess = (EngineVersion)index;
+			return EngineVersion.Unknown;
+		}
+
+		/// <summary>
+		/// Gets the timestamp for a version.
+		/// </summary>
+		/// <param name="version">The version.</param>
+		/// <returns>The timestamp, or -1 for <see cref="EngineVersion.Unknown"/>.</returns>
+		public static long GetTimestamp(EngineVersion version)
+		{
+			if (version == EngineVersion.Unknown)
+				return -1;
+			return VersionTimestamps[(int)version];
+		}
+
+		/// <summary>
 		/// Gets the version string corresponding to an <see cref="EngineVersion"/> value.
 		/// </summary>
 		/// <param name="version">The version.</param>
@@ -112,28 +146,6 @@ namespace HaloOnlineTagTool
 			if (min != EngineVersion.Unknown && Compare(compare, min) < 0)
 				return false;
 			return (max == EngineVersion.Unknown || Compare(compare, max) <= 0);
-		}
-
-		/// <summary>
-		/// Detects the engine that a tags.dat was built for based on its timestamp.
-		/// </summary>
-		/// <param name="timestamp">The timestamp.</param>
-		/// <param name="closestGuess">On return, the closest guess for the engine's version.</param>
-		/// <returns>The engine version if the timestamp matched directly, otherwise <see cref="EngineVersion.Unknown"/>.</returns>
-		private static EngineVersion DetectVersionFromTimestamp(long timestamp, out EngineVersion closestGuess)
-		{
-			var index = Array.BinarySearch(VersionTimestamps, timestamp);
-			if (index >= 0)
-			{
-				// Version matches a timestamp directly
-				closestGuess = (EngineVersion)index;
-				return closestGuess;
-			}
-
-			// Match the closest timestamp
-			index = Math.Max(0, Math.Min(~index - 1, VersionTimestamps.Length - 1));
-			closestGuess = (EngineVersion)index;
-			return EngineVersion.Unknown;
 		}
 
 		/// <summary>

@@ -21,8 +21,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public float Unknown5;
 		public float Unknown6;
 		public float Unknown7;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown8;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public int Unknown9;
+		public float Unknown8;
+		public int Unknown9;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public float Unknown10;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public int Unknown11;
 		public List<AtmosphereProperty> AtmosphereProperties;
 		public List<UnderwaterBlock> Underwater;
 

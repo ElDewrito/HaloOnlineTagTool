@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
+    <Compile Include="Commands\Tags\MatchTagsCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
     <Compile Include="Common\NamingConvention.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="TagVersionMap.cs" />
     <Compile Include="TagStructures\TagStructureTypes.cs" />
     <Compile Include="TagStructures\Device.cs" />
     <Compile Include="TagStructures\GameObject.cs" />

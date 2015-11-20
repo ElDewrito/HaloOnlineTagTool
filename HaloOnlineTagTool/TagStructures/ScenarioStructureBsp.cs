@@ -265,7 +265,8 @@ namespace HaloOnlineTagTool.TagStructures
 			}
 		}
 
-		[TagStructure(Size = 0xDC)]
+		[TagStructure(Size = 0xDC, MaxVersion = EngineVersion.V10_1_449175_Live)]
+		[TagStructure(Size = 0xE0, MinVersion = EngineVersion.V11_1_498295_Live)]
 		public class Cluster
 		{
 			public float BoundsXMin;
@@ -287,6 +288,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown7;
 			public short RuntimeDecalStartIndex;
 			public short RuntimeDecalEntryCount;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public short Unknown26;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public short Unknown27;
 			public short Flags;
 			public uint Unknown8;
 			public uint Unknown9;
