@@ -556,10 +556,10 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x10)]
 		public class PolyhedronPlaneEquation
 		{
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
+			public float Unknown;
+			public float Unknown2;
+			public float Unknown3;
+			public float Unknown4;
 		}
 
 		[TagStructure(Size = 0x50)]

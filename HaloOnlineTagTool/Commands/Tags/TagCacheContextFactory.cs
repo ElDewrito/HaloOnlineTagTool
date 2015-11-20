@@ -24,6 +24,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new ResourceDataCommand());
 			context.AddCommand(new TagBlockCommand(info));
 			context.AddCommand(new ImportBitmapCommand(info));
+			context.AddCommand(new PhysicsModelTestCommand(info));
 			context.AddCommand(new MatchTagsCommand(info));
 			if (info.StringIds != null)
 			{
