@@ -139,6 +139,9 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="TagStructures\LeafSystem.cs" />
+    <Compile Include="TagStructures\RenderMethod.cs" />
+    <Compile Include="TagStructures\ShaderCustom.cs" />
     <Compile Include="TagVersionMap.cs" />
     <Compile Include="TagStructures\TagStructureTypes.cs" />
     <Compile Include="TagStructures\Device.cs" />
