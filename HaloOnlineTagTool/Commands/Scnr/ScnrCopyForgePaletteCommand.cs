@@ -34,7 +34,7 @@ namespace HaloOnlineTagTool.Commands.Scnr
 
             Scenario destinationScenario = null;
 
-            using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.Read))
+            using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, destinationTag);
                 destinationScenario = Info.Deserializer.Deserialize<Scenario>(scenarioContext);
@@ -49,7 +49,7 @@ namespace HaloOnlineTagTool.Commands.Scnr
             destinationScenario.SandboxVehicles = SourceScenario.SandboxVehicles;
             destinationScenario.SandboxWeapons = SourceScenario.SandboxWeapons;
 
-            using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.Write))
+            using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, destinationTag);
                 Info.Serializer.Serialize(scenarioContext, destinationScenario);
