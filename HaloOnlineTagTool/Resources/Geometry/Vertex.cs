@@ -132,9 +132,9 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		public Vector4 Position { get; set; }
 		public Vector2 Texcoord { get; set; }
 		public Vector4 Normal { get; set; }
-		public short[] Texcoord2 { get; set; }
+		/*public short[] Texcoord2 { get; set; }
 		public Vector4 Texcoord3 { get; set; }
-		public Vector4 Texcoord4 { get; set; }
+		public Vector4 Texcoord4 { get; set; }*/
 	}
 
 	public class TinyPositionVertex

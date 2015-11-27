@@ -13,14 +13,15 @@ namespace HaloOnlineTagTool.TagStructures
 	public class PixelShader
 	{
 		public uint Unknown;
-		public List<UnknownBlock> Unknown2;
+		public List<DrawMode> DrawModes;
 		public uint Unknown3;
 		public List<PixelShader2> PixelShaders;
 
 		[TagStructure(Size = 0x2)]
-		public class UnknownBlock
+		public class DrawMode
 		{
-			public short Unknown;
+			public byte Index;
+			public byte Count;
 		}
 
 		[TagStructure(Size = 0x50)]

@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		private readonly OpenTagCache _info;
 
 		public MatchTagsCommand(OpenTagCache info) : base(
-			CommandFlags.None,
+			CommandFlags.Inherit,
 
 			"matchtags",
 			"Find equivalent tags in different engine versions",
@@ -46,7 +46,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				Console.WriteLine("Loading {0}...", path);
 
 				// Load the cache file
-				var info = new OpenTagCache {CacheFile = new FileInfo(path)};
+				var info = new OpenTagCache { CacheFile = new FileInfo(path) };
 				using (var stream = info.OpenCacheRead())
 					info.Cache = new TagCache(stream);
 
@@ -145,7 +145,12 @@ namespace HaloOnlineTagTool.Commands.Tags
 				// If the objects are tags, then we've found a match
 				var leftTag = (HaloTag)leftData;
 				var rightTag = (HaloTag)rightData;
-				if (leftTag.GroupTag != rightTag.GroupTag || result.Translate(leftVersion, leftTag.Index, rightVersion) >= 0)
+				if (leftTag.GroupTag != rightTag.GroupTag)
+					return;
+				if (leftTag.IsClass("rmt2") || leftTag.IsClass("rmdf") || leftTag.IsClass("vtsh") || leftTag.IsClass("pixl") || leftTag.IsClass("rm  ") || leftTag.IsClass("bitm"))
+					return;
+				var translated = result.Translate(leftVersion, leftTag.Index, rightVersion);
+				if (translated >= 0)
 					return;
 				result.Add(leftVersion, leftTag.Index, rightVersion, rightTag.Index);
 				tagQueue.Enqueue(new QueuedTag { Tag = rightTag });
@@ -171,7 +176,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				var getItem = type.GetMethod("get_Item");
 				for (var i = 0; i < leftCount; i++)
 				{
-					var leftItem = getItem.Invoke(leftData, new object[]{ i });
+					var leftItem = getItem.Invoke(leftData, new object[] { i });
 					var rightItem = getItem.Invoke(rightData, new object[] { i });
 					CompareBlocks(leftItem, leftVersion, rightItem, rightVersion, result, tagQueue);
 				}

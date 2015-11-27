@@ -122,6 +122,8 @@ namespace HaloOnlineTagTool
 				Console.WriteLine();
 				Console.Write("{0}> ", contextStack.GetPath());
 				var commandLine = Console.ReadLine();
+				if (commandLine == null)
+					break;
 				string redirectFile;
 				var commandArgs = ArgumentParser.ParseCommand(commandLine, out redirectFile);
 				if (commandArgs.Count == 0)

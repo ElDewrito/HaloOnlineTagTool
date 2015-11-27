@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public HaloTag Unknown;
 		public List<Method> Methods;
-		public List<UnknownBlock> Unknown2;
+		public List<DrawMode> DrawModes;
 		public List<UnknownBlock2> Unknown3;
 		public HaloTag Unknown4;
 		public HaloTag Unknown5;
@@ -40,9 +40,9 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x10)]
-		public class UnknownBlock
+		public class DrawMode
 		{
-			public uint Unknown;
+			public uint Mode;
 			public List<UnknownBlock2> Unknown2;
 
 			[TagStructure(Size = 0x10)]

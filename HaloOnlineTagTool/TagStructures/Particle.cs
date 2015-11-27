@@ -15,7 +15,11 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown;
 		public List<UnknownBlock> Unknown2;
 		public uint Unknown3;
-		public byte[] Unknown4;
+		public uint Unknown4;
+		public uint Unknown4_1;
+		public uint Unknown4_2;
+		public uint Unknown4_3;
+		public uint Unknown4_4;
 		public uint Unknown5;
 		public uint Unknown6;
 		public uint Unknown7;

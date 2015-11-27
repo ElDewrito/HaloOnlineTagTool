@@ -76,13 +76,13 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<EffectSceneryBlock2> EffectScenery2;
 		public List<LightVolume> LightVolumes;
 		public List<LightVolumesPaletteBlock> LightVolumesPalette;
-		public List<SandboxVehicle> SandboxVehicles;
-		public List<SandboxWeapon> SandboxWeapons;
-		public List<SandboxEquipmentBlock> SandboxEquipment;
-		public List<SandboxSceneryBlock> SandboxScenery;
-		public List<SandboxTeleporter> SandboxTeleporters;
-		public List<SandboxGoalObject> SandboxGoalObjects;
-		public List<SandboxSpawningBlock> SandboxSpawning;
+		public List<SandboxObject> SandboxVehicles;
+		public List<SandboxObject> SandboxWeapons;
+		public List<SandboxObject> SandboxEquipment;
+		public List<SandboxObject> SandboxScenery;
+		public List<SandboxObject> SandboxTeleporters;
+		public List<SandboxObject> SandboxGoalObjects;
+		public List<SandboxObject> SandboxSpawning;
 		public List<SoftCeiling> SoftCeilings;
 		public List<PlayerStartingProfileBlock> PlayerStartingProfile;
 		public List<PlayerStartingLocation> PlayerStartingLocations;
@@ -540,6 +540,7 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagField(Length = 32)] public string Name;
 			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
 			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
+			public byte Padding; // FIXME: This technically isn't padding and object type is a short here!
 			public short PlacementIndex;
 		}
 
@@ -2170,91 +2171,7 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x30)]
-		public class SandboxVehicle
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxWeapon
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxEquipmentBlock
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxSceneryBlock
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxTeleporter
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxGoalObject
-		{
-			public HaloTag Object;
-			public StringId Name;
-			public int MaxAllowed;
-			public float Cost;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class SandboxSpawningBlock
+		public class SandboxObject
 		{
 			public HaloTag Object;
 			public StringId Name;

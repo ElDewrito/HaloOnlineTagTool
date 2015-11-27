@@ -12,17 +12,28 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "glps", Size = 0x1C)]
 	public class GlobalPixelShader
 	{
-		public List<UnknownBlock> Unknown;
+		public List<DrawMode> DrawModes;
 		public uint Unknown2;
 		public List<PixelShader> PixelShaders;
 
 		[TagStructure(Size = 0x10)]
-		public class UnknownBlock
+		public class DrawMode
 		{
-			public uint Unknown;
+			public List<UnknownBlock2> Unknown;
 			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
+
+			[TagStructure(Size = 0x10)]
+			public class UnknownBlock2
+			{
+				public uint Unknown;
+				public List<UnknownBlock> Unknown2;
+
+				[TagStructure(Size = 0x4)]
+				public class UnknownBlock
+				{
+					public uint Unknown;
+				}
+			}
 		}
 
 		[TagStructure(Size = 0x50)]

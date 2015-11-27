@@ -20,10 +20,10 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0xC)]
 		public class UnknownBlock
 		{
-			public List<UnknownBlock2> Unknown;
+			public List<DrawMode> DrawModes;
 
 			[TagStructure(Size = 0x2)]
-			public class UnknownBlock2
+			public class DrawMode
 			{
 				public short Unknown;
 			}

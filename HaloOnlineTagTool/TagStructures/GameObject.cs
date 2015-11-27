@@ -12,6 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
 		[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
+		public byte Padding;
 		public ushort Flags;
 		public float BoundingRadius;
 		public float BoundingOffsetX;
@@ -296,8 +297,9 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 	}
 
-	public enum ObjectTypeValueOld : short
+	public enum ObjectTypeValueOld : sbyte
 	{
+		None = -1,
 		Biped,
 		Vehicle,
 		Weapon,
@@ -315,8 +317,9 @@ namespace HaloOnlineTagTool.TagStructures
 		EffectScenery,
 	}
 
-	public enum ObjectTypeValueNew : short
+	public enum ObjectTypeValueNew : sbyte
 	{
+		None = -1,
 		Biped,
 		Vehicle,
 		Weapon,

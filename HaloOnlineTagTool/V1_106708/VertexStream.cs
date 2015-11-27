@@ -305,9 +305,9 @@ namespace HaloOnlineTagTool.V1_106708
 				Position = new Vector4(_stream.ReadFloat3(), 0),
 				Texcoord = _stream.ReadFloat2(),
 				Normal = new Vector4(_stream.ReadFloat3(), 0),
-				Texcoord2 = _stream.ReadShort4(),
+				/*Texcoord2 = _stream.ReadShort4(),
 				Texcoord3 = _stream.ReadUByte4N(),
-				Texcoord4 = _stream.ReadUByte4N(),
+				Texcoord4 = _stream.ReadUByte4N(),*/
 			};
 		}
 
@@ -316,9 +316,9 @@ namespace HaloOnlineTagTool.V1_106708
 			_stream.WriteFloat3(v.Position.XYZ);
 			_stream.WriteFloat2(v.Texcoord);
 			_stream.WriteFloat3(v.Normal.XYZ);
-			_stream.WriteShort4(v.Texcoord2);
+			/*_stream.WriteShort4(v.Texcoord2);
 			_stream.WriteUByte4N(v.Texcoord3);
-			_stream.WriteUByte4N(v.Texcoord4);
+			_stream.WriteUByte4N(v.Texcoord4);*/
 		}
 
 		public TinyPositionVertex ReadTinyPositionVertex()

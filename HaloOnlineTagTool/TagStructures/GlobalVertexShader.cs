@@ -12,22 +12,22 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Class = "glvs", Size = 0x1C)]
 	public class GlobalVertexShader
 	{
-		public List<UnknownBlock> Unknown;
+		public List<VertexTypeShaders> VertexTypes;
 		public uint Unknown2;
 		public List<VertexShader> VertexShaders;
 
 		[TagStructure(Size = 0xC)]
-		public class UnknownBlock
+		public class VertexTypeShaders
 		{
-			public List<UnknownBlock2> Unknown;
+			public List<DrawMode> DrawModes;
 
 			[TagStructure(Size = 0x10)]
-			public class UnknownBlock2
+			public class DrawMode
 			{
 				public uint Unknown;
 				public uint Unknown2;
 				public uint Unknown3;
-				public uint Unknown4;
+				public int ShaderIndex;
 			}
 		}
 

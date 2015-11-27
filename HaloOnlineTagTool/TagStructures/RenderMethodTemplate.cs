@@ -14,10 +14,10 @@ namespace HaloOnlineTagTool.TagStructures
 	{
 		public HaloTag VertexShader;
 		public HaloTag PixelShader;
-		public uint Unknown;
-		public List<UnknownBlock> Unknown2;
+		public uint DrawModeBitmask;
+		public List<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
 		public List<UnknownBlock2> Unknown3;
-		public List<UnknownBlock3> Unknown4;
+		public List<ArgumentMapping> ArgumentMappings;
 		public List<Argument> Arguments;
 		public List<UnknownBlock4> Unknown5;
 		public List<UnknownBlock5> Unknown6;
@@ -27,9 +27,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown9;
 
 		[TagStructure(Size = 0x2)]
-		public class UnknownBlock
+		public class DrawMode
 		{
-			public short Unknown;
+			// rmt2 uses these pointers in both this block and UnknownBlock2.
+			public ushort UnknownBlock2Pointer;
 		}
 
 		[TagStructure(Size = 0x1C)]
@@ -44,10 +45,24 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown7;
 		}
 
+		/// <summary>
+		/// Binds an argument in the render method tag to a pixel shader constant.
+		/// </summary>
 		[TagStructure(Size = 0x4)]
-		public class UnknownBlock3
+		public class ArgumentMapping
 		{
-			public uint Unknown;
+			/// <summary>
+			/// The GPU register to bind the argument to.
+			/// </summary>
+			public ushort RegisterIndex;
+
+			/// <summary>
+			/// The index of the argument in one of the blocks in the render method tag.
+			/// The block used depends on the argument type.
+			/// </summary>
+			public byte ArgumentIndex;
+
+			public byte Unknown;
 		}
 
 		[TagStructure(Size = 0x4)]

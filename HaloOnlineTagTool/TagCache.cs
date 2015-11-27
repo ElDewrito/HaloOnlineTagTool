@@ -282,7 +282,7 @@ namespace HaloOnlineTagTool
 
 			// Resize at the end of the tag
 			var headerSize = GetHeaderSize(tag);
-			ResizeTag(stream, tag, headerSize + tag.Size, (int)(newSize - tag.Size), InsertOrigin.Before, ResizeMode.Resize);
+			ResizeTag(stream, tag, headerSize + tag.Size, (int)(newSize - tag.Size), (tag.Size > 0) ? InsertOrigin.Before : InsertOrigin.After, ResizeMode.Resize);
 
 			// Update only the header and tag offset table - a full update isn't needed
 			var writer = new BinaryWriter(stream);

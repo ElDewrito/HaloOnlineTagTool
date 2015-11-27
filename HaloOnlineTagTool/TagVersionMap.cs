@@ -96,6 +96,65 @@ namespace HaloOnlineTagTool
 			}
 		}
 
+		/// <summary>
+		/// Parses a map from a CSV.
+		/// </summary>
+		/// <param name="reader">The reader to read from.</param>
+		/// <returns>The map that was read.</returns>
+		public static TagVersionMap ParseCsv(TextReader reader)
+		{
+			var result = new TagVersionMap();
+
+			// Skip the first line, we don't need it
+			if (reader.ReadLine() == null)
+				return result;
+
+			// Read the timestamp list and resolve each one
+			var timestampLine = reader.ReadLine();
+			if (timestampLine == null)
+				return result;
+			var timestamps = timestampLine.Split(',').Select(t =>
+			{
+				long r;
+				if (long.TryParse(t, NumberStyles.HexNumber, null, out r))
+					return r;
+				return -1;
+			});
+			var versions = timestamps.Select(t =>
+			{
+				EngineVersion closest;
+				return VersionDetection.DetectVersionFromTimestamp(t, out closest);
+			}).ToArray();
+
+			// Read each line and store the tag indexes in the result map
+			while (true)
+			{
+				var line = reader.ReadLine();
+				if (line == null)
+					break;
+				if (string.IsNullOrWhiteSpace(line))
+					continue;
+
+				// Parse each tag index as a hex number
+				var tags = line.Split(',');
+				var tagIndexes = tags.Select(t =>
+				{
+					int r;
+					if (int.TryParse(t, NumberStyles.HexNumber, null, out r))
+						return r;
+					return -1;
+				}).ToArray();
+
+				// Now connect all of them to the first tag
+				for (var i = 1; i < tagIndexes.Length; i++)
+				{
+					if (tagIndexes[i] >= 0)
+						result.Add(versions[0], tagIndexes[0], versions[i], tagIndexes[i]);
+				}
+			}
+			return result;
+		}
+
 		private class VersionMap
 		{
 			private readonly List<int> _localIndexes = new List<int>();

@@ -48,9 +48,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown20;
 		public uint Unknown21;
 		public uint Unknown22;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown92;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown93;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown94;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown95;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown96;
+		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown97;
 		public List<DetailObject> DetailObjects;
 		public List<Cluster> Clusters;
 		public List<Material> Materials;
@@ -122,18 +122,18 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown74;
 		public uint Unknown75;
 		public GeometryReference Geometry2;
-		public uint Unknown85;
-		public uint Unknown86;
 		public List<LeafSystem> LeafSystems;
-		public uint Unknown87;
+		public uint Unknown88;
+		public uint Unknown89;
+		public uint Unknown90;
 		public ResourceReference Resource3;
 		public int UselessPading;
 		public ResourceReference Resource4;
 		public int UselessPadding3;
-		public int Unknown88;
-		public uint Unknown89;
-		public uint Unknown90;
-		public uint Unknown91;
+		public int Unknown91;
+		public uint Unknown92;
+		public uint Unknown93;
+		public uint Unknown94;
 
 		[TagStructure(Size = 0x18)]
 		public class CollisionMaterial
@@ -364,7 +364,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public sbyte SeamIndex;
 			}
 
-			[TagStructure(Size = 0x30)]
+			[TagStructure(Size = 0x34)]
 			public class DecoratorGrid
 			{
 				public short Amount;
@@ -381,6 +381,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public float BoundingSphereX;
 				public float BoundingSphereY;
 				public float BoundingSphereZ;
+				public uint Unknown2;
 			}
 
 			[TagStructure(Size = 0x4)]

@@ -286,9 +286,9 @@ namespace HaloOnlineTagTool.V1_235640
 				Position = _stream.ReadShort4N(),
 				Texcoord = _stream.ReadShort2N(),
 				Normal = _stream.ReadUByte4N(),
-				Texcoord2 = _stream.ReadShort4(),
+				/*Texcoord2 = _stream.ReadShort4(),
 				Texcoord3 = _stream.ReadUByte4N(),
-				Texcoord4 = _stream.ReadUByte4N(),
+				Texcoord4 = _stream.ReadUByte4N(),*/
 			};
 		}
 
@@ -297,9 +297,9 @@ namespace HaloOnlineTagTool.V1_235640
 			_stream.WriteShort4N(v.Position);
 			_stream.WriteShort2N(v.Texcoord);
 			_stream.WriteUByte4N(v.Normal);
-			_stream.WriteShort4(v.Texcoord2);
+			/*_stream.WriteShort4(v.Texcoord2);
 			_stream.WriteUByte4N(v.Texcoord3);
-			_stream.WriteUByte4N(v.Texcoord4);
+			_stream.WriteUByte4N(v.Texcoord4);*/
 		}
 
 		public TinyPositionVertex ReadTinyPositionVertex()

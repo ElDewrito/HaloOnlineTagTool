@@ -101,12 +101,12 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public Vector4 ReadUByte4N()
 		{
-			return new Vector4(Read(4, () => _reader.ReadByte() / 255.0f));
+			return new Vector4(Read(4, () => _reader.ReadByte() / 255.0f * 2.0f - 1.0f));
 		}
 
 		public void WriteUByte4N(Vector4 v)
 		{
-			Write(v.ToArray(), 4, e => _writer.Write((byte)(Clamp(e) * 255.0f)));
+			Write(v.ToArray(), 4, e => _writer.Write((byte)(Clamp((e + 1.0f) / 2.0f) * 255.0f)));
 		}
 
 		public Vector2 ReadShort2N()
@@ -131,22 +131,22 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
 		public Vector2 ReadUShort2N()
 		{
-			return new Vector2(Read(2, () => _reader.ReadUInt16() / 65535.0f));
+			return new Vector2(Read(2, () => _reader.ReadUInt16() / 65535.0f * 2.0f - 1.0f));
 		}
 
 		public void WriteUShort2N(Vector2 v)
 		{
-			Write(v.ToArray(), 2, e => _writer.Write((ushort)(Clamp(e) * 65535.0f)));
+			Write(v.ToArray(), 2, e => _writer.Write((ushort)(Clamp((e + 1.0f) / 2.0f) * 65535.0f)));
 		}
 
 		public Vector4 ReadUShort4N()
 		{
-			return new Vector4(Read(4, () => _reader.ReadUInt16() / 65535.0f));
+			return new Vector4(Read(4, () => _reader.ReadUInt16() / 65535.0f * 2.0f - 1.0f));
 		}
 
 		public void WriteUShort4N(Vector4 v)
 		{
-			Write(v.ToArray(), 4, e => _writer.Write((ushort)(Clamp(e) * 65535.0f)));
+			Write(v.ToArray(), 4, e => _writer.Write((ushort)(Clamp((e + 1.0f) / 2.0f) * 65535.0f)));
 		}
 
 		public Vector3 ReadUDec3()

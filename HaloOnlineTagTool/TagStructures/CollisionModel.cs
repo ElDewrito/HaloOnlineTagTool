@@ -22,11 +22,10 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<PathfindingSphere> PathfindingSpheres;
 		public List<Node> Nodes;
 
-		[TagStructure(Size = 0x8)]
+		[TagStructure(Size = 0x4)]
 		public class Material
 		{
 			public StringId Name;
-			public uint UnknownFlags;
 		}
 
 		[TagStructure(Size = 0x10)]
@@ -135,7 +134,7 @@ namespace HaloOnlineTagTool.TagStructures
 					}
 				}
 
-				[TagStructure(Size = 0x70)]
+				[TagStructure(Size = 0x80)]
 				public class BspPhysic
 				{
 					public uint Unknown;
@@ -169,6 +168,10 @@ namespace HaloOnlineTagTool.TagStructures
 					public short Count2;
 					public int Offset2;
 					public int Unknown24;
+					public uint Unknown25;
+					public uint Unknown26;
+					public uint Unknown27;
+					public uint Unknown28;
 				}
 
 				[TagStructure(Size = 0x40)]
