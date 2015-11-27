@@ -11,7 +11,7 @@ namespace HaloOnlineTagTool.Commands.Rmsh
     {
         public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, Shader shader)
         {
-            var context = new CommandContext(parent, string.Format("{0:X8}.scnr", tag.Index));
+            var context = new CommandContext(parent, string.Format("{0:X8}.rmsh", tag.Index));
             context.AddCommand(new RmshSpecifyBitmapsCommand(info, tag, shader));
             return context;
         }
