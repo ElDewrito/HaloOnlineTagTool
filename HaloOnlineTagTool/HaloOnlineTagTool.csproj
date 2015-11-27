@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
+    <Compile Include="Commands\Rmsh\RmshContextFactory.cs" />
+    <Compile Include="Commands\Rmsh\RmshSpecifyBitmapsCommand.cs" />
     <Compile Include="Commands\Scnr\ScnrContextFactory.cs" />
     <Compile Include="Commands\Scnr\ScnrCopyForgePaletteCommand.cs" />
     <Compile Include="Commands\Tags\MatchTagsCommand.cs" />

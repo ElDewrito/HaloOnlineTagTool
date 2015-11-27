@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands.Bitm;
 using HaloOnlineTagTool.Commands.Hlmt;
+using HaloOnlineTagTool.Commands.Rmsh;
 using HaloOnlineTagTool.Commands.Scnr;
 using HaloOnlineTagTool.Commands.Unic;
 using HaloOnlineTagTool.Commands.Vfsl;
@@ -61,6 +62,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 				case "hlmt":
 					EditHlmtTag(tag);
 					break;
+                case "rmsh":
+                    EditRmshTag(tag);
+                    break;
                 case "scnr":
                     EditScnrTag(tag);
                     break;
@@ -107,6 +111,15 @@ namespace HaloOnlineTagTool.Commands.Tags
             using (var stream = _info.OpenCacheRead())
                 model = _info.Deserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
             var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
+            _stack.Push(context);
+        }
+
+        private void EditRmshTag(HaloTag tag)
+        {
+            Shader shader;
+            using (var stream = _info.OpenCacheRead())
+                shader = _info.Deserializer.Deserialize<Shader>(new TagSerializationContext(stream, _cache, tag));
+            var context = RmshContextFactory.Create(_stack.Context, _info, tag, shader);
             _stack.Push(context);
         }
 
