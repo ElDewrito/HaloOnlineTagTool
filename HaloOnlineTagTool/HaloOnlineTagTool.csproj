@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
+    <Compile Include="Commands\Scnr\ScnrContextFactory.cs" />
+    <Compile Include="Commands\Scnr\ScnrCopyForgePaletteCommand.cs" />
     <Compile Include="Commands\Tags\MatchTagsCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
@@ -139,6 +141,9 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="TagStructures\LeafSystem.cs" />
+    <Compile Include="TagStructures\RenderMethod.cs" />
+    <Compile Include="TagStructures\ShaderCustom.cs" />
     <Compile Include="TagVersionMap.cs" />
     <Compile Include="TagStructures\TagStructureTypes.cs" />
     <Compile Include="TagStructures\Device.cs" />

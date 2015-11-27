@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands.Bitm;
 using HaloOnlineTagTool.Commands.Hlmt;
+using HaloOnlineTagTool.Commands.Scnr;
 using HaloOnlineTagTool.Commands.Unic;
 using HaloOnlineTagTool.Commands.Vfsl;
 using HaloOnlineTagTool.Serialization;
@@ -60,6 +61,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 				case "hlmt":
 					EditHlmtTag(tag);
 					break;
+                case "scnr":
+                    EditScnrTag(tag);
+                    break;
 				default:
 					Console.Error.WriteLine("Tag type \"" + tag.GroupTag + "\" is not supported.");
 					return true;
@@ -97,13 +101,22 @@ namespace HaloOnlineTagTool.Commands.Tags
 			_stack.Push(context);
 		}
 
-		private void EditHlmtTag(HaloTag tag)
-		{
-			Model model;
-			using (var stream = _info.OpenCacheRead())
-				model = _info.Deserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
-			var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
-			_stack.Push(context);
-		}
-	}
+        private void EditHlmtTag(HaloTag tag)
+        {
+            Model model;
+            using (var stream = _info.OpenCacheRead())
+                model = _info.Deserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
+            var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
+            _stack.Push(context);
+        }
+
+        private void EditScnrTag(HaloTag tag)
+        {
+            Scenario scenario;
+            using (var stream = _info.OpenCacheRead())
+                scenario = _info.Deserializer.Deserialize<Scenario>(new TagSerializationContext(stream, _cache, tag));
+            var context = ScnrContextFactory.Create(_stack.Context, _info, tag, scenario);
+            _stack.Push(context);
+        }
+    }
 }
