@@ -9,12 +9,12 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Scnr
 {
-    class ScnrCopyForgePaletteCommand : Command
+    class CopyForgePaletteCommand : Command
     {
         private OpenTagCache Info { get; }
         private Scenario SourceScenario { get; }
 
-        public ScnrCopyForgePaletteCommand(OpenTagCache info, Scenario sourceScenario)
+        public CopyForgePaletteCommand(OpenTagCache info, Scenario sourceScenario)
             : base(CommandFlags.Inherit,
                  "CopyForgePalette",
                  "Copies the forge palette from the current scenario to another scenario.",

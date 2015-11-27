@@ -9,31 +9,32 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Rmsh
 {
-    class RmshSpecifyBitmapsCommand : Command
+    class SpecifyBitmapsCommand : Command
     {
         public OpenTagCache Info { get; }
-        public HaloTag Tag { get; }
-        public Shader SourceShader { get; }
+        public HaloTag SourceTag { get; }
+        public RenderMethod SourceRenderMethod { get; }
 
-        public RmshSpecifyBitmapsCommand(OpenTagCache info, HaloTag tag, Shader sourceShader)
+        public SpecifyBitmapsCommand(OpenTagCache info, HaloTag sourceTag, RenderMethod sourceRenderMethod)
             : base(CommandFlags.Inherit,
                  "SpecifyBitmaps",
-                 "Allows the bitmaps of the rmsh to be respecified.",
+                 "Allows the bitmaps of the render_method to be respecified.",
                  "SpecifyBitmaps",
-                 "Allows the bitmaps of the rmsh to be respecified.")
+                 "Allows the bitmaps of the render_method to be respecified.")
         {
             Info = info;
-            SourceShader = sourceShader;
+            SourceTag = sourceTag;
+            SourceRenderMethod = sourceRenderMethod;
         }
 
         public override bool Execute(List<string> args)
         {
             if (args.Count != 0)
                 return false;
-
+            
             var shaderMaps = new Dictionary<StringId, HaloTag>();
 
-            foreach (var property in SourceShader.ShaderProperties)
+            foreach (var property in SourceRenderMethod.ShaderProperties)
             {
                 RenderMethodTemplate template = null;
 
@@ -47,20 +48,20 @@ namespace HaloOnlineTagTool.Commands.Rmsh
                 {
                     var mapTemplate = template.ShaderMaps[i];
 
-                    Console.Write($"Please enter the {Info.StringIds.GetString(mapTemplate.Name)} index: ");
+                    Console.Write(string.Format("Please enter the {0} index: ", Info.StringIds.GetString(mapTemplate.Name)));
                     shaderMaps[mapTemplate.Name] = ArgumentParser.ParseTagIndex(Info.Cache, Console.ReadLine());
                     property.ShaderMaps[i].Bitmap = shaderMaps[mapTemplate.Name];
                 }
             }
 
-            foreach (var import in SourceShader.ImportData)
+            foreach (var import in SourceRenderMethod.ImportData)
                 if (shaderMaps.ContainsKey(import.MaterialType))
                     import.Bitmap = shaderMaps[import.MaterialType];
 
             using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
-                var context = new TagSerializationContext(cacheStream, Info.Cache, Tag);
-                Info.Serializer.Serialize(context, SourceShader);
+                var context = new TagSerializationContext(cacheStream, Info.Cache, SourceTag);
+                Info.Serializer.Serialize(context, SourceRenderMethod);
             }
 
             Console.WriteLine("Done!");

@@ -11,8 +11,12 @@ namespace HaloOnlineTagTool.Commands.Scnr
     {
         public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, Scenario scenario)
         {
-            var context = new CommandContext(parent, string.Format("{0:X8}.scnr", tag.Index));
-            context.AddCommand(new ScnrCopyForgePaletteCommand(info, scenario));
+            var groupName = info.StringIds.GetString(tag.GroupName);
+
+            var context = new CommandContext(parent,
+                string.Format("{0:X8}.{1}", tag.Index, groupName));
+
+            context.AddCommand(new CopyForgePaletteCommand(info, scenario));
             return context;
         }
     }

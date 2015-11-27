@@ -44,41 +44,62 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			if (args.Count != 1)
 				return false;
+
 			var tag = ArgumentParser.ParseTagIndex(_cache, args[0]);
+
 			if (tag == null)
 				return false;
+
 			var oldContext = _stack.Context;
+
 			switch (tag.GroupTag.ToString())
 			{
-				case "vfsl":
-					EditVfslTag(tag);
+				case "vfsl": // vfiles_list
+					EditVFilesList(tag);
 					break;
-				case "unic":
-					EditUnicTag(tag);
+
+				case "unic": // multilingual_unicode_string_list
+					EditMultilingualUnicodeStringList(tag);
 					break;
-				case "bitm":
-					EditBitmTag(tag);
+
+				case "bitm": // bitmap
+					EditBitmap(tag);
 					break;
-				case "hlmt":
-					EditHlmtTag(tag);
+
+				case "hlmt": // model
+					EditModel(tag);
 					break;
-                case "rmsh":
-                    EditRmshTag(tag);
+
+                case "rm  ": // render_method
+                case "rmsh": // shader
+                case "rmd ": // shader_decal
+                case "rmfl": // shader_foliage
+                case "rmhg": // shader_halogram
+                case "rmss": // shader_screen
+                case "rmtr": // shader_terrain
+                case "rmw ": // shader_water
+                case "rmzo": // shader_zonly
+                case "rmcs": // shader_custom
+                    EditRenderMethod(tag);
                     break;
+
                 case "scnr":
-                    EditScnrTag(tag);
+                    EditScenario(tag);
                     break;
+
 				default:
-					Console.Error.WriteLine("Tag type \"" + tag.GroupTag + "\" is not supported.");
+					Console.Error.WriteLine("Tag group " + _info.StringIds.GetString(tag.GroupName) + " (" + tag.GroupTag + ") is not supported.");
 					return true;
 			}
-			Console.WriteLine("Tag {0:X8}.{1} has been opened for editing.", tag.Index, tag.GroupTag);
+
+			Console.WriteLine("Tag {0:X8} has been opened for editing.", tag.Index);
 			Console.WriteLine("New commands are now available. Enter \"help\" to view them.");
 			Console.WriteLine("Use \"exit\" to return to {0}.", oldContext.Name);
+
 			return true;
 		}
 
-		private void EditVfslTag(HaloTag tag)
+		private void EditVFilesList(HaloTag tag)
 		{
 			VFilesList vfsl;
 			using (var stream = _info.OpenCacheRead())
@@ -87,7 +108,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			_stack.Push(context);
 		}
 
-		private void EditUnicTag(HaloTag tag)
+		private void EditMultilingualUnicodeStringList(HaloTag tag)
 		{
 			MultilingualUnicodeStringList unic;
 			using (var stream = _info.OpenCacheRead())
@@ -96,34 +117,30 @@ namespace HaloOnlineTagTool.Commands.Tags
 			_stack.Push(context);
 		}
 
-		private void EditBitmTag(HaloTag tag)
+		private void EditBitmap(HaloTag tag)
 		{
-			Bitmap bitmap;
+            TagStructures.Bitmap bitmap;
 			using (var stream = _info.OpenCacheRead())
-				bitmap = _info.Deserializer.Deserialize<Bitmap>(new TagSerializationContext(stream, _cache, tag));
-			var context = BitmContextFactory.Create(_stack.Context, _info, tag, bitmap);
+				bitmap = _info.Deserializer.Deserialize<TagStructures.Bitmap>(new TagSerializationContext(stream, _cache, tag));
+			var context = BitmapContextFactory.Create(_stack.Context, _info, tag, bitmap);
 			_stack.Push(context);
 		}
 
-        private void EditHlmtTag(HaloTag tag)
+        private void EditModel(HaloTag tag)
         {
-            Model model;
+            TagStructures.Model model;
             using (var stream = _info.OpenCacheRead())
-                model = _info.Deserializer.Deserialize<Model>(new TagSerializationContext(stream, _cache, tag));
+                model = _info.Deserializer.Deserialize<TagStructures.Model>(new TagSerializationContext(stream, _cache, tag));
             var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
             _stack.Push(context);
         }
 
-        private void EditRmshTag(HaloTag tag)
+        private void EditRenderMethod(HaloTag tag)
         {
-            Shader shader;
-            using (var stream = _info.OpenCacheRead())
-                shader = _info.Deserializer.Deserialize<Shader>(new TagSerializationContext(stream, _cache, tag));
-            var context = RmshContextFactory.Create(_stack.Context, _info, tag, shader);
-            _stack.Push(context);
+            _stack.Push(RenderMethodContextFactory.Create(_stack.Context, _info, tag));
         }
 
-        private void EditScnrTag(HaloTag tag)
+        private void EditScenario(HaloTag tag)
         {
             Scenario scenario;
             using (var stream = _info.OpenCacheRead())

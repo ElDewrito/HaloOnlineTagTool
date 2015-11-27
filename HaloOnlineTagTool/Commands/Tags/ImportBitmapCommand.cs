@@ -40,28 +40,28 @@ namespace HaloOnlineTagTool.Commands.Tags
 			resourceManager.LoadCacheFromDirectory(_info.CacheFile.DirectoryName, ResourceLocation.Textures);
 
 			Console.WriteLine("Importing image...");
-			var bitmap = new Bitmap
+			var bitmap = new TagStructures.Bitmap
 			{
-				Flags = Bitmap.RuntimeFlags.UseResource,
-				Sequences = new List<Bitmap.Sequence>
-				{
-					new Bitmap.Sequence
+				Flags = TagStructures.Bitmap.RuntimeFlags.UseResource,
+				Sequences = new List<TagStructures.Bitmap.Sequence>
+                {
+					new TagStructures.Bitmap.Sequence
 					{
 						FirstBitmapIndex = 0,
 						BitmapCount = 1
 					}
 				},
-				Images = new List<Bitmap.Image>
-				{
-					new Bitmap.Image
+				Images = new List<TagStructures.Bitmap.Image>
+                {
+					new TagStructures.Bitmap.Image
 					{
 						Signature = new MagicNumber("bitm").Value,
 						Unknown28 = -1,
 					}
 				},
-				Resources = new List<Bitmap.BitmapResource>
-				{
-					new Bitmap.BitmapResource()
+				Resources = new List<TagStructures.Bitmap.BitmapResource>
+                {
+					new TagStructures.Bitmap.BitmapResource()
 				}
 			};
 			using (var imageStream = File.OpenRead(imagePath))

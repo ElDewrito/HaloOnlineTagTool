@@ -17,9 +17,9 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 		private readonly TagCache _cache;
 		private readonly FileInfo _fileInfo;
 		private readonly StringIdCache _stringIds;
-		private readonly Model _model;
+		private readonly TagStructures.Model _model;
 
-		public HlmtExtractModeCommand(OpenTagCache info, Model model) : base(
+		public HlmtExtractModeCommand(OpenTagCache info, TagStructures.Model model) : base(
 			CommandFlags.Inherit,
 
 			"extractmode",
