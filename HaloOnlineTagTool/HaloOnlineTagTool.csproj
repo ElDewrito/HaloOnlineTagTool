@@ -143,9 +143,12 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>
     </Compile>
+=======
+>>>>>>> refs/remotes/ElDewrito/master
     <Compile Include="TagStructures\LeafSystem.cs" />
     <Compile Include="TagStructures\RenderMethod.cs" />
     <Compile Include="TagStructures\ShaderCustom.cs" />
