@@ -113,7 +113,6 @@
     <Compile Include="Commands\Core\HelpCommand.cs" />
     <Compile Include="Commands\Tags\ImportCommand.cs" />
     <Compile Include="Commands\Tags\InfoCommand.cs" />
-    <Compile Include="Commands\Tags\InsertCommand.cs" />
     <Compile Include="Commands\Tags\ListCommand.cs" />
     <Compile Include="Commands\Tags\MapCommand.cs" />
     <Compile Include="Commands\Unic\UnicContextFactory.cs" />

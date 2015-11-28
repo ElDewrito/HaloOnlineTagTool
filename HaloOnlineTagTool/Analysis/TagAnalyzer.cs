@@ -78,7 +78,7 @@ namespace HaloOnlineTagTool.Analysis
 						potentialGuess = fixup;
 					}
 				}
-				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _cache.ContainsGroup(new MagicNumber((int)lookBehind[2])))
+				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _cache.Tags.FindFirstInGroup(new MagicNumber((int)lookBehind[2])) != null)
 				{
 					// Tag reference
 					if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
@@ -126,7 +126,7 @@ namespace HaloOnlineTagTool.Analysis
 		{
 			// Create a memory map with a boundary at each fixup target
 			// and at the main structure
-			var result = new MemoryMap(0, tag.Size);
+			var result = new MemoryMap(0, (uint)tag.DataSize);
 			result.AddBoundary(tag.MainStructOffset);
 			result.AddBoundaries(tag.DataFixups.Select(f => f.TargetOffset));
 			return result;

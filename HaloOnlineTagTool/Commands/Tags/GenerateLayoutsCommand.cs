@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var count = 0;
 			using (var stream = _info.OpenCacheRead())
 			{
-				foreach (var groupTag in _cache.GroupTags)
+				foreach (var groupTag in _cache.Tags.Where(t => t != null).Select(t => t.GroupTag).Distinct())
 				{
 					TagLayoutGuess layout = null;
 					HaloTag lastTag = null;
@@ -64,7 +64,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 						lastTag = tag;
 						var analyzer = new TagAnalyzer(_cache, tag);
-						var data = _cache.ExtractTag(stream, tag);
+						var data = _cache.ExtractTagData(stream, tag);
 						var tagLayout = analyzer.Analyze(data);
 						if (layout != null)
 							layout.Merge(tagLayout);

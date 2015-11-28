@@ -15,12 +15,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 			"extract",
 			"Extract a tag to a file",
 			
-			"extract <tag index> <filename> [full]",
+			"extract <tag index> <filename>",
 			
-			"Use the \"import\" command to re-import the tag's data.\n" +
-			"\n" +
-			"If the \"full\" option is specified, the tag's header will be included.\n" +
-			"To import a full tag, you must pass \"full\" when you re-import the tag.")
+			"Use the \"import\" command to re-import an extracted tag.")
 		{
 			_cache = info.Cache;
 			_fileInfo = info.CacheFile;
@@ -29,23 +26,16 @@ namespace HaloOnlineTagTool.Commands.Tags
 		public override bool Execute(List<string> args)
 		{
 			if (args.Count != 2 && args.Count != 3)
-				return false;
+				return false; // 3 arguments are allowed to prevent breaking old scripts that use "full"
 			var tag = ArgumentParser.ParseTagIndex(_cache, args[0]);
 			if (tag == null)
 				return false;
 			var file = args[1];
-			var full = false;
-			if (args.Count == 3)
-			{
-				if (args[2] == "full")
-					full = true;
-				else
-					return false;
-			}
 
 			byte[] data;
 			using (var stream = _fileInfo.OpenRead())
-				data = full ? _cache.ExtractTagWithHeader(stream, tag) : _cache.ExtractTag(stream, tag);
+				data = _cache.ExtractFullTag(stream, tag);
+
 			using (var outStream = File.Open(file, FileMode.Create, FileAccess.Write))
 			{
 				outStream.Write(data, 0, data.Length);

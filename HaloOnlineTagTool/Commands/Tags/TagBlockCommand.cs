@@ -52,7 +52,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				return false;
 			Console.Write("Detected tag: ");
 			TagPrinter.PrintTagShort(tag);
-			var offsetFromTag = offset - tag.Offset;
+			var offsetFromTag = offset - tag.DataOffset;
 
 			using (var stream = _info.OpenCacheReadWrite())
 			{
@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 					fixup = new TagFixup
 					{
 						WriteOffset = (uint)offsetFromTag + 4,
-						TargetOffset = tag.Size
+						TargetOffset = (uint)tag.DataSize
 					};
 				}
 				var blockOffset = (int)fixup.TargetOffset;
@@ -105,7 +105,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				// Update the block pointer if necessary
 				if (oldCount != newCount)
 				{
-					stream.Position = tag.Offset + fixup.WriteOffset - 4;
+					stream.Position = tag.DataOffset + fixup.WriteOffset - 4;
 					var writer = new BinaryWriter(stream);
 					writer.Write(newCount);
 					if (newCount > 0)
@@ -186,7 +186,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (amount == 0)
 				return;
 			index = Math.Max(0, Math.Min(index, count));
-			_info.Cache.InsertTagData(stream, tag, (uint)(offset + index * elementSize), elementSize * amount, InsertOrigin.Before);
+			_info.Cache.ResizeTagData(stream, tag, (uint)(offset + index * elementSize), 0, elementSize * amount, ResizeOrigin.End);
 			count += amount;
 		}
 
@@ -196,13 +196,13 @@ namespace HaloOnlineTagTool.Commands.Tags
 			amount = Math.Max(0, Math.Min(amount, count - index));
 			if (amount == 0)
 				return;
-			_info.Cache.InsertTagData(stream, tag, (uint)(offset + (index + amount) * elementSize), -elementSize * amount, InsertOrigin.Before);
+			_info.Cache.ResizeTagData(stream, tag, (uint)(offset + index * elementSize), elementSize * amount, 0, ResizeOrigin.End);
 			count = Math.Max(0, count - amount);
 		}
 
 		private HaloTag FindTagWithOffset(int offset)
 		{
-			return _info.Cache.Tags.FirstOrDefault(t => t != null && offset >= t.Offset && offset < t.Offset + t.Size);
+			return _info.Cache.Tags.FirstOrDefault(t => t != null && offset >= t.DataOffset && offset < t.DataOffset + t.DataSize);
 		}
 	}
 }

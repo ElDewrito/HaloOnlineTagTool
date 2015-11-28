@@ -52,7 +52,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				b_duplicate = false;
 			}
 
-			if (!b_force && !b_duplicate && !tag.IsClass("phmo"))
+			if (!b_force && !b_duplicate && !tag.IsInGroup("phmo"))
 			{
 				Console.WriteLine("Tag to override was not of class- 'phmo'. Use third argument- 'force' to inject.");
 				return false;

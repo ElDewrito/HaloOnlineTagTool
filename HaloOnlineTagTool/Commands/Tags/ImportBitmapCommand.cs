@@ -71,12 +71,11 @@ namespace HaloOnlineTagTool.Commands.Tags
 			}
 
 			Console.WriteLine("Creating a new tag...");
-			HaloTag tag;
+			var tag = _info.Cache.AllocateTag();
 			using (var tagsStream = _info.OpenCacheReadWrite())
 			{
-				var tagContext = new TagSerializationContext(tagsStream, _info.Cache);
+				var tagContext = new TagSerializationContext(tagsStream, _info.Cache, tag);
 				_info.Serializer.Serialize(tagContext, bitmap);
-				tag = tagContext.Tag;
 			}
 
 			Console.WriteLine();

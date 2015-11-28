@@ -110,7 +110,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				tag.DataFixups.RemoveAt(i);
 				using (var writer = new BinaryWriter(_fileInfo.Open(FileMode.Open, FileAccess.ReadWrite)))
 				{
-					writer.BaseStream.Position = tag.Offset + writeOffset;
+					writer.BaseStream.Position = tag.DataOffset + writeOffset;
 					writer.Write(0);
 					_cache.UpdateTag(writer.BaseStream, tag);
 				}
@@ -134,7 +134,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private static bool CheckWriteOffset(HaloTag tag, uint writeOffset)
 		{
-			if (writeOffset < tag.Size)
+			if (writeOffset < tag.DataSize)
 				return true;
 			Console.Error.WriteLine("Invalid write offset: cannot write past the end of the tag.");
 			return false;
@@ -142,7 +142,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private static bool CheckTargetOffset(HaloTag tag, uint targetOffset)
 		{
-			if (targetOffset < tag.Size)
+			if (targetOffset < tag.DataSize)
 				return true;
 			Console.Error.WriteLine("Invalid target offset: cannot point to something outside the tag.");
 			return false;

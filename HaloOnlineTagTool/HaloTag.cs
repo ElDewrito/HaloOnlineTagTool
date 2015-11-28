@@ -21,6 +21,8 @@ namespace HaloOnlineTagTool
 			DataFixups = new List<TagFixup>();
 			ResourceFixups = new List<TagFixup>();
 			Index = -1;
+			HeaderOffset = -1;
+			DataOffset = -1;
 		}
 
 		/// <summary>
@@ -49,14 +51,35 @@ namespace HaloOnlineTagTool
 		public StringId GroupName { get; set; }
 
 		/// <summary>
-		/// Gets the offset of the tag's data (after the header).
+		/// Gets the offset of the tag's header. Can be -1 if the tag is not in a file.
 		/// </summary>
-		public uint Offset { get; internal set; }
+		public long HeaderOffset { get; internal set; }
+
+		/// <summary>
+		/// Gets the size of the tag's header. Can be 0 if the tag is not in a file.
+		/// </summary>
+		public long HeaderSize
+		{
+			get { return (HeaderOffset >= 0 && DataOffset >= 0) ? DataOffset - HeaderOffset : 0; }
+		}
+
+		/// <summary>
+		/// Gets the total size of the tag, including both its header and data.
+		/// </summary>
+		public long TotalSize
+		{
+			get { return HeaderSize + DataSize; }
+		}
+
+		/// <summary>
+		/// Gets the offset of the tag's data (after the header). Can be -1 if the tag is not in a file.
+		/// </summary>
+		public long DataOffset { get; internal set; }
 
 		/// <summary>
 		/// Gets the size of the tag's data (not including the header).
 		/// </summary>
-		public uint Size { get; internal set; }
+		public long DataSize { get; internal set; }
 
 		/// <summary>
 		/// Gets or sets the offset of the tag's main structure from the start of its data.
@@ -64,12 +87,12 @@ namespace HaloOnlineTagTool
 		public uint MainStructOffset { get; set; }
 
 		/// <summary>
-		/// Checksum (adler32?) of the tag's data. Can set this to 0 if checksum verification is patched out.
+		/// Checksum (adler32?) of the tag's data. Ignored if checksum verification is patched out.
 		/// </summary>
 		public uint Checksum { get; set; }
 
 		/// <summary>
-		/// Gets the indexes of tags that this tag depends on.
+		/// Gets the indices of tags that this tag depends on.
 		/// </summary>
 		public HashSet<int> Dependencies { get; private set; }
 
@@ -84,25 +107,25 @@ namespace HaloOnlineTagTool
 		public List<TagFixup> ResourceFixups { get; private set; }
 
 		/// <summary>
-		/// Determines whether the tag is an instance of a given tag class identifier.
+		/// Determines whether a tag belongs to a tag group.
 		/// </summary>
-		/// <param name="tagClass">The tag class.</param>
-		/// <returns><c>true</c> if the tag is an instance of the given class identifier.</returns>
-		public bool IsClass(MagicNumber tagClass)
+		/// <param name="groupTag">The group tag.</param>
+		/// <returns><c>true</c> if the tag belongs to the group.</returns>
+		public bool IsInGroup(MagicNumber groupTag)
 		{
-			if (tagClass.Value == -1)
+			if (groupTag.Value == -1)
 				return false;
-			return (GroupTag == tagClass || ParentGroupTag == tagClass || GrandparentGroupTag == tagClass);
+			return (GroupTag == groupTag || ParentGroupTag == groupTag || GrandparentGroupTag == groupTag);
 		}
 
 		/// <summary>
-		/// Determines whether the tag is an instance of a given tag class identifier.
+		/// Determines whether a tag belongs to a tag group.
 		/// </summary>
-		/// <param name="className">A 4-character string representing the tag class, e.g. "scnr".</param>
-		/// <returns><c>true</c> if the tag is an instance of the given class identifier.</returns>
-		public bool IsClass(string className)
+		/// <param name="groupTag">A 4-character string representing the group tag, e.g. "scnr".</param>
+		/// <returns><c>true</c> if the tag belongs to the group.</returns>
+		public bool IsInGroup(string groupTag)
 		{
-			return IsClass(new MagicNumber(className));
+			return IsInGroup(new MagicNumber(groupTag));
 		}
 	}
 

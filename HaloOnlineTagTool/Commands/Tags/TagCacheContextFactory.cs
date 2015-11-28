@@ -14,7 +14,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 			context.AddCommand(new ExtractCommand(info));
 			context.AddCommand(new ImportCommand(info));
 			context.AddCommand(new InfoCommand(info));
-			context.AddCommand(new InsertCommand(info));
 			context.AddCommand(new ListCommand(info));
 			context.AddCommand(new MapCommand());
 			context.AddCommand(new EditCommand(stack, info));

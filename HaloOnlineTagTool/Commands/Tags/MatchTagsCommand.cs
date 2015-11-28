@@ -147,7 +147,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 				var rightTag = (HaloTag)rightData;
 				if (leftTag.GroupTag != rightTag.GroupTag)
 					return;
-				if (leftTag.IsClass("rmt2") || leftTag.IsClass("rmdf") || leftTag.IsClass("vtsh") || leftTag.IsClass("pixl") || leftTag.IsClass("rm  ") || leftTag.IsClass("bitm"))
+				if (leftTag.IsInGroup("rmt2") || leftTag.IsInGroup("rmdf") || leftTag.IsInGroup("vtsh") || leftTag.IsInGroup("pixl") || leftTag.IsInGroup("rm  ") || leftTag.IsInGroup("bitm"))
 					return;
 				var translated = result.Translate(leftVersion, leftTag.Index, rightVersion);
 				if (translated >= 0)

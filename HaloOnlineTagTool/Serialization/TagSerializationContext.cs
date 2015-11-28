@@ -22,22 +22,9 @@ namespace HaloOnlineTagTool.Serialization
 		private readonly List<TagFixup> _dataFixups = new List<TagFixup>();
 		private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
 		private readonly HashSet<int> _dependencies = new HashSet<int>();
-		private bool _newTag = false;
 
 		/// <summary>
-		/// Creates a tag serialization context which serializes data into a new tag.
-		/// After serialization, the tag description can be accessed through the <see cref="Tag"/> property.
-		/// Note that after a tag has been created, subsequent serializations will overwite it.
-		/// </summary>
-		/// <param name="stream">The stream to write to.</param>
-		/// <param name="cache">The cache file to write to.</param>
-		public TagSerializationContext(Stream stream, TagCache cache)
-			: this(stream, cache, null)
-		{
-		}
-
-		/// <summary>
-		/// Creates a tag serialization context which serializes data into an existing tag.
+		/// Creates a tag serialization context which serializes data into a tag.
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="cache">The cache file to write to.</param>
@@ -50,8 +37,7 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
-		/// Gets or sets the tag that the context is operating on.
-		/// If the context was set up to create a new tag, this will hold the tag description once it has been serialized.
+		/// Gets the tag that the context is operating on.
 		/// </summary>
 		public HaloTag Tag { get; private set; }
 
@@ -60,18 +46,9 @@ namespace HaloOnlineTagTool.Serialization
 			_dataFixups.Clear();
 			_resourceFixups.Clear();
 			_dependencies.Clear();
-			if (Tag == null)
-			{
-				// Creating a new tag - set up an empty description for it
-				Tag = new HaloTag
-				{
-					Index = _cache.Tags.Count,
-					GroupTag = info.GroupTag,
-					ParentGroupTag = info.ParentGroupTag,
-					GrandparentGroupTag = info.GrandparentGroupTag
-				};
-				_newTag = true;
-			}
+			Tag.GroupTag = info.GroupTag;
+			Tag.ParentGroupTag = info.ParentGroupTag;
+			Tag.GrandparentGroupTag = info.GrandparentGroupTag;
 		}
 
 		public void EndSerialize(TagStructureInfo info, byte[] data, uint mainStructOffset)
@@ -84,24 +61,12 @@ namespace HaloOnlineTagTool.Serialization
 			Tag.ResourceFixups.AddRange(_resourceFixups);
 			Tag.Dependencies.UnionWith(_dependencies);
 			Tag.MainStructOffset = mainStructOffset;
-			Tag.GroupTag = info.GroupTag;
-			Tag.ParentGroupTag = info.ParentGroupTag;
-			Tag.GrandparentGroupTag = info.GrandparentGroupTag;
-			if (!_newTag)
-			{
-				_cache.OverwriteTag(_stream, Tag, data);
-				_cache.UpdateTag(_stream, Tag);
-			}
-			else
-			{
-				_cache.AddTag(_stream, Tag, data);
-				_newTag = false;
-			}
+			_cache.OverwriteTagData(_stream, Tag, data);
 		}
 
 		public BinaryReader BeginDeserialize(TagStructureInfo info)
 		{
-			var data = _cache.ExtractTag(_stream, Tag);
+			var data = _cache.ExtractTagData(_stream, Tag);
 			var reader = new BinaryReader(new MemoryStream(data));
 			reader.BaseStream.Position = Tag.MainStructOffset;
 			return reader;
