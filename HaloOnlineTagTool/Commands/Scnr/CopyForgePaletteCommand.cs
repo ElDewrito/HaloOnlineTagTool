@@ -11,8 +11,8 @@ namespace HaloOnlineTagTool.Commands.Scnr
 {
     class CopyForgePaletteCommand : Command
     {
-        private OpenTagCache Info { get; }
-        private Scenario SourceScenario { get; }
+        private OpenTagCache Info { get; set; }
+        private Scenario SourceScenario { get; set; }
 
         public CopyForgePaletteCommand(OpenTagCache info, Scenario sourceScenario)
             : base(CommandFlags.Inherit,

@@ -11,9 +11,9 @@ namespace HaloOnlineTagTool.Commands.Rmsh
 {
     class SpecifyBitmapsCommand : Command
     {
-        public OpenTagCache Info { get; }
-        public HaloTag SourceTag { get; }
-        public RenderMethod SourceRenderMethod { get; }
+        public OpenTagCache Info { get; private set; }
+        public HaloTag SourceTag { get; private set; }
+		public RenderMethod SourceRenderMethod { get; private set; }
 
         public SpecifyBitmapsCommand(OpenTagCache info, HaloTag sourceTag, RenderMethod sourceRenderMethod)
             : base(CommandFlags.Inherit,
