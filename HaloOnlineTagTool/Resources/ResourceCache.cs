@@ -43,18 +43,59 @@ namespace HaloOnlineTagTool.Resources
 		/// <returns>The index of the resource that was added.</returns>
 		public int Add(Stream inStream, byte[] data, out uint compressedSize)
 		{
-			// Add a resource of size 0 to the list
-			var lastResource = (_resources.Count > 0) ? _resources[_resources.Count - 1] : null;
-			var resourceIndex = _resources.Count;
-			_resources.Add(new Resource
-			{
-				Offset = (lastResource != null) ? lastResource.Offset + lastResource.Size : 0,
-				Size = 0,
-			});
-
-			// Now "replace" it
+			var resourceIndex = NewResource();
 			compressedSize = Compress(inStream, resourceIndex, data);
 			return resourceIndex;
+		}
+
+		/// <summary>
+		/// Adds a raw, pre-compressed resource to the cache.
+		/// </summary>
+		/// <param name="inStream">The stream open on the resource cache.</param>
+		/// <param name="rawData">The raw data to add.</param>
+		/// <returns>The index of the resource that was added.</returns>
+		public int AddRaw(Stream inStream, byte[] rawData)
+		{
+			var resourceIndex = NewResource();
+			ImportRaw(inStream, resourceIndex, rawData);
+			return resourceIndex;
+		}
+
+		/// <summary>
+		/// Extracts raw, compressed resource data.
+		/// </summary>
+		/// <param name="inStream">The stream open on the resource cache.</param>
+		/// <param name="resourceIndex">The index of the resource to decompress.</param>
+		/// <param name="compressedSize">Total size of the compressed data, including chunk headers.</param>
+		/// <returns>The raw, compressed resource data.</returns>
+		public byte[] ExtractRaw(Stream inStream, int resourceIndex, uint compressedSize)
+		{
+			if (resourceIndex < 0 || resourceIndex >= _resources.Count)
+				throw new ArgumentOutOfRangeException("resourceIndex");
+
+			var resource = _resources[resourceIndex];
+			inStream.Position = resource.Offset;
+			var result = new byte[compressedSize];
+			inStream.Read(result, 0, result.Length);
+			return result;
+		}
+
+		/// <summary>
+		/// Overwrites a resource with raw, pre-compressed data.
+		/// </summary>
+		/// <param name="inStream">The stream open on the resource cache.</param>
+		/// <param name="resourceIndex">The index of the resource to overwrite.</param>
+		/// <param name="data">The raw, pre-compressed data to overwrite it with.</param>
+		public void ImportRaw(Stream inStream, int resourceIndex, byte[] data)
+		{
+			if (resourceIndex < 0 || resourceIndex >= _resources.Count)
+				throw new ArgumentOutOfRangeException("resourceIndex");
+
+			var roundedSize = ResizeResource(new BinaryWriter(inStream), resourceIndex, (uint)data.Length);
+			var resource = _resources[resourceIndex];
+			inStream.Position = resource.Offset;
+			inStream.Write(data, 0, data.Length);
+			StreamUtil.Fill(inStream, 0, (int)(roundedSize - data.Length)); // Padding
 		}
 
 		/// <summary>
@@ -66,7 +107,7 @@ namespace HaloOnlineTagTool.Resources
 		/// <param name="outStream">The stream to write the decompressed resource data to.</param>
 		public void Decompress(Stream inStream, int resourceIndex, uint compressedSize, Stream outStream)
 		{
-			if (resourceIndex < 0 || resourceIndex > _resources.Count)
+			if (resourceIndex < 0 || resourceIndex >= _resources.Count)
 				throw new ArgumentOutOfRangeException("resourceIndex");
 			
 			var reader = new BinaryReader(inStream);
@@ -103,42 +144,27 @@ namespace HaloOnlineTagTool.Resources
 		/// <returns>The total size of the compressed resource in bytes.</returns>
 		public uint Compress(Stream inStream, int resourceIndex, byte[] data)
 		{
-			if (resourceIndex < 0 || resourceIndex > _resources.Count)
+			if (resourceIndex < 0 || resourceIndex >= _resources.Count)
 				throw new ArgumentOutOfRangeException("resourceIndex");
 
 			// Divide the data into chunks with decompressed sizes no larger than the maximum allowed size
 			var chunks = new List<byte[]>();
 			var startOffset = 0;
-			var newSize = 0;
+			uint newSize = 0;
 			while (startOffset < data.Length)
 			{
 				var chunkSize = Math.Min(data.Length - startOffset, MaxDecompressedBlockSize);
 				var chunk = LZ4Codec.EncodeHC(data, startOffset, chunkSize);
 				chunks.Add(chunk);
 				startOffset += chunkSize;
-				newSize += ChunkHeaderSize + chunk.Length;
-			}
-
-			// Resize the resource's data so that the chunks can fit
-			var resource = _resources[resourceIndex];
-			var roundedSize = (newSize + 0xF) & ~0xFU; // Round up to a multiple of 0x10
-			var sizeDelta = (int)(roundedSize - resource.Size);
-			if (sizeDelta > 0)
-			{
-				// Resource needs to grow
-				inStream.Position = resource.Offset + resource.Size;
-				StreamUtil.Insert(inStream, sizeDelta, 0);
-			}
-			else
-			{
-				// Resource needs to shrink
-				inStream.Position = resource.Offset + roundedSize;
-				StreamUtil.Remove(inStream, -sizeDelta);
+				newSize += (uint)(ChunkHeaderSize + chunk.Length);
 			}
 
 			// Write the chunks in
-			inStream.Position = resource.Offset;
 			var writer = new BinaryWriter(inStream);
+			var roundedSize = ResizeResource(writer, resourceIndex, newSize);
+			var resource = _resources[resourceIndex];
+			inStream.Position = resource.Offset;
 			var sizeRemaining = data.Length;
 			foreach (var chunk in chunks)
 			{
@@ -149,13 +175,35 @@ namespace HaloOnlineTagTool.Resources
 				sizeRemaining -= decompressedSize;
 			}
 			StreamUtil.Fill(inStream, 0, (int)(roundedSize - newSize)); // Padding
+			return newSize;
+		}
 
-			// Adjust resource offsets
-			resource.Size = (uint)roundedSize;
+		private int NewResource()
+		{
+			var lastResource = (_resources.Count > 0) ? _resources[_resources.Count - 1] : null;
+			var resourceIndex = _resources.Count;
+			_resources.Add(new Resource
+			{
+				Offset = (lastResource != null) ? lastResource.Offset + lastResource.Size : 0,
+				Size = 0,
+			});
+			return resourceIndex;
+		}
+
+		private uint ResizeResource(BinaryWriter writer, int resourceIndex, uint minSize)
+		{
+			var resource = _resources[resourceIndex];
+			var roundedSize = ((minSize + 0xF) & ~0xFU); // Round up to a multiple of 0x10
+			var sizeDelta = (long)(roundedSize - resource.Size);
+			var endOffset = resource.Offset + resource.Size;
+			StreamUtil.Copy(writer.BaseStream, endOffset, endOffset + sizeDelta, writer.BaseStream.Length - endOffset);
+			resource.Size = roundedSize;
+
+			// Update resource offsets
 			for (var i = resourceIndex + 1; i < _resources.Count; i++)
 				_resources[i].Offset = (uint)(_resources[i].Offset + sizeDelta);
 			UpdateResourceTable(writer);
-			return (uint)newSize;
+			return roundedSize;
 		}
 
 		private void Load(Stream stream)

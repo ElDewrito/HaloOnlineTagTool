@@ -100,7 +100,25 @@ namespace HaloOnlineTagTool.Resources
 		}
 
 		/// <summary>
-		/// Extracts the raw data for a resource.
+		/// Adds raw, pre-compressed resource data to a cache.
+		/// </summary>
+		/// <param name="resource">The resource reference to initialize.</param>
+		/// <param name="location">The location where the resource should be stored.</param>
+		/// <param name="data">The pre-compressed data to store.</param>
+		public void AddRaw(ResourceReference resource, ResourceLocation location, byte[] data)
+		{
+			if (resource == null)
+				throw new ArgumentNullException("resource");
+
+			resource.ChangeLocation(location);
+			resource.DisableChecksum();
+			var cache = GetCache(resource);
+			using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+				resource.Index = cache.Cache.AddRaw(stream, data);
+		}
+
+		/// <summary>
+		/// Extracts and decompresses the data for a resource.
 		/// </summary>
 		/// <param name="resource">The resource.</param>
 		/// <param name="outStream">The stream to write the extracted data to.</param>
@@ -119,7 +137,22 @@ namespace HaloOnlineTagTool.Resources
 		}
 
 		/// <summary>
-		/// Replaces the raw data for a resource.
+		/// Extracts raw, compressed resource data.
+		/// </summary>
+		/// <param name="resource">The resource.</param>
+		/// <returns>The raw, compressed resource data.</returns>
+		public byte[] ExtractRaw(ResourceReference resource)
+		{
+			if (resource == null)
+				throw new ArgumentNullException("resource");
+
+			var cache = GetCache(resource);
+			using (var stream = cache.File.OpenRead())
+				return cache.Cache.ExtractRaw(stream, resource.Index, resource.CompressedSize);
+		}
+
+		/// <summary>
+		/// Compresses and replaces the data for a resource.
 		/// </summary>
 		/// <param name="resource">The resource whose data should be replaced. On success, the reference will be adjusted to account for the new data.</param>
 		/// <param name="dataStream">The stream to read the new data from.</param>
@@ -142,6 +175,22 @@ namespace HaloOnlineTagTool.Resources
 				resource.DecompressedSize = (uint)dataSize;
 				resource.DisableChecksum();
 			}
+		}
+
+		/// <summary>
+		/// Replaces a resource with raw, pre-compressed data.
+		/// </summary>
+		/// <param name="resource">The resource whose data should be replaced. On success, the reference will be adjusted to account for the new data.</param>
+		/// <param name="data">The raw, pre-compressed data to use.</param>
+		public void ReplaceRaw(ResourceReference resource, byte[] data)
+		{
+			if (resource == null)
+				throw new ArgumentNullException("resource");
+
+			resource.DisableChecksum();
+			var cache = GetCache(resource);
+			using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+				cache.Cache.ImportRaw(stream, resource.Index, data);
 		}
 
 		private LoadedCache GetCache(ResourceReference resource)
