@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "gfxt", Size = 0x10)]
+	[TagStructure(Name = "gfx_textures_list", Class = "gfxt", Size = 0x10)]
 	public class GfxTexturesList
 	{
 		public List<Texture> Textures;

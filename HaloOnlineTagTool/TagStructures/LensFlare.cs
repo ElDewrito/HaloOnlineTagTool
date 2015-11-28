@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "lens", Size = 0x9C)]
+	[TagStructure(Name = "lens_flare", Class = "lens", Size = 0x9C)]
 	public class LensFlare
 	{
 		public Angle FalloffAngle;

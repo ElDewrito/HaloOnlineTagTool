@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "perf", Size = 0x10)]
+	[TagStructure(Name = "performance_throttles", Class = "perf", Size = 0x10)]
 	public class PerformanceThrottles
 	{
 		public List<PerformanceBlock> Performance;

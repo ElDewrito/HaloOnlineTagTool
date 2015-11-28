@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "pixl", Size = 0x20)]
+	[TagStructure(Name = "pixel_shader", Class = "pixl", Size = 0x20)]
 	public class PixelShader
 	{
 		public uint Unknown;

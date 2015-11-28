@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bsdt", Size = 0x60)]
+	[TagStructure(Name = "breakable_surface", Class = "bsdt", Size = 0x60)]
 	public class BreakableSurface
 	{
 		public float MaximumVitality;

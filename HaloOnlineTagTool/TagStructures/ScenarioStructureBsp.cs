@@ -10,8 +10,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sbsp", Size = 0x3AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "sbsp", Size = 0x3B8, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3B8, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class ScenarioStructureBsp
 	{
 		public int BspChecksum;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "vmdx", Size = 0x1A0)]
+	[TagStructure(Name = "vision_mode", Class = "vmdx", Size = 0x1A0)]
 	public class VisionMode
 	{
 		public sbyte Unknown;

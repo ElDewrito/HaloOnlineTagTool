@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wezr", Size = 0x8C)]
+	[TagStructure(Name = "game_engine_settings_definition", Class = "wezr", Size = 0x8C)]
 	public class GameEngineSettingsDefinition
 	{
 		public uint Unknown;

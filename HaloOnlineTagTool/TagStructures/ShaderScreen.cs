@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmss", Size = 0x14)]
+	[TagStructure(Name = "shader_screen", Class = "rmss", Size = 0x14)]
 	public class ShaderScreen : RenderMethod
 	{
 		public uint Unknown8;

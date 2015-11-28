@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "draw", Size = 0x10)]
+	[TagStructure(Name = "rasterizer_cache_file_globals", Class = "draw", Size = 0x10)]
 	public class RasterizerCacheFileGlobals
 	{
 		public uint Unknown;

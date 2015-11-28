@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmdf", Size = 0x5C)]
+	[TagStructure(Name = "render_method_definition", Class = "rmdf", Size = 0x5C)]
 	public class RenderMethodDefinition
 	{
 		public HaloTag Unknown;

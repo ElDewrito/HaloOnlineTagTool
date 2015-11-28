@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "inpg", Size = 0x34)]
+	[TagStructure(Name = "input_globals", Class = "inpg", Size = 0x34)]
 	public class InputGlobals
 	{
 		public int Unknown;

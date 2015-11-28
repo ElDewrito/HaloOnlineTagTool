@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	/// <summary>
 	/// Contains a list of vfiles.
 	/// </summary>
-	[TagStructure(Class = "vfsl")]
+	[TagStructure(Name = "vfiles_list", Class = "vfsl")]
 	public class VFilesList
 	{
 		/// <summary>

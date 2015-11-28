@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sfx+", Size = 0x10)]
+	[TagStructure(Name = "sound_effect_collection", Class = "sfx+", Size = 0x10)]
 	public class SoundEffectCollection
 	{
 		public List<SoundEffect> SoundEffects;

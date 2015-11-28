@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "effg", Size = 0x10)]
+	[TagStructure(Name = "effect_globals", Class = "effg", Size = 0x10)]
 	public class EffectGlobals
 	{
 		public List<UnknownBlock> Unknown;

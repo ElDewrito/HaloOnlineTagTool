@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "skn3", Size = 0x28)]
+	[TagStructure(Name = "gui_skin_definition", Class = "skn3", Size = 0x28)]
 	public class GuiSkinDefinition
 	{
 		public uint Unknown;

@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "snd!", Size = 0xD8, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "snd!", Size = 0xD4, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "sound", Class = "snd!", Size = 0xD8, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "sound", Class = "snd!", Size = 0xD4, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Sound
 	{
 		public uint Flags;

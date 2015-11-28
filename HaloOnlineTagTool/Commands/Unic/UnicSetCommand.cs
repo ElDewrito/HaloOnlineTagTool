@@ -71,7 +71,7 @@ namespace HaloOnlineTagTool.Commands.Unic
 			// Save the tag data
 			_unic.SetString(localizedStr, language, newValue);
 			using (var stream = _info.OpenCacheReadWrite())
-				_info.Serializer.Serialize(new TagSerializationContext(stream, _info.Cache, _tag), _unic);
+				_info.Serializer.Serialize(new TagSerializationContext(stream, _info.Cache, _info.StringIds, _tag), _unic);
 
 			if (added)
 				Console.WriteLine("String added successfully.");

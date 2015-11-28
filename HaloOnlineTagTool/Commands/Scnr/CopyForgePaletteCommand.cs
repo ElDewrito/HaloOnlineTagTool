@@ -36,7 +36,7 @@ namespace HaloOnlineTagTool.Commands.Scnr
 
             using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
-                var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, destinationTag);
+                var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, Info.StringIds, destinationTag);
                 destinationScenario = Info.Deserializer.Deserialize<Scenario>(scenarioContext);
             }
 
@@ -51,7 +51,7 @@ namespace HaloOnlineTagTool.Commands.Scnr
 
             using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
-                var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, destinationTag);
+                var scenarioContext = new TagSerializationContext(cacheStream, Info.Cache, Info.StringIds, destinationTag);
                 Info.Serializer.Serialize(scenarioContext, destinationScenario);
             }
 

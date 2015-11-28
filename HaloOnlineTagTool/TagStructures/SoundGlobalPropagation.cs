@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sgp!", Size = 0x50)]
+	[TagStructure(Name = "sound_global_propagation", Class = "sgp!", Size = 0x50)]
 	public class SoundGlobalPropagation
 	{
 		public HaloTag UnderwaterEnvironment;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mffn", Size = 0x38)]
+	[TagStructure(Name = "muffin", Class = "mffn", Size = 0x38)]
 	public class Muffin
 	{
 		public HaloTag RenderModel;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rwrd", Size = 0x50)]
+	[TagStructure(Name = "render_water_ripple", Class = "rwrd", Size = 0x50)]
 	public class RenderWaterRipple
 	{
 		public int UnknownFlags;

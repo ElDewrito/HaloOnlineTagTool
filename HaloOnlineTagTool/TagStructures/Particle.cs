@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "prt3", Size = 0x1A0)]
+	[TagStructure(Name = "particle", Class = "prt3", Size = 0x1A0)]
 	public class Particle
 	{
 		public uint Unknown;

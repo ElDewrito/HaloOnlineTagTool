@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "scnr", Size = 0x824, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "scnr", Size = 0x834, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "scenario", Class = "scnr", Size = 0x824, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "scenario", Class = "scnr", Size = 0x834, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Scenario
 	{
 		public MapTypeValue MapType;

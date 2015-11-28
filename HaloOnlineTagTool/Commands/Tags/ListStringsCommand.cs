@@ -46,7 +46,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			{
 				foreach (var unicTag in _info.Cache.Tags.FindAllInGroup("unic"))
 				{
-					var unic = _info.Deserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _info.Cache, unicTag));
+					var unic = _info.Deserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _info.Cache, _info.StringIds, unicTag));
 					var strings = LocalizedStringPrinter.PrepareForDisplay(unic, _info.StringIds, unic.Strings, language, filter);
 					if (strings.Count == 0)
 						continue;

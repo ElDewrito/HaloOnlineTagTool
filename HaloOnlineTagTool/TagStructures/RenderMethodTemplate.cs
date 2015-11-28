@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmt2", Size = 0x84)]
+	[TagStructure(Name = "render_method_template", Class = "rmt2", Size = 0x84)]
 	public class RenderMethodTemplate
 	{
 		public HaloTag VertexShader;

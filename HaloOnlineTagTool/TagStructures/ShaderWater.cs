@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmw ", Size = 0x0)]
+	[TagStructure(Name = "shader_water", Class = "rmw ", Size = 0x0)]
 	public class ShaderWater : RenderMethod
 	{
 	}

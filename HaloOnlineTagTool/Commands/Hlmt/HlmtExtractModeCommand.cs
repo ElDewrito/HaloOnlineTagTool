@@ -83,7 +83,7 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 			RenderModel renderModel;
 			using (var cacheStream = _fileInfo.OpenRead())
 			{
-				var renderModelContext = new TagSerializationContext(cacheStream, _cache, _model.RenderModel);
+				var renderModelContext = new TagSerializationContext(cacheStream, _cache, _info.StringIds, _model.RenderModel);
 				renderModel = _info.Deserializer.Deserialize<RenderModel>(renderModelContext);
 			}
 			if (renderModel.Geometry.Resource == null)

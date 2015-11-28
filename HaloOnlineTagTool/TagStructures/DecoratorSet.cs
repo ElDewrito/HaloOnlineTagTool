@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "dctr", Size = 0x80)]
+	[TagStructure(Name = "decorator_set", Class = "dctr", Size = 0x80)]
 	public class DecoratorSet
 	{
 		public HaloTag Model;

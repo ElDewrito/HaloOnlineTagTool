@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mulg", Size = 0x18)]
+	[TagStructure(Name = "multiplayer_globals", Class = "mulg", Size = 0x18)]
 	public class MultiplayerGlobals
 	{
 		public List<UniversalBlock> Universal;

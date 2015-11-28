@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "smdt", Size = 0x48)]
+	[TagStructure(Name = "survival_mode_globals", Class = "smdt", Size = 0x48)]
 	public class SurvivalModeGlobals
 	{
 		public uint Unknown;

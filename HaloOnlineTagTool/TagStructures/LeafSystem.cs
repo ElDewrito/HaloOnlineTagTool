@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "lswd", Size = 0x58)]
+	[TagStructure(Name = "leaf_system", Class = "lswd", Size = 0x58)]
 	public class LeafSystem
 	{
 		public uint Unknown;

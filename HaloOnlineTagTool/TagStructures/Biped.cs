@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bipd", Size = 0x240)]
+	[TagStructure(Name = "biped", Class = "bipd", Size = 0x240)]
 	public class Biped : Unit
 	{
 		public Angle MovingTurningSpeed;

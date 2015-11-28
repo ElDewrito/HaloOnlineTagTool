@@ -18,6 +18,7 @@ namespace HaloOnlineTagTool.Serialization
 
 		private readonly Stream _stream;
 		private readonly TagCache _cache;
+		private readonly StringIdCache _stringIds;
 
 		private readonly List<TagFixup> _dataFixups = new List<TagFixup>();
 		private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
@@ -28,11 +29,13 @@ namespace HaloOnlineTagTool.Serialization
 		/// </summary>
 		/// <param name="stream">The stream to write to.</param>
 		/// <param name="cache">The cache file to write to.</param>
+		/// <param name="stringIds">The stringID source to use.</param>
 		/// <param name="tag">The tag to overwrite.</param>
-		public TagSerializationContext(Stream stream, TagCache cache, HaloTag tag)
+		public TagSerializationContext(Stream stream, TagCache cache, StringIdCache stringIds, HaloTag tag)
 		{
 			_stream = stream;
 			_cache = cache;
+			_stringIds = stringIds;
 			Tag = tag;
 		}
 
@@ -49,6 +52,7 @@ namespace HaloOnlineTagTool.Serialization
 			Tag.GroupTag = info.GroupTag;
 			Tag.ParentGroupTag = info.ParentGroupTag;
 			Tag.GrandparentGroupTag = info.GrandparentGroupTag;
+			Tag.GroupName = (info.Structure.Name != null) ? _stringIds.GetStringId(info.Structure.Name) : StringId.Null;
 		}
 
 		public void EndSerialize(TagStructureInfo info, byte[] data, uint mainStructOffset)

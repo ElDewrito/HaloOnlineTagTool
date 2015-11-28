@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
 	/// <summary>
 	/// Contains a list of localized strings.
 	/// </summary>
-	[TagStructure(Class = "unic", Size = 0x5C)]
+	[TagStructure(Name = "multilingual_unicode_string_list", Class = "unic", Size = 0x5C)]
 	public class MultilingualUnicodeStringList
 	{
 		/// <summary>

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "pphy", Size = 0x40)]
+	[TagStructure(Name = "point_physics", Class = "pphy", Size = 0x40)]
 	public class PointPhysics
 	{
 		public uint Flags;

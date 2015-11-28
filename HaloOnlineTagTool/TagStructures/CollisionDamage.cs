@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "cddf", Size = 0x30)]
+	[TagStructure(Name = "collision_damage", Class = "cddf", Size = 0x30)]
 	public class CollisionDamage
 	{
 		public float ApplyDamageScale;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "aigl", Size = 0x10)]
+	[TagStructure(Name = "ai_globals", Class = "aigl", Size = 0x10)]
 	public class AiGlobals
 	{
 		public List<UnknownBlock> Unknown;

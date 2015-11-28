@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "uise", Size = 0x150)]
+	[TagStructure(Name = "user_interface_sounds_definition", Class = "uise", Size = 0x150)]
 	public class UserInterfaceSoundsDefinition
 	{
 		public HaloTag Error;

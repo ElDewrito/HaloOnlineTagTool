@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "goof", Size = 0x10)]
+	[TagStructure(Name = "multiplayer_variant_settings_interface_definition", Class = "goof", Size = 0x10)]
 	public class MultiplayerVariantSettingsInterfaceDefinition
 	{
 		public int Unknown;

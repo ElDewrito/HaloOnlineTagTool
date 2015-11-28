@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wspr", Size = 0x2C)]
+	[TagStructure(Name = "gui_widget_sprite_animation_definition", Class = "wspr", Size = 0x2C)]
 	public class GuiWidgetSpriteAnimationDefinition
 	{
 		public uint AnimationFlags;

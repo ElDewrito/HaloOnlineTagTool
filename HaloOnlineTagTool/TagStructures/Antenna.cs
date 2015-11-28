@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "ant!", Size = 0x50)]
+	[TagStructure(Name = "antenna", Class = "ant!", Size = 0x50)]
 	public class Antenna
 	{
 		public StringId AttachmentMarkerName;

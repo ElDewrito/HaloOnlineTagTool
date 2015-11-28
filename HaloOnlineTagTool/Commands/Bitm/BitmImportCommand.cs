@@ -71,7 +71,7 @@ namespace HaloOnlineTagTool.Commands.Bitm
 				}
 				using (var tagsStream = _info.OpenCacheReadWrite())
 				{
-					var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _tag);
+					var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _info.StringIds, _tag);
 					_info.Serializer.Serialize(tagContext, _bitmap);
 				}
 			}

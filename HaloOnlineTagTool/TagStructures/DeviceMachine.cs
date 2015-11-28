@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mach", Size = 0x18)]
+	[TagStructure(Name = "device_machine", Class = "mach", Size = 0x18)]
 	public class DeviceMachine : Device
 	{
 		public TypeValue Type;

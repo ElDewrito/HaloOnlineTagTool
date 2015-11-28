@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "clwd", Size = 0x94)]
+	[TagStructure(Name = "cloth", Class = "clwd", Size = 0x94)]
 	public class Cloth
 	{
 		public uint Flags;

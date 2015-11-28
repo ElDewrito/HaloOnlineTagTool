@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bloc", Size = 0x14)]
+	[TagStructure(Name = "crate", Class = "bloc", Size = 0x14)]
 	public class Crate : GameObject
 	{
 		public ushort Flags2;

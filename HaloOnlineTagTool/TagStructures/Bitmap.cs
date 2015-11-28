@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bitm", MaxVersion = EngineVersion.V1_106708_cert_ms23, Size = 0xB8)]
-	[TagStructure(Class = "bitm", Size = 0xAC)]
+	[TagStructure(Name = "bitmap", Class = "bitm", MaxVersion = EngineVersion.V1_106708_cert_ms23, Size = 0xB8)]
+	[TagStructure(Name = "bitmap", Class = "bitm", Size = 0xAC)]
 	public class Bitmap
 	{
 		public int Unknown0;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wind", Size = 0x7C)]
+	[TagStructure(Name = "wind", Class = "wind", Size = 0x7C)]
 	public class Wind
 	{
 		public byte[] Function;

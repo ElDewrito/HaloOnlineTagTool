@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "weap", Size = 0x384, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "weap", Size = 0x390, MaxVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "weapon", Class = "weap", Size = 0x384, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "weapon", Class = "weap", Size = 0x390, MaxVersion = EngineVersion.V11_1_498295_Live)]
 	public class Weapon : Item
 	{
 		public uint Flags3;

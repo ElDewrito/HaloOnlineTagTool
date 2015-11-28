@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sqtm", Size = 0x10)]
+	[TagStructure(Name = "squad_template", Class = "sqtm", Size = 0x10)]
 	public class SquadTemplate
 	{
 		public StringId Name;

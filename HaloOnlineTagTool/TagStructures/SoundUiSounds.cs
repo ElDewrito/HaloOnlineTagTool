@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sus!", Size = 0x10)]
+	[TagStructure(Name = "sound_ui_sounds", Class = "sus!", Size = 0x10)]
 	public class SoundUiSounds
 	{
 		public List<UiSound> UiSounds;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "ctrl", Size = 0x44)]
+	[TagStructure(Name = "device_control", Class = "ctrl", Size = 0x44)]
 	public class DeviceControl : Device
 	{
 		public TypeValue Type;

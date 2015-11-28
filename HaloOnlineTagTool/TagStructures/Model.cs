@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "hlmt", Size = 0x1B4, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "hlmt", Size = 0x1B8, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "model", Class = "hlmt", Size = 0x1B4, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "model", Class = "hlmt", Size = 0x1B8, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Model
 	{
 		public HaloTag RenderModel;

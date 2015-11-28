@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "chgd", Size = 0x2C0)]
+	[TagStructure(Name = "chud_globals_definition", Class = "chgd", Size = 0x2C0)]
 	public class ChudGlobalsDefinition
 	{
 		public List<HudGlobal> HudGlobals;

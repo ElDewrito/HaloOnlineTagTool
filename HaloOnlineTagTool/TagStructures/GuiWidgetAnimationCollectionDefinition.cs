@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wacd", Size = 0x280)]
+	[TagStructure(Name = "gui_widget_animation_collection_definition", Class = "wacd", Size = 0x280)]
 	public class GuiWidgetAnimationCollectionDefinition
 	{
 		public HaloTag Unknown;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "ssce", Size = 0x1C)]
+	[TagStructure(Name = "sound_scenery", Class = "ssce", Size = 0x1C)]
 	public class SoundScenery : GameObject
 	{
 		public float DistanceMin;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "foot", Size = 0xC)]
+	[TagStructure(Name = "material_effects", Class = "foot", Size = 0xC)]
 	public class MaterialEffects
 	{
 		public List<Effect> Effects;

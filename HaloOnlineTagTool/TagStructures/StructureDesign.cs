@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sddt", Size = 0x44)]
+	[TagStructure(Name = "structure_design", Class = "sddt", Size = 0x44)]
 	public class StructureDesign
 	{
 		public int Unknown;

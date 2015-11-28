@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "snde", Size = 0x50)]
+	[TagStructure(Name = "sound_environment", Class = "snde", Size = 0x50)]
 	public class SoundEnvironment
 	{
 		public uint Unknown;

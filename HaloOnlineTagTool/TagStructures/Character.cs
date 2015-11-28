@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "char", Size = 0x1F8)]
+	[TagStructure(Name = "character", Class = "char", Size = 0x1F8)]
 	public class Character
 	{
 		public uint CharacterFlags;

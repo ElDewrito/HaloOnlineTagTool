@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "drdf", Size = 0x10)]
+	[TagStructure(Name = "damage_response_definition", Class = "drdf", Size = 0x10)]
 	public class DamageResponseDefinition
 	{
 		public List<Respons> Responses;

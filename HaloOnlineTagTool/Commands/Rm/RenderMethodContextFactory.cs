@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.Commands.Rmsh
 
             using (var cacheStream = info.OpenCacheReadWrite())
             {
-                var tagContext = new TagSerializationContext(cacheStream, info.Cache, tag);
+                var tagContext = new TagSerializationContext(cacheStream, info.Cache, info.StringIds, tag);
 
                 switch (tag.GroupTag.ToString())
                 {

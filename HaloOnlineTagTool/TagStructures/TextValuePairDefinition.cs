@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sily", Size = 0x18)]
+	[TagStructure(Name = "text_value_pair_definition", Class = "sily", Size = 0x18)]
 	public class TextValuePairDefinition
 	{
 		public ParameterValue Parameter;

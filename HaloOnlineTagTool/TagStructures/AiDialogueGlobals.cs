@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "adlg", Size = 0x5C)]
+	[TagStructure(Name = "ai_dialogue_globals", Class = "adlg", Size = 0x5C)]
 	public class AiDialogueGlobals
 	{
 		public uint Unknown;

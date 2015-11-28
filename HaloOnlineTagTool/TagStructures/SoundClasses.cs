@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sncl", Size = 0x10)]
+	[TagStructure(Name = "sound_classes", Class = "sncl", Size = 0x10)]
 	public class SoundClasses
 	{
 		public List<UnknownBlock> Unknown;

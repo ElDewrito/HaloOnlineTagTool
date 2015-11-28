@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "cntl", Size = 0xC)]
+	[TagStructure(Name = "contrail_system", Class = "cntl", Size = 0xC)]
 	public class ContrailSystem
 	{
 		public List<ContrailSystemBlock> ContrailSystem2;

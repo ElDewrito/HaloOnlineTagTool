@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "snmx", Size = 0x80)]
+	[TagStructure(Name = "sound_mix", Class = "snmx", Size = 0x80)]
 	public class SoundMix
 	{
 		public float LeftStereoGain;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "glps", Size = 0x1C)]
+	[TagStructure(Name = "global_pixel_shader", Class = "glps", Size = 0x1C)]
 	public class GlobalPixelShader
 	{
 		public List<DrawMode> DrawModes;

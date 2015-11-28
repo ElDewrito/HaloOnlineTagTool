@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "cfxs", Size = 0x170)]
+	[TagStructure(Name = "camera_fx_settings", Class = "cfxs", Size = 0x170)]
 	public class CameraFxSettings
 	{
 		public ushort Flags;

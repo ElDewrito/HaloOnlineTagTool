@@ -74,7 +74,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var tag = _info.Cache.AllocateTag();
 			using (var tagsStream = _info.OpenCacheReadWrite())
 			{
-				var tagContext = new TagSerializationContext(tagsStream, _info.Cache, tag);
+				var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _info.StringIds, tag);
 				_info.Serializer.Serialize(tagContext, bitmap);
 			}
 

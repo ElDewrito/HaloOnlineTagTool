@@ -87,7 +87,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 					}
 				}
 
-				var context = new TagSerializationContext(stream, _info.Cache, tag);
+				var context = new TagSerializationContext(stream, _info.Cache, _info.StringIds, tag);
 				_info.Serializer.Serialize(context, phmo);
 
 			}

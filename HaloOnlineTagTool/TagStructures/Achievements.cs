@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "achi", Size = 0x18)]
+	[TagStructure(Name = "achievements", Class = "achi", Size = 0x18)]
 	public class Achievements
 	{
 		public List<AchievementInformationBlock> AchievementInformation;

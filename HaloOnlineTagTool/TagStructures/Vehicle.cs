@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "vehi", Size = 0x148)]
+	[TagStructure(Name = "vehicle", Class = "vehi", Size = 0x148)]
 	public class Vehicle : Unit
 	{
 		public uint Flags5;

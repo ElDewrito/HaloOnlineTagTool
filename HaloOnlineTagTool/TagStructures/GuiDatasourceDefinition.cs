@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "dsrc", Size = 0x20)]
+	[TagStructure(Name = "gui_datasource_definition", Class = "dsrc", Size = 0x20)]
 	public class GuiDatasourceDefinition
 	{
 		public StringId Name;

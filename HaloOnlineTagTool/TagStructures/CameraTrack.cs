@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "trak", Size = 0x14)]
+	[TagStructure(Name = "camera_track", Class = "trak", Size = 0x14)]
 	public class CameraTrack
 	{
 		public uint Unknown;

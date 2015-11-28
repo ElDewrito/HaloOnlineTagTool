@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "pdm!", Size = 0x3C)]
+	[TagStructure(Name = "podium_settings", Class = "pdm!", Size = 0x3C)]
 	public class PodiumSettings
 	{
 		public uint Unknown;

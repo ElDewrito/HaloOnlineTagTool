@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "phmo", Size = 0x198)]
+	[TagStructure(Name = "physics_model", Class = "phmo", Size = 0x198)]
 	public class PhysicsModel
 	{
 		public uint Unknown;

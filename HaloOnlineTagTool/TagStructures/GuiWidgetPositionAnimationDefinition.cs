@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wpos", Size = 0x24)]
+	[TagStructure(Name = "gui_widget_position_animation_definition", Class = "wpos", Size = 0x24)]
 	public class GuiWidgetPositionAnimationDefinition
 	{
 		public uint AnimationFlags;

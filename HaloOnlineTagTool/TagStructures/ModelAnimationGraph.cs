@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "jmad", Size = 0x104)]
+	[TagStructure(Name = "model_animation_graph", Class = "jmad", Size = 0x104)]
 	public class ModelAnimationGraph
 	{
 		public HaloTag ParentAnimationGraph;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "gpdt", Size = 0x44)]
+	[TagStructure(Name = "game_progression", Class = "gpdt", Size = 0x44)]
 	public class GameProgression
 	{
 		public List<UnknownBlock> Unknown;

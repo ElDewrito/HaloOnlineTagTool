@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "form", Size = 0x18)]
+	[TagStructure(Name = "formation", Class = "form", Size = 0x18)]
 	public class Formation
 	{
 		public StringId Name;

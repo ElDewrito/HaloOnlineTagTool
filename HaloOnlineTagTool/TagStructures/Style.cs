@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "styl", Size = 0x5C)]
+	[TagStructure(Name = "style", Class = "styl", Size = 0x5C)]
 	public class Style
 	{
 		[TagField(Length = 32)] public string Name;

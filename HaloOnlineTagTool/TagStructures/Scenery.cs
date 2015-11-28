@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "scen", Size = 0x8)]
+	[TagStructure(Name = "scenery", Class = "scen", Size = 0x8)]
 	public class Scenery : GameObject
 	{
 		public PathfindingPolicyValue PathfindingPolicy;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "eqip", Size = 0x1B0)]
+	[TagStructure(Name = "equipment", Class = "eqip", Size = 0x1B0)]
 	public class Equipment : Item
 	{
 		public float UseDuration;

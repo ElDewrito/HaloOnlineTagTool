@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wtuv", Size = 0x2C)]
+	[TagStructure(Name = "gui_widget_texture_coordinate_animation_definition", Class = "wtuv", Size = 0x2C)]
 	public class GuiWidgetTextureCoordinateAnimationDefinition
 	{
 		public uint AnimationFlags;

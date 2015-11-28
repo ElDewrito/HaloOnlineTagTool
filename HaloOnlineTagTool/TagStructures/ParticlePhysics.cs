@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "pmov", Size = 0x2C)]
+	[TagStructure(Name = "particle_physics", Class = "pmov", Size = 0x2C)]
 	public class ParticlePhysics
 	{
 		public HaloTag Template;

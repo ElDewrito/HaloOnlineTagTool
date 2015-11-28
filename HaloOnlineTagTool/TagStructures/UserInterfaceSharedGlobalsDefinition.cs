@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wigl", Size = 0x3D0)]
+	[TagStructure(Name = "user_interface_shared_globals_definition", Class = "wigl", Size = 0x3D0)]
 	public class UserInterfaceSharedGlobalsDefinition
 	{
 		public short IncTextUpdatePeriod;

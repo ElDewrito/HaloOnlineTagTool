@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "udlg", Size = 0x30)]
+	[TagStructure(Name = "dialogue", Class = "udlg", Size = 0x30)]
 	public class Dialogue
 	{
 		public HaloTag GlobalDialogueInfo;

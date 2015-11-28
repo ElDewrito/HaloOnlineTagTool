@@ -40,7 +40,7 @@ namespace HaloOnlineTagTool.Commands.Rmsh
 
                 using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.Read))
                 {
-                    var context = new TagSerializationContext(cacheStream, Info.Cache, property.Template);
+                    var context = new TagSerializationContext(cacheStream, Info.Cache, Info.StringIds, property.Template);
                     template = Info.Deserializer.Deserialize<RenderMethodTemplate>(context);
                 }
 
@@ -60,7 +60,7 @@ namespace HaloOnlineTagTool.Commands.Rmsh
 
             using (var cacheStream = Info.CacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
-                var context = new TagSerializationContext(cacheStream, Info.Cache, SourceTag);
+                var context = new TagSerializationContext(cacheStream, Info.Cache, Info.StringIds, SourceTag);
                 Info.Serializer.Serialize(context, SourceRenderMethod);
             }
 

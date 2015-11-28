@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "shit", Size = 0x1E4)]
+	[TagStructure(Name = "shield_impact", Class = "shit", Size = 0x1E4)]
 	public class ShieldImpact
 	{
 		public short Unknown;

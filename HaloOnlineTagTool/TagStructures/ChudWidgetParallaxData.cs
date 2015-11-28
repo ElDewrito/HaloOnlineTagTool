@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "cprl", Size = 0x10)]
+	[TagStructure(Name = "chud_widget_parallax_data", Class = "cprl", Size = 0x10)]
 	public class ChudWidgetParallaxData
 	{
 		public float Unknown;

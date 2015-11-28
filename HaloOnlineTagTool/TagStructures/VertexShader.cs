@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "vtsh", Size = 0x20)]
+	[TagStructure(Name = "vertex_shader", Class = "vtsh", Size = 0x20)]
 	public class VertexShader
 	{
 		public uint Unknown;

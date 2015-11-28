@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "arms", Size = 0x10)]
+	[TagStructure(Name = "armor_sounds", Class = "arms", Size = 0x10)]
 	public class ArmorSounds
 	{
 		public List<ArmorSound> ArmorSounds2;

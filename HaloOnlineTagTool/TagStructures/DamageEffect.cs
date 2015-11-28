@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "jpt!", Size = 0xF4)]
+	[TagStructure(Name = "damage_effect", Class = "jpt!", Size = 0xF4)]
 	public class DamageEffect
 	{
 		public float RadiusMin;

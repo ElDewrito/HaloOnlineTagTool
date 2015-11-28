@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "colo", Size = 0x10)]
+	[TagStructure(Name = "color_table", Class = "colo", Size = 0x10)]
 	public class ColorTable
 	{
 		public List<ColorTableBlock> ColorTable2;

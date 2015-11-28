@@ -62,7 +62,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 					try
 					{
-						var tagContext = new TagSerializationContext(tagsStream, _info.Cache, tag);
+						var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _info.StringIds, tag);
 						var bitmap = _info.Deserializer.Deserialize<TagStructures.Bitmap>(tagContext);
 						var ddsOutDir = outDir;
 						if (bitmap.Images.Count > 1)

@@ -10,7 +10,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mode", Size = 0x1D0)]
+	[TagStructure(Name = "render_model", Class = "mode", Size = 0x1D0)]
 	public class RenderModel
 	{
 		public StringId Name;

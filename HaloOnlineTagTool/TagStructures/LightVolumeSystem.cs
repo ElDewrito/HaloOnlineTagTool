@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "ltvl", Size = 0x14)]
+	[TagStructure(Name = "light_volume_system", Class = "ltvl", Size = 0x14)]
 	public class LightVolumeSystem
 	{
 		public List<LightVolumeSystemBlock> LightVolumeSystem2;

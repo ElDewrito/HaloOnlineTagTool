@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bkey", Size = 0x54)]
+	[TagStructure(Name = "gui_button_key_definition", Class = "bkey", Size = 0x54)]
 	public class GuiButtonKeyDefinition
 	{
 		public uint Flags;

@@ -150,7 +150,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			using (var cacheStream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
 			{
 				var tag = _cache.Tags[0x3317];
-				var context = new TagSerializationContext(cacheStream, _cache, tag);
+				var context = new TagSerializationContext(cacheStream, _cache, _stringIds, tag);
 				_info.Serializer.Serialize(context, renderModel);
 			}
 			Console.WriteLine("Model imported successfully!");

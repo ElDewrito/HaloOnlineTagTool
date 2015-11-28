@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmtr", Size = 0x1C)]
+	[TagStructure(Name = "shader_terrain", Class = "rmtr", Size = 0x1C)]
 	public class ShaderTerrain : RenderMethod
 	{
 		public StringId Material1;

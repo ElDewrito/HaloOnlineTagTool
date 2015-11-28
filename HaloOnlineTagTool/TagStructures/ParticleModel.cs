@@ -10,7 +10,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "pmdf", Size = 0x90)]
+	[TagStructure(Name = "particle_model", Class = "pmdf", Size = 0x90)]
 	public class ParticleModel
 	{
 		public GeometryReference Geometry;

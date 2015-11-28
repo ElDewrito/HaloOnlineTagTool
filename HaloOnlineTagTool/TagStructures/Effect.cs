@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "effe", Size = 0x68)]
+	[TagStructure(Name = "effect", Class = "effe", Size = 0x68)]
 	public class Effect
 	{
 		public uint Flags;

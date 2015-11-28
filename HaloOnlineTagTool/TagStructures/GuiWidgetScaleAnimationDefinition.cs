@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wscl", Size = 0x24)]
+	[TagStructure(Name = "gui_widget_scale_animation_definition", Class = "wscl", Size = 0x24)]
 	public class GuiWidgetScaleAnimationDefinition
 	{
 		public uint AnimationFlags;

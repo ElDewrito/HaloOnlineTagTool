@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wrot", Size = 0x2C)]
+	[TagStructure(Name = "gui_widget_rotation_animation_definition", Class = "wrot", Size = 0x2C)]
 	public class GuiWidgetRotationAnimationDefinition
 	{
 		public uint AnimationFlags;

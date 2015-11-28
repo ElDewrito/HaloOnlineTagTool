@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "beam", Size = 0x10)]
+	[TagStructure(Name = "beam_system", Class = "beam", Size = 0x10)]
 	public class BeamSystem
 	{
 		public List<BeamSystemBlock> BeamSystem2;

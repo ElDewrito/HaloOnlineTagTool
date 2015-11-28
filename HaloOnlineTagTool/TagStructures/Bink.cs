@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bink", Size = 0x18)]
+	[TagStructure(Name = "bink", Class = "bink", Size = 0x18)]
 	public class Bink
 	{
 		public int FrameCount;

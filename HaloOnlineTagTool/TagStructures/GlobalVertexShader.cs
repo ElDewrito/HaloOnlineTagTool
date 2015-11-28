@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "glvs", Size = 0x1C)]
+	[TagStructure(Name = "global_vertex_shader", Class = "glvs", Size = 0x1C)]
 	public class GlobalVertexShader
 	{
 		public List<VertexTypeShaders> VertexTypes;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmcs", Size = 0x4)]
+	[TagStructure(Name = "shader_custom", Class = "rmcs", Size = 0x4)]
 	public class ShaderCustom : RenderMethod
 	{
 		public StringId Material;

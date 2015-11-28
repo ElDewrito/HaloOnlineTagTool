@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wgtz", Size = 0x50, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "wgtz", Size = 0x60, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x50, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x60, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class UserInterfaceGlobalsDefinition
 	{
 		public HaloTag SharedUiGlobals;

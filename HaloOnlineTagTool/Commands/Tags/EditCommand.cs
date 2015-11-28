@@ -103,7 +103,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			VFilesList vfsl;
 			using (var stream = _info.OpenCacheRead())
-				vfsl = _info.Deserializer.Deserialize<VFilesList>(new TagSerializationContext(stream, _cache, tag));
+				vfsl = _info.Deserializer.Deserialize<VFilesList>(new TagSerializationContext(stream, _cache, _info.StringIds, tag));
 			var context = VfslContextFactory.Create(_stack.Context, _info, tag, vfsl);
 			_stack.Push(context);
 		}
@@ -112,7 +112,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
 			MultilingualUnicodeStringList unic;
 			using (var stream = _info.OpenCacheRead())
-				unic = _info.Deserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, tag));
+				unic = _info.Deserializer.Deserialize<MultilingualUnicodeStringList>(new TagSerializationContext(stream, _cache, _info.StringIds, tag));
 			var context = UnicContextFactory.Create(_stack.Context, _info, tag, unic);
 			_stack.Push(context);
 		}
@@ -121,7 +121,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 		{
             TagStructures.Bitmap bitmap;
 			using (var stream = _info.OpenCacheRead())
-				bitmap = _info.Deserializer.Deserialize<TagStructures.Bitmap>(new TagSerializationContext(stream, _cache, tag));
+				bitmap = _info.Deserializer.Deserialize<TagStructures.Bitmap>(new TagSerializationContext(stream, _cache, _info.StringIds, tag));
 			var context = BitmapContextFactory.Create(_stack.Context, _info, tag, bitmap);
 			_stack.Push(context);
 		}
@@ -130,7 +130,7 @@ namespace HaloOnlineTagTool.Commands.Tags
         {
             TagStructures.Model model;
             using (var stream = _info.OpenCacheRead())
-                model = _info.Deserializer.Deserialize<TagStructures.Model>(new TagSerializationContext(stream, _cache, tag));
+                model = _info.Deserializer.Deserialize<TagStructures.Model>(new TagSerializationContext(stream, _cache, _info.StringIds, tag));
             var context = HlmtContextFactory.Create(_stack.Context, _info, tag, model);
             _stack.Push(context);
         }
@@ -144,7 +144,7 @@ namespace HaloOnlineTagTool.Commands.Tags
         {
             Scenario scenario;
             using (var stream = _info.OpenCacheRead())
-                scenario = _info.Deserializer.Deserialize<Scenario>(new TagSerializationContext(stream, _cache, tag));
+                scenario = _info.Deserializer.Deserialize<Scenario>(new TagSerializationContext(stream, _cache, _info.StringIds, tag));
             var context = ScnrContextFactory.Create(_stack.Context, _info, tag, scenario);
             _stack.Push(context);
         }

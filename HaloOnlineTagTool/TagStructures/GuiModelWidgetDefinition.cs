@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "mdl3", Size = 0x90)]
+	[TagStructure(Name = "gui_model_widget_definition", Class = "mdl3", Size = 0x90)]
 	public class GuiModelWidgetDefinition
 	{
 		public uint Flags;

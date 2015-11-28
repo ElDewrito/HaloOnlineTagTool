@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "chmt", Size = 0xC)]
+	[TagStructure(Name = "chocolate_mountain_new", Class = "chmt", Size = 0xC)]
 	public class ChocolateMountainNew
 	{
 		public List<LightingVariable> LightingVariables;

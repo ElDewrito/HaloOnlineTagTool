@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmhg", Size = 0x4)]
+	[TagStructure(Name = "shader_halogram", Class = "rmhg", Size = 0x4)]
 	public class ShaderHalogram : RenderMethod
 	{
 		public uint Unknown8;

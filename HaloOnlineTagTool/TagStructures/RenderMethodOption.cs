@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rmop", Size = 0x10)]
+	[TagStructure(Name = "render_method_option", Class = "rmop", Size = 0x10)]
 	public class RenderMethodOption
 	{
 		public List<UnknownBlock> Unknown;

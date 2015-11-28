@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "decs", Size = 0x24)]
+	[TagStructure(Name = "decal_system", Class = "decs", Size = 0x24)]
 	public class DecalSystem
 	{
 		public uint Unknown;

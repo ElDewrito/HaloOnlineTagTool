@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "proj", Size = 0x1AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "proj", Size = 0x1B4, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "projectile", Class = "proj", Size = 0x1AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "projectile", Class = "proj", Size = 0x1B4, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Projectile : GameObject
 	{
 		public uint Flags2;

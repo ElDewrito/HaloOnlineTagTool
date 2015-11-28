@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sLdT", Size = 0x50)]
+	[TagStructure(Name = "scenario_lightmap", Class = "sLdT", Size = 0x50)]
 	public class ScenarioLightmap
 	{
 		public uint Unknown;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "wclr", Size = 0x24)]
+	[TagStructure(Name = "gui_widget_color_animation_definition", Class = "wclr", Size = 0x24)]
 	public class GuiWidgetColorAnimationDefinition
 	{
 		public uint AnimationFlags;

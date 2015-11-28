@@ -100,7 +100,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 							if (data == null)
 							{
 								// No data yet - deserialize it
-								var context = new TagSerializationContext(stream, info.Cache, tag.Tag);
+								var context = new TagSerializationContext(stream, info.Cache, info.StringIds, tag.Tag);
 								var type = TagStructureTypes.FindByGroupTag(tag.Tag.GroupTag);
 								data = info.Deserializer.Deserialize(context, type);
 							}
@@ -113,7 +113,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 							if (!baseTagData.TryGetValue(baseTag, out baseData))
 							{
 								// No data yet - deserialize it
-								var context = new TagSerializationContext(baseStream, _info.Cache, _info.Cache.Tags[baseTag]);
+								var context = new TagSerializationContext(baseStream, _info.Cache, _info.StringIds, _info.Cache.Tags[baseTag]);
 								var type = TagStructureTypes.FindByGroupTag(tag.Tag.GroupTag);
 								baseData = _info.Deserializer.Deserialize(context, type);
 								baseTagData[baseTag] = baseData;
@@ -218,7 +218,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var scenarios = new Dictionary<int, QueuedTag>();
 			foreach (var scenarioTag in info.Cache.Tags.FindAllInGroup("scnr"))
 			{
-				var context = new TagSerializationContext(stream, info.Cache, scenarioTag);
+				var context = new TagSerializationContext(stream, info.Cache, info.StringIds, scenarioTag);
 				var scenario = info.Deserializer.Deserialize<Scenario>(context);
 				scenarios[scenario.MapId] = new QueuedTag { Tag = scenarioTag, Data = scenario };
 			}

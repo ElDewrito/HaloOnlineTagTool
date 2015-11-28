@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "grup", Size = 0x60)]
+	[TagStructure(Name = "gui_group_widget_definition", Class = "grup", Size = 0x60)]
 	public class GuiGroupWidgetDefinition
 	{
 		public uint Flags;

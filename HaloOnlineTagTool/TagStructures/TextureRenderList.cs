@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "trdf", Size = 0x48)]
+	[TagStructure(Name = "texture_render_list", Class = "trdf", Size = 0x48)]
 	public class TextureRenderList
 	{
 		public List<Bitmap> Bitmaps;

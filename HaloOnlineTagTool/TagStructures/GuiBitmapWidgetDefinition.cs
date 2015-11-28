@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "bmp3", Size = 0x60)]
+	[TagStructure(Name = "gui_bitmap_widget_definition", Class = "bmp3", Size = 0x60)]
 	public class GuiBitmapWidgetDefinition
 	{
 		public uint Flags;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "sefc", Size = 0xC)]
+	[TagStructure(Name = "area_screen_effect", Class = "sefc", Size = 0xC)]
 	public class AreaScreenEffect
 	{
 		public List<ScreenEffectBlock> ScreenEffect;

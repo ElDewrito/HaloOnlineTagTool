@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "jmrq", Size = 0xC)]
+	[TagStructure(Name = "sandbox_text_value_pair_definition", Class = "jmrq", Size = 0xC)]
 	public class SandboxTextValuePairDefinition
 	{
 		public List<SandboxTextValuePair> SandboxTextValuePairs;

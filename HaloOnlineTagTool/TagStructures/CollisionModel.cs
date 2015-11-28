@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "coll", Size = 0x44)]
+	[TagStructure(Name = "collision_model", Class = "coll", Size = 0x44)]
 	public class CollisionModel
 	{
 		public int CollisionModelChecksum;

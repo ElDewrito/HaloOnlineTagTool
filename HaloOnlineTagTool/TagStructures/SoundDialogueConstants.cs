@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "spk!", Size = 0x30)]
+	[TagStructure(Name = "sound_dialogue_constants", Class = "spk!", Size = 0x30)]
 	public class SoundDialogueConstants
 	{
 		public float AlmostNever;

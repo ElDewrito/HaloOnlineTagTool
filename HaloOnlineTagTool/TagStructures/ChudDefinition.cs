@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "chdt", Size = 0x18)]
+	[TagStructure(Name = "chud_definition", Class = "chdt", Size = 0x18)]
 	public class ChudDefinition
 	{
 		public List<HudWidget> HudWidgets;

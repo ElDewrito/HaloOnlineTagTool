@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "flck", Size = 0x60)]
+	[TagStructure(Name = "flock", Class = "flck", Size = 0x60)]
 	public class Flock
 	{
 		public uint Unknown;

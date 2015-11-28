@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "matg", Size = 0x608, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "matg", Size = 0x618, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "globals", Class = "matg", Size = 0x608, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "globals", Class = "matg", Size = 0x618, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Globals
 	{
 		public uint Unknown;

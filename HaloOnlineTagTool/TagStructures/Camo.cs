@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "cmoe", Size = 0x40)]
+	[TagStructure(Name = "camo", Class = "cmoe", Size = 0x40)]
 	public class Camo
 	{
 		public short Unknown;

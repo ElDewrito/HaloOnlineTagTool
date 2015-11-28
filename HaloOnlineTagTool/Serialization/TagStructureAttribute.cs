@@ -20,6 +20,11 @@ namespace HaloOnlineTagTool.Serialization
 		}
 
 		/// <summary>
+		/// Gets or sets the internal name of the structure.
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
 		/// Gets or sets the name of the tag class that the structure applies to.
 		/// </summary>
 		public string Class { get; set; }

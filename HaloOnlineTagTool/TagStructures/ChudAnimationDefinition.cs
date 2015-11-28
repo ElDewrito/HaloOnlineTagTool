@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "chad", Size = 0x5C)]
+	[TagStructure(Name = "chud_animation_definition", Class = "chad", Size = 0x5C)]
 	public class ChudAnimationDefinition
 	{
 		public ushort Flags;

@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "rasg", Size = 0xBC)]
+	[TagStructure(Name = "rasterizer_globals", Class = "rasg", Size = 0xBC)]
 	public class RasterizerGlobals
 	{
 		public List<DefaultBitmap> DefaultBitmaps;

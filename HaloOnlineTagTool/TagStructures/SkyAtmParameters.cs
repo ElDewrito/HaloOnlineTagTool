@@ -9,8 +9,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "skya", Size = 0x4C, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Class = "skya", Size = 0x54, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "sky_atm_parameters", Class = "skya", Size = 0x4C, MaxVersion = EngineVersion.V10_1_449175_Live)]
+	[TagStructure(Name = "sky_atm_parameters", Class = "skya", Size = 0x54, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class SkyAtmParameters
 	{
 		public int Unknown;

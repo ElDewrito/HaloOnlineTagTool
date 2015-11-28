@@ -9,7 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Class = "lsnd", Size = 0x40)]
+	[TagStructure(Name = "sound_looping", Class = "lsnd", Size = 0x40)]
 	public class SoundLooping
 	{
 		public uint Flags;
