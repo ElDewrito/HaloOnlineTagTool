@@ -142,7 +142,7 @@ namespace HaloOnlineTagTool.Serialization
 				{
 					// Object is a tag reference - add it as a dependency
 					var referencedTag = obj as HaloTag;
-					if (referencedTag != null)
+					if (referencedTag != null && referencedTag != _context.Tag)
 						_context._dependencies.Add(referencedTag.Index);
 				}
 				return obj;
