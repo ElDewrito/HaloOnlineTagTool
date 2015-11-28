@@ -11,9 +11,9 @@ namespace HaloOnlineTagTool.Commands.Hlmt
 	class HlmtListVariantsCommand : Command
 	{
 		private readonly OpenTagCache _info;
-		private readonly Model _model;
+		private readonly TagStructures.Model _model;
 
-		public HlmtListVariantsCommand(OpenTagCache info, Model model) : base(
+		public HlmtListVariantsCommand(OpenTagCache info, TagStructures.Model model) : base(
 			CommandFlags.Inherit,
 
 			"listvariants",

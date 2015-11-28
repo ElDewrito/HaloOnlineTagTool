@@ -57,6 +57,10 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
+    <Compile Include="Commands\Rm\RenderMethodContextFactory.cs" />
+    <Compile Include="Commands\Rm\SpecifyBitmapsCommand.cs" />
+    <Compile Include="Commands\Scnr\ScenarioContextFactory.cs" />
+    <Compile Include="Commands\Scnr\CopyForgePaletteCommand.cs" />
     <Compile Include="Commands\Tags\MatchTagsCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
@@ -83,7 +87,7 @@
     <Compile Include="Layouts\CSharpLayoutWriter.cs" />
     <Compile Include="Layouts\AssemblyPluginLoader.cs" />
     <Compile Include="Commands\ArgumentParser.cs" />
-    <Compile Include="Commands\Bitm\BitmContextFactory.cs" />
+    <Compile Include="Commands\Bitm\BitmapContextFactory.cs" />
     <Compile Include="Commands\Bitm\BitmImportCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Hlmt\HlmtContextFactory.cs" />
@@ -139,6 +143,9 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="TagStructures\BreakableSurface.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TagStructures\LeafSystem.cs" />
     <Compile Include="TagStructures\RenderMethod.cs" />
     <Compile Include="TagStructures\ShaderCustom.cs" />
@@ -230,9 +237,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TagStructures\Bitmap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TagStructures\CacheFileGlobalTags.cs">

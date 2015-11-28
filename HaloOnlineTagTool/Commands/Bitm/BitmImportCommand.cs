@@ -16,9 +16,9 @@ namespace HaloOnlineTagTool.Commands.Bitm
 	{
 		private readonly OpenTagCache _info;
 		private readonly HaloTag _tag;
-		private readonly Bitmap _bitmap;
+		private readonly TagStructures.Bitmap _bitmap;
 
-		public BitmImportCommand(OpenTagCache info, HaloTag tag, Bitmap bitmap) : base(
+		public BitmImportCommand(OpenTagCache info, HaloTag tag, TagStructures.Bitmap bitmap) : base(
 			CommandFlags.None,
 
 			"import",

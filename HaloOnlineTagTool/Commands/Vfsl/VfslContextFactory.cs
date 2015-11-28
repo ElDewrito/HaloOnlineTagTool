@@ -12,9 +12,13 @@ namespace HaloOnlineTagTool.Commands.Vfsl
 	static class VfslContextFactory
 	{
 		public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, VFilesList vfsl)
-		{
-			var context = new CommandContext(parent, string.Format("{0:X8}.vfsl", tag.Index));
-			context.AddCommand(new VfslListCommand(vfsl));
+        {
+            var groupName = info.StringIds.GetString(tag.GroupName);
+
+            var context = new CommandContext(parent,
+                string.Format("{0:X8}.{1}", tag.Index, groupName));
+
+            context.AddCommand(new VfslListCommand(vfsl));
 			context.AddCommand(new VfslExtractCommand(vfsl));
 			context.AddCommand(new VfslExtractAllCommand(vfsl));
 			context.AddCommand(new VfslImportCommand(info, tag, vfsl));
