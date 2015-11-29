@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			var count = 0;
 			using (var stream = _info.OpenCacheRead())
 			{
-				foreach (var groupTag in _cache.Tags.Where(t => t != null).Select(t => t.GroupTag).Distinct())
+				foreach (var groupTag in _cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
 				{
 					TagLayoutGuess layout = null;
 					HaloTag lastTag = null;

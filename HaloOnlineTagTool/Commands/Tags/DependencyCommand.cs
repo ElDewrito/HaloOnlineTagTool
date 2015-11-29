@@ -111,7 +111,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private bool ExecuteListDependsOn(HaloTag tag)
 		{
-			var dependsOn = _cache.Tags.Where(t => t != null && t.Dependencies.Contains(tag.Index));
+			var dependsOn = _cache.Tags.NonNull().Where(t => t.Dependencies.Contains(tag.Index));
 			TagPrinter.PrintTagsShort(dependsOn);
 			return true;
 		}

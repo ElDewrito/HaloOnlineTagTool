@@ -34,7 +34,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (args.Count > 0)
 				tags = _cache.Tags.FindAllByClasses(searchClasses).ToArray();
 			else
-				tags = _cache.Tags.Where(t => t != null).ToArray();
+				tags = _cache.Tags.NonNull().ToArray();
 
 			if (tags.Length == 0)
 			{

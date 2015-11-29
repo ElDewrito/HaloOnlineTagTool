@@ -69,7 +69,7 @@ namespace HaloOnlineTagTool
 		/// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
 		public HaloTag FindFirstInGroup(MagicNumber groupTag)
 		{
-			return _tags.FirstOrDefault(t => t != null && (t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag));
+			return NonNull().FirstOrDefault(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace HaloOnlineTagTool
 		/// <returns>All tags in the given group.</returns>
 		public IEnumerable<HaloTag> FindAllInGroup(MagicNumber groupTag)
 		{
-			return _tags.Where(t => t != null && (t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag));
+			return NonNull().Where(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
 		}
 
 		/// <summary>
@@ -109,7 +109,7 @@ namespace HaloOnlineTagTool
 		/// <returns>All tags which belong to at least one of the groups.</returns>
 		public IEnumerable<HaloTag> FindAllByClasses(ICollection<MagicNumber> groupTags)
 		{
-			return _tags.Where(t => t != null && (groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag)));
+			return NonNull().Where(t => groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag));
 		}
 
 		/// <summary>
@@ -122,6 +122,16 @@ namespace HaloOnlineTagTool
 			var result = new HashSet<HaloTag>();
 			FindDependencies(result, tag);
 			return result;
+		}
+
+		/// <summary>
+		/// Retrieves an enumerable collection of tags which are not null.
+		/// This should be preferred over doing this manually because it also skips tags that are in the process of being created.
+		/// </summary>
+		/// <returns>A collection of tags which are not null.</returns>
+		public IEnumerable<HaloTag> NonNull()
+		{
+			return _tags.Where(t => t != null && t.HeaderOffset >= 0 && t.DataOffset >= 0);
 		}
 
 		private void FindDependencies(ISet<HaloTag> results, HaloTag tag)

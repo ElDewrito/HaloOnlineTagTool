@@ -98,14 +98,14 @@ namespace HaloOnlineTagTool
 		/// <summary>
 		/// Allocates a new tag at the end of the tag list without updating the file.
 		/// You can give the tag data by using one of the overwrite functions.
-		/// Note that the tag slot will be <c>null</c> until the tag has data assigned to it.
 		/// </summary>
 		/// <returns>The allocated tag.</returns>
 		public HaloTag AllocateTag()
 		{
 			var tagIndex = _tags.Count;
-			_tags.Add(null);
-			return new HaloTag { Index = tagIndex };
+			var tag = new HaloTag { Index = tagIndex };
+			_tags.Add(tag);
+			return tag;
 		}
 
 		/// <summary>
@@ -124,11 +124,7 @@ namespace HaloOnlineTagTool
 			// Ensure the data fits
 			var newHeaderSize = CalculateNewHeaderSize(tag);
 			if (tag.HeaderOffset < 0)
-			{
-				// Make room for a new tag
 				tag.HeaderOffset = GetNewTagOffset(tag.Index);
-				_tags[tag.Index] = tag;
-			}
 			ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, newHeaderSize + data.Length);
 			tag.DataOffset = tag.HeaderOffset + newHeaderSize;
 			tag.DataSize = data.Length;
@@ -153,11 +149,7 @@ namespace HaloOnlineTagTool
 
 			// Ensure the data fits
 			if (tag.HeaderOffset < 0)
-			{
-				// Make room for a new tag
 				tag.HeaderOffset = GetNewTagOffset(tag.Index);
-				_tags[tag.Index] = tag;
-			}
 			ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, data.Length);
 			
 			// Write the data
@@ -461,7 +453,7 @@ namespace HaloOnlineTagTool
 			for (var i = index - 1; i >= 0; i--)
 			{
 				var tag = _tags[i];
-				if (tag != null && tag.HeaderOffset >= 0)
+				if (tag != null && tag.HeaderOffset >= 0 && tag.DataOffset >= 0)
 					return tag.HeaderOffset + tag.TotalSize;
 			}
 			return CacheHeaderSize;
@@ -474,7 +466,7 @@ namespace HaloOnlineTagTool
 		private long GetTagDataEndOffset()
 		{
 			long endOffset = CacheHeaderSize;
-			foreach (var tag in _tags.Where(t => t != null && t.HeaderOffset >= 0))
+			foreach (var tag in Tags.NonNull())
 				endOffset = Math.Max(endOffset, tag.HeaderOffset + tag.TotalSize);
 			return endOffset;
 		}
@@ -489,7 +481,7 @@ namespace HaloOnlineTagTool
 			writer.BaseStream.Position = offsetTableOffset;
 			foreach (var tag in _tags)
 			{
-				if (tag != null && tag.HeaderOffset > 0)
+				if (tag != null && tag.HeaderOffset >= 0 && tag.DataOffset >= 0)
 					writer.Write((uint)tag.HeaderOffset);
 				else
 					writer.Write(0);

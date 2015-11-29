@@ -202,7 +202,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
 		private HaloTag FindTagWithOffset(int offset)
 		{
-			return _info.Cache.Tags.FirstOrDefault(t => t != null && offset >= t.DataOffset && offset < t.DataOffset + t.DataSize);
+			return _info.Cache.Tags.NonNull().FirstOrDefault(t => offset >= t.DataOffset && offset < t.DataOffset + t.DataSize);
 		}
 	}
 }

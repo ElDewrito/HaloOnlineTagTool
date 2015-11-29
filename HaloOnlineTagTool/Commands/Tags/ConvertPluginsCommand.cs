@@ -59,7 +59,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 			// order to look up the group name without using a static table.
 			var processedGroups = new HashSet<MagicNumber>();
 			var numConflicts = 0;
-			foreach (var tag in _cache.Tags.Where(tag => tag != null && !processedGroups.Contains(tag.GroupTag)))
+			foreach (var tag in _cache.Tags.NonNull().Where(tag => !processedGroups.Contains(tag.GroupTag)))
 			{
 				processedGroups.Add(tag.GroupTag);
 
