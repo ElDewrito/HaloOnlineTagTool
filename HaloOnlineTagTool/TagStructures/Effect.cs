@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 				public sbyte Unknown3;
 				public CameraModeValue CameraMode;
-				[TagField(Length = 4)] public string AnticipatedTagClass;
+				public int AnticipatedTagClass;
 				public HaloTag SpawnedTag;
 				public float VelocityBoundsMin;
 				public float VelocityBoundsMax;
