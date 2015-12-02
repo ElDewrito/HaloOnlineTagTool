@@ -63,16 +63,10 @@ namespace HaloOnlineTagTool
 				version = closestVersion;
 			}
 
-			// Determine the stringID resolver to use based on version
-			StringIdResolverBase resolver;
-			if (VersionDetection.Compare(version, EngineVersion.V11_1_498295_Live) >= 0)
-				resolver = new V11_1_498295.StringIdResolver();
-			else
-				resolver = new V1_106708.StringIdResolver();
-
 			// Load stringIDs
 			Console.Write("Reading stringIDs...");
 			var stringIdPath = Path.Combine(fileInfo.DirectoryName ?? "", "string_ids.dat");
+			var resolver = StringIdResolverFactory.Create(version);
 			StringIdCache stringIds = null;
 			try
 			{

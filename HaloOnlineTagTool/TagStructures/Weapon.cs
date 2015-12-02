@@ -10,7 +10,8 @@ using HaloOnlineTagTool.Serialization;
 namespace HaloOnlineTagTool.TagStructures
 {
 	[TagStructure(Name = "weapon", Class = "weap", Size = 0x384, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Name = "weapon", Class = "weap", Size = 0x390, MaxVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "weapon", Class = "weap", Size = 0x390, MinVersion = EngineVersion.V11_1_498295_Live, MaxVersion = EngineVersion.V11_1_571627_Live)]
+	[TagStructure(Name = "weapon", Class = "weap", Size = 0x394, MinVersion = EngineVersion.V12_1_700123_cert_ms30_oct19)]
 	public class Weapon : Item
 	{
 		public uint Flags3;
@@ -35,6 +36,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public HaloTag DetonationDamageEffect2;
 		public HaloTag PlayerMeleeDamage;
 		public HaloTag PlayerMeleeResponse;
+		[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public uint Unknown27;
 		public Angle DamagePyramidAnglesY;
 		public Angle DamagePyramidAnglesP;
 		public float DamagePyramidDepth;

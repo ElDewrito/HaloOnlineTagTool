@@ -9,6 +9,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
+	// TODO: Update this for cert_ms30_oct19
 	[TagStructure(Name = "texture_render_list", Class = "trdf", Size = 0x48)]
 	public class TextureRenderList
 	{

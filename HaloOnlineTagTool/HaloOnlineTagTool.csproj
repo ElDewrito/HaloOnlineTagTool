@@ -142,6 +142,7 @@
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
+    <Compile Include="StringIdResolverFactory.cs" />
     <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -156,6 +157,7 @@
     <Compile Include="TagStructures\Unit.cs" />
     <Compile Include="V11_1_498295\StringIdResolver.cs" />
     <Compile Include="Resources\Geometry\IVertexStream.cs" />
+    <Compile Include="V12_1_700123\StringIdResolver.cs" />
     <Compile Include="V1_235640\VertexStream.cs" />
     <Compile Include="VersionDetection.cs" />
     <Compile Include="GameLanguage.cs" />
