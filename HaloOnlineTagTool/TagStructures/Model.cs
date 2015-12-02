@@ -78,6 +78,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown2;
 			public sbyte Unknown3;
 			public sbyte Unknown4;
+			[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public uint Unknown8;
 			public sbyte ModelRegion0Index;
 			public sbyte ModelRegion1Index;
 			public sbyte ModelRegion2Index;
@@ -98,7 +99,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<Object> Objects;
 			public int Unknown5;
 			public uint Unknown6;
-			public uint Unknown7;
+			[MaxVersion(EngineVersion.V11_1_571627_Live)] public uint Unknown7;
 
 			[TagStructure(Size = 0x18)]
 			public class Region

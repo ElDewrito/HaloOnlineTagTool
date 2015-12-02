@@ -10,8 +10,7 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Name = "scenario_lightmap_bsp_data", Class = "Lbsp", Size = 0x1E4, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Name = "scenario_lightmap_bsp_data", Class = "Lbsp", Size = 0x1E8, MinVersion = EngineVersion.V11_1_498295_Live)]
+	[TagStructure(Name = "scenario_lightmap_bsp_data", Class = "Lbsp", Size = 0x1E4)]
 	public class ScenarioLightmapBspData
 	{
 		public short Unknown;
@@ -86,7 +85,6 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown66;
 		public uint Unknown67;
 		public uint Unknown68;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown69; // TODO: Version number
 
 		[TagStructure(Size = 0x10)]
 		public class InstancedMesh

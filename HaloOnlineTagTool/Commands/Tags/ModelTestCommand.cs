@@ -112,7 +112,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 					indices.AddRange(meshIndices.Select(i => (ushort)(i + partStartVertex)));
 
 					// Define a material and part for this mesh
-					var material = builder.AddMaterial(new RenderModel.Material
+					var material = builder.AddMaterial(new RenderMaterial
 					{
 						RenderMethod = _cache.Tags[0x101F],
 					});

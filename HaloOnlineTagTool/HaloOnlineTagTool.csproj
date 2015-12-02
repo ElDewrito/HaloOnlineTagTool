@@ -137,6 +137,7 @@
     <Compile Include="Resources\Geometry\GeometryReference.cs" />
     <Compile Include="Resources\Geometry\BlenderPhmoReader.cs" />
     <Compile Include="Resources\Geometry\PhysicsModelBuilder.cs" />
+    <Compile Include="Resources\Geometry\RenderMaterial.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />

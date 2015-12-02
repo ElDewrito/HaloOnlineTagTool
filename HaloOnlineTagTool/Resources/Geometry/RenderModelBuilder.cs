@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 			_model.Regions = new List<RenderModel.Region>();
 			_model.Nodes = new List<RenderModel.Node>();
 			_model.RuntimeNodes = new List<RenderModel.RuntimeNode>();
-			_model.Materials = new List<RenderModel.Material>();
+			_model.Materials = new List<RenderMaterial>();
 			_model.Unknown1C = -1; // "Flair Starting Model Section Index" in Assembly
 			_model.Geometry = new GeometryReference
 			{
@@ -66,7 +66,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		/// </summary>
 		/// <param name="material">The material.</param>
 		/// <returns>The material index.</returns>
-		public short AddMaterial(RenderModel.Material material)
+		public short AddMaterial(RenderMaterial material)
 		{
 			_model.Materials.Add(material);
 			return (short)(_model.Materials.Count - 1);

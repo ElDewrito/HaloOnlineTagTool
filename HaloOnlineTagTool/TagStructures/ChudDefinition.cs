@@ -49,45 +49,6 @@ namespace HaloOnlineTagTool.TagStructures
 				Consumable,
 			}
 
-			[TagStructure(Size = 0x44)]
-			public class StateDatum
-			{
-				public ushort _1Engine;
-				public ushort _2;
-				public ushort _3;
-				public ushort _4Resolution;
-				public ushort _5Scoreboard;
-				public ushort _6ScoreboardB;
-				public ushort _7;
-				public ushort _7b;
-				public ushort _7Editor;
-				public ushort _9;
-				public ushort _10Skulls;
-				public ushort _11;
-				public ushort _12;
-				public ushort _13;
-				public ushort _14;
-				public ushort _15;
-				public ushort _16;
-				public ushort _17;
-				public ushort _18;
-				public ushort _19;
-				public ushort _20;
-				public ushort _21;
-				public ushort _22;
-				public ushort _23;
-				public ushort _24;
-				public ushort _25;
-				public ushort _26;
-				public ushort _27Ammo;
-				public ushort _28;
-				public ushort _29;
-				public ushort _30;
-				public ushort _31;
-				public ushort _32;
-				public ushort _33;
-			}
-
 			[TagStructure(Size = 0x1C)]
 			public class PlacementDatum
 			{
@@ -909,45 +870,6 @@ namespace HaloOnlineTagTool.TagStructures
 					Consumable,
 				}
 
-				[TagStructure(Size = 0x44)]
-				public class StateDatum
-				{
-					public ushort _1Engine;
-					public ushort _2;
-					public ushort _3;
-					public ushort _4Resolution;
-					public ushort _5Scoreboard;
-					public ushort _6ScoreboardB;
-					public ushort _7;
-					public ushort _7b;
-					public ushort _7Editor;
-					public ushort _9;
-					public ushort _10Skulls;
-					public ushort _11;
-					public ushort _12;
-					public ushort _13;
-					public ushort _14;
-					public ushort _15;
-					public ushort _16;
-					public ushort _17;
-					public ushort _18;
-					public ushort _19;
-					public ushort _20;
-					public ushort _21;
-					public ushort _22;
-					public ushort _23;
-					public ushort _24;
-					public ushort _25;
-					public ushort _26;
-					public ushort _27Ammo;
-					public ushort _28;
-					public ushort _29;
-					public ushort _30;
-					public ushort _31;
-					public ushort _32;
-					public ushort _33;
-				}
-
 				[TagStructure(Size = 0x1C)]
 				public class PlacementDatum
 				{
@@ -1758,45 +1680,6 @@ namespace HaloOnlineTagTool.TagStructures
 					Consumable,
 				}
 
-				[TagStructure(Size = 0x38)]
-				public class StateDatum
-				{
-					public ushort _1Engine;
-					public ushort _2;
-					public ushort _3;
-					public ushort _4Resolution;
-					public ushort _5Scoreboard;
-					public ushort _6ScoreboardB;
-					public ushort _7;
-					public ushort _7b;
-					public ushort _7Editor;
-					public ushort _9;
-					public ushort _10Skulls;
-					public ushort _11;
-					public ushort _12;
-					public ushort _13;
-					public ushort _14;
-					public ushort _15;
-					public ushort _16;
-					public ushort _17;
-					public ushort _18;
-					public ushort _19;
-					public ushort _20;
-					public ushort _21;
-					public ushort _22;
-					public ushort _23;
-					public ushort _24;
-					public ushort _25;
-					public ushort _26;
-					public ushort _27Ammo;
-					public ushort _28;
-					public ushort _29;
-					public ushort _30;
-					public ushort _31;
-					public ushort _32;
-					public ushort _33;
-				}
-
 				[TagStructure(Size = 0x1C)]
 				public class PlacementDatum
 				{
@@ -2588,6 +2471,48 @@ namespace HaloOnlineTagTool.TagStructures
 					Agency23,
 				}
 			}
+		}
+
+		[TagStructure(Size = 0x44, MaxVersion = EngineVersion.V11_1_571627_Live)]
+		[TagStructure(Size = 0x48, MinVersion = EngineVersion.V12_1_700123_cert_ms30_oct19)]
+		public class StateDatum
+		{
+			public ushort _1Engine;
+			public ushort _2;
+			public ushort _3;
+			public ushort _4Resolution;
+			public ushort _5Scoreboard;
+			public ushort _6ScoreboardB;
+			public ushort _7;
+			public ushort _7b;
+			public ushort _7Editor;
+			public ushort _9;
+			public ushort _10Skulls;
+			public ushort _11;
+			public ushort _12;
+			public ushort _13;
+			public ushort _14;
+			public ushort _15;
+			public ushort _16;
+			public ushort _17;
+			public ushort _18;
+			public ushort _19;
+			public ushort _20;
+			public ushort _21;
+			public ushort _22;
+			public ushort _23;
+			public ushort _24;
+			public ushort _25;
+			public ushort _26;
+			public ushort _27Ammo;
+			public ushort _28;
+			public ushort _29;
+			public ushort _30;
+			public ushort _31;
+			public ushort _32;
+			public ushort _33;
+			[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public ushort _34;
+			[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public ushort _35;
 		}
 	}
 }

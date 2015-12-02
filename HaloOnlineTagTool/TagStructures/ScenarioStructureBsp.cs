@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.TagStructures
 		[MinVersion(EngineVersion.V11_1_498295_Live)] public uint Unknown97;
 		public List<DetailObject> DetailObjects;
 		public List<Cluster> Clusters;
-		public List<Material> Materials;
+		public List<RenderMaterial> Materials;
 		public List<SkyOwnerClusterBlock> SkyOwnerCluster;
 		public uint Unknown23;
 		public uint Unknown24;
@@ -399,26 +399,6 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown3;
 				public short Unknown4;
 				public short Unknown5;
-			}
-		}
-
-		[TagStructure(Size = 0x24)]
-		public class Material
-		{
-			public HaloTag Shader;
-			public List<Property> Properties;
-			public int Unknown;
-			public sbyte BreakableSurfaceIndex;
-			public sbyte Unknown2;
-			public sbyte Unknown3;
-			public sbyte Unknown4;
-
-			[TagStructure(Size = 0xC)]
-			public class Property
-			{
-				public int Type;
-				public int IntValue;
-				public float RealValue;
 			}
 		}
 

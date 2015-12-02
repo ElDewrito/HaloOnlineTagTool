@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public int Unknown2C;
 		public List<Node> Nodes;
 		public List<MarkerGroup> MarkerGroups;
-		public List<Material> Materials;
+		public List<RenderMaterial> Materials;
 		public int Unknown54;
 		public int Unknown58;
 		public int Unknown5C;
@@ -175,27 +175,6 @@ namespace HaloOnlineTagTool.TagStructures
 				public Vector4 Rotation;
 				public float Scale;
 			}
-		}
-
-		/// <summary>
-		/// A material describing how a mesh part should be rendered.
-		/// </summary>
-		[TagStructure(Size = 0x24)]
-		public class Material
-		{
-			/// <summary>
-			/// Gets or sets the render method tag to use to render the material.
-			/// </summary>
-			public HaloTag RenderMethod;
-
-			public int Unknown10;
-			public int Unknown14;
-			public int Unknown18;
-			public int Unknown1C;
-			public sbyte BreakableSurfaceIndex;
-			public sbyte Unknown21;
-			public sbyte Unknown22;
-			public sbyte Unknown23;
 		}
 
 		[TagStructure(Size = 0x1C)]
