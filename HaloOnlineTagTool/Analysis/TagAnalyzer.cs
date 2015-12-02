@@ -13,6 +13,7 @@ namespace HaloOnlineTagTool.Analysis
 		private readonly TagCache _cache;
 		private readonly HaloTag _tag;
 		private readonly MemoryMap _tagMap;
+		private readonly HashSet<MagicNumber> _tagGroups = new HashSet<MagicNumber>();
 		private readonly Dictionary<uint, TagFixup> _dataFixupsByWriteOffset;
 		private readonly Dictionary<uint, TagFixup> _resourceFixupsByWriteOffset;
 
@@ -23,6 +24,8 @@ namespace HaloOnlineTagTool.Analysis
 			_tagMap = BuildTagMap(tag);
 			_dataFixupsByWriteOffset = _tag.DataFixups.ToDictionary(f => f.WriteOffset);
 			_resourceFixupsByWriteOffset = _tag.ResourceFixups.ToDictionary(f => f.WriteOffset);
+			foreach (var group in cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
+				_tagGroups.Add(group);
 		}
 
 		public TagLayoutGuess Analyze(byte[] tagData)
@@ -78,7 +81,7 @@ namespace HaloOnlineTagTool.Analysis
 						potentialGuess = fixup;
 					}
 				}
-				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _cache.Tags.FindFirstInGroup(new MagicNumber((int)lookBehind[2])) != null)
+				else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _tagGroups.Contains(new MagicNumber((int)lookBehind[2])))
 				{
 					// Tag reference
 					if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
