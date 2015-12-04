@@ -125,13 +125,15 @@ namespace HaloOnlineTagTool
 			var newHeaderSize = CalculateNewHeaderSize(tag);
 			if (tag.HeaderOffset < 0)
 				tag.HeaderOffset = GetNewTagOffset(tag.Index);
-			ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, newHeaderSize + data.Length);
+			var alignedLength = (data.Length + 0xF) & ~0xF;
+			ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, newHeaderSize + alignedLength);
 			tag.DataOffset = tag.HeaderOffset + newHeaderSize;
-			tag.DataSize = data.Length;
+			tag.DataSize = alignedLength;
 				
 			// Write it in and then update
 			stream.Position = tag.DataOffset;
 			stream.Write(data, 0, data.Length);
+			StreamUtil.Fill(stream, 0, alignedLength - data.Length);
 			UpdateTag(stream, tag);
 		}
 
@@ -319,11 +321,6 @@ namespace HaloOnlineTagTool
 			resultTag.ParentGroupTag = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent group tag
 			resultTag.GrandparentGroupTag = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent group tag
 			resultTag.GroupName = new StringId(reader.ReadUInt32());             // 0x20 uint32 group name stringid
-			
-			var totalHeaderSize = CalculateHeaderSize(numDependencies, numDataFixups, numResourceFixups);
-			resultTag.MainStructOffset = mainStructOffset - totalHeaderSize;
-			resultTag.DataOffset = resultTag.HeaderOffset + totalHeaderSize;
-			resultTag.DataSize = totalSize - totalHeaderSize;
 
 			// Read dependencies
 			resultTag.Dependencies.Clear();
@@ -331,43 +328,52 @@ namespace HaloOnlineTagTool
 				resultTag.Dependencies.Add(reader.ReadInt32());
 
 			// Read fixup pointers
-			var dataFixupPointers = new uint[numDataFixups];
-			for (var j = 0; j < numDataFixups; j++)
-				dataFixupPointers[j] = reader.ReadUInt32();
-			var resourceFixupPointers = new uint[numResourceFixups];
-			for (var j = 0; j < numResourceFixups; j++)
-				resourceFixupPointers[j] = reader.ReadUInt32();
-
-			// Process fixups
 			resultTag.DataFixups.Clear();
+			for (var j = 0; j < numDataFixups; j++)
+				resultTag.DataFixups.Add(new TagFixup { WriteOffset = reader.ReadUInt32() - FixupPointerBase });
 			resultTag.ResourceFixups.Clear();
-			foreach (var fixup in dataFixupPointers)
-				resultTag.DataFixups.Add(ReadFixup(reader, fixup, resultTag.HeaderOffset, totalHeaderSize));
-			foreach (var fixup in resourceFixupPointers)
-				resultTag.ResourceFixups.Add(ReadFixup(reader, fixup, resultTag.HeaderOffset, totalHeaderSize));
+			for (var j = 0; j < numResourceFixups; j++)
+				resultTag.ResourceFixups.Add(new TagFixup { WriteOffset = reader.ReadUInt32() - FixupPointerBase });
+
+			// Read fixup destinations
+			foreach (var fixup in resultTag.DataFixups)
+				fixup.TargetOffset = ReadFixupTarget(reader, fixup.WriteOffset, resultTag.HeaderOffset);
+			foreach (var fixup in resultTag.ResourceFixups)
+				fixup.TargetOffset = ReadFixupTarget(reader, fixup.WriteOffset, resultTag.HeaderOffset);
+
+			// Compute the data offset based on the smallest offset into the tag
+			var smallestOffset = mainStructOffset;
+			foreach (var fixup in resultTag.DataFixups.Concat(resultTag.ResourceFixups))
+			{
+				if (fixup.WriteOffset < smallestOffset)
+					smallestOffset = fixup.WriteOffset;
+				if (fixup.TargetOffset < smallestOffset)
+					smallestOffset = fixup.TargetOffset;
+			}
+			resultTag.MainStructOffset = mainStructOffset - smallestOffset;
+			resultTag.DataOffset = resultTag.HeaderOffset + smallestOffset;
+			resultTag.DataSize = totalSize - smallestOffset;
+
+			// Make fixups relative to the data offset
+			foreach (var fixup in resultTag.DataFixups.Concat(resultTag.ResourceFixups))
+			{
+				fixup.TargetOffset -= smallestOffset;
+				fixup.WriteOffset -= smallestOffset;
+			}
 		}
 
 		/// <summary>
-		/// Reads fixup information from a fixup pointer.
+		/// Reads the target offset (relative to the start of the header) of a fixup pointer.
 		/// </summary>
 		/// <param name="reader">The reader.</param>
-		/// <param name="pointer">The pointer.</param>
+		/// <param name="fixupOffset">The offset, relative to the start of the tag's header, of the fixup.</param>
 		/// <param name="headerOffset">The offset of the tag's header.</param>
-		/// <param name="headerSize">The size of the tag's header.</param>
 		/// <returns>The read fixup information.</returns>
-		private static TagFixup ReadFixup(BinaryReader reader, uint pointer, long headerOffset, uint headerSize)
+		private static uint ReadFixupTarget(BinaryReader reader, uint fixupOffset, long headerOffset)
 		{
-			// Adjust the fixup pointer and then seek to it and read and adjust the target
-			var fixupOffset = pointer - FixupPointerBase;
+			// Seek to the offset and read and adjust the target
 			reader.BaseStream.Position = headerOffset + fixupOffset;
-			var targetOffset = reader.ReadUInt32() - FixupPointerBase;
-
-			// Adjust the offsets to be from the start of the tag's data
-			return new TagFixup
-			{
-				WriteOffset = fixupOffset - headerSize,
-				TargetOffset = targetOffset - headerSize
-			};
+			return reader.ReadUInt32() - FixupPointerBase;
 		}
 
 		/// <summary>
@@ -404,6 +410,11 @@ namespace HaloOnlineTagTool
 			// Write fixup pointers
 			foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
 				writer.Write(fixup.WriteOffset + newHeaderSize + FixupPointerBase);
+
+			// Padding
+			var paddingSize = (tag.HeaderSize - (writer.BaseStream.Position - tag.HeaderOffset)) & 0xF;
+			for (var i = 0; i < paddingSize; i += 4)
+				writer.Write(0);
 		}
 
 		/// <summary>
@@ -527,7 +538,9 @@ namespace HaloOnlineTagTool
 		private static uint CalculateHeaderSize(int numRequiredTags, int numDataFixups, int numResourceFixups)
 		{
 			// After the static header, there's 4 bytes per required tag index and 4 bytes per fixup pointer
-			return (uint)(TagHeaderSize + numRequiredTags * 4 + numDataFixups * 4 + numResourceFixups * 4);
+			var size = (uint)(TagHeaderSize + numRequiredTags * 4 + numDataFixups * 4 + numResourceFixups * 4);
+			size = (size + 0xF) & ~0xFU; // Align the header size to 16 bytes
+			return size;
 		}
 	}
 
