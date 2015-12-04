@@ -25,7 +25,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown8;
 		public uint Unknown9;
 		public List<CollisionMaterial> CollisionMaterials;
-		public List<UnknownRaw3rdBlock> UnknownRaw3rd;
+		public List<byte> UnknownRaw3rd;
 		public float WorldBoundsXMin;
 		public float WorldBoundsXMax;
 		public float WorldBoundsYMin;
@@ -54,7 +54,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<DetailObject> DetailObjects;
 		public List<Cluster> Clusters;
 		public List<RenderMaterial> Materials;
-		public List<SkyOwnerClusterBlock> SkyOwnerCluster;
+		public List<short> SkyOwnerCluster;
 		public uint Unknown23;
 		public uint Unknown24;
 		public uint Unknown25;
@@ -143,12 +143,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public short ConveyorSurfaceIndex;
 			public short SeamIndex;
 			public short Unknown;
-		}
-
-		[TagStructure(Size = 0x1)]
-		public class UnknownRaw3rdBlock
-		{
-			public sbyte Unknown;
 		}
 
 		[TagStructure(Size = 0x28)]
@@ -286,15 +280,15 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown5;
 			public short Unknown6;
 			public short Unknown7;
-			public short RuntimeDecalStartIndex;
-			public short RuntimeDecalEntryCount;
 			[MinVersion(EngineVersion.V11_1_498295_Live)] public short Unknown26;
 			[MinVersion(EngineVersion.V11_1_498295_Live)] public short Unknown27;
+			public short RuntimeDecalStartIndex;
+			public short RuntimeDecalEntryCount;
 			public short Flags;
 			public uint Unknown8;
 			public uint Unknown9;
 			public uint Unknown10;
-			public List<Portal> Portals;
+			public List<short> Portals;
 			public int Unknown11;
 			public short Size;
 			public short Count;
@@ -315,19 +309,13 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<CollisionMoppCode> CollisionMoppCodes;
 			public short MeshIndex;
 			public short Unknown20;
-			public List<Seam> Seams;
+			public List<sbyte> Seams;
 			public List<DecoratorGrid> DecoratorGrids;
 			public uint Unknown21;
 			public uint Unknown22;
 			public uint Unknown23;
 			public List<UnknownBlock> Unknown24;
 			public List<UnknownBlock2> Unknown25;
-
-			[TagStructure(Size = 0x2)]
-			public class Portal
-			{
-				public short PortalIndex;
-			}
 
 			[TagStructure(Size = 0x40)]
 			public class CollisionMoppCode
@@ -348,20 +336,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public sbyte Unknown5;
 				public sbyte Unknown6;
 				public sbyte Unknown7;
-				public List<Datum> Data;
+				public List<byte> Data;
 				public uint Unknown8;
-
-				[TagStructure(Size = 0x1)]
-				public class Datum
-				{
-					public byte DataByte;
-				}
-			}
-
-			[TagStructure(Size = 0x1)]
-			public class Seam
-			{
-				public sbyte SeamIndex;
 			}
 
 			[TagStructure(Size = 0x34)]
@@ -400,12 +376,6 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown4;
 				public short Unknown5;
 			}
-		}
-
-		[TagStructure(Size = 0x2)]
-		public class SkyOwnerClusterBlock
-		{
-			public short ClusterOwner;
 		}
 
 		[TagStructure(Size = 0x58)]
@@ -583,20 +553,8 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short BackgroundSoundEnvironmentIndex;
 			public short Unknown;
-			public List<PortalDesignator> PortalDesignators;
-			public List<InteriorClusterIndex> InteriorClusterIndices;
-
-			[TagStructure(Size = 0x2)]
-			public class PortalDesignator
-			{
-				public short PortalDesignator2;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class InteriorClusterIndex
-			{
-				public short InteriorClusterIndex2;
-			}
+			public List<short> PortalDesignators;
+			public List<short> InteriorClusterIndices;
 		}
 
 		[TagStructure(Size = 0x1C)]
@@ -604,20 +562,8 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short BackgroundSoundEnvironmentIndex;
 			public short Unknown;
-			public List<PortalDesignator> PortalDesignators;
-			public List<InteriorClusterIndex> InteriorClusterIndices;
-
-			[TagStructure(Size = 0x2)]
-			public class PortalDesignator
-			{
-				public short PortalDesignator2;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class InteriorClusterIndex
-			{
-				public short InteriorClusterIndex2;
-			}
+			public List<short> PortalDesignators;
+			public List<short> InteriorClusterIndices;
 		}
 
 		[TagStructure(Size = 0x1C)]
@@ -625,20 +571,8 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public short BackgroundSoundEnvironmentIndex;
 			public short Unknown;
-			public List<PortalDesignator> PortalDesignators;
-			public List<InteriorClusterIndex> InteriorClusterIndices;
-
-			[TagStructure(Size = 0x2)]
-			public class PortalDesignator
-			{
-				public short PortalDesignator2;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class InteriorClusterIndex
-			{
-				public short InteriorClusterIndex2;
-			}
+			public List<short> PortalDesignators;
+			public List<short> InteriorClusterIndices;
 		}
 
 		[TagStructure(Size = 0x14)]
@@ -671,14 +605,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown5;
 			public sbyte Unknown6;
 			public sbyte Unknown7;
-			public List<Datum> Data;
+			public List<byte> Data;
 			public uint Unknown8;
-
-			[TagStructure(Size = 0x1)]
-			public class Datum
-			{
-				public byte DataByte;
-			}
 		}
 
 		[TagStructure(Size = 0x40)]
@@ -700,14 +628,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown5;
 			public sbyte Unknown6;
 			public sbyte Unknown7;
-			public List<Datum> Data;
+			public List<byte> Data;
 			public uint Unknown8;
-
-			[TagStructure(Size = 0x1)]
-			public class Datum
-			{
-				public byte DataByte;
-			}
 		}
 
 		[TagStructure(Size = 0x20)]
@@ -725,12 +647,15 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Z1;
 		}
 
-		[TagStructure(Size = 0x14)]
+		[TagStructure(Size = 0x20)]
 		public class LeafSystem
 		{
 			public short Unknown;
 			public short Unknown2;
 			public HaloTag LeafSystem2;
+			public uint Unknown3;
+			public uint Unknown4;
+			public uint Unknown5;
 		}
 	}
 }

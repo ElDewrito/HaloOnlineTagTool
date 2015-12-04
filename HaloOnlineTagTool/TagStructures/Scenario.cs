@@ -3589,7 +3589,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown7;
 		}
 
-		[TagStructure(Size = 0x68)]
+		[TagStructure(Size = 0x68, MaxVersion = EngineVersion.V10_1_449175_Live)]
+		[TagStructure(Size = 0x74, MinVersion = EngineVersion.V11_1_498295_Live)]
 		public class ScenarioClusterDatum
 		{
 			public HaloTag Bsp;
@@ -3601,7 +3602,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<UnknownBlock3> Unknown3;
 			public List<FogBlock> Fog;
 			public List<CameraEffect> CameraEffects;
-
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public List<UnknownBlock4> Unknown4;
+				
 			[TagStructure(Size = 0x4)]
 			public class BackgroundSoundEnvironment
 			{
@@ -3650,6 +3652,13 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				public short CameraEffectIndex;
 				public short Unknown;
+			}
+
+			[TagStructure(Size = 0x4)]
+			public class UnknownBlock4
+			{
+				public short Unknown;
+				public short Unknown2;
 			}
 		}
 
