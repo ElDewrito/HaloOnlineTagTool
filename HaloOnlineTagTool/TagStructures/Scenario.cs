@@ -417,10 +417,10 @@ namespace HaloOnlineTagTool.TagStructures
 					public uint Unknown;
 				}
 
-				[TagStructure(Size = 0x1)]
+				[TagStructure(Size = 0x4)]
 				public class UnknownBlock2
 				{
-					public byte Unknown;
+					public uint Unknown;
 				}
 
 				[TagStructure(Size = 0xC)]

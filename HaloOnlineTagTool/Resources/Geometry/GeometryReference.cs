@@ -77,7 +77,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 		[TagStructure(Size = 0x20)]
 		public class UnknownSection
 		{
-			public byte[] Unknown;
+			[TagField(DataAlign = 0x10)] public byte[] Unknown;
 			public List<short> Unknown2;
 		}
 

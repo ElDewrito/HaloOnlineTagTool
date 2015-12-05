@@ -317,7 +317,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<UnknownBlock> Unknown24;
 			public List<UnknownBlock2> Unknown25;
 
-			[TagStructure(Size = 0x40)]
+			[TagStructure(Size = 0x40, Align = 0x10)]
 			public class CollisionMoppCode
 			{
 				public int Unknown;
@@ -367,7 +367,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown2;
 			}
 
-			[TagStructure(Size = 0x10)]
+			[TagStructure(Size = 0x10, Align = 0x10)]
 			public class UnknownBlock2
 			{
 				public uint Unknown;
@@ -500,7 +500,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown6;
 			public short Unknown7;
 
-			[TagStructure(Size = 0x80)]
+			[TagStructure(Size = 0x80, Align = 0x10)]
 			public class CollisionDefinition
 			{
 				public int Unknown;
@@ -586,7 +586,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float PlaneD;
 		}
 
-		[TagStructure(Size = 0x40)]
+		[TagStructure(Size = 0x40, Align = 0x10)]
 		public class CollisionMoppCode
 		{
 			public int Unknown;
@@ -609,7 +609,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown8;
 		}
 
-		[TagStructure(Size = 0x40)]
+		[TagStructure(Size = 0x40, Align = 0x10)]
 		public class BreakableSurfaceMoppCode
 		{
 			public int Unknown;

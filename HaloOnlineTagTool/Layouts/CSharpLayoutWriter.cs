@@ -21,7 +21,7 @@ namespace HaloOnlineTagTool.Layouts
 
 			var name = NamingConvention.ToPascalCase(layout.Name);
 			var builder = new ClassBuilder(writer, 1);
-			builder.Begin(name, layout.Size, layout.GroupTag);
+			builder.Begin(name, layout.Size, 0, layout.GroupTag);
 			layout.Accept(builder);
 			builder.End();
 
@@ -55,8 +55,9 @@ namespace HaloOnlineTagTool.Layouts
 			private string _indent;
 			private int _indentLevel;
 			private int _arrayCount = 1;
-			private int _stringLength = 0;
-			private bool _short = false;
+			private int _stringLength;
+			private bool _short;
+			private uint _align;
 			private readonly Queue<string> _subBlocks = new Queue<string>();
 			private readonly Dictionary<string, int> _nameCounts = new Dictionary<string, int>(); 
 
@@ -66,12 +67,17 @@ namespace HaloOnlineTagTool.Layouts
 				SetIndent(indent);
 			}
 
-			public void Begin(string name, uint size, MagicNumber groupTag)
+			public void Begin(string name, uint size, uint align, MagicNumber groupTag)
 			{
+				// TagStructureAttribute
+				_writer.Write("{0}[TagStructure(", _indent);
 				if (groupTag.Value != 0)
-					_writer.WriteLine("{0}[TagStructure(Class = \"{1}\", Size = 0x{2:X})]", _indent, groupTag, size);
-				else
-					_writer.WriteLine("{0}[TagStructure(Size = 0x{1:X})]", _indent, size);
+					_writer.Write("Class = \"{0}\", ", groupTag);
+				_writer.Write("Size = 0x{0:X}", size);
+				if (align > 4)
+					_writer.Write(", Align = 0x{0:X}", align);
+				_writer.WriteLine(")]");
+
 				_writer.WriteLine("{0}public class {1}", _indent, name);
 				_writer.WriteLine("{0}{{", _indent);
 				SetIndent(_indentLevel + 1);
@@ -81,7 +87,9 @@ namespace HaloOnlineTagTool.Layouts
 			public void Visit(BasicTagLayoutField field)
 			{
 				_short = (field.Type == BasicFieldType.ShortTagReference);
+				_align = field.DataAlign;
 				AddElement(GetTypeName(field.Type), field.Name);
+				_align = 0;
 				_short = false;
 			}
 
@@ -119,7 +127,7 @@ namespace HaloOnlineTagTool.Layouts
 				using (var blockWriter = new StringWriter())
 				{
 					var blockBuilder = new ClassBuilder(blockWriter, _indentLevel);
-					blockBuilder.Begin(className, field.ElementLayout.Size, field.ElementLayout.GroupTag);
+					blockBuilder.Begin(className, field.ElementLayout.Size, field.DataAlign, field.ElementLayout.GroupTag);
 					field.ElementLayout.Accept(blockBuilder);
 					blockBuilder.End();
 					_subBlocks.Enqueue(blockWriter.ToString());
@@ -146,6 +154,8 @@ namespace HaloOnlineTagTool.Layouts
 					_writer.WriteLine("{0}[TagField(Count = {1}{2})] public {3}[] {4};", _indent, _arrayCount, _short ? ", Flags = TagFieldFlags.Short" : "", type, MakeName(name));
 				else if (_stringLength > 0)
 					_writer.WriteLine("{0}[TagField(Length = {1})] public {2} {3};", _indent, _stringLength, type, MakeName(name));
+				else if (_align > 4)
+					_writer.WriteLine("{0}[TagField(DataAlign = 0x{1:X})] public {2} {3};", _indent, _align, type, MakeName(name));
 				else
 					_writer.WriteLine("{0}{1}public {2} {3};", _indent, _short ? "[TagField(Flags = TagFieldFlags.Short)] " : "", type, MakeName(name));
 			}

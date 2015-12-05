@@ -100,12 +100,12 @@ namespace HaloOnlineTagTool.Analysis
 						reader.BaseStream.Position = potentialGuess.TargetOffset;
 						var elementLayout = AnalyzeStructure(reader, lookBehind[1]);
 						reader.BaseStream.Position = baseOffset + offset + 4;
-						result.Add(offset - 0x8, new TagBlockGuess(elementLayout));
+						result.Add(offset - 0x8, new TagBlockGuess(elementLayout, CalculateAlignment(lookBehind[0])));
 					}
 					else if (offset >= 0x10 && lookBehind[1] == 0 && lookBehind[2] == 0 && lookBehind[3] != 0)
 					{
 						// Data reference
-						result.Add(offset - 0x10, new DataReferenceGuess());
+						result.Add(offset - 0x10, new DataReferenceGuess(CalculateAlignment(lookBehind[0])));
 					}
 					potentialGuess = null;
 				}
@@ -118,6 +118,16 @@ namespace HaloOnlineTagTool.Analysis
 					lookBehind[i] = lookBehind[i - 1];
 				lookBehind[0] = val;
 			}
+		}
+
+		private static uint CalculateAlignment(uint pointer)
+		{
+			if (pointer == 0 || pointer == 0x40000000)
+				return 0;
+			uint align = 1;
+			while (align < 0x10 && (pointer & align) == 0)
+				align <<= 1;
+			return align;
 		}
 
 		/// <summary>

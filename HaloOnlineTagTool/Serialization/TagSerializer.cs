@@ -65,12 +65,16 @@ namespace HaloOnlineTagTool.Serialization
 				SerializeProperty(context, tagStream, block, structure, enumerator, baseOffset);
 
 			// Honor the struct size if it's defined
-			if (enumerator.Info.TotalSize > 0)
+			if (info.TotalSize > 0)
 			{
-				block.Stream.Position = baseOffset + enumerator.Info.TotalSize;
+				block.Stream.Position = baseOffset + info.TotalSize;
 				if (block.Stream.Position > block.Stream.Length)
 					block.Stream.SetLength(block.Stream.Position);
 			}
+
+			// Honor alignment
+			if (info.Structure.Align > 0)
+				block.SuggestAlignment(info.Structure.Align);
 		}
 
 		/// <summary>
@@ -189,7 +193,7 @@ namespace HaloOnlineTagTool.Serialization
 			else if (valueType == typeof(ResourceAddress))
 				block.Writer.Write(((ResourceAddress)val).Value);
 			else if (valueType == typeof(byte[]))
-				SerializeDataReference(tagStream, block, (byte[])val);
+				SerializeDataReference(tagStream, block, (byte[])val, valueInfo);
 			else if (valueType == typeof(Vector2))
 				SerializeVector(block, (Vector2)val);
 			else if (valueType == typeof(Vector3))
@@ -203,7 +207,7 @@ namespace HaloOnlineTagTool.Serialization
 			else if (valueType.IsArray)
 				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-				SerializeTagBlock(context, tagStream, block, val, valueType);
+				SerializeTagBlock(context, tagStream, block, val, valueType, valueInfo);
 			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
 				SerializeRange(block, val);
 			else
@@ -255,15 +259,19 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="data">The data.</param>
-		private static void SerializeDataReference(MemoryStream tagStream, IDataBlock block, byte[] data)
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
+		private static void SerializeDataReference(MemoryStream tagStream, IDataBlock block, byte[] data, TagFieldAttribute valueInfo)
 		{
 			var writer = block.Writer;
 			uint offset = 0;
 			uint size = 0;
 			if (data != null && data.Length > 0)
 			{
-				// The block has data - write it out to the tag
-				StreamUtil.Align(tagStream, DefaultBlockAlign);
+				// Ensure the block is aligned correctly
+				var align = Math.Max(DefaultBlockAlign, (valueInfo != null) ? valueInfo.DataAlign : 0);
+				StreamUtil.Align(tagStream, (int)align);
+
+				// Write its data
 				offset = (uint)tagStream.Position;
 				size = (uint)data.Length;
 				tagStream.Write(data, 0, data.Length);
@@ -310,7 +318,8 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="block">The temporary block to write incomplete tag data to.</param>
 		/// <param name="list">The list of values in the tag block.</param>
 		/// <param name="listType">Type of the list.</param>
-		private void SerializeTagBlock(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType)
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
+		private void SerializeTagBlock(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType, TagFieldAttribute valueInfo)
 		{
 			var writer = block.Writer;
 			var listCount = 0;
@@ -334,6 +343,10 @@ namespace HaloOnlineTagTool.Serialization
 			var valueType = listType.GenericTypeArguments[0];
 			foreach (var val in enumerableList)
 				SerializeValue(context, tagStream, tagBlock, val, null, valueType);
+
+			// Ensure the block is aligned correctly
+			var align = Math.Max(DefaultBlockAlign, (valueInfo != null) ? valueInfo.DataAlign : 0);
+			StreamUtil.Align(tagStream, (int)align);
 
 			// Finalize the block and write the tag block reference
 			writer.Write(listCount);
