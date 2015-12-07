@@ -21,6 +21,13 @@ namespace HaloOnlineTagTool.Layouts
 		/// </summary>
 		public string Name { get; private set; }
 
+		/// <summary>
+		/// Gets or sets the power of two to align the field's data on.
+		/// Only applicable to fields which contain pointers.
+		/// Can be 0 if not set.
+		/// </summary>
+		public uint DataAlign { get; set; }
+
 		public abstract void Accept(ITagLayoutFieldVisitor visitor);
 	}
 }

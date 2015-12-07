@@ -45,5 +45,15 @@ namespace HaloOnlineTagTool.Serialization
 		/// Can be <see cref="EngineVersion.Unknown"/> (default) if unbounded.
 		/// </summary>
 		public EngineVersion MaxVersion { get; set; }
+
+		/// <summary>
+		/// Gets or sets the power of two to align the block to.
+		/// Can be 0 if not set.
+		/// </summary>
+		/// <remarks>
+		/// Note that this value is only a guide for the serializer, and a
+		/// different alignment may actually be used if necessary.
+		/// </remarks>
+		public uint Align { get; set; }
 	}
 }

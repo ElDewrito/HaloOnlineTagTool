@@ -43,6 +43,12 @@ namespace HaloOnlineTagTool.Serialization
 		/// Gets or sets flags for the tag element.
 		/// </summary>
 		public TagFieldFlags Flags { get; set; }
+
+		/// <summary>
+		/// Gets or sets the power of two to align the field's data to.
+		/// Only applicable to fields which contain pointers.
+		/// </summary>
+		public uint DataAlign { get; set; }
 	}
 
 	/// <summary>

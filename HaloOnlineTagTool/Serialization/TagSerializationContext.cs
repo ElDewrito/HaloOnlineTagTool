@@ -101,6 +101,7 @@ namespace HaloOnlineTagTool.Serialization
 			private readonly TagSerializationContext _context;
 			private readonly List<TagFixup> _fixups = new List<TagFixup>();
 			private readonly List<TagFixup> _resourceFixups = new List<TagFixup>();
+			private uint _align = DefaultBlockAlign;
 
 			public TagDataBlock(TagSerializationContext context)
 			{
@@ -152,10 +153,15 @@ namespace HaloOnlineTagTool.Serialization
 				return obj;
 			}
 
+			public void SuggestAlignment(uint align)
+			{
+				_align = Math.Max(_align, align);
+			}
+
 			public uint Finalize(Stream outStream)
 			{
 				// Write the data out, aligning the offset and size
-				StreamUtil.Align(outStream, DefaultBlockAlign);
+				StreamUtil.Align(outStream, (int)_align);
 				var dataOffset = (uint)outStream.Position;
 				outStream.Write(Stream.GetBuffer(), 0, (int)Stream.Length);
 				StreamUtil.Align(outStream, DefaultBlockAlign);

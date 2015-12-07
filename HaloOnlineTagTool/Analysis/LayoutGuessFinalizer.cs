@@ -76,13 +76,18 @@ namespace HaloOnlineTagTool.Analysis
 			var elementLayout = new TagLayout(name, guess.ElementLayout.Size, new MagicNumber(0));
 			var finalizer = new LayoutGuessFinalizer(elementLayout, _nextTagBlock);
 			finalizer.ProcessLayout(guess.ElementLayout);
+			var align = guess.Align;
+			if ((guess.ElementLayout.Size & (guess.Align - 1)) != 0)
+				align = 0;
 			_nextTagBlock = finalizer._nextTagBlock;
-			_result.Add(new TagBlockTagLayoutField(MakeName(offset), elementLayout));
+			_result.Add(new TagBlockTagLayoutField(MakeName(offset), elementLayout) { DataAlign = align });
 		}
 
 		public void Visit(uint offset, DataReferenceGuess guess)
 		{
-			_result.Add(MakeField(offset, BasicFieldType.DataReference));
+			var field = MakeField(offset, BasicFieldType.DataReference);
+			_result.Add(field);
+			field.DataAlign = guess.Align;
 		}
 
 		public void Visit(uint offset, TagReferenceGuess guess)

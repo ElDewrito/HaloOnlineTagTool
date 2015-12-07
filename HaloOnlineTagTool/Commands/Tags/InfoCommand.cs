@@ -35,8 +35,10 @@ namespace HaloOnlineTagTool.Commands.Tags
 			if (tag.GrandparentGroupTag.Value != -1)
 				Console.Write(" -> {0}", tag.GrandparentGroupTag);
 			Console.WriteLine();
-			Console.WriteLine("- Data offset (after header): 0x{0:X}", tag.DataOffset);
-			Console.WriteLine("- Data size (without header): 0x{0:X}", tag.DataSize);
+			Console.WriteLine("- Header offset: 0x{0:X}", tag.HeaderOffset);
+			Console.WriteLine("- Data offset:   0x{0:X}", tag.DataOffset);
+			Console.WriteLine("- Data size:     0x{0:X}", tag.DataSize);
+			Console.WriteLine("- Total size:    0x{0:X}", tag.TotalSize);
 			Console.WriteLine("- Main struct offset (relative to data offset): 0x{0:X}", tag.MainStructOffset);
 			Console.WriteLine();
 			Console.WriteLine("Use \"dep list {0:X}\" to list this tag's dependencies.", tag.Index);

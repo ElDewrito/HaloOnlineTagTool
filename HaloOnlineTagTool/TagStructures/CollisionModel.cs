@@ -192,14 +192,8 @@ namespace HaloOnlineTagTool.TagStructures
 					public sbyte Unknown4;
 					public sbyte Unknown5;
 					public sbyte Unknown6;
-					public List<Datum> Data;
+					public List<byte> Data;
 					public uint Unknown7;
-
-					[TagStructure(Size = 0x1)]
-					public class Datum
-					{
-						public byte DataByte;
-					}
 				}
 			}
 		}

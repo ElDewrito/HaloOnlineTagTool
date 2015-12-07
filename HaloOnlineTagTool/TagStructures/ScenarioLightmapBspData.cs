@@ -77,9 +77,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public List<InstancedGeometryBlock> InstancedGeometry;
 		public List<UnknownBBlock> UnknownB;
 		public GeometryReference Geometry;
-		public uint Unknown61;
-		public uint Unknown62;
-		public uint Unknown63;
+		public List<UnknownBlock6> Unknown69;
 		public List<UnknownBlock4> Unknown64;
 		public List<UnknownBlock5> Unknown65;
 		public uint Unknown66;
@@ -197,6 +195,34 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown20;
 				public uint Unknown21;
 			}
+		}
+
+		[TagStructure(Size = 0x5C)]
+		public class UnknownBlock6
+		{
+			public int Unknown0;
+			public int Unknown4;
+			public int Unknown8;
+			public int UnknownC;
+			public int Unknown10;
+			public int Unknown14;
+			public int Unknown18;
+			public int Unknown1c;
+			public int Unknown20;
+			public int Unknown24;
+			public int Unknown28;
+			public int Unknown2c;
+			public int Unknown30;
+			public int Unknown34;
+			public int Unknown38;
+			public int Unknown3c;
+			public int Unknown40;
+			public int Unknown44;
+			public int Unknown48;
+			public int Unknown4c;
+			public int Unknown50;
+			public int Unknown54;
+			public int Unknown58;
 		}
 	}
 }

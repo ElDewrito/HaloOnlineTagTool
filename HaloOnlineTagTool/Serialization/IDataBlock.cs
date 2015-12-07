@@ -38,6 +38,12 @@ namespace HaloOnlineTagTool.Serialization
 		object PreSerialize(TagFieldAttribute info, object obj);
 
 		/// <summary>
+		/// Suggests a power of two to align the block on.
+		/// </summary>
+		/// <param name="align">The power of two to suggest.</param>
+		void SuggestAlignment(uint align);
+
+		/// <summary>
 		/// Finalizes the block, writing it out to a stream.
 		/// </summary>
 		/// <param name="outStream">The output stream.</param>

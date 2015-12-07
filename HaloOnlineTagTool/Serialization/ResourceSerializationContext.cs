@@ -89,7 +89,8 @@ namespace HaloOnlineTagTool.Serialization
 		{
 			private readonly ResourceSerializationContext _context;
 			private readonly List<ResourceDefinitionFixup> _fixups = new List<ResourceDefinitionFixup>();
-			private readonly List<D3DObjectFixup> _d3dFixups = new List<D3DObjectFixup>(); 
+			private readonly List<D3DObjectFixup> _d3dFixups = new List<D3DObjectFixup>();
+			private uint _align = DefaultBlockAlign;
 
 			public ResourceDataBlock(ResourceSerializationContext context)
 			{
@@ -133,10 +134,15 @@ namespace HaloOnlineTagTool.Serialization
 				return obj;
 			}
 
+			public void SuggestAlignment(uint align)
+			{
+				_align = Math.Max(_align, align);
+			}
+
 			public uint Finalize(Stream outStream)
 			{
 				// Write the data out, aligning the offset and size
-				StreamUtil.Align(outStream, DefaultBlockAlign);
+				StreamUtil.Align(outStream, (int)_align);
 				var dataOffset = (uint)outStream.Position;
 				outStream.Write(Stream.GetBuffer(), 0, (int)Stream.Length);
 				StreamUtil.Align(outStream, DefaultBlockAlign);

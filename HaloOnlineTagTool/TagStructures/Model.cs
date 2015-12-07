@@ -78,7 +78,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Unknown2;
 			public sbyte Unknown3;
 			public sbyte Unknown4;
-			[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public uint Unknown8;
+			[MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public StringId SkinName;
 			public sbyte ModelRegion0Index;
 			public sbyte ModelRegion1Index;
 			public sbyte ModelRegion2Index;
