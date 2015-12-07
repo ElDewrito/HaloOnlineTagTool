@@ -61,6 +61,7 @@
     <Compile Include="Commands\Rm\SpecifyBitmapsCommand.cs" />
     <Compile Include="Commands\Scnr\ScenarioContextFactory.cs" />
     <Compile Include="Commands\Scnr\CopyForgePaletteCommand.cs" />
+    <Compile Include="Commands\Tags\ConvertCommand.cs" />
     <Compile Include="Commands\Tags\MatchTagsCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
@@ -139,6 +140,8 @@
     <Compile Include="Resources\Geometry\PhysicsModelBuilder.cs" />
     <Compile Include="Resources\Geometry\RenderMaterial.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
+    <Compile Include="Resources\Shaders\ShaderCompiler.cs" />
+    <Compile Include="Resources\Shaders\ShaderConverter.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
     <Compile Include="Serialization\MinVersionAttribute.cs" />
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
