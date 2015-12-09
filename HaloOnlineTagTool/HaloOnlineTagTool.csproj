@@ -153,6 +153,7 @@
     <Compile Include="TagStructures\LeafSystem.cs" />
     <Compile Include="TagStructures\RenderMethod.cs" />
     <Compile Include="TagStructures\ShaderCustom.cs" />
+    <Compile Include="TagStructures\SimulationInterpolation.cs" />
     <Compile Include="TagVersionMap.cs" />
     <Compile Include="TagStructures\TagStructureTypes.cs" />
     <Compile Include="TagStructures\Device.cs" />

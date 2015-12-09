@@ -61,14 +61,19 @@ namespace HaloOnlineTagTool.Resources.Shaders
 			//    binormal:
 			//
 			//      mov [register].xyz, v[tangent]
-			//      mov [register].w, v[biormal].y
+			//      mov [register].w, v[binormal].y
 			//
-			// 4. For albedo shaders only, o2 needs to be made 4D and the W
+			// 4. Insert code to handle v_squish_params and v_mesh_squished.
+			//    This is mainly needed for first-person models.
+			//
+			// 5. For albedo shaders only, o2 needs to be made 4D and the W
 			//    component must be set to the W component of the position so
 			//    that the pixel shader can pass it through to an output. This
 			//    appears to be necessary for objects to receive shadows.
 			//
-			// 5. Insert code to handle v_squish_params and v_mesh_squished.
+			// 6. For default shaders only, a texcoord1 output has to be added
+			//    for storing the W component of the position. This means that
+			//    the other texcoord outputs need to be remapped.
 
 			var addedDeclarations = false;
 			var fixedTangent = false;
@@ -81,6 +86,7 @@ namespace HaloOnlineTagTool.Resources.Shaders
 			string squishConstant1 = null;
 			string squishConstant2 = null;
 			var needSquishCheck = false;
+			var wOut = -1;
 			for (var i = 0; i < lines.Count; i++)
 			{
 				if (lines[i].StartsWith("//"))
@@ -200,12 +206,52 @@ namespace HaloOnlineTagTool.Resources.Shaders
 					}
 					lines.Insert(++i, "    mov o0.w, r30.w");
 
-					// Albedo only: needed for shadow receiving
-					if (mode == 1)
-						lines.Insert(++i, "    mov o2.w, r30.w");
+					// Needed for shadow receiving
+					if (wOut >= 0)
+					{
+						if (mode == 0)
+							lines.Insert(++i, string.Format("    mov o{0}.x, r30.w", wOut));
+						else if (mode == 1)
+							lines.Insert(++i, string.Format("    mov o{0}.w, r30.w", wOut));
+					}
 
 					addedSquishParams = true;
 					continue;
+				}
+
+				if (mode == 0)
+				{
+					// Default-only: add a texcoord1 output and remap input registers
+					match = Regex.Match(lines[i], @"dcl_texcoord(\d*) o(\d+)");
+					if (match.Success)
+					{
+						var texGroup = match.Groups[1];
+						var outGroup = match.Groups[2];
+						var outIndex = int.Parse(outGroup.Value);
+						if (texGroup.Length == 0)
+						{
+							wOut = outIndex + 1;
+							lines.Insert(++i, string.Format("    dcl_texcoord1 o{0}.x", outIndex + 1));
+							continue;
+						}
+						var texIndex = int.Parse(texGroup.Value);
+						lines[i] = lines[i].Remove(texGroup.Index, texGroup.Length).Insert(texGroup.Index, (texIndex + 1).ToString());
+						lines[i] = lines[i].Remove(outGroup.Index, outGroup.Length).Insert(outGroup.Index, (outIndex + 1).ToString());
+						continue;
+					}
+
+					if (wOut >= 0)
+					{
+						foreach (Match m in Regex.Matches(lines[i], @" o(\d+)"))
+						{
+							var group = m.Groups[1];
+							var index = int.Parse(group.Value);
+							if (index < wOut)
+								continue;
+							index++;
+							lines[i] = lines[i].Remove(group.Index, group.Length).Insert(group.Index, index.ToString());
+						}
+					}
 				}
 
 				// Albedo-only: make o2 be 4D
@@ -214,6 +260,7 @@ namespace HaloOnlineTagTool.Resources.Shaders
 					match = Regex.Match(lines[i], @"dcl_texcoord1 o2\.xyz");
 					if (match.Success)
 					{
+						wOut = 2;
 						lines[i] = lines[i].Remove(match.Index, match.Length).Insert(match.Index, "dcl_texcoord1 o2");
 						continue;
 					}
@@ -240,8 +287,8 @@ namespace HaloOnlineTagTool.Resources.Shaders
 		/// <returns>The new bytecode, or <c>null</c> if conversion failed.</returns>
 		public static byte[] ConvertNewPixelShaderToOld(byte[] shaderData, int mode)
 		{
-			if (mode != 1)
-				return shaderData; // Only albedo shaders need to be fixed (?)
+			if (mode != 0 && mode != 1)
+				return shaderData; // Only default albedo shaders need to be fixed (?)
 
 			// Disassemble the shader
 			var disassembly = ShaderCompiler.Disassemble(shaderData);
@@ -249,77 +296,119 @@ namespace HaloOnlineTagTool.Resources.Shaders
 				return null;
 			var lines = disassembly.Split('\n').ToList();
 
+			// Default pixel shaders need to have their inputs remapped (see
+			// the vertex shader converter for more info).
+			//
 			// Albedo pixel shaders need to be fixed to have additional color
 			// correction code added. I don't really know why and the way I do
-			// it is pretty hacky, but it works so whatever.
-			//
-			// The code is based off of the shader for the street cone, but it
-			// seems to work everywhere.
+			// it is pretty hacky, but it works so whatever. The code is based
+			// off of the shader for the street cone.
 
 			var highestConstant = -1;
 			var addedConstants = false;
 			var addedColorFix = false;
+			var wIn = -1;
 			for (var i = 0; i < lines.Count; i++)
 			{
-				var match = Regex.Match(lines[i], @"dcl_texcoord1 v1\.xyz");
-				if (match.Success)
+				if (mode == 0)
 				{
-					lines[i] = lines[i].Remove(match.Index, match.Length).Insert(match.Index, "dcl_texcoord1 v1");
-					continue;
-				}
-
-				// Find the number of the highest-used constant register
-				match = Regex.Match(lines[i], @"def c(\d+)");
-				if (match.Success)
-				{
-					highestConstant = Math.Max(highestConstant, int.Parse(match.Groups[1].Value));
-					continue;
-				}
-
-				if (!addedConstants)
-				{
-					// Add color correction constants before input/output declarations
-					match = Regex.Match(lines[i], @"dcl_");
+					// Default fixes
+					var match = Regex.Match(lines[i], @"dcl_texcoord(\d*) v(\d+)");
 					if (match.Success)
 					{
-						lines.Insert(i,
-							string.Format("    def c{0}, 0.416666657, 1.05499995, -0.0549999997, 0.00313080009\n" +
-										  "    def c{1}, 12.9200001, 0, 0, 0",
-								highestConstant + 1, highestConstant + 2));
-						addedConstants = true;
+						var texGroup = match.Groups[1];
+						var outGroup = match.Groups[2];
+						var outIndex = int.Parse(outGroup.Value);
+						if (texGroup.Length == 0)
+						{
+							wIn = outIndex + 1;
+							lines.Insert(++i, string.Format("    dcl_texcoord1 v{0}.x", wIn));
+							lines.Add(string.Format("    mov oC2, v{0}.x", wIn));
+							continue;
+						}
+						var texIndex = int.Parse(texGroup.Value);
+						lines[i] = lines[i].Remove(texGroup.Index, texGroup.Length).Insert(texGroup.Index, (texIndex + 1).ToString());
+						lines[i] = lines[i].Remove(outGroup.Index, outGroup.Length).Insert(outGroup.Index, (outIndex + 1).ToString());
 						continue;
 					}
-				}
 
-				if (!addedColorFix)
+					if (wIn >= 0 && i < lines.Count - 1)
+					{
+						foreach (Match m in Regex.Matches(lines[i], @"v(\d+)"))
+						{
+							var group = m.Groups[1];
+							var index = int.Parse(group.Value);
+							if (index < wIn)
+								continue;
+							index++;
+							lines[i] = lines[i].Remove(group.Index, group.Length).Insert(group.Index, index.ToString());
+						}
+					}
+				}
+				else if (mode == 1)
 				{
-					// Add color correction code before the output color is set
-					match = Regex.Match(lines[i], @"\S+ (oC0)\.xyz");
+					// Albedo fixes
+					var match = Regex.Match(lines[i], @"dcl_texcoord1 v1\.xyz");
 					if (match.Success)
 					{
-						// NOTE: This is really hacky and just assumes that
-						// r29-r31 aren't used. It seems to work OK, but if we
-						// run into issues then some sort of register
-						// allocation may need to be done.
-						var group = match.Groups[1];
-						lines[i] = lines[i].Remove(group.Index, group.Length).Insert(group.Index, "r31");
-						lines.Insert(i + 1,
-							string.Format("    log r30.x, r31.x\n" +
-										  "    log r30.y, r31.y\n" +
-										  "    log r30.z, r31.z\n" +
-										  "    mul r30.xyz, r30, c{0}.x\n" +
-										  "    exp r29.x, r30.x\n" +
-										  "    exp r29.y, r30.y\n" +
-										  "    exp r29.z, r30.z\n" +
-										  "    mad r30.xyz, r29, c{0}.y, c{0}.z\n" +
-										  "    add r29.xyz, -r31, c{0}.w\n" +
-										  "    mul r31.xyz, r31, c{1}.x\n" +
-										  "    cmp oC0.xyz, r29, r31, r30\n" +
-										  "    mov oC2, v1.w",
-								highestConstant + 1, highestConstant + 2));
-						i++;
-						addedColorFix = true;
+						wIn = 1;
+						lines[i] = lines[i].Remove(match.Index, match.Length).Insert(match.Index, "dcl_texcoord1 v1");
 						continue;
+					}
+
+					// Find the number of the highest-used constant register
+					match = Regex.Match(lines[i], @"def c(\d+)");
+					if (match.Success)
+					{
+						highestConstant = Math.Max(highestConstant, int.Parse(match.Groups[1].Value));
+						continue;
+					}
+
+					if (!addedConstants)
+					{
+						// Add color correction constants before input/output declarations
+						match = Regex.Match(lines[i], @"dcl_");
+						if (match.Success)
+						{
+							lines.Insert(i,
+								string.Format("    def c{0}, 0.416666657, 1.05499995, -0.0549999997, 0.00313080009\n" +
+								              "    def c{1}, 12.9200001, 0, 0, 0",
+									highestConstant + 1, highestConstant + 2));
+							addedConstants = true;
+							continue;
+						}
+					}
+
+					if (!addedColorFix)
+					{
+						// Add color correction code before the output color is set
+						match = Regex.Match(lines[i], @"\S+ (oC0)\.xyz");
+						if (match.Success)
+						{
+							// NOTE: This is really hacky and just assumes that
+							// r29-r31 aren't used. It seems to work OK, but if we
+							// run into issues then some sort of register
+							// allocation may need to be done.
+							var group = match.Groups[1];
+							lines[i] = lines[i].Remove(group.Index, group.Length).Insert(group.Index, "r31");
+							lines.Insert(++i,
+								string.Format("    log r30.x, r31.x\n" +
+								              "    log r30.y, r31.y\n" +
+								              "    log r30.z, r31.z\n" +
+								              "    mul r30.xyz, r30, c{0}.x\n" +
+								              "    exp r29.x, r30.x\n" +
+								              "    exp r29.y, r30.y\n" +
+								              "    exp r29.z, r30.z\n" +
+								              "    mad r30.xyz, r29, c{0}.y, c{0}.z\n" +
+								              "    add r29.xyz, -r31, c{0}.w\n" +
+								              "    mul r31.xyz, r31, c{1}.x\n" +
+								              "    cmp oC0.xyz, r29, r31, r30",
+									highestConstant + 1, highestConstant + 2));
+							if (wIn >= 0)
+								lines.Insert(++i, string.Format("    mov oC2, v{0}.w", wIn));
+							addedColorFix = true;
+							continue;
+						}
 					}
 				}
 			}
