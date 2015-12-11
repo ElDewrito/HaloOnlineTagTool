@@ -157,6 +157,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 			}
 			else if (type.IsArray)
 			{
+				if (type.GetElementType().IsPrimitive)
+					return;
+
 				// If the objects are arrays, then loop through each element
 				var leftArray = (Array)leftData;
 				var rightArray = (Array)rightData;
@@ -167,6 +170,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 			}
 			else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
 			{
+				if (type.GenericTypeArguments[0].IsPrimitive)
+					return;
+
 				// If the objects are lists, then loop through each element
 				var countProperty = type.GetProperty("Count");
 				var leftCount = (int)countProperty.GetValue(leftData);

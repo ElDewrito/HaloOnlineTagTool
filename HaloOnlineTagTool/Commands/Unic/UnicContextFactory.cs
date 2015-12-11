@@ -11,19 +11,13 @@ namespace HaloOnlineTagTool.Commands.Unic
 {
 	static class UnicContextFactory
 	{
-		public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
+		public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
         {
-            var groupName = info.StringIds.GetString(tag.GroupName);
+            if (info.StringIds == null)
+                return;
 
-            var context = new CommandContext(parent,
-                string.Format("{0:X8}.{1}", tag.Index, groupName));
-
-            if (info.StringIds != null)
-			{
-				context.AddCommand(new UnicListCommand(info, unic));
-				context.AddCommand(new UnicSetCommand(info, tag, unic));
-			}
-			return context;
-		}
+            context.AddCommand(new UnicListCommand(info, unic));
+            context.AddCommand(new UnicSetCommand(info, tag, unic));
+        }
 	}
 }

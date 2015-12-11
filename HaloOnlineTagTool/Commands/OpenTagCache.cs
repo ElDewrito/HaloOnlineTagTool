@@ -11,7 +11,7 @@ namespace HaloOnlineTagTool.Commands
 	/// <summary>
 	/// Holds information about an open tag cache file.
 	/// </summary>
-	class OpenTagCache
+	public class OpenTagCache
 	{
 		/// <summary>
 		/// Gets or sets the tag cache.
