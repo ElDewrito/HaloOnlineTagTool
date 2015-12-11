@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
+using System.Collections;
 
 namespace HaloOnlineTagTool.Commands.Editing
 {
@@ -36,7 +37,26 @@ namespace HaloOnlineTagTool.Commands.Editing
             var enumerator = new TagFieldEnumerator(Structure);
 
             while (enumerator.Next())
-                Console.WriteLine("{0}: {1} = {2}", enumerator.Field.Name, enumerator.Field.FieldType.Name, enumerator.Field.GetValue(Value));
+            {
+                var fieldType = enumerator.Field.FieldType;
+                var fieldValue = enumerator.Field.GetValue(Value);
+
+                var nameString = enumerator.Field.Name;
+
+                var typeString =
+                    fieldType.IsGenericType ?
+                        $"{fieldType.Name}<{fieldType.GenericTypeArguments[0].Name}>" :
+                    fieldType.Name;
+
+                var valueString =
+                    fieldType == typeof(StringId) ?
+                        Info.StringIds.GetString((StringId)fieldValue) :
+                    fieldType.GetInterface(typeof(IList).Name) != null ?
+                        (((IList)fieldValue).Count == 0 ? "null" : "{...}") :
+                    fieldValue.ToString();
+
+                Console.WriteLine("{0}: {1} = {2}", nameString, typeString, valueString);
+            }
 
             return true;
         }
