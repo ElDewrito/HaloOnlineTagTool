@@ -31,17 +31,23 @@ namespace HaloOnlineTagTool.Commands.Editing
 
         public override bool Execute(List<string> args)
         {
-            if (args.Count != 0)
+            if (args.Count > 1)
                 return false;
 
+            var match = (args.Count == 1);
+            var token = match ? args[0].ToLower() : "";
+            
             var enumerator = new TagFieldEnumerator(Structure);
 
             while (enumerator.Next())
             {
+                var nameString = enumerator.Field.Name;
+
+                if (match && !nameString.ToLower().StartsWith(token))
+                    continue;
+
                 var fieldType = enumerator.Field.FieldType;
                 var fieldValue = enumerator.Field.GetValue(Value);
-
-                var nameString = enumerator.Field.Name;
 
                 var typeString =
                     fieldType.IsGenericType ?
