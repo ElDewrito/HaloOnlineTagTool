@@ -42,6 +42,29 @@ namespace HaloOnlineTagTool.Commands.Editing
             var enumerator = new TagFieldEnumerator(
                 new TagStructureInfo(ownerType, Info.Version));
 
+            var deferredNames = new List<string>();
+            var deferredArgs = new List<string>();
+
+            if (blockName.Contains("."))
+            {
+                deferredNames.AddRange(blockName.Split('.'));
+                blockName = deferredNames[0];
+                deferredNames = deferredNames.Skip(1).ToList();
+                deferredArgs.AddRange(args.Skip(1));
+                args = new List<string> { blockName };
+            }
+
+            if (blockName.Contains("]"))
+            {
+                var openBracketIndex = blockName.IndexOf('[');
+                var closeBracketIndex = blockName.IndexOf(']');
+                var name = blockName.Substring(0, openBracketIndex);
+                var index = blockName.Substring(openBracketIndex + 1, (closeBracketIndex - openBracketIndex) - 1);
+
+                blockName = name;
+                args = new List<string> { name, index };
+            }
+
             var field = enumerator.Find(f => f.Name == blockName);
 
             if (field == null)
@@ -90,6 +113,21 @@ namespace HaloOnlineTagTool.Commands.Editing
             blockContext.AddCommand(new SetFieldCommand(Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new EditBlockCommand(Stack, Info, Tag, blockValue));
             Stack.Push(blockContext);
+
+            if (deferredNames.Count != 0)
+            {
+                var name = deferredNames[0];
+                deferredNames = deferredNames.Skip(1).ToList();
+
+                foreach (var deferredName in deferredNames)
+                    name += '.' + deferredName;
+
+                args = new List<string> { name };
+                args.AddRange(deferredArgs);
+
+                var command = new EditBlockCommand(Stack, Info, Tag, blockValue);
+                return command.Execute(args);
+            }
             
             return true;
         }
