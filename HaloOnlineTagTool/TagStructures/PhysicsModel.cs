@@ -96,8 +96,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public class PhantomType
 		{
 			public uint Flags; // NOTE: This has to be adjusted when converting because of the new armor object type. The "Ignores Armor" bit was inserted at position 8.
-			public MinimumSizeValue MinimumSize;
-			public MaximumSizeValue MaximumSize;
+            public Range<SizeValue> SizeRange;
 			public short Unknown;
 			public StringId MarkerName;
 			public StringId AlignmentMarkerName;
@@ -124,18 +123,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown11;
 			public uint Unknown12;
 
-			public enum MinimumSizeValue : sbyte
-			{
-				Default,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				ExtraHuge,
-			}
-
-			public enum MaximumSizeValue : sbyte
+			public enum SizeValue : sbyte
 			{
 				Default,
 				Tiny,
@@ -725,12 +713,9 @@ namespace HaloOnlineTagTool.TagStructures
 			public short EdgeIndex;
 			public short Unknown;
 			public uint Unknown2;
-			public float MinTwist;
-			public float MaxTwist;
-			public float MinCone;
-			public float MaxCone;
-			public float MinPlane;
-			public float MaxPlane;
+            public Range<float> TwistRange;
+            public Range<float> ConeRange;
+            public Range<float> PlaneRange;
 			public float MaxFrictionTorque;
 		}
 

@@ -183,9 +183,20 @@ namespace HaloOnlineTagTool.Serialization
 			// TODO: Allow other types to be in data references, since sometimes they can point to a structure
 			if (valueType == typeof(byte[]))
 				return DeserializeDataReference(reader, context);
-			
-			// Vector types
-			if (valueType == typeof(Vector2))
+
+            // Euler Angles types
+            if (valueType == typeof(Euler2))
+                return new Euler2(
+                    Angle.FromRadians(reader.ReadSingle()),
+                    Angle.FromRadians(reader.ReadSingle()));
+            else if (valueType == typeof(Euler3))
+                return new Euler3(
+                    Angle.FromRadians(reader.ReadSingle()),
+                    Angle.FromRadians(reader.ReadSingle()),
+                    Angle.FromRadians(reader.ReadSingle()));
+
+            // Vector types
+            if (valueType == typeof(Vector2))
 				return new Vector2(reader.ReadSingle(), reader.ReadSingle());
 			if (valueType == typeof(Vector3))
 				return new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());

@@ -13,13 +13,13 @@ namespace HaloOnlineTagTool.TagStructures
 	[TagStructure(Name = "scenario", Class = "scnr", Size = 0x834, MinVersion = EngineVersion.V11_1_498295_Live)]
 	public class Scenario
 	{
-		public MapTypeValue MapType;
+		public MapTypeDefinition MapType;
 		public ushort Flags;
 		public int Unknown;
 		public int MapId;
 		public Angle LocalNorth;
 		public float SandboxBudget;
-		public List<StructureBsp> StructureBsps;
+		public List<StructureBspDefinition> StructureBsps;
 		public HaloTag Unknown2;
 		public List<SkyReference> SkyReferences;
 		public List<BspGroup> BspGroups;
@@ -49,33 +49,33 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown24;
 		public uint Unknown25;
 		public List<ObjectName> ObjectNames;
-		public List<SceneryBlock> Scenery;
-		public List<SceneryPaletteBlock> SceneryPalette;
-		public List<Biped> Bipeds;
-		public List<BipedPaletteBlock> BipedPalette;
-		public List<Vehicle> Vehicles;
-		public List<VehiclePaletteBlock> VehiclePalette;
-		public List<EquipmentBlock> Equipment;
-		public List<EquipmentPaletteBlock> EquipmentPalette;
-		public List<Weapon> Weapons;
-		public List<WeaponPaletteBlock> WeaponPalette;
+		public List<SceneryPaletteDefinition> Scenery;
+		public List<ScenarioPaletteEntry> SceneryPalette;
+		public List<BipedPaletteDefinition> Bipeds;
+		public List<ScenarioPaletteEntry> BipedPalette;
+		public List<VehiclePaletteDefinition> Vehicles;
+		public List<ScenarioPaletteEntry> VehiclePalette;
+		public List<EquipmentPaletteDefinition> Equipment;
+		public List<ScenarioPaletteEntry> EquipmentPalette;
+		public List<WeaponPaletteDefinition> Weapons;
+		public List<ScenarioPaletteEntry> WeaponPalette;
 		public List<DeviceGroup> DeviceGroups;
-		public List<Machine> Machines;
-		public List<MachinePaletteBlock> MachinePalette;
-		public List<Terminal> Terminals;
-		public List<TerminalPaletteBlock> TerminalPalette;
-		public List<AlternateRealityDevice> AlternateRealityDevices;
-		public List<AlternateRealityDevicePaletteBlock> AlternateRealityDevicePalette;
-		public List<Control> Controls;
-		public List<ControlPaletteBlock> ControlPalette;
-		public List<SoundSceneryBlock> SoundScenery;
-		public List<SoundSceneryPaletteBlock> SoundSceneryPalette;
-		public List<Giant> Giants;
-		public List<GiantPaletteBlock> GiantPalette;
-		public List<EffectSceneryBlock> EffectScenery;
-		public List<EffectSceneryBlock2> EffectScenery2;
-		public List<LightVolume> LightVolumes;
-		public List<LightVolumesPaletteBlock> LightVolumesPalette;
+		public List<MachinePaletteDefinition> Machines;
+		public List<ScenarioPaletteEntry> MachinePalette;
+		public List<TerminalPaletteDefinition> Terminals;
+		public List<ScenarioPaletteEntry> TerminalPalette;
+		public List<AlternateRealityDevicePaletteDefinition> AlternateRealityDevices;
+		public List<ScenarioPaletteEntry> AlternateRealityDevicePalette;
+		public List<ControlPaletteDefinition> Controls;
+		public List<ScenarioPaletteEntry> ControlPalette;
+		public List<SoundSceneryPaletteDefinition> SoundScenery;
+		public List<ScenarioPaletteEntry> SoundSceneryPalette;
+		public List<GiantPaletteDefinition> Giants;
+		public List<ScenarioPaletteEntry> GiantPalette;
+		public List<EffectSceneryPaletteDefinition> EffectScenery;
+		public List<ScenarioPaletteEntry> EffectScenery2;
+		public List<LightVolumePaletteDefinition> LightVolumes;
+		public List<ScenarioPaletteEntry> LightVolumesPalette;
 		public List<SandboxObject> SandboxVehicles;
 		public List<SandboxObject> SandboxWeapons;
 		public List<SandboxObject> SandboxEquipment;
@@ -142,12 +142,12 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown78;
 		public uint Unknown79;
 		public uint Unknown80;
-		public List<Decal> Decals;
-		public List<DecalPaletteBlock> DecalPalette;
+		public List<DecalPaletteDefinition> Decals;
+		public List<ScenarioPaletteEntry> DecalPalette;
 		public uint Unknown81;
 		public uint Unknown82;
 		public uint Unknown83;
-		public List<StylePaletteBlock> StylePalette;
+		public List<ScenarioPaletteEntry> StylePalette;
 		public List<SquadGroup> SquadGroups;
 		public List<Squad> Squads;
 		public List<Zone> Zones;
@@ -155,7 +155,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown85;
 		public uint Unknown86;
 		public uint Unknown87;
-		public List<CharacterPaletteBlock> CharacterPalette;
+		public List<ScenarioPaletteEntry> CharacterPalette;
 		public uint Unknown88;
 		public uint Unknown89;
 		public uint Unknown90;
@@ -166,7 +166,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public byte[] ScriptStrings;
 		public List<Script> Scripts;
 		public List<Global> Globals;
-		public List<ScriptReference> ScriptReferences;
+		public List<TagReferenceBlock> ScriptReferences;
 		public uint Unknown94;
 		public uint Unknown95;
 		public uint Unknown96;
@@ -179,8 +179,8 @@ namespace HaloOnlineTagTool.TagStructures
 		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag Unknown156;
 		public List<ScenarioResource> ScenarioResources;
 		public List<UnitSeatsMappingBlock> UnitSeatsMapping;
-		public List<ScenarioKillTrigger> ScenarioKillTriggers;
-		public List<ScenarioSafeTrigger> ScenarioSafeTriggers;
+		public List<ScenarioPaletteEntryReference> ScenarioKillTriggers;
+		public List<ScenarioPaletteEntryReference> ScenarioSafeTriggers;
 		public List<ScriptExpression> ScriptExpressions;
 		public uint Unknown97;
 		public uint Unknown98;
@@ -245,20 +245,20 @@ namespace HaloOnlineTagTool.TagStructures
 		public int ObjectSalts32;
 		public List<SpawnDatum> SpawnData;
 		public HaloTag SoundEffectsCollection;
-		public List<Crate> Crates;
-		public List<CratePaletteBlock> CratePalette;
-		public List<FlockPaletteBlock> FlockPalette;
-		public List<Flock> Flocks;
+		public List<CratePaletteDefinition> Crates;
+		public List<ScenarioPaletteEntry> CratePalette;
+		public List<ScenarioPaletteEntry> FlockPalette;
+		public List<FlockPaletteDefinition> Flocks;
 		public HaloTag SubtitleStrings;
 		public uint Unknown122;
 		public uint Unknown123;
 		public uint Unknown124;
-		public List<CreaturePaletteBlock> CreaturePalette;
-		public List<EditorFolder> EditorFolders;
+		public List<ScenarioPaletteEntry> CreaturePalette;
+		public List<EditorFolderDefinition> EditorFolders;
 		public HaloTag TerritoryLocationNameStrings;
 		public uint Unknown125;
 		public uint Unknown126;
-		public List<MissionDialogueBlock> MissionDialogue;
+		public List<TagReferenceBlock> MissionDialogue;
 		public HaloTag ObjectiveStrings;
 		public List<Interpolator> Interpolators;
 		public uint Unknown127;
@@ -282,7 +282,7 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown136;
 		public uint Unknown137;
 		public uint Unknown138;
-		public List<Cinematic> Cinematics;
+		public List<TagReferenceBlock> Cinematics;
 		public List<CinematicLightingBlock> CinematicLighting;
 		public uint Unknown139;
 		public uint Unknown140;
@@ -301,9 +301,9 @@ namespace HaloOnlineTagTool.TagStructures
 		public uint Unknown152;
 		public HaloTag Unknown153;
 		public HaloTag Unknown154;
-		public List<UnknownBlock8> Unknown155;
+		public List<TagReferenceBlock> Unknown155;
 
-		public enum MapTypeValue : short
+		public enum MapTypeDefinition : short
 		{
 			SinglePlayer,
 			Multiplayer,
@@ -311,9 +311,9 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x6C)]
-		public class StructureBsp
+		public class StructureBspDefinition
 		{
-			public HaloTag StructureBsp2;
+			public HaloTag StructureBsp;
 			public HaloTag Design;
 			public HaloTag Lighting;
 			public int Unknown;
@@ -333,8 +333,8 @@ namespace HaloOnlineTagTool.TagStructures
 		public class SkyReference
 		{
 			public HaloTag SkyObject;
-			public short NameIndex;
-			public ushort ActiveBsps;
+			public short NameIndex; // This should be a block element reference
+            public ushort ActiveBsps;
 		}
 
 		[TagStructure(Size = 0x2C)]
@@ -465,8 +465,7 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public int DoorPortalCount;
 			public int UniqueClusterCount;
-			public float ClusterDistanceBoundsMin;
-			public float ClusterDistanceBoundsMax;
+            public Range<float> ClusterDistanceBounds;
 			public List<EncodedDoorPa> EncodedDoorPas;
 			public List<ClusterDoorPortalEncodedPa> ClusterDoorPortalEncodedPas;
 			public List<AiDeafeningPa> AiDeafeningPas;
@@ -516,8 +515,8 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x2)]
 			public class ClusterMappingBlock
 			{
-				public short Index;
-			}
+				public short Index; // This should be a block element reference
+            }
 		}
 
 		[TagStructure(Size = 0x24)]
@@ -541,63 +540,166 @@ namespace HaloOnlineTagTool.TagStructures
 			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
 			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
 			public byte Padding; // FIXME: This technically isn't padding and object type is a short here!
-			public short PlacementIndex;
-		}
+			public short PlacementIndex; // This should be a block element reference
+        }
 
-		[TagStructure(Size = 0xB8)]
-		public class SceneryBlock
+        [TagStructure(Size = 0x54)]
+        public class ScenarioPaletteDefinition
+        {
+            public short PaletteIndex; // This should be a block element reference
+            public short NameIndex; // This should be a block element reference
+            public uint PlacementFlags;
+            public Vector3 Position;
+            public Euler3 Rotation;
+            public float Scale;
+            public List<UnknownBlock> Unknown;
+            public short Unknown2;
+            public ushort OldManualBspFlagsNowZonesets;
+            public StringId UniqueName;
+            public ushort UniqueIdSalt;
+            public ushort UniqueIdIndex;
+            public short OriginBspIndex; // This should be a block element reference
+            [MaxVersion(EngineVersion.V10_1_449175_Live)]
+            public ObjectTypeValueOld ObjectTypeOld;
+            [MinVersion(EngineVersion.V11_1_498295_Live)]
+            public ObjectTypeValueNew ObjectTypeNew;
+            public SourceValue Source;
+            public BspPolicyValue BspPolicy;
+            public sbyte Unknown3;
+            public short EditorFolderIndex; // This should be a block element reference
+            public short Unknown4;
+            public short ParentNameIndex; // This should be a block element reference
+            public StringId ChildName;
+            public StringId Unknown5;
+            public ushort AllowedZonesets;
+            public short Unknown6;
+
+            [TagStructure(Size = 0x1C)]
+            public class UnknownBlock
+            {
+                public short NodeCount;
+                public short Unknown;
+                public List<UnknownBlock2> Unknown2;
+                public List<UnknownBlock3> Unknown3;
+
+                [TagStructure(Size = 0x1)]
+                public class UnknownBlock2
+                {
+                    public byte Unknown;
+                }
+
+                [TagStructure(Size = 0x2)]
+                public class UnknownBlock3
+                {
+                    public short Unknown;
+                }
+            }
+        }
+
+        [TagStructure(Size = 0x70)]
+        public class ObjectPaletteDefinition
+        {
+            public ScenarioPaletteDefinition PaletteDefinition;
+            public StringId Variant;
+            public byte ActiveChangeColors;
+            public sbyte Unknown7;
+            public sbyte Unknown8;
+            public sbyte Unknown9;
+            public byte PrimaryColorA;
+            public byte PrimaryColorR;
+            public byte PrimaryColorG;
+            public byte PrimaryColorB;
+            public byte SecondaryColorA;
+            public byte SecondaryColorR;
+            public byte SecondaryColorG;
+            public byte SecondaryColorB;
+            public byte TertiaryColorA;
+            public byte TertiaryColorR;
+            public byte TertiaryColorG;
+            public byte TertiaryColorB;
+            public byte QuaternaryColorA;
+            public byte QuaternaryColorR;
+            public byte QuaternaryColorG;
+            public byte QuaternaryColorB;
+            public uint Unknown10;
+        }
+
+        [TagStructure(Size = 0x30)]
+        public class ScenarioPaletteEntry
+        {
+            public HaloTag Reference;
+            public uint Unknown;
+            public uint Unknown2;
+            public uint Unknown3;
+            public uint Unknown4;
+            public uint Unknown5;
+            public uint Unknown6;
+            public uint Unknown7;
+            public uint Unknown8;
+        }
+
+        public enum SourceValue : sbyte
+        {
+            Structure,
+            Editor,
+            Dynamic,
+            Legacy,
+        }
+
+        public enum BspPolicyValue : sbyte
+        {
+            Default,
+            AlwaysPlaced,
+            ManualBspIndex,
+        }
+
+        public enum PathfindingPolicyValue : short
+        {
+            TagDefault,
+            Dynamic,
+            CutOut,
+            Standard,
+            None,
+        }
+
+        public enum LightmappingPolicyValue : short
+        {
+            TagDefault,
+            Dynamic,
+            PerVertex,
+        }
+
+        [TagStructure(Size = 0x4)]
+        public class PathfindingReference
+        {
+            public short BspIndex; // This should be a block element reference
+            public short PathfindingObjectIndex; // This should be a block element reference
+        }
+
+        public enum SymmetryValue : int
+        {
+            Both,
+            Symmetric,
+            Asymmetric,
+        }
+
+        public enum TeamValue : short
+        {
+            Red,
+            Blue,
+            Green,
+            Orange,
+            Purple,
+            Yellow,
+            Brown,
+            Pink,
+            Neutral,
+        }
+
+        [TagStructure(Size = 0xB8)]
+		public class SceneryPaletteDefinition
 		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
+            public ObjectPaletteDefinition ObjectDefinition;
 			public PathfindingPolicyValue PathfindingPolicy;
 			public LightmappingPolicyValue LightmappingPolicy;
 			public List<PathfindingReference> PathfindingReferences;
@@ -607,290 +709,38 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort EngineFlags;
 			public TeamValue Team;
 			public sbyte SpawnSequence;
-			public sbyte RuntimeMinimum;
-			public sbyte RuntimeMaximum;
+            public Range<sbyte> RuntimeRange;
 			public byte MultiplayerFlags;
 			public short SpawnTime;
 			public short UnknownSpawnTime;
 			public sbyte Unknown13;
-			public ShapeValue Shape;
+			public GameObject.ObjectShapeValue Shape;
 			public sbyte TeleporterChannel;
 			public sbyte Unknown14;
 			public short Unknown15;
-			public short AttachedNameIndex;
-			public uint Unknown16;
+			public short AttachedNameIndex; // This should be a block element reference
+            public uint Unknown16;
 			public uint Unknown17;
 			public float WidthRadius;
 			public float Depth;
 			public float Top;
 			public float Bottom;
 			public uint Unknown18;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			public enum PathfindingPolicyValue : short
-			{
-				TagDefault,
-				Dynamic,
-				CutOut,
-				Standard,
-				None,
-			}
-
-			public enum LightmappingPolicyValue : short
-			{
-				TagDefault,
-				Dynamic,
-				PerVertex,
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class PathfindingReference
-			{
-				public short BspIndex;
-				public short PathfindingObjectIndex;
-			}
-
-			public enum SymmetryValue : int
-			{
-				Both,
-				Symmetric,
-				Asymmetric,
-			}
-
-			public enum TeamValue : short
-			{
-				Red,
-				Blue,
-				Green,
-				Orange,
-				Purple,
-				Yellow,
-				Brown,
-				Pink,
-				Neutral,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class SceneryPaletteBlock
-		{
-			public HaloTag Scenery;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x78)]
-		public class Biped
+		public class BipedPaletteDefinition
 		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
+            public ObjectPaletteDefinition ObjectDefinition;
 			public float BodyVitalityPercentage;
 			public uint Flags;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class BipedPaletteBlock
-		{
-			public HaloTag Biped;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0xAC)]
-		public class Vehicle
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public float BodyVitalityPercentage;
+		public class VehiclePaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public float BodyVitalityPercentage;
 			public uint Flags;
 			public SymmetryValue Symmetry;
 			public ushort EngineFlags;
@@ -902,7 +752,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short SpawnTime;
 			public short UnknownSpawnTime;
 			public sbyte Unknown11;
-			public ShapeValue Shape;
+			public GameObject.ObjectShapeValue Shape;
 			public sbyte TeleporterChannel;
 			public sbyte Unknown12;
 			public short Unknown13;
@@ -914,276 +764,25 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Top;
 			public float Bottom;
 			public uint Unknown16;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			public enum SymmetryValue : int
-			{
-				Both,
-				Symmetric,
-				Asymmetric,
-			}
-
-			public enum TeamValue : short
-			{
-				Red,
-				Blue,
-				Green,
-				Orange,
-				Purple,
-				Yellow,
-				Brown,
-				Pink,
-				Neutral,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class VehiclePaletteBlock
-		{
-			public HaloTag Vehicle;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x8C)]
-		public class EquipmentBlock
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public uint EquipmentFlags;
-			public SymmetryValue Symmetry;
-			public ushort EngineFlags;
-			public TeamValue Team;
-			public sbyte SpawnSequence;
-			public sbyte RuntimeMinimum;
-			public sbyte RuntimeMaximum;
-			public byte MultiplayerFlags;
-			public short SpawnTime;
-			public short UnknownSpawnTime;
-			public sbyte Unknown7;
-			public ShapeValue Shape;
-			public sbyte TeleporterChannel;
-			public sbyte Unknown8;
-			public short Unknown9;
-			public short AttachedNameIndex;
-			public uint Unknown10;
-			public uint Unknown11;
+		public class EquipmentPaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public uint Unknown11;
 			public float WidthRadius;
 			public float Depth;
 			public float Top;
 			public float Bottom;
 			public uint Unknown12;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			public enum SymmetryValue : int
-			{
-				Both,
-				Symmetric,
-				Asymmetric,
-			}
-
-			public enum TeamValue : short
-			{
-				Red,
-				Blue,
-				Green,
-				Orange,
-				Purple,
-				Yellow,
-				Brown,
-				Pink,
-				Neutral,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class EquipmentPaletteBlock
-		{
-			public HaloTag Equipment;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0xAC)]
-		public class Weapon
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public short RoundsLeft;
+		public class WeaponPaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public short RoundsLeft;
 			public short RoundsLoaded;
 			public uint WeaponFlags;
 			public SymmetryValue Symmetry;
@@ -1196,7 +795,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short SpawnTime;
 			public short UnknownSpawnTime;
 			public sbyte Unknown11;
-			public ShapeValue Shape;
+			public GameObject.ObjectShapeValue Shape;
 			public sbyte TeleporterChannel;
 			public sbyte Unknown12;
 			public short Unknown13;
@@ -1208,86 +807,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public float Top;
 			public float Bottom;
 			public uint Unknown16;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			public enum SymmetryValue : int
-			{
-				Both,
-				Symmetric,
-				Asymmetric,
-			}
-
-			public enum TeamValue : short
-			{
-				Red,
-				Blue,
-				Green,
-				Orange,
-				Purple,
-				Yellow,
-				Brown,
-				Pink,
-				Neutral,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class WeaponPaletteBlock
-		{
-			public HaloTag Weapon;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x2C)]
 		public class DeviceGroup
 		{
@@ -1299,794 +820,85 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x8C)]
-		public class Machine
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public short PowerGroup;
+		public class MachinePaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
 			public uint MachineFlags;
 			public List<PathfindingReference> PathfindingReferences;
 			public PathfindingPolicyValue PathfindingPolicy;
 			public short Unknown11;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class PathfindingReference
-			{
-				public short BspIndex;
-				public short PathfindingObjectIndex;
-			}
-
-			public enum PathfindingPolicyValue : short
-			{
-				TagDefault,
-				CutOut,
-				Sectors,
-				Discs,
-				None,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class MachinePaletteBlock
-		{
-			public HaloTag Machine;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x7C)]
-		public class Terminal
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public short PowerGroup;
+		public class TerminalPaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
 			public uint Unknown11;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class TerminalPaletteBlock
-		{
-			public HaloTag Terminal;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0xBC)]
-		public class AlternateRealityDevice
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public short PowerGroup;
+		public class AlternateRealityDevicePaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
 			[TagField(Length = 32)] public string TapScriptName;
 			[TagField(Length = 32)] public string HoldScriptName;
 			public short TapScriptIndex;
 			public short HoldScriptIndex;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class AlternateRealityDevicePaletteBlock
-		{
-			public HaloTag ArgDevice;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x80)]
-		public class Control
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public short PowerGroup;
+		public class ControlPaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
 			public uint ControlFlags;
 			public short Unknown11;
 			public short Unknown12;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class ControlPaletteBlock
-		{
-			public HaloTag Control;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x70)]
-		public class SoundSceneryBlock
+		public class SoundSceneryPaletteDefinition
 		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
+            public ScenarioPaletteDefinition PaletteDefinition;
 			public int VolumeType;
 			public float Height;
-			public float OverrideDistanceMin;
-			public float OverrideDistanceMax;
-			public Angle OverrideConeAngleMin;
-			public Angle OverrideConeAngleMax;
+            public Range<float> OverrideDistanceRange;
+            public Range<Angle> OverrideConeAngleRange;
 			public float OverrideOuterConeGain;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class SoundSceneryPaletteBlock
-		{
-			public HaloTag SoundScenery;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x88)]
-		public class Giant
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
+		public class GiantPaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
 			public float BodyVitalityPercentage;
 			public uint Flags;
 			public short Unknown11;
 			public short Unknown12;
 			public List<PathfindingReference> PathfindingReferences;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class PathfindingReference
-			{
-				public short BspIndex;
-				public short PathfindingObjectIndex;
-			}
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class GiantPaletteBlock
-		{
-			public HaloTag Giant;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
 		}
 
 		[TagStructure(Size = 0x54)]
-		public class EffectSceneryBlock
+		public class EffectSceneryPaletteDefinition
 		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
+            public ScenarioPaletteDefinition PaletteDefinition;
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class EffectSceneryBlock2
-		{
-			public HaloTag EffectScenery;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x8C)]
-		public class LightVolume
+		public class LightVolumePaletteDefinition
 		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
+            public ScenarioPaletteDefinition PaletteDefinition;
 			public short PowerGroup;
 			public short PositionGroup;
 			public uint DeviceFlags;
@@ -2096,50 +908,12 @@ namespace HaloOnlineTagTool.TagStructures
 			public ushort LightmapFlags;
 			public float LightmapHalfLife;
 			public float LightmapLightScale;
-			public float X;
-			public float Y;
-			public float Z;
+            public Vector3 Offset;
 			public float Width;
 			public float HeightScale;
 			public Angle FieldOfView;
 			public float FalloffDistance;
 			public float CutoffDistance;
-
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
 
 			public enum TypeValue2 : short
 			{
@@ -2155,21 +929,7 @@ namespace HaloOnlineTagTool.TagStructures
 				LightmapsOnly,
 			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class LightVolumesPaletteBlock
-		{
-			public HaloTag LightVolume;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x30)]
 		public class SandboxObject
 		{
@@ -2219,14 +979,11 @@ namespace HaloOnlineTagTool.TagStructures
 		[TagStructure(Size = 0x1C)]
 		public class PlayerStartingLocation
 		{
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle FacingY;
-			public Angle FacingP;
+            public Vector3 Position;
+            public Euler2 Direction;
 			public short Unknown;
 			public short Unknown2;
-			public short EditorFolderIndex;
+			public short EditorFolderIndex; // This should be a block element reference
 			public short Unknown3;
 		}
 
@@ -2245,12 +1002,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown7;
 			public uint Unknown8;
 			public uint Unknown9;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public float ExtentsX;
-			public float ExtentsY;
-			public float ExtentsZ;
+            public Vector3 Position;
+            public Vector3 Extents;
 			public uint Unknown10;
 			public List<UnknownBlock> Unknown11;
 			public List<UnknownBlock2> Unknown12;
@@ -2261,10 +1014,10 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown17;
 			public uint Unknown18;
 			public uint Unknown19;
-			public short KillVolume;
-			public short EditorFolderIndex;
+			public short KillVolumeIndex; // This should be a block element reference
+            public short EditorFolderIndex; // This should be a block element reference
 
-			[TagStructure(Size = 0x14)]
+            [TagStructure(Size = 0x14)]
 			public class UnknownBlock
 			{
 				public uint Unknown;
@@ -2311,33 +1064,16 @@ namespace HaloOnlineTagTool.TagStructures
 		}
 
 		[TagStructure(Size = 0x24)]
-		public class Decal
+		public class DecalPaletteDefinition
 		{
 			public short PaletteIndex;
 			public sbyte Yaw;
 			public sbyte Pitch;
-			public float I;
-			public float J;
-			public float K;
-			public float W;
-			public float X;
-			public float Y;
-			public float Z;
+            public Vector4 Rotation;
+            public Vector3 Position;
 			public float Scale;
 		}
-
-		[TagStructure(Size = 0x10)]
-		public class DecalPaletteBlock
-		{
-			public HaloTag Decal;
-		}
-
-		[TagStructure(Size = 0x10)]
-		public class StylePaletteBlock
-		{
-			public HaloTag Style;
-		}
-
+        
 		[TagStructure(Size = 0x28)]
 		public class SquadGroup
 		{
@@ -2363,8 +1099,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public List<SingleLocation> SingleLocations;
 			public StringId SquadTemplateName;
 			[TagField(Flags = TagFieldFlags.Short)] public HaloTag SquadTemplate;
-			public List<SquadABlock> SquadA;
-			public List<SquadBBlock> SquadB;
+			public List<SquadDefinition> SquadA;
+			public List<SquadDefinition> SquadB;
 
 			public enum TeamValue : short
 			{
@@ -2394,14 +1130,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown3;
 				public uint Unknown4;
 				public StringId Name;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
+                public Vector3 Position;
 				public short ReferenceFrame;
 				public short Unknown5;
-				public Angle FacingI;
-				public Angle FacingJ;
-				public Angle FacingK;
+                public Euler3 Direction;
 				public StringId FormationType;
 				public uint Unknown6;
 				public short Unknown7;
@@ -2435,35 +1167,31 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown3;
 				public uint Unknown4;
 				public StringId Name;
-				public short SquadMemberIndex;
-				public short Unknown5;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
+				public short SquadMemberIndex; // This should be a block element reference
+                public short Unknown5;
+                public Vector3 Position;
 				public short ReferenceFrame;
 				public short Unknown6;
-				public Angle FacingI;
-				public Angle FacingJ;
-				public Angle FacingK;
+                public Euler3 Direction;
 				public ushort Flags;
 				public short CharacterType;
-				public short InitialPrimaryWeapon;
-				public short InitialSecondaryWeapon;
-				public short InitialEquipment;
-				public short Vehicle;
-				public SeatTypeValue SeatType;
+				public short InitialPrimaryWeaponIndex; // This should be a block element reference
+                public short InitialSecondaryWeaponIndex; // This should be a block element reference
+                public short InitialEquipmentIndex; // This should be a block element reference
+                public short VehicleIndex; // This should be a block element reference
+                public SeatTypeValue SeatType;
 				public InitialGrenadesValue InitialGrenades;
 				public uint Unknown7;
 				public StringId ActorVariant;
 				public StringId VehicleVariant;
 				public float InitialMovementDistance;
 				public InitialMovementModeValue InitialMovementMode;
-				public short EmitterVehicle;
-				public short EmitterGiant;
-				public short EmitterBiped;
-				[TagField(Length = 32)] public string CommandScriptName;
-				public short CommandScriptIndex;
-				public short Unknown8;
+				public short EmitterVehicleIndex; // This should be a block element reference
+                public short EmitterGiantIndex; // This should be a block element reference
+                public short EmitterBipedIndex; // This should be a block element reference
+                [TagField(Length = 32)] public string CommandScriptName;
+				public short CommandScriptIndex; // This should be a block element reference
+                public short Unknown8;
 				public StringId InitialState;
 				public short Unknown9;
 				public short Unknown10;
@@ -2506,27 +1234,26 @@ namespace HaloOnlineTagTool.TagStructures
 					public StringId State;
 					public uint Unknown5;
 					[TagField(Length = 32)] public string CommandScriptName;
-					public short CommandScriptIndex;
-					public short Unknown6;
+					public short CommandScriptIndex; // This should be a block element reference
+                    public short Unknown6;
 				}
 			}
 
 			[TagStructure(Size = 0x84)]
-			public class SquadABlock
+			public class SquadDefinition
 			{
 				public StringId Name;
 				public ushort Difficulty;
 				public short Unknown;
-				public short MinimumRound;
-				public short MaximumRound;
+                public Range<short> RoundRange;
 				public short Unknown2;
 				public short Unknown3;
 				public short Count;
 				public short Unknown4;
-				public List<Actor> Actors;
-				public List<Weapon> Weapons;
-				public List<SecondaryWeapon> SecondaryWeapons;
-				public List<EquipmentBlock> Equipment;
+				public List<SquadActorDefinition> Actors;
+				public List<SquadWeaponDefinition> Weapons;
+				public List<SquadWeaponDefinition> SecondaryWeapons;
+				public List<SquadEquipmentDefinition> Equipment;
 				public short Unknown5;
 				public short Vehicle;
 				public StringId VehicleVariant;
@@ -2548,136 +1275,36 @@ namespace HaloOnlineTagTool.TagStructures
 				public uint Unknown21;
 
 				[TagStructure(Size = 0x10)]
-				public class Actor
+				public class SquadActorDefinition
 				{
 					public short Unknown;
 					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
+                    public Range<short> RoundRange;
 					public uint Unknown3;
-					public short Character;
-					public short Probability;
+					public short CharacterIndex; // This should be a block element reference
+                    public short Probability;
 				}
 
 				[TagStructure(Size = 0x10)]
-				public class Weapon
+				public class SquadWeaponDefinition
 				{
 					public short Unknown;
 					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Weapon2;
-					public short Probability;
+                    public Range<short> RoundRange;
+                    public uint Unknown3;
+					public short WeaponIndex; // This should be a block element reference
+                    public short Probability;
 				}
-
+                
 				[TagStructure(Size = 0x10)]
-				public class SecondaryWeapon
+				public class SquadEquipmentDefinition
 				{
 					public short Unknown;
 					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Weapon;
-					public short Probability;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class EquipmentBlock
-				{
-					public short Unknown;
-					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Equipment;
-					public short Probability;
-				}
-			}
-
-			[TagStructure(Size = 0x84)]
-			public class SquadBBlock
-			{
-				public StringId Name;
-				public ushort Difficulty;
-				public short Unknown;
-				public short MinimumRound;
-				public short MaximumRound;
-				public short Unknown2;
-				public short Unknown3;
-				public short Count;
-				public short Unknown4;
-				public List<Actor> Actors;
-				public List<Weapon> Weapons;
-				public List<SecondaryWeapon> SecondaryWeapons;
-				public List<EquipmentBlock> Equipment;
-				public short Unknown5;
-				public short Vehicle;
-				public StringId VehicleVariant;
-				public uint Unknown6;
-				public uint Unknown7;
-				public uint Unknown8;
-				public uint Unknown9;
-				public uint Unknown10;
-				public uint Unknown11;
-				public uint Unknown12;
-				public uint Unknown13;
-				public short Unknown14;
-				public short Unknown15;
-				public uint Unknown16;
-				public short Unknown17;
-				public short Unknown18;
-				public uint Unknown19;
-				public uint Unknown20;
-				public uint Unknown21;
-
-				[TagStructure(Size = 0x10)]
-				public class Actor
-				{
-					public short Unknown;
-					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Character;
-					public short Probability;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class Weapon
-				{
-					public short Unknown;
-					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Weapon2;
-					public short Probability;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class SecondaryWeapon
-				{
-					public short Unknown;
-					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Weapon;
-					public short Probability;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class EquipmentBlock
-				{
-					public short Unknown;
-					public short Unknown2;
-					public short MinimumRound;
-					public short MaximumRound;
-					public uint Unknown3;
-					public short Equipment;
-					public short Probability;
+                    public Range<short> RoundRange;
+                    public uint Unknown3;
+					public short EquipmentIndex; // This should be a block element reference
+                    public short Probability;
 				}
 			}
 		}
@@ -2693,19 +1320,16 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x28)]
 			public class FiringPosition
 			{
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
+                public Vector3 Position;
 				public short ReferenceFrame;
 				public short Unknown;
 				public ushort Flags;
 				public short Unknown2;
-				public short AreaIndex;
-				public short ClusterIndex;
-				public short Unknown3;
+				public short AreaIndex; // This should be a block element reference
+                public short ClusterIndex; // This should be a block element reference
+                public short Unknown3;
 				public short Unknown4;
-				public Angle NormalY;
-				public Angle NormalP;
+                public Euler2 Direction;
 				public uint Unknown5;
 			}
 
@@ -2714,13 +1338,11 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				[TagField(Length = 32)] public string Name;
 				public uint AreaFlags;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
+                public Vector3 Position;
 				public int Unknown;
 				public uint Unknown2;
-				public short FiringPositionStartIndex;
-				public short FiringPositionCount;
+				public short FiringPositionStartIndex; // This should be a block element reference
+                public short FiringPositionCount;
 				public short Unknown3;
 				public short Unknown4;
 				public int Unknown5;
@@ -2750,21 +1372,18 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x8)]
 				public class FlightHint
 				{
-					public short FlightHintIndex;
-					public short PoitIndex;
-					public uint Unknown;
+					public short FlightHintIndex; // This should be a block element reference
+                    public short PoitIndex; // This should be a block element reference
+                    public uint Unknown;
 				}
 
 				[TagStructure(Size = 0x18)]
 				public class UnknownBlock
 				{
-					public float PositionX;
-					public float PositionY;
-					public float PositionZ;
+                    public Vector3 Position;
 					public short Unknown;
 					public short Unknown2;
-					public Angle FacingY;
-					public Angle FacingP;
+                    public Euler2 Direction;
 				}
 			}
 		}
@@ -2811,13 +1430,7 @@ namespace HaloOnlineTagTool.TagStructures
 				}
 			}
 		}
-
-		[TagStructure(Size = 0x10)]
-		public class CharacterPaletteBlock
-		{
-			public HaloTag Character;
-		}
-
+        
 		[TagStructure(Size = 0x6C)]
 		public class AiPathfindingDatum
 		{
@@ -2869,311 +1482,130 @@ namespace HaloOnlineTagTool.TagStructures
 		public class Script
 		{
 			[TagField(Length = 32)] public string ScriptName;
-			public ScriptTypeValue ScriptType;
-			public ReturnTypeValue ReturnType;
-			public ushort RootExpressionSalt;
-			public ushort RootExpressionIndex;
+			public ScriptType ScriptType;
+			public ScriptValueType ReturnType;
+			public ushort RootExpressionSalt; // These should be combined into a DatumIndex
+			public ushort RootExpressionIndex; // These should be combined into a DatumIndex
 			public List<Parameter> Parameters;
-
-			public enum ScriptTypeValue : short
-			{
-				Startup,
-				Dormant,
-				Continuous,
-				Static,
-				CommandScript,
-				Stub,
-			}
-
-			public enum ReturnTypeValue : short
-			{
-				Unparsed,
-				SpecialForm,
-				FunctionName,
-				Passthrough,
-				Void,
-				Boolean,
-				Real,
-				Short,
-				Long,
-				String,
-				Script,
-				StringId,
-				UnitSeatMapping,
-				TriggerVolume,
-				CutsceneFlag,
-				CutsceneCameraPoint,
-				CutsceneTitle,
-				CutsceneRecording,
-				DeviceGroup,
-				Ai,
-				AiCommandList,
-				AiCommandScript,
-				AiBehavior,
-				AiOrders,
-				AiLine,
-				StartingProfile,
-				Conversation,
-				ZoneSet,
-				DesignerZone,
-				PointReference,
-				Style,
-				ObjectList,
-				Folder,
-				Sound,
-				Effect,
-				Damage,
-				LoopingSound,
-				AnimationGraph,
-				DamageEffect,
-				ObjectDefinition,
-				Bitmap,
-				Shader,
-				RenderModel,
-				StructureDefinition,
-				LightmapDefinition,
-				CinematicDefinition,
-				CinematicSceneDefinition,
-				BinkDefinition,
-				AnyTag,
-				AnyTagNotResolving,
-				GameDifficulty,
-				Team,
-				MpTeam,
-				Controller,
-				ButtonPreset,
-				JoystickPreset,
-				PlayerCharacterType,
-				VoiceOutputSetting,
-				VoiceMask,
-				SubtitleSetting,
-				ActorType,
-				ModelState,
-				Event,
-				CharacterPhysics,
-				PrimarySkull,
-				SecondarySkull,
-				Object,
-				Unit,
-				Vehicle,
-				Weapon,
-				Device,
-				Scenery,
-				EffectScenery,
-				ObjectName,
-				UnitName,
-				VehicleName,
-				WeaponName,
-				DeviceName,
-				SceneryName,
-				EffectSceneryName,
-				CinematicLightprobe,
-				AnimationBudgetReference,
-				LoopingSoundBudgetReference,
-				SoundBudgetReference,
-			}
 
 			[TagStructure(Size = 0x24)]
 			public class Parameter
 			{
 				[TagField(Length = 32)] public string Name;
-				public TypeValue Type;
+				public ScriptValueType Type;
 				public short Unknown;
-
-				public enum TypeValue : short
-				{
-					Unparsed,
-					SpecialForm,
-					FunctionName,
-					Passthrough,
-					Void,
-					Boolean,
-					Real,
-					Short,
-					Long,
-					String,
-					Script,
-					StringId,
-					UnitSeatMapping,
-					TriggerVolume,
-					CutsceneFlag,
-					CutsceneCameraPoint,
-					CutsceneTitle,
-					CutsceneRecording,
-					DeviceGroup,
-					Ai,
-					AiCommandList,
-					AiCommandScript,
-					AiBehavior,
-					AiOrders,
-					AiLine,
-					StartingProfile,
-					Conversation,
-					ZoneSet,
-					DesignerZone,
-					PointReference,
-					Style,
-					ObjectList,
-					Folder,
-					Sound,
-					Effect,
-					Damage,
-					LoopingSound,
-					AnimationGraph,
-					DamageEffect,
-					ObjectDefinition,
-					Bitmap,
-					Shader,
-					RenderModel,
-					StructureDefinition,
-					LightmapDefinition,
-					CinematicDefinition,
-					CinematicSceneDefinition,
-					BinkDefinition,
-					AnyTag,
-					AnyTagNotResolving,
-					GameDifficulty,
-					Team,
-					MpTeam,
-					Controller,
-					ButtonPreset,
-					JoystickPreset,
-					PlayerCharacterType,
-					VoiceOutputSetting,
-					VoiceMask,
-					SubtitleSetting,
-					ActorType,
-					ModelState,
-					Event,
-					CharacterPhysics,
-					PrimarySkull,
-					SecondarySkull,
-					Object,
-					Unit,
-					Vehicle,
-					Weapon,
-					Device,
-					Scenery,
-					EffectScenery,
-					ObjectName,
-					UnitName,
-					VehicleName,
-					WeaponName,
-					DeviceName,
-					SceneryName,
-					EffectSceneryName,
-					CinematicLightprobe,
-					AnimationBudgetReference,
-					LoopingSoundBudgetReference,
-					SoundBudgetReference,
-				}
 			}
 		}
 
-		[TagStructure(Size = 0x28)]
+        public enum ScriptType : short
+        {
+            Startup,
+            Dormant,
+            Continuous,
+            Static,
+            CommandScript,
+            Stub,
+        }
+
+        public enum ScriptValueType : short
+        {
+            Invalid = -1,
+            Unparsed = 0,
+            SpecialForm,
+            FunctionName,
+            Passthrough,
+            Void,
+            Boolean,
+            Real,
+            Short,
+            Long,
+            String,
+            Script,
+            StringId,
+            UnitSeatMapping,
+            TriggerVolume,
+            CutsceneFlag,
+            CutsceneCameraPoint,
+            CutsceneTitle,
+            CutsceneRecording,
+            DeviceGroup,
+            Ai,
+            AiCommandList,
+            AiCommandScript,
+            AiBehavior,
+            AiOrders,
+            AiLine,
+            StartingProfile,
+            Conversation,
+            ZoneSet,
+            DesignerZone,
+            PointReference,
+            Style,
+            ObjectList,
+            Folder,
+            Sound,
+            Effect,
+            Damage,
+            LoopingSound,
+            AnimationGraph,
+            DamageEffect,
+            ObjectDefinition,
+            Bitmap,
+            Shader,
+            RenderModel,
+            StructureDefinition,
+            LightmapDefinition,
+            CinematicDefinition,
+            CinematicSceneDefinition,
+            BinkDefinition,
+            AnyTag,
+            AnyTagNotResolving,
+            GameDifficulty,
+            Team,
+            MpTeam,
+            Controller,
+            ButtonPreset,
+            JoystickPreset,
+            PlayerCharacterType,
+            VoiceOutputSetting,
+            VoiceMask,
+            SubtitleSetting,
+            ActorType,
+            ModelState,
+            Event,
+            CharacterPhysics,
+            PrimarySkull,
+            SecondarySkull,
+            Object,
+            Unit,
+            Vehicle,
+            Weapon,
+            Device,
+            Scenery,
+            EffectScenery,
+            ObjectName,
+            UnitName,
+            VehicleName,
+            WeaponName,
+            DeviceName,
+            SceneryName,
+            EffectSceneryName,
+            CinematicLightprobe,
+            AnimationBudgetReference,
+            LoopingSoundBudgetReference,
+            SoundBudgetReference,
+        }
+
+        [TagStructure(Size = 0x28)]
 		public class Global
 		{
 			[TagField(Length = 32)] public string Name;
-			public TypeValue Type;
+			public ScriptValueType Type;
 			public short Unknown;
-			public ushort InitializationExpressionSalt;
-			public ushort InitializationExpressionIndex;
-
-			public enum TypeValue : short
-			{
-				Unparsed,
-				SpecialForm,
-				FunctionName,
-				Passthrough,
-				Void,
-				Boolean,
-				Real,
-				Short,
-				Long,
-				String,
-				Script,
-				StringId,
-				UnitSeatMapping,
-				TriggerVolume,
-				CutsceneFlag,
-				CutsceneCameraPoint,
-				CutsceneTitle,
-				CutsceneRecording,
-				DeviceGroup,
-				Ai,
-				AiCommandList,
-				AiCommandScript,
-				AiBehavior,
-				AiOrders,
-				AiLine,
-				StartingProfile,
-				Conversation,
-				ZoneSet,
-				DesignerZone,
-				PointReference,
-				Style,
-				ObjectList,
-				Folder,
-				Sound,
-				Effect,
-				Damage,
-				LoopingSound,
-				AnimationGraph,
-				DamageEffect,
-				ObjectDefinition,
-				Bitmap,
-				Shader,
-				RenderModel,
-				StructureDefinition,
-				LightmapDefinition,
-				CinematicDefinition,
-				CinematicSceneDefinition,
-				BinkDefinition,
-				AnyTag,
-				AnyTagNotResolving,
-				GameDifficulty,
-				Team,
-				MpTeam,
-				Controller,
-				ButtonPreset,
-				JoystickPreset,
-				PlayerCharacterType,
-				VoiceOutputSetting,
-				VoiceMask,
-				SubtitleSetting,
-				ActorType,
-				ModelState,
-				Event,
-				CharacterPhysics,
-				PrimarySkull,
-				SecondarySkull,
-				Object,
-				Unit,
-				Vehicle,
-				Weapon,
-				Device,
-				Scenery,
-				EffectScenery,
-				ObjectName,
-				UnitName,
-				VehicleName,
-				WeaponName,
-				DeviceName,
-				SceneryName,
-				EffectSceneryName,
-				CinematicLightprobe,
-				AnimationBudgetReference,
-				LoopingSoundBudgetReference,
-				SoundBudgetReference,
-			}
+			public ushort InitializationExpressionSalt; // These should be combined into a DatumIndex
+			public ushort InitializationExpressionIndex; // These should be combined into a DatumIndex
 		}
-
-		[TagStructure(Size = 0x10)]
-		public class ScriptReference
-		{
-			public HaloTag Reference;
-		}
-
+        
 		[TagStructure(Size = 0x84)]
 		public class ScriptingDatum
 		{
@@ -3214,24 +1646,21 @@ namespace HaloOnlineTagTool.TagStructures
 			{
 				[TagField(Length = 32)] public string Name;
 				public List<Point> Points;
-				public short BspIndex;
+				public short BspIndex; // This should be a block element reference
 				public short ManualReferenceFrame;
 				public uint Flags;
-				public short EditorFolderIndex;
-				public short Unknown;
+				public short EditorFolderIndex; // This should be a block element reference
+                public short Unknown;
 
 				[TagStructure(Size = 0x3C)]
 				public class Point
 				{
 					[TagField(Length = 32)] public string Name;
-					public float PositionX;
-					public float PositionY;
-					public float PositionZ;
+                    public Vector3 Position;
 					public short ReferenceFrame;
 					public short Unknown;
 					public int SurfaceIndex;
-					public Angle FacingDirectionY;
-					public Angle FacingDirectionP;
+                    public Euler2 Direction;
 				}
 			}
 		}
@@ -3241,13 +1670,10 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public uint Unknown;
 			public StringId Name;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle FacingY;
-			public Angle FacingP;
-			public short EditorFolderIndex;
-			public short Unknown2;
+            public Vector3 Position;
+            public Euler2 Direction;
+			public short EditorFolderIndex; // This should be a block element reference
+            public short Unknown2;
 		}
 
 		[TagStructure(Size = 0x40)]
@@ -3257,12 +1683,8 @@ namespace HaloOnlineTagTool.TagStructures
 			public TypeValue Type;
 			[TagField(Length = 32)] public string Name;
 			public int Unknown;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle OrientationY;
-			public Angle OrientationP;
-			public Angle OrientationR;
+            public Vector3 Position;
+            public Euler3 Direction;
 
 			public enum TypeValue : short
 			{
@@ -3318,39 +1740,27 @@ namespace HaloOnlineTagTool.TagStructures
 		public class ScenarioResource
 		{
 			public int Unknown;
-			public List<ScriptSourceBlock> ScriptSource;
-			public List<AiResource> AiResources;
+			public List<TagReferenceBlock> ScriptSource;
+			public List<TagReferenceBlock> AiResources;
 			public List<Reference> References;
-
-			[TagStructure(Size = 0x10)]
-			public class ScriptSourceBlock
-			{
-				public HaloTag HsSourceFile;
-			}
-
-			[TagStructure(Size = 0x10)]
-			public class AiResource
-			{
-				public HaloTag AiResource2;
-			}
-
+            
 			[TagStructure(Size = 0x16C)]
 			public class Reference
 			{
 				public HaloTag SceneryResource;
-				public List<OtherSceneryBlock> OtherScenery;
+				public List<TagReferenceBlock> OtherScenery;
 				public HaloTag BipedsResource;
-				public List<OtherBiped> OtherBipeds;
+				public List<TagReferenceBlock> OtherBipeds;
 				public HaloTag VehiclesResource;
 				public HaloTag EquipmentResource;
 				public HaloTag WeaponsResource;
 				public HaloTag SoundSceneryResource;
 				public HaloTag LightsResource;
 				public HaloTag DevicesResource;
-				public List<OtherDevice> OtherDevices;
+				public List<TagReferenceBlock> OtherDevices;
 				public HaloTag EffectSceneryResource;
 				public HaloTag DecalsResource;
-				public List<OtherDecal> OtherDecals;
+				public List<TagReferenceBlock> OtherDecals;
 				public HaloTag CinematicsResource;
 				public HaloTag TriggerVolumesResource;
 				public HaloTag ClusterDataResource;
@@ -3358,39 +1768,9 @@ namespace HaloOnlineTagTool.TagStructures
 				public HaloTag CreatureResource;
 				public HaloTag StructureLightingResource;
 				public HaloTag DecoratorsResource;
-				public List<OtherDecorator> OtherDecorators;
+				public List<TagReferenceBlock> OtherDecorators;
 				public HaloTag SkyReferencesResource;
 				public HaloTag CubemapResource;
-
-				[TagStructure(Size = 0x10)]
-				public class OtherSceneryBlock
-				{
-					public HaloTag SceneryResource;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class OtherBiped
-				{
-					public HaloTag BipedsResource;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class OtherDevice
-				{
-					public HaloTag DevicesResource;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class OtherDecal
-				{
-					public HaloTag DecalsResource;
-				}
-
-				[TagStructure(Size = 0x10)]
-				public class OtherDecorator
-				{
-					public HaloTag DecoratorsResource;
-				}
 			}
 		}
 
@@ -3401,28 +1781,16 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Seats;
 			public uint Seats2;
 		}
-
-		[TagStructure(Size = 0x2)]
-		public class ScenarioKillTrigger
-		{
-			public short TriggerVolume;
-		}
-
-		[TagStructure(Size = 0x2)]
-		public class ScenarioSafeTrigger
-		{
-			public short TriggerVolume;
-		}
-
+        
 		[TagStructure(Size = 0x18)]
 		public class ScriptExpression
 		{
 			public ushort Salt;
 			public ushort Opcode;
-			public ValueTypeValue ValueType;
+			public ScriptValueType ValueType;
 			public short ExpressionType;
-			public ushort NextExpressionSalt;
-			public ushort NextExpressionIndex;
+			public ushort NextExpressionSalt; // These should be combined into a DatumIndex
+			public ushort NextExpressionIndex; // These should be combined into a DatumIndex
 			public uint StringAddress;
 			public sbyte Value03Msb;
 			public sbyte Value02Byte;
@@ -3430,95 +1798,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public sbyte Value00Lsb;
 			public short LineNumber;
 			public short Unknown;
-
-			public enum ValueTypeValue : ushort
-			{
-				Invalid = 47802,
-				Unparsed = 0,
-				SpecialForm,
-				FunctionName,
-				Passthrough,
-				Void,
-				Boolean,
-				Real,
-				Short,
-				Long,
-				String,
-				Script,
-				StringId,
-				UnitSeatMapping,
-				TriggerVolume,
-				CutsceneFlag,
-				CutsceneCameraPoint,
-				CutsceneTitle,
-				CutsceneRecording,
-				DeviceGroup,
-				Ai,
-				AiCommandList,
-				AiCommandScript,
-				AiBehavior,
-				AiOrders,
-				AiLine,
-				StartingProfile,
-				Conversation,
-				ZoneSet,
-				DesignerZone,
-				PointReference,
-				Style,
-				ObjectList,
-				Folder,
-				Sound,
-				Effect,
-				Damage,
-				LoopingSound,
-				AnimationGraph,
-				DamageEffect,
-				ObjectDefinition,
-				Bitmap,
-				Shader,
-				RenderModel,
-				StructureDefinition,
-				LightmapDefinition,
-				CinematicDefinition,
-				CinematicSceneDefinition,
-				BinkDefinition,
-				AnyTag,
-				AnyTagNotResolving,
-				GameDifficulty,
-				Team,
-				MpTeam,
-				Controller,
-				ButtonPreset,
-				JoystickPreset,
-				PlayerCharacterType,
-				VoiceOutputSetting,
-				VoiceMask,
-				SubtitleSetting,
-				ActorType,
-				ModelState,
-				Event,
-				CharacterPhysics,
-				PrimarySkull,
-				SecondarySkull,
-				Object,
-				Unit,
-				Vehicle,
-				Weapon,
-				Device,
-				Scenery,
-				EffectScenery,
-				ObjectName,
-				UnitName,
-				VehicleName,
-				WeaponName,
-				DeviceName,
-				SceneryName,
-				EffectSceneryName,
-				CinematicLightprobe,
-				AnimationBudgetReference,
-				LoopingSoundBudgetReference,
-				SoundBudgetReference,
-			}
 		}
 
 		[TagStructure(Size = 0x58)]
@@ -3594,79 +1873,34 @@ namespace HaloOnlineTagTool.TagStructures
 		public class ScenarioClusterDatum
 		{
 			public HaloTag Bsp;
-			public List<BackgroundSoundEnvironment> BackgroundSoundEnvironments;
-			public List<UnknownBlock> Unknown;
-			public List<UnknownBlock2> Unknown2;
+			public List<ClusterPaletteEntryReference> BackgroundSoundEnvironments;
+			public List<ClusterPaletteEntryReference> Unknown;
+			public List<ClusterPaletteEntryReference> Unknown2;
 			public int BspChecksum;
 			public List<ClusterCentroid> ClusterCentroids;
-			public List<UnknownBlock3> Unknown3;
-			public List<FogBlock> Fog;
-			public List<CameraEffect> CameraEffects;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public List<UnknownBlock4> Unknown4;
-				
-			[TagStructure(Size = 0x4)]
-			public class BackgroundSoundEnvironment
-			{
-				public short BackgroundSoundEnvironmentIndex;
-				public short Unknown;
-			}
+			public List<ClusterPaletteEntryReference> Unknown3;
+			public List<ClusterPaletteEntryReference> Fog;
+			public List<ClusterPaletteEntryReference> CameraEffects;
+			[MinVersion(EngineVersion.V11_1_498295_Live)] public List<ClusterPaletteEntryReference> Unknown4;
 
-			[TagStructure(Size = 0x4)]
-			public class UnknownBlock
-			{
-				public short Unknown;
-				public short Unknown2;
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class UnknownBlock2
-			{
-				public short Unknown;
-				public short Unknown2;
-			}
-
+            [TagStructure(Size = 0x4)]
+            public class ClusterPaletteEntryReference
+            {
+                public short PaletteEntryIndex; // This should be a block element reference
+                public short Unknown;
+            }
+            
 			[TagStructure(Size = 0xC)]
 			public class ClusterCentroid
 			{
-				public float CentroidX;
-				public float CentroidY;
-				public float CentroidZ;
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class UnknownBlock3
-			{
-				public short Unknown;
-				public short Unknown2;
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class FogBlock
-			{
-				public short FogIndex;
-				public short Unknown;
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class CameraEffect
-			{
-				public short CameraEffectIndex;
-				public short Unknown;
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class UnknownBlock4
-			{
-				public short Unknown;
-				public short Unknown2;
+                public Vector3 Centroid;
 			}
 		}
 
 		[TagStructure(Size = 0x6C)]
 		public class SpawnDatum
 		{
-			public float DynamicSpawnLowerHeight;
-			public float DynamicSpawnUpperHeight;
+            public Range<float> DynamicSpawnHeightRange;
 			public float GameObjectResetHeight;
 			public uint Unknown;
 			public uint Unknown2;
@@ -3684,255 +1918,101 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown14;
 			public uint Unknown15;
 			public List<DynamicSpawnOverload> DynamicSpawnOverloads;
-			public List<StaticRespawnZone> StaticRespawnZones;
-			public List<StaticInitialSpawnZone> StaticInitialSpawnZones;
+			public List<SpawnZone> StaticRespawnZones;
+			public List<SpawnZone> StaticInitialSpawnZones;
 
 			[TagStructure(Size = 0x10)]
 			public class DynamicSpawnOverload
 			{
 				public short OverloadType;
 				public short Unknown;
-				public float InnerRadius;
-				public float OuterRadius;
+                public Range<float> RadiusRange;
 				public float Weight;
 			}
 
 			[TagStructure(Size = 0x30)]
-			public class StaticRespawnZone
+			public class SpawnZone
 			{
 				public StringId Name;
 				public uint RelevantTeams;
 				public uint RelevantGames;
 				public uint Flags;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
-				public float LowerHeight;
-				public float UpperHeight;
-				public float InnerRadius;
-				public float OuterRadius;
-				public float Weight;
-			}
-
-			[TagStructure(Size = 0x30)]
-			public class StaticInitialSpawnZone
-			{
-				public StringId Name;
-				public uint RelevantTeams;
-				public uint RelevantGames;
-				public uint Flags;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
-				public float LowerHeight;
-				public float UpperHeight;
-				public float InnerRadius;
-				public float OuterRadius;
+                public Vector3 Position;
+                public Range<float> HeightRange;
+                public Range<float> RadiusRange;
 				public float Weight;
 			}
 		}
 
-		[TagStructure(Size = 0xB4)]
-		public class Crate
-		{
-			public short PaletteIndex;
-			public short NameIndex;
-			public uint PlacementFlags;
-			public float PositionX;
-			public float PositionY;
-			public float PositionZ;
-			public Angle RotationI;
-			public Angle RotationJ;
-			public Angle RotationK;
-			public float Scale;
-			public List<UnknownBlock> Unknown;
-			public short Unknown2;
-			public ushort OldManualBspFlagsNowZonesets;
-			public StringId UniqueName;
-			public ushort UniqueIdSalt;
-			public ushort UniqueIdIndex;
-			public short OriginBspIndex;
-			[MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
-			[MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
-			public SourceValue Source;
-			public BspPolicyValue BspPolicy;
-			public sbyte Unknown3;
-			public short EditorFolderIndex;
-			public short Unknown4;
-			public short ParentNameIndex;
-			public StringId ChildName;
-			public StringId Unknown5;
-			public ushort AllowedZonesets;
-			public short Unknown6;
-			public StringId Variant;
-			public byte ActiveChangeColors;
-			public sbyte Unknown7;
-			public sbyte Unknown8;
-			public sbyte Unknown9;
-			public byte PrimaryColorA;
-			public byte PrimaryColorR;
-			public byte PrimaryColorG;
-			public byte PrimaryColorB;
-			public byte SecondaryColorA;
-			public byte SecondaryColorR;
-			public byte SecondaryColorG;
-			public byte SecondaryColorB;
-			public byte TertiaryColorA;
-			public byte TertiaryColorR;
-			public byte TertiaryColorG;
-			public byte TertiaryColorB;
-			public byte QuaternaryColorA;
-			public byte QuaternaryColorR;
-			public byte QuaternaryColorG;
-			public byte QuaternaryColorB;
-			public uint Unknown10;
-			public uint Unknown11;
-			public List<UnknownBlock2> Unknown12;
-			public SymmetryValue Symmetry;
-			public ushort EngineFlags;
-			public TeamValue Team;
-			public sbyte SpawnSequence;
-			public sbyte RuntimeMinimum;
-			public sbyte RuntimeMaximum;
-			public byte MultiplayerFlags;
-			public short SpawnTime;
-			public short UnknownSpawnTime;
-			public sbyte Unknown13;
-			public ShapeValue Shape;
-			public sbyte TeleporterChannel;
-			public sbyte Unknown14;
-			public short Unknown15;
-			public short AttachedNameIndex;
-			public uint Unknown16;
-			public uint Unknown17;
-			public float WidthRadius;
-			public float Depth;
-			public float Top;
-			public float Bottom;
-			public uint Unknown18;
+        [TagStructure(Size = 0xB4)]
+        public class CratePaletteDefinition
+        {
+            public ObjectPaletteDefinition ObjectDefinition;
+            public uint Unknown11;
+            public List<UnknownBlock2> Unknown12;
+            public SymmetryValue Symmetry;
+            public ushort EngineFlags;
+            public TeamValue Team;
+            public sbyte SpawnSequence;
+            public sbyte RuntimeMinimum;
+            public sbyte RuntimeMaximum;
+            public byte MultiplayerFlags;
+            public short SpawnTime;
+            public short UnknownSpawnTime;
+            public sbyte Unknown13;
+            public ShapeValue Shape;
+            public sbyte TeleporterChannel;
+            public sbyte Unknown14;
+            public short Unknown15;
+            public short AttachedNameIndex; // This should be a block element reference
+            public uint Unknown16;
+            public uint Unknown17;
+            public float WidthRadius;
+            public float Depth;
+            public float Top;
+            public float Bottom;
+            public uint Unknown18;
+            
+            [TagStructure(Size = 0x4)]
+            public class UnknownBlock2
+            {
+                public uint Unknown;
+            }
+            
+            public enum ShapeValue : sbyte
+            {
+                None,
+                Sphere,
+                Cylinder,
+                Box,
+            }
+        }
 
-			[TagStructure(Size = 0x1C)]
-			public class UnknownBlock
-			{
-				public short NodeCount;
-				public short Unknown;
-				public List<UnknownBlock2> Unknown2;
-				public List<UnknownBlock3> Unknown3;
-
-				[TagStructure(Size = 0x1)]
-				public class UnknownBlock2
-				{
-					public byte Unknown;
-				}
-
-				[TagStructure(Size = 0x2)]
-				public class UnknownBlock3
-				{
-					public short Unknown;
-				}
-			}
-
-			public enum SourceValue : sbyte
-			{
-				Structure,
-				Editor,
-				Dynamic,
-				Legacy,
-			}
-
-			public enum BspPolicyValue : sbyte
-			{
-				Default,
-				AlwaysPlaced,
-				ManualBspIndex,
-			}
-
-			[TagStructure(Size = 0x4)]
-			public class UnknownBlock2
-			{
-				public uint Unknown;
-			}
-
-			public enum SymmetryValue : int
-			{
-				Both,
-				Symmetric,
-				Asymmetric,
-			}
-
-			public enum TeamValue : short
-			{
-				Red,
-				Blue,
-				Green,
-				Orange,
-				Purple,
-				Yellow,
-				Brown,
-				Pink,
-				Neutral,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
-		}
-
-		[TagStructure(Size = 0x30)]
-		public class CratePaletteBlock
-		{
-			public HaloTag Crate;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
-		[TagStructure(Size = 0x10)]
-		public class FlockPaletteBlock
-		{
-			public HaloTag Flock;
-		}
-
-		[TagStructure(Size = 0x48)]
-		public class Flock
+        [TagStructure(Size = 0x48)]
+		public class FlockPaletteDefinition
 		{
 			public StringId Name;
-			public short FlockPaletteIndex;
-			public short BspIndex;
-			public short BoundingTriggerVolume;
-			public ushort Flags;
+			public short FlockPaletteIndex; // This should be a block element reference
+            public short BspIndex; // This should be a block element reference
+            public short BoundingTriggerVolumeIndex; // This should be a block element reference
+            public ushort Flags;
 			public float EcologyMargin;
 			public List<Source> Sources;
 			public List<Sink> Sinks;
-			public float ProductionFrequencyMin;
-			public float ProductionFrequencyMax;
-			public float ScaleMin;
-			public float ScaleMax;
+            public Range<float> ProductionFrequencyRange;
+            public Range<float> ScaleRange;
 			public uint Unknown;
 			public uint Unknown2;
-			public short CreaturePaletteIndex;
-			public short BoidCountMin;
-			public short BoidCountMax;
+			public short CreaturePaletteIndex; // This should be a block element reference
+            public Range<short> BoidCountRange;
 			public short Unknown3;
 
 			[TagStructure(Size = 0x24)]
 			public class Source
 			{
 				public int Unknown;
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
-				public Angle StartingY;
-				public Angle StartingP;
+                public Vector3 Position;
+                public Euler2 Direction;
 				public float Radius;
 				public float Weight;
 				public sbyte Unknown2;
@@ -3944,40 +2024,18 @@ namespace HaloOnlineTagTool.TagStructures
 			[TagStructure(Size = 0x10)]
 			public class Sink
 			{
-				public float PositionX;
-				public float PositionY;
-				public float PositionZ;
+                public Vector3 Position;
 				public float Radius;
 			}
 		}
-
-		[TagStructure(Size = 0x30)]
-		public class CreaturePaletteBlock
-		{
-			public HaloTag Creature;
-			public uint Unknown;
-			public uint Unknown2;
-			public uint Unknown3;
-			public uint Unknown4;
-			public uint Unknown5;
-			public uint Unknown6;
-			public uint Unknown7;
-			public uint Unknown8;
-		}
-
+        
 		[TagStructure(Size = 0x104)]
-		public class EditorFolder
+		public class EditorFolderDefinition
 		{
-			public int ParentFolder;
-			[TagField(Length = 256)] public string Name;
+			public int ParentFolder; // This should be a block element reference
+            [TagField(Length = 256)] public string Name;
 		}
-
-		[TagStructure(Size = 0x10)]
-		public class MissionDialogueBlock
-		{
-			public HaloTag MissionDialogue;
-		}
-
+        
 		[TagStructure(Size = 0x24)]
 		public class Interpolator
 		{
@@ -4046,8 +2104,7 @@ namespace HaloOnlineTagTool.TagStructures
 				public short Unknown11;
 				public short Unknown12;
 				public FilterValue Filter;
-				public short Min;
-				public short Max;
+                public Range<short> Range;
 				public short Bodies;
 				public short Unknown13;
 				public uint Unknown14;
@@ -4106,126 +2163,45 @@ namespace HaloOnlineTagTool.TagStructures
 				[TagStructure(Size = 0x20)]
 				public class PointGeometryBlock
 				{
-					public float Point0X;
-					public float Point0Y;
-					public float Point0Z;
+                    public Vector3 Point0;
 					public short ReferenceFrame;
 					public short Unknown;
-					public float Point1X;
-					public float Point1Y;
-					public float Point1Z;
+                    public Vector3 Point1;
 					public short ReferenceFrame2;
 					public short Unknown2;
 				}
 			}
 		}
 
-		[TagStructure(Size = 0xBC)]
+        [TagStructure(Size = 0x2)]
+        public class ScenarioPaletteEntryReference
+        {
+            public short PaletteIndex;
+        }
+
+        [TagStructure(Size = 0xBC)]
 		public class DesignerZoneset
 		{
 			public StringId Name;
 			public uint Unknown;
-			public List<Biped> Bipeds;
-			public List<Vehicle> Vehicles;
-			public List<Weapon> Weapons;
-			public List<EquipmentBlock> Equipment;
-			public List<SceneryBlock> Scenery;
-			public List<Machine> Machines;
-			public List<Terminal> Terminals;
-			public List<Control> Controls;
-			public List<UnknownBlock> Unknown2;
-			public List<Crate> Crates;
-			public List<Creature> Creatures;
-			public List<Giant> Giants;
-			public List<UnknownBlock2> Unknown3;
-			public List<Character> Characters;
+			public List<ScenarioPaletteEntryReference> Bipeds;
+			public List<ScenarioPaletteEntryReference> Vehicles;
+			public List<ScenarioPaletteEntryReference> Weapons;
+			public List<ScenarioPaletteEntryReference> Equipment;
+			public List<ScenarioPaletteEntryReference> Scenery;
+			public List<ScenarioPaletteEntryReference> Machines;
+			public List<ScenarioPaletteEntryReference> Terminals;
+			public List<ScenarioPaletteEntryReference> Controls;
+			public List<ScenarioPaletteEntryReference> Unknown2;
+			public List<ScenarioPaletteEntryReference> Crates;
+			public List<ScenarioPaletteEntryReference> Creatures;
+			public List<ScenarioPaletteEntryReference> Giants;
+			public List<ScenarioPaletteEntryReference> Unknown3;
+			public List<ScenarioPaletteEntryReference> Characters;
 			public uint Unknown4;
 			public uint Unknown5;
 			public uint Unknown6;
 
-			[TagStructure(Size = 0x2)]
-			public class Biped
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Vehicle
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Weapon
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class EquipmentBlock
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class SceneryBlock
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Machine
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Terminal
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Control
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class UnknownBlock
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Crate
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Creature
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Giant
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class UnknownBlock2
-			{
-				public short PaletteIndex;
-			}
-
-			[TagStructure(Size = 0x2)]
-			public class Character
-			{
-				public short PaletteIndex;
-			}
 		}
 
 		[TagStructure(Size = 0x4)]
@@ -4234,13 +2210,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public short Unknown;
 			public short Unknown2;
 		}
-
-		[TagStructure(Size = 0x10)]
-		public class Cinematic
-		{
-			public HaloTag Cinematic2;
-		}
-
+        
 		[TagStructure(Size = 0x14)]
 		public class CinematicLightingBlock
 		{
@@ -4290,12 +2260,6 @@ namespace HaloOnlineTagTool.TagStructures
 			public uint Unknown3;
 			public short Unknown4;
 			public short Unknown5;
-		}
-
-		[TagStructure(Size = 0x10)]
-		public class UnknownBlock8
-		{
-			public HaloTag Unknown;
 		}
 	}
 }

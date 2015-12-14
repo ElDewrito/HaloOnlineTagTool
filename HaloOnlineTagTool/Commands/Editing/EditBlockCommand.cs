@@ -23,7 +23,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             : base(CommandFlags.Inherit,
                   "Edit",
                   "Edit the fields of a particular block element.",
-                  "Edit <block name> <block index>",
+                  "Edit <block name> [block index (if block)]",
                   "Edit the fields of a particular block element.")
         {
             Info = info;
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.Commands.Editing
 
         public override bool Execute(List<string> args)
         {
-            if (args.Count != 2)
+            if (args.Count < 1 || args.Count > 2)
                 return false;
 
             var blockName = args[0];
@@ -50,21 +50,42 @@ namespace HaloOnlineTagTool.Commands.Editing
                 return false;
             }
 
-            var fieldValue = (IList)field.GetValue(Owner);
-            
-            int blockIndex = 0;
-            if (!int.TryParse(args[1], out blockIndex) ||
-                blockIndex >= fieldValue.Count ||
-                blockIndex < 0)
+            var contextName = "";
+            object blockValue = null;
+
+            var structureAttribute = field.FieldType.CustomAttributes.ToList().Find(a => a.AttributeType == typeof(TagStructureAttribute));
+
+            if (structureAttribute != null)
             {
-                Console.WriteLine("Invalid index requested from block {0}: {1}", blockName, blockIndex);
-                return false;
+                if (args.Count != 1)
+                    return false;
+
+                blockValue = field.GetValue(Owner);
+                contextName = $"{blockName}";
+            }
+            else
+            {
+                if (args.Count != 2)
+                    return false;
+
+                var fieldValue = (IList)field.GetValue(Owner);
+
+                int blockIndex = 0;
+                if (!int.TryParse(args[1], out blockIndex) ||
+                    blockIndex >= fieldValue.Count ||
+                    blockIndex < 0)
+                {
+                    Console.WriteLine("Invalid index requested from block {0}: {1}", blockName, blockIndex);
+                    return false;
+                }
+
+                blockValue = fieldValue[blockIndex];
+                contextName = $"{blockName}[{blockIndex}]";
             }
 
-            var blockValue = fieldValue[blockIndex];
             var blockStructure = new TagStructureInfo(blockValue.GetType());
 
-            var blockContext = new CommandContext(Stack.Context, $"{blockName}[{blockIndex}]");
+            var blockContext = new CommandContext(Stack.Context, contextName);
             blockContext.AddCommand(new ListFieldsCommand(Info, blockStructure, blockValue));
             blockContext.AddCommand(new SetFieldCommand(Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new EditBlockCommand(Stack, Info, Tag, blockValue));

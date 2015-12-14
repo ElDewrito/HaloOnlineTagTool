@@ -97,34 +97,34 @@ namespace HaloOnlineTagTool.TagStructures
 		{
 			public uint Flags;
 			public StringId AiTypeName;
-			public SizeValue Size;
-			public LeapJumpSpeedValue LeapJumpSpeed;
-
-			public enum SizeValue : short
-			{
-				Default,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
-
-			public enum LeapJumpSpeedValue : short
-			{
-				None,
-				Down,
-				Step,
-				Crouch,
-				Stand,
-				Storey,
-				Tower,
-				Infinite,
-			}
+			public ObjectSizeValue Size;
+			public AiDistanceValue LeapJumpSpeed;
 		}
 
-		[TagStructure(Size = 0x2C)]
+        public enum ObjectSizeValue : short
+        {
+            Default,
+            Tiny,
+            Small,
+            Medium,
+            Large,
+            Huge,
+            Immobile,
+        }
+
+        public enum AiDistanceValue : short
+        {
+            None,
+            Down,
+            Step,
+            Crouch,
+            Stand,
+            Storey,
+            Tower,
+            Infinite,
+        }
+
+        [TagStructure(Size = 0x2C)]
 		public class Function
 		{
 			public uint Flags;
@@ -211,7 +211,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public byte TeleporterFlags;
 			public sbyte Unknown;
 			public byte Flags;
-			public ShapeValue Shape;
+			public ObjectShapeValue Shape;
 			public SpawnTimerModeValue SpawnTimerMode;
 			public short SpawnTime;
 			public short UnknownSpawnTime;
@@ -234,51 +234,50 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Unknown11;
 			public HaloTag Unknown12;
 			public HaloTag Unknown13;
-
-			public enum ObjectTypeValue : sbyte
-			{
-				Ordinary,
-				Weapon,
-				Grenade,
-				Projectile,
-				Powerup,
-				Equipment,
-				LightLandVehicle,
-				HeavyLandVehicle,
-				FlyingVehicle,
-				Teleporter2way,
-				TeleporterSender,
-				TeleporterReceiver,
-				PlayerSpawnLocation,
-				PlayerRespawnZone,
-				HoldSpawnObjective,
-				CaptureSpawnObjective,
-				HoldDestinationObjective,
-				CaptureDestinationObjective,
-				HillObjective,
-				InfectionHavenObjective,
-				TerritoryObjective,
-				VipBoundaryObjective,
-				VipDestinationObjective,
-				JuggernautDestinationObjective,
-			}
-
-			public enum ShapeValue : sbyte
-			{
-				None,
-				Sphere,
-				Cylinder,
-				Box,
-			}
-
-			public enum SpawnTimerModeValue : sbyte
-			{
-				DefaultOne,
-				Multiple,
-			}
 		}
 
-		[TagStructure(Size = 0x14)]
+        public enum ObjectTypeValue : sbyte
+        {
+            Ordinary,
+            Weapon,
+            Grenade,
+            Projectile,
+            Powerup,
+            Equipment,
+            LightLandVehicle,
+            HeavyLandVehicle,
+            FlyingVehicle,
+            Teleporter2way,
+            TeleporterSender,
+            TeleporterReceiver,
+            PlayerSpawnLocation,
+            PlayerRespawnZone,
+            HoldSpawnObjective,
+            CaptureSpawnObjective,
+            HoldDestinationObjective,
+            CaptureDestinationObjective,
+            HillObjective,
+            InfectionHavenObjective,
+            TerritoryObjective,
+            VipBoundaryObjective,
+            VipDestinationObjective,
+            JuggernautDestinationObjective,
+        }
+
+        public enum SpawnTimerModeValue : sbyte
+        {
+            DefaultOne,
+            Multiple,
+        }
+        public enum ObjectShapeValue : sbyte
+        {
+            None,
+            Sphere,
+            Cylinder,
+            Box,
+        }
+
+        [TagStructure(Size = 0x14)]
 		public class ModelObjectDatum
 		{
 			public TypeValue Type;

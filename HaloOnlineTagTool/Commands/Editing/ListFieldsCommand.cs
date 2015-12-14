@@ -43,7 +43,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             {
                 var nameString = enumerator.Field.Name;
 
-                if (match && !nameString.ToLower().StartsWith(token))
+                if (match && !nameString.ToLower().Contains(token))
                     continue;
 
                 var fieldType = enumerator.Field.FieldType;

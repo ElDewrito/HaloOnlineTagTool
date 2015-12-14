@@ -182,36 +182,40 @@ namespace HaloOnlineTagTool.Serialization
 		/// <param name="valueType">Type of the value.</param>
 		private void SerializeComplexValue(ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, TagFieldAttribute valueInfo, Type valueType)
 		{
-			if (valueInfo != null && ((valueInfo.Flags & TagFieldFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
-				SerializeIndirectValue(context, tagStream, block, val, valueType);
-			else if (valueType.IsEnum)
-				SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
-			else if (valueType == typeof(string))
-				SerializeString(block.Writer, (string)val, valueInfo);
-			else if (valueType == typeof(HaloTag))
-				SerializeTagReference(block.Writer, (HaloTag)val, valueInfo);
-			else if (valueType == typeof(ResourceAddress))
-				block.Writer.Write(((ResourceAddress)val).Value);
-			else if (valueType == typeof(byte[]))
-				SerializeDataReference(tagStream, block, (byte[])val, valueInfo);
-			else if (valueType == typeof(Vector2))
-				SerializeVector(block, (Vector2)val);
-			else if (valueType == typeof(Vector3))
-				SerializeVector(block, (Vector3)val);
-			else if (valueType == typeof(Vector4))
-				SerializeVector(block, (Vector4)val);
-			else if (valueType == typeof(StringId))
-				block.Writer.Write(((StringId)val).Value);
-			else if (valueType == typeof(Angle))
-				block.Writer.Write(((Angle)val).Radians);
-			else if (valueType.IsArray)
-				SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
-			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-				SerializeTagBlock(context, tagStream, block, val, valueType, valueInfo);
-			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
-				SerializeRange(block, val);
-			else
-				SerializeStruct(context, tagStream, block, new TagStructureInfo(val.GetType(), _version), val);
+            if (valueInfo != null && ((valueInfo.Flags & TagFieldFlags.Indirect) != 0 || valueType == typeof(ResourceReference)))
+                SerializeIndirectValue(context, tagStream, block, val, valueType);
+            else if (valueType.IsEnum)
+                SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
+            else if (valueType == typeof(string))
+                SerializeString(block.Writer, (string)val, valueInfo);
+            else if (valueType == typeof(HaloTag))
+                SerializeTagReference(block.Writer, (HaloTag)val, valueInfo);
+            else if (valueType == typeof(ResourceAddress))
+                block.Writer.Write(((ResourceAddress)val).Value);
+            else if (valueType == typeof(byte[]))
+                SerializeDataReference(tagStream, block, (byte[])val, valueInfo);
+            else if (valueType == typeof(Euler2))
+                SerializeEulerAngles(block, (Euler2)val);
+            else if (valueType == typeof(Euler3))
+                SerializeEulerAngles(block, (Euler3)val);
+            else if (valueType == typeof(Vector2))
+                SerializeVector(block, (Vector2)val);
+            else if (valueType == typeof(Vector3))
+                SerializeVector(block, (Vector3)val);
+            else if (valueType == typeof(Vector4))
+                SerializeVector(block, (Vector4)val);
+            else if (valueType == typeof(StringId))
+                block.Writer.Write(((StringId)val).Value);
+            else if (valueType == typeof(Angle))
+                block.Writer.Write(((Angle)val).Radians);
+            else if (valueType.IsArray)
+                SerializeInlineArray(context, tagStream, block, (Array)val, valueInfo);
+            else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
+                SerializeTagBlock(context, tagStream, block, val, valueType, valueInfo);
+            else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
+                SerializeRange(block, val);
+            else
+                SerializeStruct(context, tagStream, block, new TagStructureInfo(val.GetType(), _version), val);
 		}
 
 		/// <summary>
@@ -371,7 +375,20 @@ namespace HaloOnlineTagTool.Serialization
 			block.WritePointer(valueBlock.Finalize(tagStream), valueType);
 		}
 
-		private static void SerializeVector(IDataBlock block, Vector2 vec)
+        private static void SerializeEulerAngles(IDataBlock block, Euler2 angles)
+        {
+            block.Writer.Write(angles.Yaw.Radians);
+            block.Writer.Write(angles.Pitch.Radians);
+        }
+
+        private static void SerializeEulerAngles(IDataBlock block, Euler3 angles)
+        {
+            block.Writer.Write(angles.Yaw.Radians);
+            block.Writer.Write(angles.Pitch.Radians);
+            block.Writer.Write(angles.Roll.Radians);
+        }
+
+        private static void SerializeVector(IDataBlock block, Vector2 vec)
 		{
 			block.Writer.Write(vec.X);
 			block.Writer.Write(vec.Y);

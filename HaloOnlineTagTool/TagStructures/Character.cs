@@ -233,71 +233,14 @@ namespace HaloOnlineTagTool.TagStructures
 			public float PathfindingRadius;
 			public float DestinationRadius;
 			public float DiveGrenadeChance;
-			public ObstaceLeapMinimumSizeValue ObstaceLeapMinimumSize;
-			public ObstaceLeapMaximumSizeValue ObstaceLeapMaximumSize;
-			public ObstaceIgnoreSizeValue ObstaceIgnoreSize;
-			public ObstaceSmashableSizeValue ObstaceSmashableSize;
-			public JumpHeightValue JumpHeight;
+            public Range<GameObject.ObjectSizeValue> ObstacleLeapRange;
+			public GameObject.ObjectSizeValue ObstaceIgnoreSize;
+			public GameObject.ObjectSizeValue ObstaceSmashableSize;
+			public GameObject.AiDistanceValue JumpHeight;
 			public uint MovementHintFlags;
 			public uint Unknown;
 			public uint Unknown2;
 			public uint Unknown3;
-
-			public enum ObstaceLeapMinimumSizeValue : short
-			{
-				None,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
-
-			public enum ObstaceLeapMaximumSizeValue : short
-			{
-				None,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
-
-			public enum ObstaceIgnoreSizeValue : short
-			{
-				None,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
-
-			public enum ObstaceSmashableSizeValue : short
-			{
-				None,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
-
-			public enum JumpHeightValue : int
-			{
-				None,
-				Down,
-				Step,
-				Crouch,
-				Stand,
-				Storey,
-				Tower,
-				Infinite,
-			}
 		}
 
 		[TagStructure(Size = 0x18)]
@@ -470,14 +413,11 @@ namespace HaloOnlineTagTool.TagStructures
 		public class PreSearchProperty
 		{
 			public uint PreSearchFlags;
-			public float MinimumPresearchTimeMin;
-			public float MinimumPresearchTimeMax;
-			public float MaximumPresearchTimeMin;
-			public float MaximumPresearchTimeMax;
+            public Range<float> MinimumPresearchTime;
+            public Range<float> MaximumPresearchTime;
 			public float MinimumCertaintyRadius;
 			public uint Unknown;
-			public float MinimumSuppressingTimeMin;
-			public float MinimumSuppressingTimeMax;
+            public Range<float> MinimumSuppressingTime;
 			public short Unknown2;
 			public short Unknown3;
 		}
@@ -561,49 +501,34 @@ namespace HaloOnlineTagTool.TagStructures
 			public HaloTag Weapon;
 			public float MaximumFiringRange;
 			public float MinimumFiringRange;
-			public float NormalCombatRangeMin;
-			public float NormalCombatRangeMax;
+            public Range<float> NormalCombatRange;
 			public float BombardmentRange;
 			public float MaxSpecialTargetDistance;
-			public float TimidCombatRangeMin;
-			public float TimidCombatRangeMax;
-			public float AggressiveCombatRangeMin;
-			public float AggressiveCombatRangeMax;
+            public Range<float> TimidCombatRange;
+            public Range<float> AggressiveCombatRange;
 			public float SuperBallisticRange;
-			public float BallisticFiringBoundsMin;
-			public float BallisticFiringBoundsMax;
-			public float BallisticFractionBoundsMin;
-			public float BallisticFractionBoundsMax;
-			public float FirstBurstDelayTimeMin;
-			public float FirstBurstDelayTimeMax;
+			public Range<float> BallisticFiringBounds;
+			public Range<float> BallisticFractionBounds;
+			public Range<float> FirstBurstDelayTimeRange;
 			public float SurpriseDelayTime;
 			public float SurpriseFireWildlyTime;
 			public float DeathFireWildlyChance;
 			public float DeathFireWildlyTime;
-			public float CustomStandGunOffsetI;
-			public float CustomStandGunOffsetJ;
-			public float CustomStandGunOffsetK;
-			public float CustomCrouchGunOffsetI;
-			public float CustomCrouchGunOffsetJ;
-			public float CustomCrouchGunOffsetK;
+            public Vector3 CustomStandGunOffset;
+            public Vector3 CustomCrouchGunOffset;
 			public SpecialFireModeValue SpecialFireMode;
 			public SpecialFireSituationValue SpecialFireSituation;
 			public float SpecialFireChance;
 			public float SpecialFireDelay;
 			public float SpecialDamageModifier;
 			public Angle SpecialProjectileError;
-			public float DropWeaponLoadedMin;
-			public float DropWeaponLoadedMax;
-			public short DropWeaponAmmoMin;
-			public short DropWeaponAmmoMax;
-			public float NormalAccuracyBoundsMin;
-			public float NormalAccuracyBoundsMax;
+            public Range<float> DropWeaponLoadedRange;
+            public Range<short> DropWeaponAmmoRange;
+            public Range<float> NormalAccuracyBounds;
 			public float NormalAccuracyTime;
-			public float HeroicAccuracyBoundsMin;
-			public float HeroicAccuracyBoundsMax;
+            public Range<float> HeroicAccuracyBounds;
 			public float HeroicAccuracyTime;
-			public float LegendaryAccuracyBoundsMin;
-			public float LegendaryAccuracyBoundsMax;
+            public Range<float> LegendaryAccuracyBounds;
 			public float LegendaryAccuracyTime;
 			public List<FiringPattern> FiringPatterns;
 			public HaloTag WeaponMeleeDamage;
@@ -634,10 +559,8 @@ namespace HaloOnlineTagTool.TagStructures
 				public float BurstReturnLengthMin;
 				public float BurstReturnLengthMax;
 				public Angle BurstReturnAngle;
-				public float BurstDurationMin;
-				public float BurstDurationMax;
-				public float BurstSeparationMin;
-				public float BurstSeparationMax;
+                public Range<float> BurstDurationRange;
+                public Range<float> BurstSeparationRange;
 				public float WeaponDamageModifier;
 				public Angle ProjectileError;
 				public Angle BurstAngularVelocity;
@@ -659,13 +582,10 @@ namespace HaloOnlineTagTool.TagStructures
 				public float TargetLeading;
 				public float BurstOriginRadius;
 				public Angle BurstOriginAngle;
-				public float BurstReturnLengthMin;
-				public float BurstReturnLengthMax;
+                public Range<float> BurstReturnLengthRange;
 				public Angle BurstReturnAngle;
-				public float BurstDurationMin;
-				public float BurstDurationMax;
-				public float BurstSeparationMin;
-				public float BurstSeparationMax;
+                public Range<float> BurstDurationRange;
+                public Range<float> BurstSeparationRange;
 				public float WeaponDamageModifier;
 				public Angle ProjectileError;
 				public Angle BurstAngularVelocity;
@@ -683,16 +603,14 @@ namespace HaloOnlineTagTool.TagStructures
 			public float EnemyRadius;
 			public float GrenadeIdealVelocity;
 			public float GrenadeVelocity;
-			public float GrenadeRangeMin;
-			public float GrenadeRangeMax;
+            public Range<float> GrenadeRange;
 			public float CollateralDamageRadius;
 			public float GrenadeChance;
 			public float GrenadeThrowDelay;
 			public float GrenadeUncoverChance;
 			public float AntiVehicleGrenadeChance;
-			public short DroppedGrenadeCountMin;
-			public short DroppedGrenadeCountMax;
-			public float DonTDropGrenadesChance;
+            public Range<short> DroppedGrenadeCountRange;
+			public float DontDropGrenadesChance;
 
 			public enum GrenadeTypeValue : short
 			{
@@ -723,7 +641,7 @@ namespace HaloOnlineTagTool.TagStructures
 			public float AiInnerTurningRadius;
 			public float AiIdealTurningRadius;
 			public Angle AiBansheeSteeringMaximum;
-			public float AiMaxSteeringAngle;
+			public Angle AiMaxSteeringAngle;
 			public float AiMaxSteeringDelta;
 			public float AiOversteeringScale;
 			public Angle AiOversteeringBoundsMin;
@@ -757,21 +675,10 @@ namespace HaloOnlineTagTool.TagStructures
 			public float TurtlingRecentDamageThreshold;
 			public float TurtlingMinimumTime;
 			public float TurtlingTimeout;
-			public ObstacleIgnoreSizeValue ObstacleIgnoreSize;
+			public GameObject.ObjectSizeValue ObstacleIgnoreSize;
 			public short Unknown3;
 			public short Unknown4;
 			public short Unknown5;
-
-			public enum ObstacleIgnoreSizeValue : short
-			{
-				None,
-				Tiny,
-				Small,
-				Medium,
-				Large,
-				Huge,
-				Immobile,
-			}
 		}
 
 		[TagStructure(Size = 0xE4)]
