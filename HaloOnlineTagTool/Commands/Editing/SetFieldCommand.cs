@@ -7,30 +7,34 @@ using System.Threading.Tasks;
 using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
 using HaloOnlineTagTool.Common;
+using System.Collections;
 
 namespace HaloOnlineTagTool.Commands.Editing
 {
     class SetFieldCommand : Command
     {
+        public CommandContextStack Stack { get; }
+
         public OpenTagCache Info { get; }
 
         public HaloTag Tag { get; }
 
-        public TagStructureInfo Structure { get; }
+        public TagStructureInfo Structure { get; set; }
 
-        public object Owner { get; }
+        public object Owner { get; set; }
 
-        public SetFieldCommand(OpenTagCache info, HaloTag tag, TagStructureInfo structure, object value)
+        public SetFieldCommand(CommandContextStack stack, OpenTagCache info, HaloTag tag, TagStructureInfo structure, object owner)
             : base(CommandFlags.Inherit,
                   "SetField",
                   $"Sets the value of a specific field in the current {structure.Types[0].Name} definition.",
                   "SetField <field name> <field value>",
                   $"Sets the value of a specific field in the current {structure.Types[0].Name} definition.")
         {
+            Stack = stack;
             Info = info;
             Tag = tag;
             Structure = structure;
-            Owner = value;
+            Owner = owner;
         }
 
         public override bool Execute(List<string> args)
@@ -38,24 +42,83 @@ namespace HaloOnlineTagTool.Commands.Editing
             if (args.Count < 2)
                 return false;
 
-            var enumerator = new TagFieldEnumerator(Structure);
+            var fieldName = args[0];
 
-            var field = enumerator.Find(f => f.Name == args[0]);
+            var previousContext = Stack.Context;
+            var previousOwner = Owner;
+            var previousStructure = Structure;
+
+            if (fieldName.Contains("."))
+            {
+                var lastIndex = fieldName.LastIndexOf('.');
+                var blockName = fieldName.Substring(0, lastIndex);
+                fieldName = fieldName.Substring(lastIndex + 1, (fieldName.Length - lastIndex) - 1);
+
+                var command = new EditBlockCommand(Stack, Info, Tag, Owner);
+
+                if (!command.Execute(new List<string> { blockName }))
+                    return false;
+
+                command = (Stack.Context.GetCommand("Edit") as EditBlockCommand);
+
+                Owner = command.Owner;
+                Structure = command.Structure;
+
+                if (Owner == null)
+                {
+                    while (Stack.Context != previousContext) Stack.Pop();
+                    Owner = previousOwner;
+                    Structure = previousStructure;
+                    return false;
+                }
+            }
+
+            var enumerator = new TagFieldEnumerator(Structure);
+            var field = enumerator.Find(f => f.Name == fieldName);
 
             if (field == null)
             {
-                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Owner.GetType().Name, args[1]);
+                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Structure.Types[0].Name, args[1]);
+                while (Stack.Context != previousContext) Stack.Pop();
+                Owner = previousOwner;
+                Structure = previousStructure;
                 return false;
             }
 
-            var value = ParseArgs(field.FieldType, args.Skip(1).ToList());
+            var fieldType = field.FieldType;
+            var fieldValue = ParseArgs(field.FieldType, args.Skip(1).ToList());
 
-            if (value.Equals(false))
+            if (fieldValue.Equals(false))
+            {
+                while (Stack.Context != previousContext) Stack.Pop();
+                Owner = previousOwner;
+                Structure = previousStructure;
                 return false;
+            }
 
-            field.SetValue(Owner, value);
-            
-            Console.WriteLine("{0}: {1} = {2}", field.Name, field.FieldType.Name, field.GetValue(Owner));
+            field.SetValue(Owner, fieldValue);
+
+            var typeString =
+                fieldType.IsGenericType ?
+                    $"{fieldType.Name}<{fieldType.GenericTypeArguments[0].Name}>" :
+                fieldType.Name;
+
+            var valueString =
+                fieldType == typeof(StringId) ?
+                    Info.StringIds.GetString((StringId)fieldValue) :
+                fieldType.GetInterface(typeof(IList).Name) != null ?
+                    (((IList)fieldValue).Count != 0 ?
+                        $"{{...}}[{((IList)fieldValue).Count}]" :
+                    "null") :
+                fieldValue == null ?
+                    "null" :
+                fieldValue.ToString();
+
+            Console.WriteLine("{0}: {1} = {2}", field.Name, typeString, valueString);
+
+            while (Stack.Context != previousContext) Stack.Pop();
+            Owner = previousOwner;
+            Structure = previousStructure;
 
             return true;
         }

@@ -17,7 +17,9 @@ namespace HaloOnlineTagTool.Commands.Editing
 
         public HaloTag Tag { get; }
 
-        public object Owner { get; }
+        public TagStructureInfo Structure { get; set; }
+
+        public object Owner { get; set; }
         
         public EditBlockCommand(CommandContextStack stack, OpenTagCache info, HaloTag tag, object value)
             : base(CommandFlags.Inherit,
@@ -28,6 +30,8 @@ namespace HaloOnlineTagTool.Commands.Editing
         {
             Info = info;
             Stack = stack;
+            Tag = tag;
+            Structure = new TagStructureInfo(value.GetType(), Info.Version);
             Owner = value;
         }
 
@@ -39,8 +43,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             var blockName = args[0];
             var ownerType = Owner.GetType();
 
-            var enumerator = new TagFieldEnumerator(
-                new TagStructureInfo(ownerType, Info.Version));
+            var enumerator = new TagFieldEnumerator(Structure);
 
             var deferredNames = new List<string>();
             var deferredArgs = new List<string>();
@@ -110,7 +113,7 @@ namespace HaloOnlineTagTool.Commands.Editing
 
             var blockContext = new CommandContext(Stack.Context, contextName);
             blockContext.AddCommand(new ListFieldsCommand(Info, blockStructure, blockValue));
-            blockContext.AddCommand(new SetFieldCommand(Info, Tag, blockStructure, blockValue));
+            blockContext.AddCommand(new SetFieldCommand(Stack, Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new EditBlockCommand(Stack, Info, Tag, blockValue));
             Stack.Push(blockContext);
 

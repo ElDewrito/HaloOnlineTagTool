@@ -58,7 +58,9 @@ namespace HaloOnlineTagTool.Commands.Editing
                     fieldType == typeof(StringId) ?
                         Info.StringIds.GetString((StringId)fieldValue) :
                     fieldType.GetInterface(typeof(IList).Name) != null ?
-                        (((IList)fieldValue).Count == 0 ? "null" : "{...}") :
+                        (((IList)fieldValue).Count != 0 ?
+                            $"{{...}}[{((IList)fieldValue).Count}]" :
+                        "null") :
                     fieldValue == null ?
                         "null" :
                     fieldValue.ToString();
