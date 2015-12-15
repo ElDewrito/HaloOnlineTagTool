@@ -9,9 +9,9 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Unic
 {
-	static class UnicContextFactory
-	{
-		public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
+    static class UnicContextFactory
+    {
+        public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
         {
             if (info.StringIds == null)
                 return;
@@ -19,5 +19,5 @@ namespace HaloOnlineTagTool.Commands.Unic
             context.AddCommand(new UnicListCommand(info, unic));
             context.AddCommand(new UnicSetCommand(info, tag, unic));
         }
-	}
+    }
 }

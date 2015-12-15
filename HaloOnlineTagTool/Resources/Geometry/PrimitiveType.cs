@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace HaloOnlineTagTool.Resources.Geometry
 {
-	/// <summary>
-	/// Model primitive types.
-	/// </summary>
-	public enum PrimitiveType : int
-	{
-		PointList,
-		LineList,
-		LineStrip,
-		TriangleList,
-		TriangleFan,
-		TriangleStrip,
-	}
+    /// <summary>
+    /// Model primitive types.
+    /// </summary>
+    public enum PrimitiveType : int
+    {
+        PointList,
+        LineList,
+        LineStrip,
+        TriangleList,
+        TriangleFan,
+        TriangleStrip,
+    }
 }

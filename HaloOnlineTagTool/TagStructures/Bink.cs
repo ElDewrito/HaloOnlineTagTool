@@ -9,14 +9,14 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Name = "bink", Class = "bink", Size = 0x18)]
-	public class Bink
-	{
-		public int FrameCount;
-		public ResourceReference Resource;
-		public int UselessPadding;
-		public uint Unknown;
-		public uint Unknown2;
-		public uint Unknown3;
-	}
+    [TagStructure(Name = "bink", Class = "bink", Size = 0x18)]
+    public class Bink
+    {
+        public int FrameCount;
+        public ResourceReference Resource;
+        public int UselessPadding;
+        public uint Unknown;
+        public uint Unknown2;
+        public uint Unknown3;
+    }
 }

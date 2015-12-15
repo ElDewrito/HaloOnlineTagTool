@@ -9,9 +9,9 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Vfsl
 {
-	static class VfslContextFactory
-	{
-		public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, VFilesList vfsl)
+    static class VfslContextFactory
+    {
+        public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, VFilesList vfsl)
         {
             context.AddCommand(new VfslListCommand(vfsl));
             context.AddCommand(new VfslExtractCommand(vfsl));
@@ -19,5 +19,5 @@ namespace HaloOnlineTagTool.Commands.Vfsl
             context.AddCommand(new VfslImportCommand(info, tag, vfsl));
             context.AddCommand(new VfslImportAllCommand(info, tag, vfsl));
         }
-	}
+    }
 }

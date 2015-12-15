@@ -9,22 +9,22 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x50, MaxVersion = EngineVersion.V10_1_449175_Live)]
-	[TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x60, MinVersion = EngineVersion.V11_1_498295_Live)]
-	public class UserInterfaceGlobalsDefinition
-	{
-		public HaloTag SharedUiGlobals;
-		public HaloTag EditableSettings;
-		public HaloTag MatchmakingHopperStrings;
-		public List<ScreenWidget> ScreenWidgets;
-		public HaloTag TextureRenderList;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SwearFilter; // TODO: Version number
-		public uint Unknown;
+    [TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x50, MaxVersion = EngineVersion.V10_1_449175_Live)]
+    [TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x60, MinVersion = EngineVersion.V11_1_498295_Live)]
+    public class UserInterfaceGlobalsDefinition
+    {
+        public HaloTag SharedUiGlobals;
+        public HaloTag EditableSettings;
+        public HaloTag MatchmakingHopperStrings;
+        public List<ScreenWidget> ScreenWidgets;
+        public HaloTag TextureRenderList;
+        [MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SwearFilter; // TODO: Version number
+        public uint Unknown;
 
-		[TagStructure(Size = 0x10)]
-		public class ScreenWidget
-		{
-			public HaloTag Widget;
-		}
-	}
+        [TagStructure(Size = 0x10)]
+        public class ScreenWidget
+        {
+            public HaloTag Widget;
+        }
+    }
 }

@@ -9,37 +9,37 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Name = "user_interface_sounds_definition", Class = "uise", Size = 0x150)]
-	public class UserInterfaceSoundsDefinition
-	{
-		public HaloTag Error;
-		public HaloTag VerticalNavigation;
-		public HaloTag HorizontalNavigation;
-		public HaloTag AButton;
-		public HaloTag BButton;
-		public HaloTag XButton;
-		public HaloTag YButton;
-		public HaloTag StartButton;
-		public HaloTag BackButton;
-		public HaloTag LeftBumper;
-		public HaloTag RightBumper;
-		public HaloTag LeftTrigger;
-		public HaloTag RightTrigger;
-		public HaloTag TimerSound;
-		public HaloTag TimerSoundZero;
-		public HaloTag AltTimerSound;
-		public HaloTag SecondAltTimerSound;
-		public HaloTag MatchmakingAdvanceSound;
-		public HaloTag RankUp;
-		public HaloTag MatchmakingPartyUpSound;
-		public List<AtlasSound> AtlasSounds;
-		public uint Unknown;
+    [TagStructure(Name = "user_interface_sounds_definition", Class = "uise", Size = 0x150)]
+    public class UserInterfaceSoundsDefinition
+    {
+        public HaloTag Error;
+        public HaloTag VerticalNavigation;
+        public HaloTag HorizontalNavigation;
+        public HaloTag AButton;
+        public HaloTag BButton;
+        public HaloTag XButton;
+        public HaloTag YButton;
+        public HaloTag StartButton;
+        public HaloTag BackButton;
+        public HaloTag LeftBumper;
+        public HaloTag RightBumper;
+        public HaloTag LeftTrigger;
+        public HaloTag RightTrigger;
+        public HaloTag TimerSound;
+        public HaloTag TimerSoundZero;
+        public HaloTag AltTimerSound;
+        public HaloTag SecondAltTimerSound;
+        public HaloTag MatchmakingAdvanceSound;
+        public HaloTag RankUp;
+        public HaloTag MatchmakingPartyUpSound;
+        public List<AtlasSound> AtlasSounds;
+        public uint Unknown;
 
-		[TagStructure(Size = 0x14)]
-		public class AtlasSound
-		{
-			public StringId Name;
-			public HaloTag Sound;
-		}
-	}
+        [TagStructure(Size = 0x14)]
+        public class AtlasSound
+        {
+            public StringId Name;
+            public HaloTag Sound;
+        }
+    }
 }
