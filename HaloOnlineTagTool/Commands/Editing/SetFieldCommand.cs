@@ -57,7 +57,12 @@ namespace HaloOnlineTagTool.Commands.Editing
                 var command = new EditBlockCommand(Stack, Info, Tag, Owner);
 
                 if (!command.Execute(new List<string> { blockName }))
+                {
+                    while (Stack.Context != previousContext) Stack.Pop();
+                    Owner = previousOwner;
+                    Structure = previousStructure;
                     return false;
+                }
 
                 command = (Stack.Context.GetCommand("Edit") as EditBlockCommand);
 
