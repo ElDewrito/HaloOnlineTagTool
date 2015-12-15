@@ -70,7 +70,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                 TagStructureTypes.FindByGroupTag(tag.GroupTag));
 
             context.AddCommand(new ListFieldsCommand(info, structure, value));
-            context.AddCommand(new SetFieldCommand(info, tag, structure, value));
+            context.AddCommand(new SetFieldCommand(stack, info, tag, structure, value));
             context.AddCommand(new EditBlockCommand(stack, info, tag, value));
             context.AddCommand(new SaveChangesCommand(info, tag, value));
 

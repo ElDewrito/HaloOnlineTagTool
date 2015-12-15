@@ -9,122 +9,122 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	/// <summary>
-	/// Contains a list of vfiles.
-	/// </summary>
-	[TagStructure(Name = "vfiles_list", Class = "vfsl")]
-	public class VFilesList
-	{
-		/// <summary>
-		/// Gets or sets the files in the list.
-		/// </summary>
-		public List<VFileInfo> Files;
+    /// <summary>
+    /// Contains a list of vfiles.
+    /// </summary>
+    [TagStructure(Name = "vfiles_list", Class = "vfsl")]
+    public class VFilesList
+    {
+        /// <summary>
+        /// Gets or sets the files in the list.
+        /// </summary>
+        public List<VFileInfo> Files;
 
-		/// <summary>
-		/// Gets or sets the data block containing the data for every file.
-		/// </summary>
-		public byte[] Data;
+        /// <summary>
+        /// Gets or sets the data block containing the data for every file.
+        /// </summary>
+        public byte[] Data;
 
-		/// <summary>
-		/// Attempts to find a file by its path.
-		/// </summary>
-		/// <param name="path">The path of the file to find.</param>
-		/// <returns>The file if found, or <c>null</c> otherwise.</returns>
-		public VFileInfo Find(string path)
-		{
-			return Files.FirstOrDefault(f => path == Path.Combine(f.Folder, f.Name));
-		}
+        /// <summary>
+        /// Attempts to find a file by its path.
+        /// </summary>
+        /// <param name="path">The path of the file to find.</param>
+        /// <returns>The file if found, or <c>null</c> otherwise.</returns>
+        public VFileInfo Find(string path)
+        {
+            return Files.FirstOrDefault(f => path == Path.Combine(f.Folder, f.Name));
+        }
 
-		/// <summary>
-		/// Extracts the specified file.
-		/// </summary>
-		/// <param name="file">The file to extract.</param>
-		/// <returns>The file data.</returns>
-		public byte[] Extract(VFileInfo file)
-		{
-			if (file.Offset < 0 || file.Offset >= Data.Length)
-				throw new ArgumentException("Invalid file");
-			var result = new byte[file.Size];
-			Buffer.BlockCopy(Data, file.Offset, result, 0, file.Size);
-			return result;
-		}
+        /// <summary>
+        /// Extracts the specified file.
+        /// </summary>
+        /// <param name="file">The file to extract.</param>
+        /// <returns>The file data.</returns>
+        public byte[] Extract(VFileInfo file)
+        {
+            if (file.Offset < 0 || file.Offset >= Data.Length)
+                throw new ArgumentException("Invalid file");
+            var result = new byte[file.Size];
+            Buffer.BlockCopy(Data, file.Offset, result, 0, file.Size);
+            return result;
+        }
 
-		/// <summary>
-		/// Replaces the specified file.
-		/// </summary>
-		/// <param name="file">The file to replace.</param>
-		/// <param name="newData">The data to replace it with.</param>
-		public void Replace(VFileInfo file, byte[] newData)
-		{
-			// Replace the file's data in the data array
-			var sizeDelta = newData.Length - file.Size;
-			Data = ArrayUtil.Replace(Data, file.Offset, file.Size, newData);
+        /// <summary>
+        /// Replaces the specified file.
+        /// </summary>
+        /// <param name="file">The file to replace.</param>
+        /// <param name="newData">The data to replace it with.</param>
+        public void Replace(VFileInfo file, byte[] newData)
+        {
+            // Replace the file's data in the data array
+            var sizeDelta = newData.Length - file.Size;
+            Data = ArrayUtil.Replace(Data, file.Offset, file.Size, newData);
 
-			// Adjust file offsets
-			foreach (var adjustFile in Files)
-			{
-				if (adjustFile.Offset > file.Offset)
-					adjustFile.Offset += sizeDelta;
-			}
-			file.Size = newData.Length;
-		}
+            // Adjust file offsets
+            foreach (var adjustFile in Files)
+            {
+                if (adjustFile.Offset > file.Offset)
+                    adjustFile.Offset += sizeDelta;
+            }
+            file.Size = newData.Length;
+        }
 
-		/// <summary>
-		/// Adds a new file to the tag.
-		/// </summary>
-		/// <param name="name">The name of the file to add.</param>
-		/// <param name="folder">The folder the file is located in.</param>
-		/// <param name="fileData">The file data.</param>
-		public void Insert(string name, string folder, byte[] fileData)
-		{
-			// Insert a file of size 0 and then replace it
-			var fileInfo = new VFileInfo
-			{
-				Name = name,
-				Folder = folder,
-				Offset = Data.Length,
-				Size = 0
-			};
-			Files.Add(fileInfo);
-			Replace(fileInfo, fileData);
-		}
+        /// <summary>
+        /// Adds a new file to the tag.
+        /// </summary>
+        /// <param name="name">The name of the file to add.</param>
+        /// <param name="folder">The folder the file is located in.</param>
+        /// <param name="fileData">The file data.</param>
+        public void Insert(string name, string folder, byte[] fileData)
+        {
+            // Insert a file of size 0 and then replace it
+            var fileInfo = new VFileInfo
+            {
+                Name = name,
+                Folder = folder,
+                Offset = Data.Length,
+                Size = 0
+            };
+            Files.Add(fileInfo);
+            Replace(fileInfo, fileData);
+        }
 
-		/// <summary>
-		/// Removes a file from the tag.
-		/// </summary>
-		/// <param name="file">The file to remove.</param>
-		public void Remove(VFileInfo file)
-		{
-			// Replace the file with an empty byte array and then remove its entry
-			Replace(file, new byte[0]);
-			Files.Remove(file);
-		}
-	}
+        /// <summary>
+        /// Removes a file from the tag.
+        /// </summary>
+        /// <param name="file">The file to remove.</param>
+        public void Remove(VFileInfo file)
+        {
+            // Replace the file with an empty byte array and then remove its entry
+            Replace(file, new byte[0]);
+            Files.Remove(file);
+        }
+    }
 
-	/// <summary>
-	/// Contains information about a vfile.
-	/// </summary>
-	[TagStructure]
-	public class VFileInfo
-	{
-		/// <summary>
-		/// Gets or sets the name of the file (e.g. "hf2p_weapons_categories.ps").
-		/// </summary>
-		[TagField(Length = 0x100)] public string Name;
+    /// <summary>
+    /// Contains information about a vfile.
+    /// </summary>
+    [TagStructure]
+    public class VFileInfo
+    {
+        /// <summary>
+        /// Gets or sets the name of the file (e.g. "hf2p_weapons_categories.ps").
+        /// </summary>
+        [TagField(Length = 0x100)] public string Name;
 
-		/// <summary>
-		/// Gets or sets the folder the file is located in (e.g. "ps\autogen\").
-		/// </summary>
-		[TagField(Length = 0x100)] public string Folder;
+        /// <summary>
+        /// Gets or sets the folder the file is located in (e.g. "ps\autogen\").
+        /// </summary>
+        [TagField(Length = 0x100)] public string Folder;
 
-		/// <summary>
-		/// Gets or sets the starting offset of the file from the file data block.
-		/// </summary>
-		public int Offset;
+        /// <summary>
+        /// Gets or sets the starting offset of the file from the file data block.
+        /// </summary>
+        public int Offset;
 
-		/// <summary>
-		/// Gets or sets the size of the file in bytes.
-		/// </summary>
-		public int Size;
-	}
+        /// <summary>
+        /// Gets or sets the size of the file in bytes.
+        /// </summary>
+        public int Size;
+    }
 }

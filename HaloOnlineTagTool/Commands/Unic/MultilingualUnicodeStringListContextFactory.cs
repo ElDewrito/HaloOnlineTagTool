@@ -9,9 +9,9 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Unic
 {
-	static class MultilingualUnicodeStringListContextFactory
-	{
-		public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
+    static class MultilingualUnicodeStringListContextFactory
+    {
+        public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, MultilingualUnicodeStringList unic)
         {
             var groupName = info.StringIds.GetString(tag.GroupName);
 
@@ -19,11 +19,11 @@ namespace HaloOnlineTagTool.Commands.Unic
                 string.Format("{0:X8}.{1}", tag.Index, groupName));
 
             if (info.StringIds != null)
-			{
-				context.AddCommand(new UnicListCommand(info, unic));
-				context.AddCommand(new UnicSetCommand(info, tag, unic));
-			}
-			return context;
-		}
-	}
+            {
+                context.AddCommand(new UnicListCommand(info, unic));
+                context.AddCommand(new UnicSetCommand(info, tag, unic));
+            }
+            return context;
+        }
+    }
 }

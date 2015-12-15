@@ -169,14 +169,9 @@ namespace HaloOnlineTagTool
 
 			// Execute it
 			commandAndArgs.RemoveAt(0);
-			try
-			{
+
 				ExecuteCommand(command, commandAndArgs);
-			}
-			catch (Exception ex)
-			{
-				Console.Error.WriteLine(ex.ToString());
-			}
+
 			return true;
 		}
 

@@ -8,12 +8,12 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Hlmt
 {
-	static class HlmtContextFactory
-	{
+    static class HlmtContextFactory
+    {
         public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, Model model)
         {
             context.AddCommand(new HlmtListVariantsCommand(info, model));
             context.AddCommand(new HlmtExtractModeCommand(info, model));
         }
-	}
+    }
 }
