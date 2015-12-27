@@ -25,6 +25,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 context.AddCommand(new EditCommand(stack, info));
                 context.AddCommand(new ExtractBitmapsCommand(info));
                 context.AddCommand(new ImportBitmapCommand(info));
+                context.AddCommand(new CollisionGeometryTestCommand(info));
                 context.AddCommand(new PhysicsModelTestCommand(info));
                 context.AddCommand(new StringIdCommand(info));
                 context.AddCommand(new ListStringsCommand(info));

@@ -59,11 +59,13 @@ namespace HaloOnlineTagTool.TagStructures
                     [TagStructure(Size = 0x8)]
                     public class Bsp3dNode
                     {
-                        public byte Unknown;
-                        public short SecondChild;
-                        public byte Unknown2;
-                        public short FirstChild;
                         public short Plane;
+                        public byte BackChildLower;
+                        public byte BackChildMid;
+                        public byte BackChildUpper;
+                        public byte FrontChildLower;
+                        public byte FrontChildMid;
+                        public byte FrontChildUpper;
                     }
 
                     [TagStructure(Size = 0x10)]

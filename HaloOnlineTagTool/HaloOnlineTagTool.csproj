@@ -87,6 +87,7 @@
     <Compile Include="Commands\Scenarios\ScenarioContextFactory.cs" />
     <Compile Include="Commands\TagPrinter.cs" />
     <Compile Include="Commands\Tags\AddressCommand.cs" />
+    <Compile Include="Commands\Tags\CollisionGeometryTestCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\DependencyCommand.cs" />
     <Compile Include="Commands\Tags\DuplicateTagCommand.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Layouts\TagLayoutField.cs" />
+    <Compile Include="Resources\Geometry\CollisionGeometryBuilder.cs" />
     <Compile Include="Resources\Geometry\GeometryReference.cs" />
     <Compile Include="Resources\Geometry\BlenderPhmoReader.cs" />
     <Compile Include="Resources\Geometry\PhysicsModelBuilder.cs" />
