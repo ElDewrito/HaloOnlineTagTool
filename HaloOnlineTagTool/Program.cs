@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Blam.Cache;
-using Blam.Game;
-using Blam.IO;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
+using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool
 {
@@ -79,12 +77,12 @@ namespace HaloOnlineTagTool
             // Load stringIDs
             Console.Write("Reading stringIDs...");
             var stringIdPath = Path.Combine(fileInfo.DirectoryName ?? "", "string_ids.dat");
-            var resolver = StringIDResolverFactory.Create(version);
-            StringIDCache stringIds = null;
+            var resolver = StringIdResolverFactory.Create(version);
+            StringIdCache stringIds = null;
             try
             {
                 using (var stream = File.OpenRead(stringIdPath))
-                    stringIds = new StringIDCache(stream, resolver);
+                    stringIds = new StringIdCache(stream, resolver);
             }
             catch (IOException)
             {
