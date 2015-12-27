@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HaloOnlineTagTool.Common
 {
-    public struct Range<T>
+    public struct Range<T> : IEquatable<Range<T>> where T : IComparable<T>
     {
         /// <summary>
         /// Gets the minimum value within the range.
@@ -27,6 +27,16 @@ namespace HaloOnlineTagTool.Common
         {
             Min = min;
             Max = max;
+        }
+
+        /// <summary>
+        /// Determines whether the range contains a value.
+        /// </summary>
+        /// <param name="value">The value to check.</param>
+        /// <returns><c>true</c> if the value is inside the range.</returns>
+        public bool Contains(T value)
+        {
+            return value.CompareTo(Min) >= 0 && value.CompareTo(Max) <= 0;
         }
 
         /// <summary>
