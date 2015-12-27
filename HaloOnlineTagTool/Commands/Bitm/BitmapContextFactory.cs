@@ -8,17 +8,11 @@ using HaloOnlineTagTool.TagStructures;
 
 namespace HaloOnlineTagTool.Commands.Bitm
 {
-	static class BitmapContextFactory
-	{
-		public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag, TagStructures.Bitmap bitmap)
+    static class BitmapContextFactory
+    {
+        public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag, Bitmap bitmap)
         {
-            var groupName = info.StringIds.GetString(tag.GroupName);
-
-            var context = new CommandContext(parent,
-                string.Format("{0:X8}.{1}", tag.Index, groupName));
-            
-			context.AddCommand(new BitmImportCommand(info, tag, bitmap));
-			return context;
-		}
-	}
+            context.AddCommand(new BitmImportCommand(info, tag, bitmap));
+        }
+    }
 }

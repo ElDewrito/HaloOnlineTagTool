@@ -9,32 +9,32 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
-	[TagStructure(Name = "device_control", Class = "ctrl", Size = 0x44)]
-	public class DeviceControl : Device
-	{
-		public TypeValue Type;
-		public TriggersWhenValue TriggersWhen;
-		public float CallValue;
-		public StringId ActionString;
-		public HaloTag On;
-		public HaloTag Off;
-		public HaloTag Deny;
-		public uint Unknown8;
-		public uint Unknown9;
+    [TagStructure(Name = "device_control", Class = "ctrl", Size = 0x44)]
+    public class DeviceControl : Device
+    {
+        public TypeValue Type;
+        public TriggersWhenValue TriggersWhen;
+        public float CallValue;
+        public StringId ActionString;
+        public HaloTag On;
+        public HaloTag Off;
+        public HaloTag Deny;
+        public uint Unknown8;
+        public uint Unknown9;
 
-		public enum TypeValue : short
-		{
-			Toggle,
-			On,
-			Off,
-			Call,
-			Generator,
-		}
+        public enum TypeValue : short
+        {
+            Toggle,
+            On,
+            Off,
+            Call,
+            Generator,
+        }
 
-		public enum TriggersWhenValue : short
-		{
-			TouchedByPlayer,
-			Destroyed,
-		}
-	}
+        public enum TriggersWhenValue : short
+        {
+            TouchedByPlayer,
+            Destroyed,
+        }
+    }
 }

@@ -10,16 +10,8 @@ namespace HaloOnlineTagTool.Commands.Rmsh
 {
     static class RenderMethodContextFactory
     {
-        public static CommandContext Create(CommandContext parent, OpenTagCache info, HaloTag tag)
+        public static void Populate(CommandContext context, OpenTagCache info, HaloTag tag)
         {
-            var groupName = info.StringIds.GetString(tag.GroupName);
-
-            if (groupName.Length == 0) // hack for shader custom
-                groupName = "shader_custom";
-
-            var context = new CommandContext(parent,
-                string.Format("{0:X8}.{1}", tag.Index, groupName));
-
             RenderMethod renderMethod = null;
 
             using (var cacheStream = info.OpenCacheReadWrite())
@@ -74,8 +66,6 @@ namespace HaloOnlineTagTool.Commands.Rmsh
             }
 
             context.AddCommand(new SpecifyBitmapsCommand(info, tag, renderMethod));
-
-            return context;
         }
     }
 }
