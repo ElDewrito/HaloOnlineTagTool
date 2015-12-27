@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.Layouts
         /// <param name="name">The name of the layout.</param>
         /// <param name="size">The size of the layout in bytes.</param>
         public TagLayout(string name, uint size)
-            : this(name, size, new MagicNumber(0))
+            : this(name, size, new Tag(0))
         {
         }
 
@@ -30,7 +30,7 @@ namespace HaloOnlineTagTool.Layouts
         /// <param name="name">The name of the layout.</param>
         /// <param name="size">The size of the layout.</param>
         /// <param name="groupTag">The group tag.</param>
-        public TagLayout(string name, uint size, MagicNumber groupTag)
+        public TagLayout(string name, uint size, Tag groupTag)
         {
             Name = name;
             Size = size;
@@ -51,7 +51,7 @@ namespace HaloOnlineTagTool.Layouts
         /// <summary>
         /// Gets or sets the layout's group tag (or 0 for none).
         /// </summary>
-        public MagicNumber GroupTag { get; set; }
+        public Tag GroupTag { get; set; }
 
         /// <summary>
         /// Gets a list of fields in the layout.

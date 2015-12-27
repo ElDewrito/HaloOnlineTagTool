@@ -28,7 +28,7 @@ namespace HaloOnlineTagTool.TagStructures
             public List<PlacementDatum> PlacementData;
             public List<AnimationDatum> AnimationData;
             public List<RenderDatum> RenderData;
-            public HaloTag ParallaxData;
+            public TagInstance ParallaxData;
             public List<BitmapWidget> BitmapWidgets;
             public List<TextWidget> TextWidgets;
 
@@ -107,22 +107,22 @@ namespace HaloOnlineTagTool.TagStructures
             public class AnimationDatum
             {
                 public uint Unknown;
-                public HaloTag Animation1;
+                public TagInstance Animation1;
                 public uint Unknown2;
                 public uint Unknown3;
-                public HaloTag Animation2;
+                public TagInstance Animation2;
                 public uint Unknown4;
                 public uint Unknown5;
-                public HaloTag Animation3;
+                public TagInstance Animation3;
                 public uint Unknown6;
                 public uint Unknown7;
-                public HaloTag Animation4;
+                public TagInstance Animation4;
                 public uint Unknown8;
                 public uint Unknown9;
-                public HaloTag Animation5;
+                public TagInstance Animation5;
                 public uint Unknown10;
                 public uint Unknown11;
-                public HaloTag Animation6;
+                public TagInstance Animation6;
                 public uint Unknown12;
             }
 
@@ -847,7 +847,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public int WidgetIndex;
                 public ushort Flags;
                 public short Unknown3;
-                public HaloTag Bitmap;
+                public TagInstance Bitmap;
                 public byte BitmapSpriteIndex;
                 public byte Unknown4;
                 public byte Unknown5;
@@ -928,22 +928,22 @@ namespace HaloOnlineTagTool.TagStructures
                 public class AnimationDatum
                 {
                     public uint Unknown;
-                    public HaloTag Animation1;
+                    public TagInstance Animation1;
                     public uint Unknown2;
                     public uint Unknown3;
-                    public HaloTag Animation2;
+                    public TagInstance Animation2;
                     public uint Unknown4;
                     public uint Unknown5;
-                    public HaloTag Animation3;
+                    public TagInstance Animation3;
                     public uint Unknown6;
                     public uint Unknown7;
-                    public HaloTag Animation4;
+                    public TagInstance Animation4;
                     public uint Unknown8;
                     public uint Unknown9;
-                    public HaloTag Animation5;
+                    public TagInstance Animation5;
                     public uint Unknown10;
                     public uint Unknown11;
-                    public HaloTag Animation6;
+                    public TagInstance Animation6;
                     public uint Unknown12;
                 }
 
@@ -1739,22 +1739,22 @@ namespace HaloOnlineTagTool.TagStructures
                 public class AnimationDatum
                 {
                     public uint Unknown;
-                    public HaloTag Animation1;
+                    public TagInstance Animation1;
                     public uint Unknown2;
                     public uint Unknown3;
-                    public HaloTag Animation2;
+                    public TagInstance Animation2;
                     public uint Unknown4;
                     public uint Unknown5;
-                    public HaloTag Animation3;
+                    public TagInstance Animation3;
                     public uint Unknown6;
                     public uint Unknown7;
-                    public HaloTag Animation4;
+                    public TagInstance Animation4;
                     public uint Unknown8;
                     public uint Unknown9;
-                    public HaloTag Animation5;
+                    public TagInstance Animation5;
                     public uint Unknown10;
                     public uint Unknown11;
-                    public HaloTag Animation6;
+                    public TagInstance Animation6;
                     public uint Unknown12;
                 }
 

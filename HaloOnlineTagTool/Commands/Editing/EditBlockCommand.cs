@@ -1,27 +1,24 @@
-﻿using HaloOnlineTagTool.Serialization;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.Commands.Editing
 {
     class EditBlockCommand : Command
     {
-        public CommandContextStack Stack { get; }
+        private CommandContextStack Stack { get; }
 
-        public OpenTagCache Info { get; }
+        private OpenTagCache Info { get; }
 
-        public HaloTag Tag { get; }
+        private TagInstance Tag { get; }
 
         public TagStructureInfo Structure { get; set; }
 
         public object Owner { get; set; }
         
-        public EditBlockCommand(CommandContextStack stack, OpenTagCache info, HaloTag tag, object value)
+        public EditBlockCommand(CommandContextStack stack, OpenTagCache info, TagInstance tag, object value)
             : base(CommandFlags.Inherit,
                   "Edit",
                   "Edit the fields of a particular block element.",
@@ -68,14 +65,15 @@ namespace HaloOnlineTagTool.Commands.Editing
                 args = new List<string> { name, index };
             }
 
-            var field = enumerator.Find(f => f.Name == blockName);
+            var blockNameLow = blockName.ToLower();
+            var field = enumerator.Find(f => f.Name == blockName || f.Name.ToLower() == blockNameLow);
 
             if (field == null)
             {
                 Console.WriteLine("{0} does not contain a block named \"{1}\"", ownerType.Name, blockName);
                 return false;
             }
-
+            
             var contextName = "";
             object blockValue = null;
 
@@ -93,8 +91,14 @@ namespace HaloOnlineTagTool.Commands.Editing
             {
                 if (args.Count != 2)
                     return false;
+                
+                IList fieldValue = null;
 
-                var fieldValue = (IList)field.GetValue(Owner);
+                if (field.FieldType.GetInterface("IList") == null || (fieldValue = (IList)field.GetValue(Owner)) == null)
+                {
+                    Console.WriteLine("{0} does not contain a block named \"{1}\"", ownerType.Name, blockName);
+                    return false;
+                }
 
                 int blockIndex = 0;
                 if (!int.TryParse(args[1], out blockIndex) ||
@@ -115,6 +119,8 @@ namespace HaloOnlineTagTool.Commands.Editing
             blockContext.AddCommand(new ListFieldsCommand(Info, blockStructure, blockValue));
             blockContext.AddCommand(new SetFieldCommand(Stack, Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new EditBlockCommand(Stack, Info, Tag, blockValue));
+            blockContext.AddCommand(new AddToBlockCommand(Stack, Info, Tag, blockStructure, blockValue));
+            blockContext.AddCommand(new ExitToCommand(Stack));
             Stack.Push(blockContext);
 
             if (deferredNames.Count != 0)

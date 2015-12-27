@@ -86,7 +86,7 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown37;
             public uint Unknown38;
             public uint Unknown39;
-            public HaloTag BaseRenderMethod;
+            public TagInstance BaseRenderMethod;
             public List<UnknownBlock> Unknown40;
             public List<ImportDatum> ImportData;
             public List<ShaderProperty> ShaderProperties;
@@ -208,7 +208,7 @@ namespace HaloOnlineTagTool.TagStructures
             {
                 public StringId MaterialType;
                 public int Unknown;
-                public HaloTag Bitmap;
+                public TagInstance Bitmap;
                 public uint Unknown2;
                 public int Unknown3;
                 public short Unknown4;
@@ -234,7 +234,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x84)]
             public class ShaderProperty
             {
-                public HaloTag Template;
+                public TagInstance Template;
                 public List<ShaderMap> ShaderMaps;
                 public List<Argument> Arguments;
                 public List<UnknownBlock> Unknown;
@@ -258,7 +258,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x18)]
                 public class ShaderMap
                 {
-                    public HaloTag Bitmap;
+                    public TagInstance Bitmap;
                     public sbyte Unknown;
                     public sbyte BitmapIndex;
                     public sbyte Unknown2;

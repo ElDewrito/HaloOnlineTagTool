@@ -60,7 +60,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x48)]
             public class SoundEffectBlock
             {
-                public HaloTag Unknown;
+                public TagInstance Unknown;
                 public List<Component> Components;
                 public List<TemplateCollectionBlock> TemplateCollection;
                 public uint Unknown2;
@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x18)]
                 public class Component
                 {
-                    public HaloTag Sound;
+                    public TagInstance Sound;
                     public uint Gain;
                     public int Flags;
                 }

@@ -11,13 +11,13 @@ namespace HaloOnlineTagTool.Analysis
     public class TagAnalyzer
     {
         private readonly TagCache _cache;
-        private readonly HaloTag _tag;
+        private readonly TagInstance _tag;
         private readonly MemoryMap _tagMap;
-        private readonly HashSet<MagicNumber> _tagGroups = new HashSet<MagicNumber>();
+        private readonly HashSet<Tag> _tagGroups = new HashSet<Tag>();
         private readonly Dictionary<uint, TagFixup> _dataFixupsByWriteOffset;
         private readonly Dictionary<uint, TagFixup> _resourceFixupsByWriteOffset;
 
-        public TagAnalyzer(TagCache cache, HaloTag tag)
+        public TagAnalyzer(TagCache cache, TagInstance tag)
         {
             _cache = cache;
             _tag = tag;
@@ -81,7 +81,7 @@ namespace HaloOnlineTagTool.Analysis
                         potentialGuess = fixup;
                     }
                 }
-                else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _tagGroups.Contains(new MagicNumber((int)lookBehind[2])))
+                else if (offset >= 0xC && lookBehind[0] == 0 && lookBehind[1] == 0 && _tagGroups.Contains(new Tag((int)lookBehind[2])))
                 {
                     // Tag reference
                     if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
@@ -135,7 +135,7 @@ namespace HaloOnlineTagTool.Analysis
         /// </summary>
         /// <param name="tag">The tag to build a memory map for.</param>
         /// <returns>The built map.</returns>
-        private static MemoryMap BuildTagMap(HaloTag tag)
+        private static MemoryMap BuildTagMap(TagInstance tag)
         {
             // Create a memory map with a boundary at each fixup target
             // and at the main structure

@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class Texture
         {
             [TagField(Length = 256)] public string FileName;
-            public HaloTag Bitmap;
+            public TagInstance Bitmap;
         }
     }
 }

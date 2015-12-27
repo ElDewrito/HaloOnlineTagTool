@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.Commands.Editing
@@ -11,11 +8,11 @@ namespace HaloOnlineTagTool.Commands.Editing
     {
         public OpenTagCache Info { get; }
 
-        public HaloTag Tag { get; }
+        public TagInstance Tag { get; }
 
         public object Value { get; }
 
-        public SaveChangesCommand(OpenTagCache info, HaloTag tag, object value)
+        public SaveChangesCommand(OpenTagCache info, TagInstance tag, object value)
             : base(CommandFlags.Inherit,
                   "SaveChanges",
                   $"Saves changes made to the current {info.StringIds.GetString(tag.GroupName)} definition.",

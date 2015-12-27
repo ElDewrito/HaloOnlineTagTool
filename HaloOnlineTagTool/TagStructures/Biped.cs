@@ -51,7 +51,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short HeadNodeIndex;
         public uint Unknown33;
         public float HeadshotAccelerationScale;
-        public HaloTag AreaDamageEffect;
+        public TagInstance AreaDamageEffect;
         public List<UnknownBlock3> Unknown34;
         public List<UnknownBlock4> Unknown35;
         public uint Unknown36;
@@ -101,9 +101,9 @@ namespace HaloOnlineTagTool.TagStructures
         public Angle AngularAccelerationMaximum;
         public float CrouchVelocityModifier;
         public List<ContactPoint> ContactPoints;
-        public HaloTag ReanimationCharacter;
-        public HaloTag TransformationMuffin;
-        public HaloTag DeathSpawnCharacter;
+        public TagInstance ReanimationCharacter;
+        public TagInstance TransformationMuffin;
+        public TagInstance DeathSpawnCharacter;
         public short DeathSpawnCount;
         public short Unknown52;
         public Angle Unknown53;

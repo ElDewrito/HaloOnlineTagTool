@@ -61,7 +61,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private bool ExecuteAddRemove(HaloTag tag, List<string> args)
+        private bool ExecuteAddRemove(TagInstance tag, List<string> args)
         {
             if (args.Count < 3)
                 return false;
@@ -93,14 +93,14 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool ExecuteList(HaloTag tag, bool all)
+        private bool ExecuteList(TagInstance tag, bool all)
         {
             if (tag.Dependencies.Count == 0)
             {
                 Console.Error.WriteLine("Tag {0:X8} has no dependencies.", tag.Index);
                 return true;
             }
-            IEnumerable<HaloTag> dependencies;
+            IEnumerable<TagInstance> dependencies;
             if (all)
                 dependencies = _cache.Tags.FindDependencies(tag);
             else
@@ -109,7 +109,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool ExecuteListDependsOn(HaloTag tag)
+        private bool ExecuteListDependsOn(TagInstance tag)
         {
             var dependsOn = _cache.Tags.NonNull().Where(t => t.Dependencies.Contains(tag.Index));
             TagPrinter.PrintTagsShort(dependsOn);

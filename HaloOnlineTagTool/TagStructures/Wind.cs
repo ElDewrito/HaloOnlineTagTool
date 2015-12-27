@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.TagStructures
         public byte[] Function4;
         public byte[] Function5;
         public uint Unknown;
-        public HaloTag WarpBitmap;
+        public TagInstance WarpBitmap;
         public uint Unknown2;
     }
 }

@@ -28,14 +28,14 @@ namespace HaloOnlineTagTool.TagStructures
         public float DynamicLightSphereOffsetY;
         public float DynamicLightSphereOffsetZ;
         public StringId DefaultModelVariant;
-        public HaloTag Model;
-        [MaxVersion(EngineVersion.V10_1_449175_Live)] public HaloTag CrateObject;
-        public HaloTag CollisionDamage;
+        public TagInstance Model;
+        [MaxVersion(EngineVersion.V10_1_449175_Live)] public TagInstance CrateObject;
+        public TagInstance CollisionDamage;
         public List<EarlyMoverProperty> EarlyMoverProperties;
-        public HaloTag CreationEffect;
-        public HaloTag MaterialEffects;
-        public HaloTag ArmorSounds;
-        public HaloTag MeleeImpact;
+        public TagInstance CreationEffect;
+        public TagInstance MaterialEffects;
+        public TagInstance ArmorSounds;
+        public TagInstance MeleeImpact;
         public List<AiProperty> AiProperties;
         public List<Function> Functions;
         public short HudTextMessageIndex;
@@ -45,7 +45,7 @@ namespace HaloOnlineTagTool.TagStructures
         public List<ChangeColor> ChangeColors;
         public List<NodeMap> NodeMaps;
         public List<MultiplayerObjectProperty> MultiplayerObjectProperties;
-        [MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag UnknownTag;
+        [MinVersion(EngineVersion.V11_1_498295_Live)] public TagInstance UnknownTag;
         public uint Unknown3;
         public uint Unknown4;
         public uint Unknown5;
@@ -140,7 +140,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class Attachment
         {
             public uint AtlasFlags;
-            public HaloTag Attachment2;
+            public TagInstance Attachment2;
             public StringId Marker;
             public ChangeColorValue ChangeColor;
             public short Unknown;
@@ -160,7 +160,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Widget
         {
-            public HaloTag Type;
+            public TagInstance Type;
         }
 
         [TagStructure(Size = 0x18)]
@@ -224,16 +224,16 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown4;
             public int Unknown5;
             public int Unknown6;
-            public HaloTag ChildObject;
+            public TagInstance ChildObject;
             public int Unknown7;
-            public HaloTag ShapeShader;
-            public HaloTag UnknownShader;
-            public HaloTag Unknown8;
-            public HaloTag Unknown9;
-            public HaloTag Unknown10;
-            public HaloTag Unknown11;
-            public HaloTag Unknown12;
-            public HaloTag Unknown13;
+            public TagInstance ShapeShader;
+            public TagInstance UnknownShader;
+            public TagInstance Unknown8;
+            public TagInstance Unknown9;
+            public TagInstance Unknown10;
+            public TagInstance Unknown11;
+            public TagInstance Unknown12;
+            public TagInstance Unknown13;
         }
 
         public enum ObjectTypeValue : sbyte

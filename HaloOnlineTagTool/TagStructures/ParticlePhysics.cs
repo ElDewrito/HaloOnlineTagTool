@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "particle_physics", Class = "pmov", Size = 0x2C)]
     public class ParticlePhysics
     {
-        public HaloTag Template;
+        public TagInstance Template;
         public uint Flags;
         public List<Movement> Movements;
         public uint Unknown;

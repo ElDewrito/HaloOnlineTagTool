@@ -35,7 +35,7 @@ namespace HaloOnlineTagTool.TagStructures
         public float SoloPlayerFadeOutTime;
         public float SoloPlayerFadeInTime;
         public float GameMusicFadeOutTime;
-        public HaloTag Unknown3;
+        public TagInstance Unknown3;
         public float Unknown4;
         public float Unknown5;
         public uint Unknown6;

@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 return false;
             }
 
-            HaloTag tag = null;
+            TagInstance tag = null;
             bool b_duplicate;
             // optional argument: forces overwriting of tags that are not type: phmo
             bool b_force = (args.Count >= 3 && args[2].ToLower().Equals("force"));

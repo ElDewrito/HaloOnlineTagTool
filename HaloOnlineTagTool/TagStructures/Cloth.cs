@@ -15,7 +15,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Flags;
         public StringId MarkerAttachmentName;
         public StringId SecondMarkerAttachmentName;
-        public HaloTag Shader;
+        public TagInstance Shader;
         public short GridXDimension;
         public short GridYDimension;
         public float GridSpacingX;

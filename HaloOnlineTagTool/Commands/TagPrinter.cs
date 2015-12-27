@@ -6,12 +6,12 @@ namespace HaloOnlineTagTool.Commands
 {
     static class TagPrinter
     {
-        public static void PrintTagShort(HaloTag tag)
+        public static void PrintTagShort(TagInstance tag)
         {
             Console.WriteLine("{0} {1:X8} [Offset = 0x{2:X}, Size = 0x{3:X}]", tag.GroupTag, tag.Index, tag.DataOffset, tag.DataSize);
         }
 
-        public static void PrintTagsShort(IEnumerable<HaloTag> tags)
+        public static void PrintTagsShort(IEnumerable<TagInstance> tags)
         {
             var sorted = tags.ToArray();
             Array.Sort(sorted, CompareTags);
@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool.Commands
                 PrintTagShort(tag);
         }
 
-        private static int CompareTags(HaloTag lhs, HaloTag rhs)
+        private static int CompareTags(TagInstance lhs, TagInstance rhs)
         {
             var classCompare = lhs.GroupTag.CompareTo(rhs.GroupTag);
             if (classCompare != 0)

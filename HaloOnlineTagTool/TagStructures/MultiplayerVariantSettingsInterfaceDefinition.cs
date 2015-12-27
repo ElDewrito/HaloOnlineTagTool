@@ -246,12 +246,12 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x3C)]
             public class Option
             {
-                public HaloTag ExplicitSubmenu;
-                public HaloTag TemplateBasedSubmenu;
+                public TagInstance ExplicitSubmenu;
+                public TagInstance TemplateBasedSubmenu;
                 public SubmenuSettingCategoryValue SubmenuSettingCategory;
                 public StringId SubmenuName;
                 public StringId SubmenuDescription;
-                public HaloTag ValuePairs;
+                public TagInstance ValuePairs;
 
                 public enum SubmenuSettingCategoryValue : int
                 {

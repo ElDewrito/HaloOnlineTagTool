@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "decorator_set", Class = "dctr", Size = 0x80)]
     public class DecoratorSet
     {
-        public HaloTag Model;
+        public TagInstance Model;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
         public int Unknown4;
-        public HaloTag Texture;
+        public TagInstance Texture;
         public short AffectsVisibility;
         public short Unknown5;
         public float ColorR;

@@ -16,9 +16,9 @@ namespace HaloOnlineTagTool.TagStructures
         public TriggersWhenValue TriggersWhen;
         public float CallValue;
         public StringId ActionString;
-        public HaloTag On;
-        public HaloTag Off;
-        public HaloTag Deny;
+        public TagInstance On;
+        public TagInstance Off;
+        public TagInstance Deny;
         public uint Unknown8;
         public uint Unknown9;
 

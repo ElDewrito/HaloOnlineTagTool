@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.TagStructures
     public class SkyAtmParameters
     {
         public int Unknown;
-        public HaloTag FogBitmap;
+        public TagInstance FogBitmap;
         public float Unknown2;
         public float Unknown3;
         public float Unknown4;
@@ -67,7 +67,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float FogVelocityX;
             public float FogVelocityY;
             public float FogVelocityZ;
-            public HaloTag WeatherEffect;
+            public TagInstance WeatherEffect;
             public uint Unknown7;
             public uint Unknown8;
         }

@@ -29,9 +29,9 @@ namespace HaloOnlineTagTool.Serialization
         public TagStructureInfo(Type structureType, EngineVersion version)
         {
             Version = version;
-            GroupTag = new MagicNumber(-1);
-            ParentGroupTag = new MagicNumber(-1);
-            GrandparentGroupTag = new MagicNumber(-1);
+            GroupTag = new Tag(-1);
+            ParentGroupTag = new Tag(-1);
+            GrandparentGroupTag = new Tag(-1);
             Analyze(structureType, version);
         }
 
@@ -59,17 +59,17 @@ namespace HaloOnlineTagTool.Serialization
         /// <summary>
         /// Gets the group tag for the structure, or -1 if none.
         /// </summary>
-        public MagicNumber GroupTag { get; private set; }
+        public Tag GroupTag { get; private set; }
 
         /// <summary>
         /// Gets the parent group tag for the structure, or -1 if none.
         /// </summary>
-        public MagicNumber ParentGroupTag { get; private set; }
+        public Tag ParentGroupTag { get; private set; }
 
         /// <summary>
         /// Gets the grandparent group tag for the structure, or -1 if none.
         /// </summary>
-        public MagicNumber GrandparentGroupTag { get; private set; }
+        public Tag GrandparentGroupTag { get; private set; }
 
         private void Analyze(Type mainType, EngineVersion version)
         {
@@ -91,11 +91,11 @@ namespace HaloOnlineTagTool.Serialization
                     if (attrib.Class != null)
                     {
                         if (GroupTag.Value == -1)
-                            GroupTag = new MagicNumber(attrib.Class);
+                            GroupTag = new Tag(attrib.Class);
                         else if (ParentGroupTag.Value == -1)
-                            ParentGroupTag = new MagicNumber(attrib.Class);
+                            ParentGroupTag = new Tag(attrib.Class);
                         else if (GrandparentGroupTag.Value == -1)
-                            GrandparentGroupTag = new MagicNumber(attrib.Class);
+                            GrandparentGroupTag = new Tag(attrib.Class);
                     }
                 }
                 currentType = currentType.BaseType;

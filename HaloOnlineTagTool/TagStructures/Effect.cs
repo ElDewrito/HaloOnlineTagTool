@@ -26,7 +26,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown10;
         public List<Location> Locations;
         public List<Event> Events;
-        public HaloTag LoopingSound;
+        public TagInstance LoopingSound;
         public sbyte LocationIndex;
         public sbyte EventIndex;
         public short Unknown11;
@@ -76,7 +76,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public sbyte Unknown3;
                 public CameraModeValue CameraMode;
                 public int AnticipatedTagClass;
-                public HaloTag SpawnedTag;
+                public TagInstance SpawnedTag;
                 public float VelocityBoundsMin;
                 public float VelocityBoundsMax;
                 public uint Unknown4;
@@ -152,7 +152,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public sbyte Unknown2;
                 public sbyte Unknown3;
                 public sbyte Unknown4;
-                public HaloTag Particle;
+                public TagInstance Particle;
                 public short Unknown5;
                 public short LocationIndex;
                 public CoordinateSystemValue CoordinateSystem;
@@ -210,7 +210,7 @@ namespace HaloOnlineTagTool.TagStructures
                     public StringId Name;
                     public ushort Unknown;
                     public short Unknown2;
-                    public HaloTag CustomEmitterPoints;
+                    public TagInstance CustomEmitterPoints;
                     public uint Unknown3;
                     public uint Unknown4;
                     public uint Unknown5;
@@ -290,7 +290,7 @@ namespace HaloOnlineTagTool.TagStructures
                     public byte[] Unknown43;
                     public uint Unknown44;
                     public uint Unknown45;
-                    public HaloTag ParticlePhysics;
+                    public TagInstance ParticlePhysics;
                     public uint Unknown46;
                     public List<UnknownBlock> Unknown47;
                     public sbyte Input10;

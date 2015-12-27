@@ -17,10 +17,10 @@ namespace HaloOnlineTagTool.TagStructures
         public float NearClipPlaneDistance;
         public float ProjectionPlaneDistance;
         public float FarClipPlaneDistance;
-        public HaloTag GlobalStrings;
-        public HaloTag DamageTypeStrings;
-        public HaloTag UnknownStrings;
-        public HaloTag MainMenuMusic;
+        public TagInstance GlobalStrings;
+        public TagInstance DamageTypeStrings;
+        public TagInstance UnknownStrings;
+        public TagInstance MainMenuMusic;
         public int MusicFadeTime;
         public float ColorA;
         public float ColorR;
@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.TagStructures
         public float TextStrokeColorB;
         public List<TextColor> TextColors;
         public List<PlayerColor> PlayerColors;
-        public HaloTag UiSounds;
+        public TagInstance UiSounds;
         public List<Alert> Alerts;
         public List<Dialog> Dialogs;
         public List<GlobalDataSource> GlobalDataSources;
@@ -205,7 +205,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class GlobalDataSource
         {
-            public HaloTag DataSource;
+            public TagInstance DataSource;
         }
 
         [TagStructure(Size = 0x154)]

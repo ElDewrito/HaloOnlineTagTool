@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short StandardXBoundsMin;
         public short StandardYBoundsMax;
         public short StandardXBoundsMax;
-        public HaloTag Animation;
+        public TagInstance Animation;
         public StringId DataSourceName;
         public StringId TextString;
         public StringId TextColor;

@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool
         private const uint TagHeaderSize = 0x24;
         private const uint FixupPointerBase = 0x40000000;
 
-        private readonly List<HaloTag> _tags = new List<HaloTag>();
+        private readonly List<TagInstance> _tags = new List<TagInstance>();
 
         /// <summary>
         /// Opens a tags.dat file from a stream.
@@ -45,7 +45,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="stream">The stream to write to.</param>
         /// <param name="tag">The tag to update.</param>
-        public void UpdateTag(Stream stream, HaloTag tag)
+        public void UpdateTag(Stream stream, TagInstance tag)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -64,7 +64,7 @@ namespace HaloOnlineTagTool
         /// <param name="stream">The stream to read from.</param>
         /// <param name="tag">The tag to read.</param>
         /// <returns>The data that was read.</returns>
-        public byte[] ExtractTagData(Stream stream, HaloTag tag)
+        public byte[] ExtractTagData(Stream stream, TagInstance tag)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -83,7 +83,7 @@ namespace HaloOnlineTagTool
         /// <param name="stream">The stream to read from.</param>
         /// <param name="tag">The tag to read.</param>
         /// <returns>The data that was read.</returns>
-        public byte[] ExtractFullTag(Stream stream, HaloTag tag)
+        public byte[] ExtractFullTag(Stream stream, TagInstance tag)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -100,10 +100,10 @@ namespace HaloOnlineTagTool
         /// You can give the tag data by using one of the overwrite functions.
         /// </summary>
         /// <returns>The allocated tag.</returns>
-        public HaloTag AllocateTag()
+        public TagInstance AllocateTag()
         {
             var tagIndex = _tags.Count;
-            var tag = new HaloTag { Index = tagIndex };
+            var tag = new TagInstance { Index = tagIndex };
             _tags.Add(tag);
             return tag;
         }
@@ -116,7 +116,7 @@ namespace HaloOnlineTagTool
         /// <param name="stream">The stream to write to.</param>
         /// <param name="tag">The tag to overwrite.</param>
         /// <param name="data">The data to write.</param>
-        public void OverwriteTagData(Stream stream, HaloTag tag, byte[] data)
+        public void OverwriteTagData(Stream stream, TagInstance tag, byte[] data)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -144,7 +144,7 @@ namespace HaloOnlineTagTool
         /// <param name="tag">The tag to overwrite.</param>
         /// <param name="data">The data to overwrite the tag with.</param>
         /// <exception cref="System.ArgumentNullException">tag</exception>
-        public void OverwriteFullTag(Stream stream, HaloTag tag, byte[] data)
+        public void OverwriteFullTag(Stream stream, TagInstance tag, byte[] data)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -170,7 +170,7 @@ namespace HaloOnlineTagTool
         /// <param name="stream">The stream to write to.</param>
         /// <param name="tag">The tag to duplicate.</param>
         /// <returns>The new tag.</returns>
-        public HaloTag DuplicateTag(Stream stream, HaloTag tag)
+        public TagInstance DuplicateTag(Stream stream, TagInstance tag)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -190,7 +190,7 @@ namespace HaloOnlineTagTool
         /// <param name="oldSize">The current size of the block to resize.</param>
         /// <param name="newSize">The new size of the block.</param>
         /// <param name="origin">The origin where data should be inserted or removed.</param>
-        public void ResizeTagData(Stream stream, HaloTag tag, long startOffset, long oldSize, long newSize, ResizeOrigin origin)
+        public void ResizeTagData(Stream stream, TagInstance tag, long startOffset, long oldSize, long newSize, ResizeOrigin origin)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -243,7 +243,7 @@ namespace HaloOnlineTagTool
         /// <param name="oldSize">The current size of the block to resize.</param>
         /// <param name="newSize">The new size of the block.</param>
         /// <exception cref="System.ArgumentException">Cannot resize a block to a negative size</exception>
-        private void ResizeBlock(Stream stream, HaloTag tag, long startOffset, long oldSize, long newSize)
+        private void ResizeBlock(Stream stream, TagInstance tag, long startOffset, long oldSize, long newSize)
         {
             if (newSize < 0)
                 throw new ArgumentException("Cannot resize a block to a negative size");
@@ -259,7 +259,7 @@ namespace HaloOnlineTagTool
         /// <param name="startOffset">The offset where the resize operation took place.</param>
         /// <param name="sizeDelta">The amount to add to each tag offset after the start offset.</param>
         /// <param name="ignore">A tag to ignore.</param>
-        private void FixTagOffsets(long startOffset, long sizeDelta, HaloTag ignore)
+        private void FixTagOffsets(long startOffset, long sizeDelta, TagInstance ignore)
         {
             foreach (var adjustTag in _tags.Where(t => t != null && t != ignore && t.HeaderOffset >= startOffset))
             {
@@ -296,7 +296,7 @@ namespace HaloOnlineTagTool
                     _tags.Add(null);
                     continue;
                 }
-                var tag = new HaloTag { Index = i, HeaderOffset = headerOffsets[i] };
+                var tag = new TagInstance { Index = i, HeaderOffset = headerOffsets[i] };
                 _tags.Add(tag);
                 reader.BaseStream.Position = tag.HeaderOffset;
                 ReadTagHeader(reader, tag);
@@ -308,7 +308,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="reader">The stream to read from.</param>
         /// <param name="resultTag">The tag to update.</param>
-        private static void ReadTagHeader(BinaryReader reader, HaloTag resultTag)
+        private static void ReadTagHeader(BinaryReader reader, TagInstance resultTag)
         {
             resultTag.Checksum = reader.ReadUInt32();                            // 0x00 uint32 checksum
             var totalSize = reader.ReadUInt32();                                 // 0x04 uint32 total size
@@ -317,9 +317,9 @@ namespace HaloOnlineTagTool
             var numResourceFixups = reader.ReadInt16();                          // 0x0C int16  resource fixup count
             reader.BaseStream.Position += 2;                                     // 0x0E int16  (padding)
             var mainStructOffset = reader.ReadUInt32();                          // 0x10 uint32 main struct offset
-            resultTag.GroupTag = new MagicNumber(reader.ReadInt32());            // 0x14 int32  group tag
-            resultTag.ParentGroupTag = new MagicNumber(reader.ReadInt32());      // 0x18 int32  parent group tag
-            resultTag.GrandparentGroupTag = new MagicNumber(reader.ReadInt32()); // 0x1C int32  grandparent group tag
+            resultTag.GroupTag = new Tag(reader.ReadInt32());            // 0x14 int32  group tag
+            resultTag.ParentGroupTag = new Tag(reader.ReadInt32());      // 0x18 int32  parent group tag
+            resultTag.GrandparentGroupTag = new Tag(reader.ReadInt32()); // 0x1C int32  grandparent group tag
             resultTag.GroupName = new StringId(reader.ReadUInt32());             // 0x20 uint32 group name stringid
 
             // Read dependencies
@@ -381,7 +381,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="writer">The stream to write to.</param>
         /// <param name="tag">The tag.</param>
-        private void UpdateTagHeader(BinaryWriter writer, HaloTag tag)
+        private void UpdateTagHeader(BinaryWriter writer, TagInstance tag)
         {
             // Resize the header if necessary
             var newHeaderSize = CalculateNewHeaderSize(tag);
@@ -423,7 +423,7 @@ namespace HaloOnlineTagTool
         /// <param name="tag">The tag.</param>
         /// <param name="data">The data.</param>
         /// <param name="newBase">The new base offset to use.</param>
-        private static void RebasePointers(HaloTag tag, byte[] data, uint newBase)
+        private static void RebasePointers(TagInstance tag, byte[] data, uint newBase)
         {
             using (var writer = new BinaryWriter(new MemoryStream(data)))
             {
@@ -440,7 +440,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="writer">The stream to write to.</param>
         /// <param name="tag">The tag.</param>
-        private static void UpdateTagFixups(BinaryWriter writer, HaloTag tag)
+        private static void UpdateTagFixups(BinaryWriter writer, TagInstance tag)
         {
             var totalHeaderSize = CalculateNewHeaderSize(tag);
             foreach (var fixup in tag.DataFixups)
@@ -523,7 +523,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <returns>The new size of the tag's header.</returns>
-        private static uint CalculateNewHeaderSize(HaloTag tag)
+        private static uint CalculateNewHeaderSize(TagInstance tag)
         {
             return CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
         }

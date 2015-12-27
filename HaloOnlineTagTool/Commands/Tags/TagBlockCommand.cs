@@ -127,7 +127,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool AddSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
+        private bool AddSubcommand(Stream stream, TagInstance tag, int offset, int elementSize, ref int count, List<string> args)
         {
             if (args.Count != 4)
                 return false;
@@ -139,7 +139,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool InsertAtSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
+        private bool InsertAtSubcommand(Stream stream, TagInstance tag, int offset, int elementSize, ref int count, List<string> args)
         {
             if (args.Count != 5)
                 return false;
@@ -154,7 +154,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool RemoveSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
+        private bool RemoveSubcommand(Stream stream, TagInstance tag, int offset, int elementSize, ref int count, List<string> args)
         {
             if (args.Count != 4)
                 return false;
@@ -166,7 +166,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool RemoveAtSubcommand(Stream stream, HaloTag tag, int offset, int elementSize, ref int count, List<string> args)
+        private bool RemoveAtSubcommand(Stream stream, TagInstance tag, int offset, int elementSize, ref int count, List<string> args)
         {
             if (args.Count != 5)
                 return false;
@@ -181,7 +181,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private void DoAdd(Stream stream, HaloTag tag, int offset, int elementSize, int index, int amount, ref int count)
+        private void DoAdd(Stream stream, TagInstance tag, int offset, int elementSize, int index, int amount, ref int count)
         {
             if (amount == 0)
                 return;
@@ -190,7 +190,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             count += amount;
         }
 
-        private void DoRemove(Stream stream, HaloTag tag, int offset, int elementSize, int index, int amount, ref int count)
+        private void DoRemove(Stream stream, TagInstance tag, int offset, int elementSize, int index, int amount, ref int count)
         {
             index = Math.Max(0, Math.Min(index, count - 1));
             amount = Math.Max(0, Math.Min(amount, count - index));
@@ -200,7 +200,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             count = Math.Max(0, count - amount);
         }
 
-        private HaloTag FindTagWithOffset(int offset)
+        private TagInstance FindTagWithOffset(int offset)
         {
             return _info.Cache.Tags.NonNull().FirstOrDefault(t => offset >= t.DataOffset && offset < t.DataOffset + t.DataSize);
         }
