@@ -72,13 +72,13 @@ namespace HaloOnlineTagTool.Serialization
         private void Begin()
         {
             // Build the field list. Scan through the type's inheritance
-            // hierarchy and add any fields belonging to parent classes that
-            // also have TagStructure attributes.
-            foreach (var type in Info.Types)
-                _fields.AddRange(type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly));
-
-            // Order the field list in declaration order using the MetadataToken
-            _fields.Sort((x, y) => x.MetadataToken - y.MetadataToken);
+            // hierarchy and add any fields belonging to tag structures.
+            foreach (var type in Info.Types.Reverse<Type>())
+            {
+                var typeFields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+                Array.Sort(typeFields, (x, y) => x.MetadataToken - y.MetadataToken); // Ensure that fields are in declaration order - GetFields does NOT guarantee this!
+                _fields.AddRange(typeFields);
+            }
         }
 
         public FieldInfo Find(Predicate<FieldInfo> match) =>
