@@ -9,6 +9,8 @@ namespace HaloOnlineTagTool.Commands.Tags
         {
             var context = new CommandContext(null, info.CacheFile.Name);
             context.AddCommand(new HelpCommand(stack));
+            context.AddCommand(new ClearCommand());
+            context.AddCommand(new DumpLogCommand());
             context.AddCommand(new DependencyCommand(info));
             context.AddCommand(new FixupCommand(info));
             context.AddCommand(new ExtractCommand(info));

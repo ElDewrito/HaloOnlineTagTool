@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.Commands.Editing
         public object Value { get; }
 
         public SaveChangesCommand(OpenTagCache info, TagInstance tag, object value)
-            : base(CommandFlags.Inherit,
+            : base(CommandFlags.None,
                   "SaveChanges",
                   $"Saves changes made to the current {info.StringIds.GetString(tag.GroupName)} definition.",
                   "SaveChanges",
