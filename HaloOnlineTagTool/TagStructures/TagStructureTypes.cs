@@ -128,7 +128,7 @@ namespace HaloOnlineTagTool.TagStructures
             { "sfx+", typeof(SoundEffectCollection) },
             { "sgp!", typeof(SoundGlobalPropagation) },
             { "shit", typeof(ShieldImpact) },
-			{ "siin", typeof(SimulationInterpolation) },
+            { "siin", typeof(SimulationInterpolation) },
             { "sily", typeof(TextValuePairDefinition) },
             { "skn3", typeof(GuiSkinDefinition) },
             { "skya", typeof(SkyAtmParameters) },

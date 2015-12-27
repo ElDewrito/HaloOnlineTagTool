@@ -45,7 +45,7 @@ namespace HaloOnlineTagTool.TagStructures
         public List<ChangeColor> ChangeColors;
         public List<NodeMap> NodeMaps;
         public List<MultiplayerObjectProperty> MultiplayerObjectProperties;
-		[MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SimulationInterpolation;
+        [MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SimulationInterpolation;
         public uint Unknown3;
         public uint Unknown4;
         public uint Unknown5;
