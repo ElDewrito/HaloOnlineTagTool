@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using HaloOnlineTagTool.Common;
@@ -186,14 +184,18 @@ namespace HaloOnlineTagTool.Serialization
 
             // Euler Angles types
             if (valueType == typeof(Euler2))
-                return new Euler2(
-                    Angle.FromRadians(reader.ReadSingle()),
-                    Angle.FromRadians(reader.ReadSingle()));
+            {
+                var i = Angle.FromRadians(reader.ReadSingle());
+                var j = Angle.FromRadians(reader.ReadSingle());
+                return new Euler2(i, j);
+            }
             else if (valueType == typeof(Euler3))
-                return new Euler3(
-                    Angle.FromRadians(reader.ReadSingle()),
-                    Angle.FromRadians(reader.ReadSingle()),
-                    Angle.FromRadians(reader.ReadSingle()));
+            {
+                var i = Angle.FromRadians(reader.ReadSingle());
+                var j = Angle.FromRadians(reader.ReadSingle());
+                var k = Angle.FromRadians(reader.ReadSingle());
+                return new Euler3(i, j, k);
+            }
 
             // Vector types
             if (valueType == typeof(Vector2))
@@ -222,7 +224,7 @@ namespace HaloOnlineTagTool.Serialization
 
             // Ranges
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Range<>))
-                return DeserializeRange(reader, valueType);
+                return DeserializeRange(reader, context, valueType);
 
             // Assume the value is a structure
             return DeserializeStruct(reader, context, new TagStructureInfo(valueType, _version));
@@ -379,13 +381,14 @@ namespace HaloOnlineTagTool.Serialization
         /// Deserializes a <see cref="Range{T}"/> value.
         /// </summary>
         /// <param name="reader">The reader.</param>
+        /// <param name="context">The serialization context to use.</param>
         /// <param name="rangeType">The range's type.</param>
         /// <returns>The deserialized range.</returns>
-        private static object DeserializeRange(BinaryReader reader, Type rangeType)
+        private object DeserializeRange(BinaryReader reader, ISerializationContext context, Type rangeType)
         {
             var boundsType = rangeType.GenericTypeArguments[0];
-            var min = DeserializePrimitiveValue(reader, boundsType);
-            var max = DeserializePrimitiveValue(reader, boundsType);
+            var min = DeserializeValue(reader, context, null, boundsType);
+            var max = DeserializeValue(reader, context, null, boundsType);
             return Activator.CreateInstance(rangeType, min, max);
         }
     }
