@@ -102,6 +102,9 @@ namespace HaloOnlineTagTool.Commands.Editing
 
             var fieldValue = field.GetValue(Owner) as IList;
 
+            if (fieldValue == null)
+                field.SetValue(Owner, Activator.CreateInstance(field.FieldType));
+
             for (var i = 0; i < count; i++)
                 fieldValue.Add(Activator.CreateInstance(field.FieldType.GenericTypeArguments[0]));
 
