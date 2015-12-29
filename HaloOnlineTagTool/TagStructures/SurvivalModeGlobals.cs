@@ -13,9 +13,9 @@ namespace HaloOnlineTagTool.TagStructures
     public class SurvivalModeGlobals
     {
         public uint Unknown;
-        public HaloTag InGameStrings;
-        public HaloTag TimerSound;
-        public HaloTag TimerSoundZero;
+        public TagInstance InGameStrings;
+        public TagInstance TimerSound;
+        public TagInstance TimerSoundZero;
         public List<SurvivalEvent> SurvivalEvents;
         public uint Unknown2;
         public uint Unknown3;
@@ -44,18 +44,18 @@ namespace HaloOnlineTagTool.TagStructures
             public float SoundDelayAnnouncerOnly;
             public ushort SoundFlags;
             public short Unknown4;
-            public HaloTag EnglishSound;
-            public HaloTag JapaneseSound;
-            public HaloTag GermanSound;
-            public HaloTag FrenchSound;
-            public HaloTag SpanishSound;
-            public HaloTag LatinAmericanSpanishSound;
-            public HaloTag ItalianSound;
-            public HaloTag KoreanSound;
-            public HaloTag ChineseTraditionalSound;
-            public HaloTag ChineseSimplifiedSound;
-            public HaloTag PortugueseSound;
-            public HaloTag PolishSound;
+            public TagInstance EnglishSound;
+            public TagInstance JapaneseSound;
+            public TagInstance GermanSound;
+            public TagInstance FrenchSound;
+            public TagInstance SpanishSound;
+            public TagInstance LatinAmericanSpanishSound;
+            public TagInstance ItalianSound;
+            public TagInstance KoreanSound;
+            public TagInstance ChineseTraditionalSound;
+            public TagInstance ChineseSimplifiedSound;
+            public TagInstance PortugueseSound;
+            public TagInstance PolishSound;
             public uint Unknown5;
             public uint Unknown6;
             public uint Unknown7;

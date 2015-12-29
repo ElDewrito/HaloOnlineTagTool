@@ -18,22 +18,22 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0xD8)]
         public class UniversalBlock
         {
-            public HaloTag RandomPlayerNameStrings;
-            public HaloTag TeamNameStrings;
+            public TagInstance RandomPlayerNameStrings;
+            public TagInstance TeamNameStrings;
             public List<SpartanArmorCustomizationBlock> SpartanArmorCustomization;
             public List<EliteArmorCustomizationBlock> EliteArmorCustomization;
             public List<EquipmentBlock> Equipment;
             public List<UnknownBlock> Unknown;
-            public HaloTag MultiplayerStrings;
-            public HaloTag SandboxUiStrings;
-            public HaloTag SandboxUiProperties;
+            public TagInstance MultiplayerStrings;
+            public TagInstance SandboxUiStrings;
+            public TagInstance SandboxUiProperties;
             public List<GameVariantWeapon> GameVariantWeapons;
             public List<GameVariantVehicle> GameVariantVehicles;
             public List<GameVariantEquipmentBlock> GameVariantEquipment;
             public List<WeaponSet> WeaponSets;
             public List<VehicleSet> VehicleSets;
             public List<PodiumBlock> Podium;
-            public HaloTag EngineSettings;
+            public TagInstance EngineSettings;
 
             [TagStructure(Size = 0x14)]
             public class SpartanArmorCustomizationBlock
@@ -46,8 +46,8 @@ namespace HaloOnlineTagTool.TagStructures
                 public class Permutation
                 {
                     public StringId Name;
-                    public HaloTag ThirdPersonArmorObject;
-                    public HaloTag FirstPersonArmorModel;
+                    public TagInstance ThirdPersonArmorObject;
+                    public TagInstance FirstPersonArmorModel;
                     public short Unknown;
                     public short Unknown2;
                     public StringId ParentAttachMarker;
@@ -66,8 +66,8 @@ namespace HaloOnlineTagTool.TagStructures
                 public class Permutation
                 {
                     public StringId Name;
-                    public HaloTag ThirdPersonArmorObject;
-                    public HaloTag FirstPersonArmorModel;
+                    public TagInstance ThirdPersonArmorObject;
+                    public TagInstance FirstPersonArmorModel;
                     public short Unknown;
                     public short Unknown2;
                     public StringId ParentAttachMarker;
@@ -79,7 +79,7 @@ namespace HaloOnlineTagTool.TagStructures
             public class EquipmentBlock
             {
                 public StringId Name;
-                public HaloTag Equipment;
+                public TagInstance Equipment;
                 public short Unknown;
                 public short Unknown2;
             }
@@ -96,21 +96,21 @@ namespace HaloOnlineTagTool.TagStructures
             {
                 public StringId Name;
                 public float RandomChance;
-                public HaloTag Weapon;
+                public TagInstance Weapon;
             }
 
             [TagStructure(Size = 0x14)]
             public class GameVariantVehicle
             {
                 public StringId Name;
-                public HaloTag Vehicle;
+                public TagInstance Vehicle;
             }
 
             [TagStructure(Size = 0x14)]
             public class GameVariantEquipmentBlock
             {
                 public StringId Name;
-                public HaloTag Grenade;
+                public TagInstance Grenade;
             }
 
             [TagStructure(Size = 0x10)]
@@ -144,7 +144,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x30)]
             public class PodiumBlock
             {
-                public HaloTag AnimationGraph;
+                public TagInstance AnimationGraph;
                 public StringId DefaultUnarmed;
                 public StringId DefaultArmed;
                 public List<StanceAnimation> StanceAnimations;
@@ -169,8 +169,8 @@ namespace HaloOnlineTagTool.TagStructures
                     public StringId LoopAnimation;
                     public StringId OutAnimation;
                     public int Unknown;
-                    public HaloTag PrimaryWeapon;
-                    public HaloTag SecondaryWeapon;
+                    public TagInstance PrimaryWeapon;
+                    public TagInstance SecondaryWeapon;
                 }
             }
         }
@@ -178,18 +178,18 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x2A8)]
         public class RuntimeBlock
         {
-            public HaloTag SandboxEditorUnit;
-            public HaloTag SandboxEditorObject;
-            public HaloTag Flag;
-            public HaloTag Ball;
-            public HaloTag Bomb;
-            public HaloTag VipZone;
-            public HaloTag InGameStrings;
-            public HaloTag Unknown;
-            public HaloTag Unknown2;
-            public HaloTag Unknown3;
-            public HaloTag Unknown4;
-            public HaloTag Unknown5;
+            public TagInstance SandboxEditorUnit;
+            public TagInstance SandboxEditorObject;
+            public TagInstance Flag;
+            public TagInstance Ball;
+            public TagInstance Bomb;
+            public TagInstance VipZone;
+            public TagInstance InGameStrings;
+            public TagInstance Unknown;
+            public TagInstance Unknown2;
+            public TagInstance Unknown3;
+            public TagInstance Unknown4;
+            public TagInstance Unknown5;
             public List<Sound> Sounds;
             public List<LoopingSound> LoopingSounds;
             public List<UnknownEvent> UnknownEvents;
@@ -208,35 +208,35 @@ namespace HaloOnlineTagTool.TagStructures
             public int DefaultPlasmaGrenadeCount;
             public List<MultiplayerConstant> MultiplayerConstants;
             public List<StateRespons> StateResponses;
-            public HaloTag ScoreboardEmblemBitmap;
-            public HaloTag ScoreboardDeadEmblemBitmap;
-            public HaloTag DefaultShapeShader;
-            public HaloTag Unknown6;
-            public HaloTag CtfIntroUi;
-            public HaloTag SlayerIntroUi;
-            public HaloTag OddballIntroUi;
-            public HaloTag KingOfTheHillIntroUi;
-            public HaloTag SandboxIntroUi;
-            public HaloTag VipIntroUi;
-            public HaloTag JuggernautIntroUi;
-            public HaloTag TerritoriesIntroUi;
-            public HaloTag AssaultIntroUi;
-            public HaloTag InfectionIntroUi;
-            public HaloTag MenuMusic1;
-            public HaloTag MenuMusic2;
-            public HaloTag MenuMusic3;
-            public HaloTag Unknown7;
+            public TagInstance ScoreboardEmblemBitmap;
+            public TagInstance ScoreboardDeadEmblemBitmap;
+            public TagInstance DefaultShapeShader;
+            public TagInstance Unknown6;
+            public TagInstance CtfIntroUi;
+            public TagInstance SlayerIntroUi;
+            public TagInstance OddballIntroUi;
+            public TagInstance KingOfTheHillIntroUi;
+            public TagInstance SandboxIntroUi;
+            public TagInstance VipIntroUi;
+            public TagInstance JuggernautIntroUi;
+            public TagInstance TerritoriesIntroUi;
+            public TagInstance AssaultIntroUi;
+            public TagInstance InfectionIntroUi;
+            public TagInstance MenuMusic1;
+            public TagInstance MenuMusic2;
+            public TagInstance MenuMusic3;
+            public TagInstance Unknown7;
 
             [TagStructure(Size = 0x10)]
             public class Sound
             {
-                public HaloTag Sound2;
+                public TagInstance Sound2;
             }
 
             [TagStructure(Size = 0x10)]
             public class LoopingSound
             {
-                public HaloTag LoopingSound2;
+                public TagInstance LoopingSound2;
             }
 
             [TagStructure(Size = 0x10C)]
@@ -263,18 +263,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -376,18 +376,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -489,18 +489,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -602,18 +602,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -715,18 +715,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -828,18 +828,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -941,18 +941,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1054,18 +1054,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1167,18 +1167,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1280,18 +1280,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1393,18 +1393,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1506,18 +1506,18 @@ namespace HaloOnlineTagTool.TagStructures
                 public float SoundDelayAnnouncerOnly;
                 public ushort SoundFlags;
                 public short Unknown5;
-                public HaloTag EnglishSound;
-                public HaloTag JapaneseSound;
-                public HaloTag GermanSound;
-                public HaloTag FrenchSound;
-                public HaloTag SpanishSound;
-                public HaloTag LatinAmericanSpanishSound;
-                public HaloTag ItalianSound;
-                public HaloTag KoreanSound;
-                public HaloTag ChineseTraditionalSound;
-                public HaloTag ChineseSimplifiedSound;
-                public HaloTag PortugueseSound;
-                public HaloTag PolishSound;
+                public TagInstance EnglishSound;
+                public TagInstance JapaneseSound;
+                public TagInstance GermanSound;
+                public TagInstance FrenchSound;
+                public TagInstance SpanishSound;
+                public TagInstance LatinAmericanSpanishSound;
+                public TagInstance ItalianSound;
+                public TagInstance KoreanSound;
+                public TagInstance ChineseTraditionalSound;
+                public TagInstance ChineseSimplifiedSound;
+                public TagInstance PortugueseSound;
+                public TagInstance PolishSound;
                 public uint Unknown6;
                 public uint Unknown7;
                 public uint Unknown8;
@@ -1679,16 +1679,16 @@ namespace HaloOnlineTagTool.TagStructures
                 public float VehicleDangerRadius;
                 public float VehicleDangerLeadTime;
                 public float VehicleNearbyPlayerDistance;
-                public HaloTag HillShader;
+                public TagInstance HillShader;
                 public float Unknown67;
                 public float Unknown68;
                 public float Unknown69;
                 public float Unknown70;
-                public HaloTag BombExplodeEffect;
-                public HaloTag Unknown71;
-                public HaloTag BombExplodeDamageEffect;
-                public HaloTag BombDefuseEffect;
-                public HaloTag CursorImpactEffect;
+                public TagInstance BombExplodeEffect;
+                public TagInstance Unknown71;
+                public TagInstance BombExplodeDamageEffect;
+                public TagInstance BombDefuseEffect;
+                public TagInstance CursorImpactEffect;
                 public StringId BombDefusalString;
                 public StringId BlockedTeleporterString;
                 public int Unknown72;
@@ -1712,7 +1712,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x20)]
                 public class Weapon
                 {
-                    public HaloTag Weapon2;
+                    public TagInstance Weapon2;
                     public float Unknown;
                     public float Unknown2;
                     public float Unknown3;
@@ -1722,7 +1722,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x20)]
                 public class Vehicle
                 {
-                    public HaloTag Vehicle2;
+                    public TagInstance Vehicle2;
                     public float Unknown;
                     public float Unknown2;
                     public float Unknown3;
@@ -1732,7 +1732,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x1C)]
                 public class Projectile
                 {
-                    public HaloTag Projectile2;
+                    public TagInstance Projectile2;
                     public float Unknown;
                     public float Unknown2;
                     public float Unknown3;
@@ -1741,7 +1741,7 @@ namespace HaloOnlineTagTool.TagStructures
                 [TagStructure(Size = 0x14)]
                 public class EquipmentBlock
                 {
-                    public HaloTag Equipment;
+                    public TagInstance Equipment;
                     public float Unknown;
                 }
             }
@@ -1755,7 +1755,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public short Unknown2;
                 public StringId FreeForAllMessage;
                 public StringId TeamMessage;
-                public HaloTag Unknown3;
+                public TagInstance Unknown3;
                 public uint Unknown4;
 
                 public enum StateValue : short

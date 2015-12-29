@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "muffin", Class = "mffn", Size = 0x38)]
     public class Muffin
     {
-        public HaloTag RenderModel;
+        public TagInstance RenderModel;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
@@ -48,7 +48,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float Unknown15;
             public float Unknown16;
             public float Unknown17;
-            public HaloTag Effect;
+            public TagInstance Effect;
         }
     }
 }

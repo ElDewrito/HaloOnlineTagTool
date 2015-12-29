@@ -13,14 +13,14 @@ namespace HaloOnlineTagTool.TagStructures
     public class BreakableSurface
     {
         public float MaximumVitality;
-        public HaloTag Effect;
-        public HaloTag Sound;
+        public TagInstance Effect;
+        public TagInstance Sound;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
         public uint Unknown4;
-        public HaloTag CrackBitmap;
-        public HaloTag HoleBitmap;
+        public TagInstance CrackBitmap;
+        public TagInstance HoleBitmap;
         public uint Unknown5;
         public uint Unknown6;
         public uint Unknown7;

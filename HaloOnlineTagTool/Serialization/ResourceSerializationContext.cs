@@ -75,7 +75,7 @@ namespace HaloOnlineTagTool.Serialization
             return (uint)resourceAddress.Offset;
         }
 
-        public HaloTag GetTagByIndex(int index)
+        public TagInstance GetTagByIndex(int index)
         {
             throw new InvalidOperationException("Resource definitions cannot contain tag references");
         }

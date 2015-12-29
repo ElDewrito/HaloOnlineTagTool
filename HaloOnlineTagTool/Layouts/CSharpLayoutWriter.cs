@@ -67,7 +67,7 @@ namespace HaloOnlineTagTool.Layouts
                 SetIndent(indent);
             }
 
-            public void Begin(string name, uint size, uint align, MagicNumber groupTag)
+            public void Begin(string name, uint size, uint align, Tag groupTag)
             {
                 // TagStructureAttribute
                 _writer.Write("{0}[TagStructure(", _indent);
@@ -211,7 +211,7 @@ namespace HaloOnlineTagTool.Layouts
                         return "StringId";
                     case BasicFieldType.TagReference:
                     case BasicFieldType.ShortTagReference:
-                        return "HaloTag";
+                        return "TagInstance";
                     case BasicFieldType.DataReference:
                         return "byte[]";
                     case BasicFieldType.ResourceReference:

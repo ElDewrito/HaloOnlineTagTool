@@ -24,13 +24,13 @@ namespace HaloOnlineTagTool.TagStructures
         public short StandardXOffset;
         public short StandardYUnknown;
         public short StandardXUnknown;
-        public HaloTag Animation;
+        public TagInstance Animation;
         public StringId DataSourceName;
-        public HaloTag Skin;
+        public TagInstance Skin;
         public int RowCount;
         public List<ListWidgetItem> ListWidgetItems;
-        public HaloTag UpArrowBitmap;
-        public HaloTag DownArrowBitmap;
+        public TagInstance UpArrowBitmap;
+        public TagInstance DownArrowBitmap;
 
         [TagStructure(Size = 0x30)]
         public class ListWidgetItem
@@ -47,7 +47,7 @@ namespace HaloOnlineTagTool.TagStructures
             public short StandardXOffset;
             public short StandardYUnknown;
             public short StandardXUnknown;
-            public HaloTag Animation;
+            public TagInstance Animation;
             public StringId Target;
         }
     }

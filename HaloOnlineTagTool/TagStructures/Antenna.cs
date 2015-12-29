@@ -13,8 +13,8 @@ namespace HaloOnlineTagTool.TagStructures
     public class Antenna
     {
         public StringId AttachmentMarkerName;
-        public HaloTag Bitmaps;
-        public HaloTag Physics;
+        public TagInstance Bitmaps;
+        public TagInstance Physics;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;

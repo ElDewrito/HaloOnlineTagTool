@@ -22,7 +22,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown5;
         public float NearFadeDistance;
         public float FarFadeDistance;
-        public HaloTag Bitmap;
+        public TagInstance Bitmap;
         public short Unknown6;
         public short Unknown7;
         public short Unknown8;
@@ -48,7 +48,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public uint Unknown;
             public uint Unknown2;
-            public HaloTag Bitmap;
+            public TagInstance Bitmap;
             public uint Unknown3;
             public uint Unknown4;
             public uint Unknown5;

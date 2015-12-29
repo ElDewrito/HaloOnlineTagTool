@@ -14,7 +14,7 @@ namespace HaloOnlineTagTool.TagStructures
     {
         public uint Unknown;
         public uint Unknown2;
-        public HaloTag Unknown3;
+        public TagInstance Unknown3;
         public uint Unknown4;
         public uint RespawnTime;
         public uint Unknown5;

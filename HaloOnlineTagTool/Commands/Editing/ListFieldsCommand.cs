@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
-using System.Collections;
 
 namespace HaloOnlineTagTool.Commands.Editing
 {
     class ListFieldsCommand : Command
     {
-        public OpenTagCache Info { get; }
+        private OpenTagCache Info { get; }
 
-        public TagStructureInfo Structure { get; }
+        private TagStructureInfo Structure { get; }
 
-        public object Value { get; }
+        private object Value { get; }
 
         public ListFieldsCommand(OpenTagCache info, TagStructureInfo structure, object value)
             : base(CommandFlags.Inherit,
@@ -54,17 +51,20 @@ namespace HaloOnlineTagTool.Commands.Editing
                         $"{fieldType.Name}<{fieldType.GenericTypeArguments[0].Name}>" :
                     fieldType.Name;
 
-                var valueString =
-                    fieldType == typeof(StringId) ?
-                        Info.StringIds.GetString((StringId)fieldValue) :
-                    fieldType.GetInterface(typeof(IList).Name) != null ?
-                        (((IList)fieldValue).Count != 0 ?
-                            $"{{...}}[{((IList)fieldValue).Count}]" :
-                        "null") :
-                    fieldValue == null ?
-                        "null" :
-                    fieldValue.ToString();
+                string valueString;
 
+                if (fieldValue == null)
+                    valueString = "null";
+                else if (fieldType.GetInterface(typeof(IList).Name) != null)
+                    valueString =
+                        ((IList)fieldValue).Count != 0 ?
+                            $"{{...}}[{((IList)fieldValue).Count}]" :
+                        "null";
+                else if (fieldType == typeof(StringId))
+                    valueString = Info.StringIds.GetString((StringId)fieldValue);
+                else
+                    valueString = fieldValue.ToString();
+                
                 Console.WriteLine("{0}: {1} = {2}", nameString, typeString, valueString);
             }
 

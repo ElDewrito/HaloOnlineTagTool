@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
 using HaloOnlineTagTool.Serialization;
@@ -15,6 +13,8 @@ namespace HaloOnlineTagTool
     {
         static void Main(string[] args)
         {
+            ConsoleHistory.Initialize();
+
             // Get the file path from the first argument
             // If no argument is given, load tags.dat
             var filePath = (args.Length > 0) ? args[0] : "tags.dat";
@@ -36,10 +36,21 @@ namespace HaloOnlineTagTool
             }
 
             // Load the tag cache
-            var fileInfo = new FileInfo(filePath);
-            TagCache cache;
-            using (var stream = fileInfo.Open(FileMode.Open, FileAccess.Read))
-                cache = new TagCache(stream);
+            FileInfo fileInfo = null;
+            TagCache cache = null;
+
+            try
+            {
+                fileInfo = new FileInfo(filePath);
+                using (var stream = fileInfo.Open(FileMode.Open, FileAccess.Read))
+                    cache = new TagCache(stream);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.Message);
+                ConsoleHistory.Dump("hott_*_tags_init.log");
+                return;
+            }
 
             if (autoexecCommand == null)
                 Console.WriteLine("{0} tags loaded.", cache.Tags.Count);
@@ -58,8 +69,8 @@ namespace HaloOnlineTagTool
             }
             else
             {
-                Console.Error.WriteLine("WARNING: The cache file's version was not recognized!");
-                Console.Error.WriteLine("Using the closest known version {0}.", VersionDetection.GetVersionString(closestVersion));
+                Console.WriteLine("WARNING: The cache file's version was not recognized!");
+                Console.WriteLine("Using the closest known version {0}.", VersionDetection.GetVersionString(closestVersion));
                 version = closestVersion;
             }
 
@@ -75,8 +86,14 @@ namespace HaloOnlineTagTool
             }
             catch (IOException)
             {
-                Console.Error.WriteLine("Warning: unable to open string_ids.dat!");
-                Console.Error.WriteLine("Commands which require stringID values will be unavailable.");
+                Console.WriteLine("Warning: unable to open string_ids.dat!");
+                Console.WriteLine("Commands which require stringID values will be unavailable.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.Message);
+                ConsoleHistory.Dump("hott_*_string_ids_init.log");
+                return;
             }
 
             if (autoexecCommand == null && stringIds != null)
@@ -105,7 +122,7 @@ namespace HaloOnlineTagTool
             if (autoexecCommand != null)
             {
                 if (!ExecuteCommand(contextStack.Context, autoexecCommand))
-                    Console.Error.WriteLine("Unrecognized command: {0}", autoexecCommand[0]);
+                    Console.WriteLine("Unrecognized command: {0}", autoexecCommand[0]);
                 return;
             }
 
@@ -143,8 +160,8 @@ namespace HaloOnlineTagTool
                 // Try to execute it
                 if (!ExecuteCommand(contextStack.Context, commandArgs))
                 {
-                    Console.Error.WriteLine("Unrecognized command: {0}", commandArgs[0]);
-                    Console.Error.WriteLine("Use \"help\" to list available commands.");
+                    Console.WriteLine("Unrecognized command: {0}", commandArgs[0]);
+                    Console.WriteLine("Use \"help\" to list available commands.");
                 }
 
                 // Undo redirection
@@ -170,7 +187,15 @@ namespace HaloOnlineTagTool
             // Execute it
             commandAndArgs.RemoveAt(0);
 
-            ExecuteCommand(command, commandAndArgs);
+            try
+            {
+                ExecuteCommand(command, commandAndArgs);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.Message);
+                ConsoleHistory.Dump("hott_*_crash.log");
+            }
 
             return true;
         }
@@ -179,12 +204,12 @@ namespace HaloOnlineTagTool
         {
             if (command.Execute(args))
                 return;
-            Console.Error.WriteLine("{0}: {1}", command.Name, command.Description);
-            Console.Error.WriteLine();
-            Console.Error.WriteLine("Usage:");
-            Console.Error.WriteLine("{0}", command.Usage);
-            Console.Error.WriteLine();
-            Console.Error.WriteLine("Use \"help {0}\" for more information.", command.Name);
+            Console.WriteLine("{0}: {1}", command.Name, command.Description);
+            Console.WriteLine();
+            Console.WriteLine("Usage:");
+            Console.WriteLine("{0}", command.Usage);
+            Console.WriteLine();
+            Console.WriteLine("Use \"help {0}\" for more information.", command.Name);
         }
     }
 }

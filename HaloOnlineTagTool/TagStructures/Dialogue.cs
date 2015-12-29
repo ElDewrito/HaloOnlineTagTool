@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "dialogue", Class = "udlg", Size = 0x30)]
     public class Dialogue
     {
-        public HaloTag GlobalDialogueInfo;
+        public TagInstance GlobalDialogueInfo;
         public uint Flags;
         public List<Vocalization> Vocalizations;
         public StringId MissionDialogueDesignator;
@@ -26,7 +26,7 @@ namespace HaloOnlineTagTool.TagStructures
             public ushort Flags;
             public short Unknown;
             public StringId Vocalization2;
-            public HaloTag Sound;
+            public TagInstance Sound;
         }
     }
 }

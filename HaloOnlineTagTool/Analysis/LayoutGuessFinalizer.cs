@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool.Analysis
         /// <param name="name">The name of the final layout.</param>
         /// <param name="groupTag">The group tag of the final layout. Can be <c>null</c>.</param>
         /// <returns></returns>
-        public static TagLayout MakeLayout(TagLayoutGuess layout, string name, MagicNumber groupTag)
+        public static TagLayout MakeLayout(TagLayoutGuess layout, string name, Tag groupTag)
         {
             var result = new TagLayout(name, layout.Size, groupTag);
             var finalizer = new LayoutGuessFinalizer(result, 0);
@@ -73,7 +73,7 @@ namespace HaloOnlineTagTool.Analysis
         {
             var name = string.Format("Tag Block {0}", _nextTagBlock);
             _nextTagBlock++;
-            var elementLayout = new TagLayout(name, guess.ElementLayout.Size, new MagicNumber(0));
+            var elementLayout = new TagLayout(name, guess.ElementLayout.Size, new Tag(0));
             var finalizer = new LayoutGuessFinalizer(elementLayout, _nextTagBlock);
             finalizer.ProcessLayout(guess.ElementLayout);
             var align = guess.Align;

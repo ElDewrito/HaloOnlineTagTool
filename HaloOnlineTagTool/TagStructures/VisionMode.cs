@@ -34,7 +34,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown20;
         public uint Unknown21;
         public uint Unknown22;
-        public HaloTag Unknown23;
+        public TagInstance Unknown23;
         public byte[] Unknown24;
         public byte[] Unknown25;
         public uint Unknown26;
@@ -65,8 +65,8 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown51;
         public uint Unknown52;
         public uint Unknown53;
-        public HaloTag Unknown54;
-        public HaloTag Unknown55;
+        public TagInstance Unknown54;
+        public TagInstance Unknown55;
         public uint Unknown56;
         public uint Unknown57;
         public uint Unknown58;

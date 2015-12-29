@@ -10,7 +10,7 @@ namespace HaloOnlineTagTool.TagStructures
         /// </summary>
         /// <param name="groupTag">The group tag of the group to search for.</param>
         /// <returns>The structure type if found, or <c>null</c> otherwise.</returns>
-        public static Type FindByGroupTag(MagicNumber groupTag)
+        public static Type FindByGroupTag(Tag groupTag)
         {
             return FindByGroupTag(groupTag.ToString());
         }

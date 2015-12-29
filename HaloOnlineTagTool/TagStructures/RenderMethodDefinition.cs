@@ -12,12 +12,12 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "render_method_definition", Class = "rmdf", Size = 0x5C)]
     public class RenderMethodDefinition
     {
-        public HaloTag Unknown;
+        public TagInstance Unknown;
         public List<Method> Methods;
         public List<DrawMode> DrawModes;
         public List<UnknownBlock2> Unknown3;
-        public HaloTag Unknown4;
-        public HaloTag Unknown5;
+        public TagInstance Unknown4;
+        public TagInstance Unknown5;
         public uint Unknown6;
         public uint Unknown7;
 
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.TagStructures
             public class ShaderOption
             {
                 public StringId Type;
-                public HaloTag Option;
+                public TagInstance Option;
                 public StringId Unknown;
                 public StringId Unknown2;
             }

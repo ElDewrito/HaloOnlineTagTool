@@ -13,18 +13,18 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "user_interface_globals_definition", Class = "wgtz", Size = 0x60, MinVersion = EngineVersion.V11_1_498295_Live)]
     public class UserInterfaceGlobalsDefinition
     {
-        public HaloTag SharedUiGlobals;
-        public HaloTag EditableSettings;
-        public HaloTag MatchmakingHopperStrings;
+        public TagInstance SharedUiGlobals;
+        public TagInstance EditableSettings;
+        public TagInstance MatchmakingHopperStrings;
         public List<ScreenWidget> ScreenWidgets;
-        public HaloTag TextureRenderList;
-        [MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag SwearFilter; // TODO: Version number
+        public TagInstance TextureRenderList;
+        [MinVersion(EngineVersion.V11_1_498295_Live)] public TagInstance SwearFilter; // TODO: Version number
         public uint Unknown;
 
         [TagStructure(Size = 0x10)]
         public class ScreenWidget
         {
-            public HaloTag Widget;
+            public TagInstance Widget;
         }
     }
 }

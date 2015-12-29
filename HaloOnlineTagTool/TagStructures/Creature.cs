@@ -59,8 +59,8 @@ namespace HaloOnlineTagTool.TagStructures
         public Angle AngularAccelerationMaximum;
         public float CrouchVelocityModifier;
         public uint Unknown14;
-        public HaloTag ImpactDamage;
-        public HaloTag ImpactShieldDamage;
+        public TagInstance ImpactDamage;
+        public TagInstance ImpactShieldDamage;
         public List<MetagameProperty> MetagameProperties;
         public float DestroyAfterDeathTimeMin;
         public float DestroyAfterDeathTimeMax;

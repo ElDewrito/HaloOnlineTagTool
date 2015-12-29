@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.Commands
             {
                 using (var mapReader = new BinaryReader(File.OpenRead(args[0])))
                 {
-                    if (mapReader.ReadInt32() != new MagicNumber("head").Value)
+                    if (mapReader.ReadInt32() != new Tag("head").Value)
                     {
                         Console.Error.WriteLine("Invalid map file");
                         return true;

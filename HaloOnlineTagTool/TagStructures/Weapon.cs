@@ -21,8 +21,8 @@ namespace HaloOnlineTagTool.TagStructures
         public short MaximumAlternateShotsLoaded;
         public float TurnOnTime;
         public float ReadyTime;
-        public HaloTag ReadyEffect;
-        public HaloTag ReadyDamageEffect;
+        public TagInstance ReadyEffect;
+        public TagInstance ReadyDamageEffect;
         public float HeatRecoveryThreshold;
         public float OverheatedThreshold;
         public float HeatDetonationThreshold;
@@ -30,29 +30,29 @@ namespace HaloOnlineTagTool.TagStructures
         public float HeatLossPerSecond;
         public float HeatIllumination;
         public float OverheatedHeatLossPerSecond;
-        public HaloTag Overheated;
-        public HaloTag OverheatedDamageEffect;
-        public HaloTag Detonation;
-        public HaloTag DetonationDamageEffect2;
-        public HaloTag PlayerMeleeDamage;
-        public HaloTag PlayerMeleeResponse;
+        public TagInstance Overheated;
+        public TagInstance OverheatedDamageEffect;
+        public TagInstance Detonation;
+        public TagInstance DetonationDamageEffect2;
+        public TagInstance PlayerMeleeDamage;
+        public TagInstance PlayerMeleeResponse;
         [MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public uint Unknown27;
         public Angle DamagePyramidAnglesY;
         public Angle DamagePyramidAnglesP;
         public float DamagePyramidDepth;
-        public HaloTag _1stHitDamage;
-        public HaloTag _1stHitResponse;
-        public HaloTag _2ndHitDamage;
-        public HaloTag _2ndHitResponse;
-        public HaloTag _3rdHitDamage;
-        public HaloTag _3rdHitResponse;
-        public HaloTag LungeMeleeDamage;
-        public HaloTag LungeMeleeResponse;
-        public HaloTag GunGunClangDamage;
-        public HaloTag GunGunClangResponse;
-        public HaloTag GunSwordClangDamage;
-        public HaloTag GunSwordClangResponse;
-        public HaloTag ClashEffect;
+        public TagInstance _1stHitDamage;
+        public TagInstance _1stHitResponse;
+        public TagInstance _2ndHitDamage;
+        public TagInstance _2ndHitResponse;
+        public TagInstance _3rdHitDamage;
+        public TagInstance _3rdHitResponse;
+        public TagInstance LungeMeleeDamage;
+        public TagInstance LungeMeleeResponse;
+        public TagInstance GunGunClangDamage;
+        public TagInstance GunGunClangResponse;
+        public TagInstance GunSwordClangDamage;
+        public TagInstance GunSwordClangResponse;
+        public TagInstance ClashEffect;
         public MeleeDamageReportingTypeValue MeleeDamageReportingType;
         public sbyte Unknown9;
         public short MagnificationLevels;
@@ -87,15 +87,15 @@ namespace HaloOnlineTagTool.TagStructures
         public float AiScariness;
         public float WeaponPowerOnTime;
         public float WeaponPowerOffTime;
-        public HaloTag WeaponPowerOnEffect;
-        public HaloTag WeaponPowerOffEffect;
+        public TagInstance WeaponPowerOnEffect;
+        public TagInstance WeaponPowerOffEffect;
         public float AgeHeatRecoveryPenalty;
         public float AgeRateOfFirePenalty;
         public float AgeMisfireStart;
         public float AgeMisfireChance;
-        public HaloTag PickupSound;
-        public HaloTag ZoomInSound;
-        public HaloTag ZoomOutSound;
+        public TagInstance PickupSound;
+        public TagInstance ZoomInSound;
+        public TagInstance ZoomOutSound;
         public float ActiveCamoDing;
         public uint Unknown21;
         public uint Unknown22;
@@ -108,7 +108,7 @@ namespace HaloOnlineTagTool.TagStructures
         public SpecialHudVersionValue SpecialHudVersion;
         public int SpecialHudIcon;
         public List<FirstPersonBlock> FirstPerson;
-        public HaloTag HudInterface;
+        public TagInstance HudInterface;
         public List<PredictedResource> PredictedResources;
         public List<Magazine> Magazines;
         public List<Trigger> Triggers;
@@ -119,11 +119,11 @@ namespace HaloOnlineTagTool.TagStructures
         public float MaximumMovementVelocity;
         public float MaximumTurningAcceleration;
         public float MaximumTurningVelocity;
-        public HaloTag DeployedVehicle;
-        public HaloTag DeployedWeapon;
-        public HaloTag AgeModel;
-        public HaloTag AgeWeapon;
-        public HaloTag AgedMaterialEffects;
+        public TagInstance DeployedVehicle;
+        public TagInstance DeployedWeapon;
+        public TagInstance AgeModel;
+        public TagInstance AgeWeapon;
+        public TagInstance AgedMaterialEffects;
         public float HammerAgePerUse;
         public uint UnknownSwordAgePerUse;
         public float FirstPersonWeaponOffsetI;
@@ -223,8 +223,8 @@ namespace HaloOnlineTagTool.TagStructures
             public float AcquireTime;
             public float GraceTime;
             public float DecayTime;
-            public HaloTag TrackingSound;
-            public HaloTag LockedSound;
+            public TagInstance TrackingSound;
+            public TagInstance LockedSound;
 
             [TagStructure(Size = 0x4)]
             public class TrackingType
@@ -276,8 +276,8 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x20)]
         public class FirstPersonBlock
         {
-            public HaloTag FirstPersonModel;
-            public HaloTag FirstPersonAnimations;
+            public TagInstance FirstPersonModel;
+            public TagInstance FirstPersonAnimations;
         }
 
         [TagStructure(Size = 0x8)]
@@ -285,7 +285,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public short Type;
             public short ResourceIndex;
-            [TagField(Flags = TagFieldFlags.Short)] public HaloTag TagIndex;
+            [TagField(Flags = TagFieldFlags.Short)] public TagInstance TagIndex;
         }
 
         [TagStructure(Size = 0x80)]
@@ -308,10 +308,10 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown6;
             public uint Unknown7;
             public uint Unknown8;
-            public HaloTag ReloadingEffect;
-            public HaloTag ReloadingDamageEffect;
-            public HaloTag ChamberingEffect;
-            public HaloTag ChamberingDamageEffect;
+            public TagInstance ReloadingEffect;
+            public TagInstance ReloadingDamageEffect;
+            public TagInstance ChamberingEffect;
+            public TagInstance ChamberingDamageEffect;
             public List<MagazineEquipmentBlock> MagazineEquipment;
 
             [TagStructure(Size = 0x14)]
@@ -319,7 +319,7 @@ namespace HaloOnlineTagTool.TagStructures
             {
                 public short Rounds0ForMax;
                 public short Unknown;
-                public HaloTag Equipment;
+                public TagInstance Equipment;
             }
         }
 
@@ -343,12 +343,12 @@ namespace HaloOnlineTagTool.TagStructures
             public ushort ChargeFlags;
             public float ChargedIllumination;
             public float SpewTime;
-            public HaloTag ChargingEffect;
-            public HaloTag ChargingDamageEffect;
-            public HaloTag ChargingResponse;
+            public TagInstance ChargingEffect;
+            public TagInstance ChargingDamageEffect;
+            public TagInstance ChargingResponse;
             public float ChargingAgeDegeneration;
-            public HaloTag Unknown2;
-            public HaloTag Unknown3;
+            public TagInstance Unknown2;
+            public TagInstance Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
@@ -464,10 +464,10 @@ namespace HaloOnlineTagTool.TagStructures
             public DamageReportingTypeValue DamageReportingType;
             public sbyte Unknown3;
             public short Unknown4;
-            public HaloTag InitialProjectile;
-            public HaloTag TrailingProjectile;
-            public HaloTag DamageEffect;
-            public HaloTag CrateProjectile;
+            public TagInstance InitialProjectile;
+            public TagInstance TrailingProjectile;
+            public TagInstance DamageEffect;
+            public TagInstance CrateProjectile;
             public float CrateProjectileSpeed;
             public float EjectionPortRecoveryTime;
             public float IlluminationRecoveryTime;
@@ -654,18 +654,18 @@ namespace HaloOnlineTagTool.TagStructures
             {
                 public short ShotCountLowerBound;
                 public short ShotCountUpperBound;
-                public HaloTag FiringEffect2;
-                public HaloTag MisfireEffect;
-                public HaloTag EmptyEffect;
-                public HaloTag UnknownEffect;
-                public HaloTag FiringResponse;
-                public HaloTag MisfireResponse;
-                public HaloTag EmptyResponse;
-                public HaloTag UnknownResponse;
-                public HaloTag RiderFiringResponse;
-                public HaloTag RiderMisfireResponse;
-                public HaloTag RiderEmptyResponse;
-                public HaloTag RiderUnknownResponse;
+                public TagInstance FiringEffect2;
+                public TagInstance MisfireEffect;
+                public TagInstance EmptyEffect;
+                public TagInstance UnknownEffect;
+                public TagInstance FiringResponse;
+                public TagInstance MisfireResponse;
+                public TagInstance EmptyResponse;
+                public TagInstance UnknownResponse;
+                public TagInstance RiderFiringResponse;
+                public TagInstance RiderMisfireResponse;
+                public TagInstance RiderEmptyResponse;
+                public TagInstance RiderUnknownResponse;
             }
         }
 

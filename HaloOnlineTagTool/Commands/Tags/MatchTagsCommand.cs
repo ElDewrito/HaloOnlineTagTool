@@ -140,11 +140,11 @@ namespace HaloOnlineTagTool.Commands.Tags
             if (leftData == null || rightData == null)
                 return;
             var type = leftData.GetType();
-            if (type == typeof(HaloTag))
+            if (type == typeof(TagInstance))
             {
                 // If the objects are tags, then we've found a match
-                var leftTag = (HaloTag)leftData;
-                var rightTag = (HaloTag)rightData;
+                var leftTag = (TagInstance)leftData;
+                var rightTag = (TagInstance)rightData;
                 if (leftTag.GroupTag != rightTag.GroupTag)
                     return;
                 if (leftTag.IsInGroup("rmt2") || leftTag.IsInGroup("rmdf") || leftTag.IsInGroup("vtsh") || leftTag.IsInGroup("pixl") || leftTag.IsInGroup("rm  ") || leftTag.IsInGroup("bitm"))
@@ -235,7 +235,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
         private class QueuedTag
         {
-            public HaloTag Tag { get; set; }
+            public TagInstance Tag { get; set; }
 
             public object Data { get; set; }
         }

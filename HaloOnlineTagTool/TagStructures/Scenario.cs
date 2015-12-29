@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.TagStructures
         public Angle LocalNorth;
         public float SandboxBudget;
         public List<StructureBsp> StructureBsps;
-        public HaloTag Unknown2;
+        public TagInstance Unknown2;
         public List<SkyReference> SkyReferences;
         public List<BspGroup> BspGroups;
         public List<ScenarioBspAudibilityBlock> ScenarioBspAudibility;
@@ -174,10 +174,10 @@ namespace HaloOnlineTagTool.TagStructures
         public List<CutsceneFlag> CutsceneFlags;
         public List<CutsceneCameraPoint> CutsceneCameraPoints;
         public List<CutsceneTitle> CutsceneTitles;
-        public HaloTag CustomObjectNameStrings;
-        public HaloTag ChapterTitleStrings;
+        public TagInstance CustomObjectNameStrings;
+        public TagInstance ChapterTitleStrings;
         [MinVersion(EngineVersion.V11_1_498295_Live)]
-        public HaloTag Unknown156;
+        public TagInstance Unknown156;
         public List<ScenarioResource> ScenarioResources;
         public List<UnitSeatsMappingBlock> UnitSeatsMapping;
         public List<ScenarioKillTrigger> ScenarioKillTriggers;
@@ -245,22 +245,22 @@ namespace HaloOnlineTagTool.TagStructures
         public int ObjectSalts31;
         public int ObjectSalts32;
         public List<SpawnDatum> SpawnData;
-        public HaloTag SoundEffectsCollection;
+        public TagInstance SoundEffectsCollection;
         public List<Crate> Crates;
         public List<CratePaletteBlock> CratePalette;
         public List<FlockPaletteBlock> FlockPalette;
         public List<Flock> Flocks;
-        public HaloTag SubtitleStrings;
+        public TagInstance SubtitleStrings;
         public uint Unknown122;
         public uint Unknown123;
         public uint Unknown124;
         public List<CreaturePaletteBlock> CreaturePalette;
         public List<EditorFolder> EditorFolders;
-        public HaloTag TerritoryLocationNameStrings;
+        public TagInstance TerritoryLocationNameStrings;
         public uint Unknown125;
         public uint Unknown126;
         public List<MissionDialogueBlock> MissionDialogue;
-        public HaloTag ObjectiveStrings;
+        public TagInstance ObjectiveStrings;
         public List<Interpolator> Interpolators;
         public uint Unknown127;
         public uint Unknown128;
@@ -269,13 +269,13 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown131;
         public uint Unknown132;
         public List<SimulationDefinitionTableBlock> SimulationDefinitionTable;
-        public HaloTag DefaultCameraFx;
-        public HaloTag DefaultScreenFx;
-        public HaloTag Unknown133;
-        public HaloTag SkyParameters;
-        public HaloTag GlobalLighing;
-        public HaloTag Lightmap;
-        public HaloTag PerformanceThrottles;
+        public TagInstance DefaultCameraFx;
+        public TagInstance DefaultScreenFx;
+        public TagInstance Unknown133;
+        public TagInstance SkyParameters;
+        public TagInstance GlobalLighing;
+        public TagInstance Lightmap;
+        public TagInstance PerformanceThrottles;
         public List<UnknownBlock4> Unknown134;
         public List<AiObjective> AiObjectives;
         public List<DesignerZoneset> DesignerZonesets;
@@ -300,8 +300,8 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown150;
         public uint Unknown151;
         public uint Unknown152;
-        public HaloTag Unknown153;
-        public HaloTag Unknown154;
+        public TagInstance Unknown153;
+        public TagInstance Unknown154;
         public List<UnknownBlock8> Unknown155;
 
         public enum MapTypeValue : short
@@ -314,9 +314,9 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x6C)]
         public class StructureBsp
         {
-            public HaloTag StructureBsp2;
-            public HaloTag Design;
-            public HaloTag Lighting;
+            public TagInstance StructureBsp2;
+            public TagInstance Design;
+            public TagInstance Lighting;
             public int Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -325,15 +325,15 @@ namespace HaloOnlineTagTool.TagStructures
             public short Unknown6;
             public short Unknown7;
             public short Unknown8;
-            public HaloTag Cubemap;
-            public HaloTag Wind;
+            public TagInstance Cubemap;
+            public TagInstance Wind;
             public int Unknown9;
         }
 
         [TagStructure(Size = 0x14)]
         public class SkyReference
         {
-            public HaloTag SkyObject;
+            public TagInstance SkyObject;
             public short NameIndex;
             public ushort ActiveBsps;
         }
@@ -723,7 +723,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class SceneryPaletteBlock
         {
-            public HaloTag Scenery;
+            public TagInstance Scenery;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -833,7 +833,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class BipedPaletteBlock
         {
-            public HaloTag Biped;
+            public TagInstance Biped;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -993,7 +993,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class VehiclePaletteBlock
         {
-            public HaloTag Vehicle;
+            public TagInstance Vehicle;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1130,7 +1130,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class EquipmentPaletteBlock
         {
-            public HaloTag Equipment;
+            public TagInstance Equipment;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1291,7 +1291,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class WeaponPaletteBlock
         {
-            public HaloTag Weapon;
+            public TagInstance Weapon;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1433,7 +1433,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class MachinePaletteBlock
         {
-            public HaloTag Machine;
+            public TagInstance Machine;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1545,7 +1545,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class TerminalPaletteBlock
         {
-            public HaloTag Terminal;
+            public TagInstance Terminal;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1662,7 +1662,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class AlternateRealityDevicePaletteBlock
         {
-            public HaloTag ArgDevice;
+            public TagInstance ArgDevice;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1776,7 +1776,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class ControlPaletteBlock
         {
-            public HaloTag Control;
+            public TagInstance Control;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1869,7 +1869,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class SoundSceneryPaletteBlock
         {
-            public HaloTag SoundScenery;
+            public TagInstance SoundScenery;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -1989,7 +1989,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class GiantPaletteBlock
         {
-            public HaloTag Giant;
+            public TagInstance Giant;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -2075,7 +2075,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class EffectSceneryBlock2
         {
-            public HaloTag EffectScenery;
+            public TagInstance EffectScenery;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -2192,7 +2192,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class LightVolumesPaletteBlock
         {
-            public HaloTag LightVolume;
+            public TagInstance LightVolume;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -2206,7 +2206,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class SandboxObject
         {
-            public HaloTag Object;
+            public TagInstance Object;
             public StringId Name;
             public int MaxAllowed;
             public float Cost;
@@ -2234,10 +2234,10 @@ namespace HaloOnlineTagTool.TagStructures
             public string Name;
             public float StartingHealthDamage;
             public float StartingShieldDamage;
-            public HaloTag PrimaryWeapon;
+            public TagInstance PrimaryWeapon;
             public short RoundsLoaded;
             public short RoundsTotal;
-            public HaloTag SecondaryWeapon;
+            public TagInstance SecondaryWeapon;
             public short RoundsLoaded2;
             public short RoundsTotal2;
             public uint Unknown;
@@ -2363,13 +2363,13 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class DecalPaletteBlock
         {
-            public HaloTag Decal;
+            public TagInstance Decal;
         }
 
         [TagStructure(Size = 0x10)]
         public class StylePaletteBlock
         {
-            public HaloTag Style;
+            public TagInstance Style;
         }
 
         [TagStructure(Size = 0x28)]
@@ -2399,7 +2399,7 @@ namespace HaloOnlineTagTool.TagStructures
             public List<SingleLocation> SingleLocations;
             public StringId SquadTemplateName;
             [TagField(Flags = TagFieldFlags.Short)]
-            public HaloTag SquadTemplate;
+            public TagInstance SquadTemplate;
             public List<SquadABlock> SquadA;
             public List<SquadBBlock> SquadB;
 
@@ -2858,7 +2858,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class CharacterPaletteBlock
         {
-            public HaloTag Character;
+            public TagInstance Character;
         }
 
         [TagStructure(Size = 0x6C)]
@@ -3217,7 +3217,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class ScriptReference
         {
-            public HaloTag Reference;
+            public TagInstance Reference;
         }
 
         [TagStructure(Size = 0x84)]
@@ -3374,71 +3374,71 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x10)]
             public class ScriptSourceBlock
             {
-                public HaloTag HsSourceFile;
+                public TagInstance HsSourceFile;
             }
 
             [TagStructure(Size = 0x10)]
             public class AiResource
             {
-                public HaloTag AiResource2;
+                public TagInstance AiResource2;
             }
 
             [TagStructure(Size = 0x16C)]
             public class Reference
             {
-                public HaloTag SceneryResource;
+                public TagInstance SceneryResource;
                 public List<OtherSceneryBlock> OtherScenery;
-                public HaloTag BipedsResource;
+                public TagInstance BipedsResource;
                 public List<OtherBiped> OtherBipeds;
-                public HaloTag VehiclesResource;
-                public HaloTag EquipmentResource;
-                public HaloTag WeaponsResource;
-                public HaloTag SoundSceneryResource;
-                public HaloTag LightsResource;
-                public HaloTag DevicesResource;
+                public TagInstance VehiclesResource;
+                public TagInstance EquipmentResource;
+                public TagInstance WeaponsResource;
+                public TagInstance SoundSceneryResource;
+                public TagInstance LightsResource;
+                public TagInstance DevicesResource;
                 public List<OtherDevice> OtherDevices;
-                public HaloTag EffectSceneryResource;
-                public HaloTag DecalsResource;
+                public TagInstance EffectSceneryResource;
+                public TagInstance DecalsResource;
                 public List<OtherDecal> OtherDecals;
-                public HaloTag CinematicsResource;
-                public HaloTag TriggerVolumesResource;
-                public HaloTag ClusterDataResource;
-                public HaloTag CommentsResource;
-                public HaloTag CreatureResource;
-                public HaloTag StructureLightingResource;
-                public HaloTag DecoratorsResource;
+                public TagInstance CinematicsResource;
+                public TagInstance TriggerVolumesResource;
+                public TagInstance ClusterDataResource;
+                public TagInstance CommentsResource;
+                public TagInstance CreatureResource;
+                public TagInstance StructureLightingResource;
+                public TagInstance DecoratorsResource;
                 public List<OtherDecorator> OtherDecorators;
-                public HaloTag SkyReferencesResource;
-                public HaloTag CubemapResource;
+                public TagInstance SkyReferencesResource;
+                public TagInstance CubemapResource;
 
                 [TagStructure(Size = 0x10)]
                 public class OtherSceneryBlock
                 {
-                    public HaloTag SceneryResource;
+                    public TagInstance SceneryResource;
                 }
 
                 [TagStructure(Size = 0x10)]
                 public class OtherBiped
                 {
-                    public HaloTag BipedsResource;
+                    public TagInstance BipedsResource;
                 }
 
                 [TagStructure(Size = 0x10)]
                 public class OtherDevice
                 {
-                    public HaloTag DevicesResource;
+                    public TagInstance DevicesResource;
                 }
 
                 [TagStructure(Size = 0x10)]
                 public class OtherDecal
                 {
-                    public HaloTag DecalsResource;
+                    public TagInstance DecalsResource;
                 }
 
                 [TagStructure(Size = 0x10)]
                 public class OtherDecorator
                 {
-                    public HaloTag DecoratorsResource;
+                    public TagInstance DecoratorsResource;
                 }
             }
         }
@@ -3447,7 +3447,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class UnitSeatsMappingBlock
         {
             [TagField(Flags = TagFieldFlags.Short)]
-            public HaloTag Unit;
+            public TagInstance Unit;
             public uint Seats;
             public uint Seats2;
         }
@@ -3575,12 +3575,12 @@ namespace HaloOnlineTagTool.TagStructures
         public class BackgroundSoundEnvironmentPaletteBlock
         {
             public StringId Name;
-            public HaloTag SoundEnvironment;
+            public TagInstance SoundEnvironment;
             public int Unknown;
             public float CutoffDistance;
             public float InterpolationSpeed;
-            public HaloTag BackgroundSound;
-            public HaloTag InsideClusterSound;
+            public TagInstance BackgroundSound;
+            public TagInstance InsideClusterSound;
             public float CutoffDistance2;
             public uint ScaleFlags;
             public float InteriorScale;
@@ -3630,7 +3630,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class CameraFxBlock
         {
             public StringId Name;
-            public HaloTag CameraFx;
+            public TagInstance CameraFx;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -3644,7 +3644,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x74, MinVersion = EngineVersion.V11_1_498295_Live)]
         public class ScenarioClusterDatum
         {
-            public HaloTag Bsp;
+            public TagInstance Bsp;
             public List<BackgroundSoundEnvironment> BackgroundSoundEnvironments;
             public List<UnknownBlock> Unknown;
             public List<UnknownBlock2> Unknown2;
@@ -3939,7 +3939,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class CratePaletteBlock
         {
-            public HaloTag Crate;
+            public TagInstance Crate;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -3953,7 +3953,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class FlockPaletteBlock
         {
-            public HaloTag Flock;
+            public TagInstance Flock;
         }
 
         [TagStructure(Size = 0x48)]
@@ -4008,7 +4008,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class CreaturePaletteBlock
         {
-            public HaloTag Creature;
+            public TagInstance Creature;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -4030,7 +4030,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class MissionDialogueBlock
         {
-            public HaloTag MissionDialogue;
+            public TagInstance MissionDialogue;
         }
 
         [TagStructure(Size = 0x24)]
@@ -4048,7 +4048,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class SimulationDefinitionTableBlock
         {
             [TagField(Flags = TagFieldFlags.Short)]
-            public HaloTag Tag;
+            public TagInstance Tag;
         }
 
         [TagStructure(Size = 0x10)]
@@ -4299,14 +4299,14 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Cinematic
         {
-            public HaloTag Cinematic2;
+            public TagInstance Cinematic2;
         }
 
         [TagStructure(Size = 0x14)]
         public class CinematicLightingBlock
         {
             public StringId Name;
-            public HaloTag CinematicLight;
+            public TagInstance CinematicLight;
         }
 
         [TagStructure(Size = 0x1C)]
@@ -4356,7 +4356,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class UnknownBlock8
         {
-            public HaloTag Unknown;
+            public TagInstance Unknown;
         }
     }
 }

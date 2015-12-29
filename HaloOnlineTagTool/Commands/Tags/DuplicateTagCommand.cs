@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             if (tag == null)
                 return false;
 
-            HaloTag newTag;
+            TagInstance newTag;
             using (var stream = _info.OpenCacheReadWrite())
                 newTag = _info.Cache.DuplicateTag(stream, tag);
 

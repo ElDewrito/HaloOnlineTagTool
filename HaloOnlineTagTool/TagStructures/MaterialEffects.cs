@@ -24,8 +24,8 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x2C)]
             public class OldMaterial
             {
-                public HaloTag Effect;
-                public HaloTag Sound;
+                public TagInstance Effect;
+                public TagInstance Sound;
                 public StringId MaterialName;
                 public short GlobalMaterialIndex;
                 public SweetenerModeValue SweetenerMode;
@@ -43,8 +43,8 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x2C)]
             public class Sound
             {
-                public HaloTag Tag;
-                public HaloTag SecondaryTag;
+                public TagInstance Tag;
+                public TagInstance SecondaryTag;
                 public StringId MaterialName;
                 public short GlobalMaterialIndex;
                 public SweetenerModeValue SweetenerMode;
@@ -62,8 +62,8 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x2C)]
             public class Effect2
             {
-                public HaloTag Tag;
-                public HaloTag SecondaryTag;
+                public TagInstance Tag;
+                public TagInstance SecondaryTag;
                 public StringId MaterialName;
                 public short GlobalMaterialIndex;
                 public SweetenerModeValue SweetenerMode;

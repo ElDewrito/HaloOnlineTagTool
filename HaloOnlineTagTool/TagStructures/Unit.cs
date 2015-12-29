@@ -14,9 +14,9 @@ namespace HaloOnlineTagTool.TagStructures
         public uint FlagsWarningHalo4Values;
         public DefaultTeamValue DefaultTeam;
         public ConstantSoundVolumeValue ConstantSoundVolume;
-        public HaloTag HologramUnit;
+        public TagInstance HologramUnit;
         public List<MetagameProperty> MetagameProperties;
-        public HaloTag IntegratedLightToggle;
+        public TagInstance IntegratedLightToggle;
         public Angle CameraFieldOfView;
         public float CameraStiffness;
         public short Flags2;
@@ -43,8 +43,8 @@ namespace HaloOnlineTagTool.TagStructures
         public Angle Unknown13;
         public Angle Unknown14;
         public List<UnknownBlock2> Unknown15;
-        public HaloTag AssassinationResponse;
-        public HaloTag AssassinationWeapon;
+        public TagInstance AssassinationResponse;
+        public TagInstance AssassinationWeapon;
         public StringId AssasinationToolStowAnchor;
         public StringId AssasinationToolHandMarker;
         public StringId AssasinationToolMarker;
@@ -64,7 +64,7 @@ namespace HaloOnlineTagTool.TagStructures
         public float StunnedMovementThreshold;
         public float FeignDeathChance;
         public float FeignRepeatChance;
-        public HaloTag SpawnedTurretCharacter;
+        public TagInstance SpawnedTurretCharacter;
         public short SpawnedActorCountMin;
         public short SpawnedActorCountMax;
         public float SpawnedVelocity;
@@ -76,16 +76,16 @@ namespace HaloOnlineTagTool.TagStructures
         public StringId RightHandNode;
         public StringId LeftHandNode;
         public StringId PreferredGunNode;
-        public HaloTag MeleeDamage;
-        public HaloTag BoardingMeleeDamage;
-        public HaloTag BoardingMeleeResponse;
-        public HaloTag EjectionMeleeDamage;
-        public HaloTag EjectionMeleeResponse;
-        public HaloTag LandingMeleeDamage;
-        public HaloTag FlurryMeleeDamage;
-        public HaloTag ObstacleSmashMeleeDamage;
-        public HaloTag ShieldPopDamage;
-        public HaloTag AssassinationDamage;
+        public TagInstance MeleeDamage;
+        public TagInstance BoardingMeleeDamage;
+        public TagInstance BoardingMeleeResponse;
+        public TagInstance EjectionMeleeDamage;
+        public TagInstance EjectionMeleeResponse;
+        public TagInstance LandingMeleeDamage;
+        public TagInstance FlurryMeleeDamage;
+        public TagInstance ObstacleSmashMeleeDamage;
+        public TagInstance ShieldPopDamage;
+        public TagInstance AssassinationDamage;
         public MotionSensorBlipSizeValue MotionSensorBlipSize;
         public ItemScaleValue ItemScale;
         public List<Posture> Postures;
@@ -103,8 +103,8 @@ namespace HaloOnlineTagTool.TagStructures
         public List<TargetTrackingBlock> TargetTracking;
         public List<Seat> Seats;
         public float EmpRadius;
-        public HaloTag EmpEffect;
-        public HaloTag BoostCollisionDamage;
+        public TagInstance EmpEffect;
+        public TagInstance BoostCollisionDamage;
         public float BoostPeakPower;
         public float BoostRisePower;
         public float BoostPeakTime;
@@ -112,8 +112,8 @@ namespace HaloOnlineTagTool.TagStructures
         public float BoostDeadTime;
         public float LipsyncAttackWeight;
         public float LipsyncDecayWeight;
-        public HaloTag DetachDamage;
-        public HaloTag DetachedWeapon;
+        public TagInstance DetachDamage;
+        public TagInstance DetachedWeapon;
 
         public enum DefaultTeamValue : short
         {
@@ -204,7 +204,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class CameraTrack
         {
-            public HaloTag Track;
+            public TagInstance Track;
         }
 
         [TagStructure(Size = 0x4C)]
@@ -234,7 +234,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class CameraTrack2
         {
-            public HaloTag Track;
+            public TagInstance Track;
         }
 
         [TagStructure(Size = 0x4C)]
@@ -288,7 +288,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class HudInterface
         {
-            public HaloTag UnitHudInterface;
+            public TagInstance UnitHudInterface;
         }
 
         [TagStructure(Size = 0x14)]
@@ -296,7 +296,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public short VariantNumber;
             public short Unknown;
-            public HaloTag Dialogue;
+            public TagInstance Dialogue;
         }
 
         public enum GrenadeTypeValue : short
@@ -317,7 +317,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Weapon
         {
-            public HaloTag Weapon2;
+            public TagInstance Weapon2;
         }
 
         [TagStructure(Size = 0x38)]
@@ -327,8 +327,8 @@ namespace HaloOnlineTagTool.TagStructures
             public float AcquireTime;
             public float GraceTime;
             public float DecayTime;
-            public HaloTag TrackingSound;
-            public HaloTag LockedSound;
+            public TagInstance TrackingSound;
+            public TagInstance LockedSound;
 
             [TagStructure(Size = 0x4)]
             public class TrackingType
@@ -383,7 +383,7 @@ namespace HaloOnlineTagTool.TagStructures
             public StringId EnterSeatString;
             public Angle YawRangeMin;
             public Angle YawRangeMax;
-            public HaloTag BuiltInGunner;
+            public TagInstance BuiltInGunner;
             public float EntryRadius;
             public Angle EntryMarkerConeAngle;
             public Angle EntryMarkerFacingAngle;
@@ -404,7 +404,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x10)]
             public class CameraTrack
             {
-                public HaloTag Track;
+                public TagInstance Track;
             }
 
             [TagStructure(Size = 0x4C)]
@@ -434,7 +434,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x10)]
             public class UnitHudInterfaceBlock
             {
-                public HaloTag UnitHudInterface;
+                public TagInstance UnitHudInterface;
             }
         }
     }

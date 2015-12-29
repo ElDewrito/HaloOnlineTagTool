@@ -50,7 +50,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public Angle Unknown4;
                 public Angle Unknown5;
                 public Angle Unknown6;
-                public HaloTag Light;
+                public TagInstance Light;
             }
         }
 
@@ -58,14 +58,14 @@ namespace HaloOnlineTagTool.TagStructures
         public class Bink
         {
             [TagField(Length = 32)] public string Name;
-            public HaloTag Bink2;
+            public TagInstance Bink2;
         }
 
         [TagStructure(Size = 0x4C)]
         public class Mannequin
         {
             public int Unknown;
-            public HaloTag Biped;
+            public TagInstance Biped;
             public int Unknown2;
             public float Unknown3;
             public float Unknown4;
@@ -86,7 +86,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class Weapon
         {
             [TagField(Length = 32)] public string Name;
-            public HaloTag Weapon2;
+            public TagInstance Weapon2;
             public float Unknown;
             public float Unknown2;
             public float Unknown3;

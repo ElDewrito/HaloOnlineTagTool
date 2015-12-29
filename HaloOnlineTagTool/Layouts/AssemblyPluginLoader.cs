@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.Layouts
         /// <param name="name">The name to give the resulting layout.</param>
         /// <param name="groupTag">The group tag to give to the resulting layout.</param>
         /// <returns>The results from loading the plugin.</returns>
-        public static AssemblyPluginLoadResults LoadPlugin(XmlReader reader, string name, MagicNumber groupTag)
+        public static AssemblyPluginLoadResults LoadPlugin(XmlReader reader, string name, Tag groupTag)
         {
             if (!reader.ReadToNextSibling("plugin"))
                 throw new ArgumentException("The XML file is missing a <plugin> tag.");

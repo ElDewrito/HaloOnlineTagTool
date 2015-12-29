@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
         /// <summary>
         /// Gets or sets the render method tag to use to render the material.
         /// </summary>
-        public HaloTag RenderMethod;
+        public TagInstance RenderMethod;
 
         [MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)] public List<Skin> Skins;
         public List<Property> Properties;
@@ -31,7 +31,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
         public class Skin
         {
             public StringId Name;
-            public HaloTag RenderMethod;
+            public TagInstance RenderMethod;
         }
 
         [TagStructure(Size = 0xC)]

@@ -55,10 +55,10 @@ namespace HaloOnlineTagTool.TagStructures
         public float SeatExitAccelerationScale;
         public float FlipTime;
         public StringId FlipOverMessage;
-        public HaloTag SuspensionSound;
-        public HaloTag RunningEffect;
-        public HaloTag UnknownResponse;
-        public HaloTag UnknownResponse2;
+        public TagInstance SuspensionSound;
+        public TagInstance RunningEffect;
+        public TagInstance UnknownResponse;
+        public TagInstance UnknownResponse2;
         public uint Unknown31;
         public uint Unknown32;
 
@@ -79,7 +79,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
             public List<Gear> Gears;
-            public HaloTag ChangeGearSound;
+            public TagInstance ChangeGearSound;
             public uint Unknown2;
             public uint Unknown3;
 
@@ -117,7 +117,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
             public List<Gear> Gears;
-            public HaloTag ChangeGearSound;
+            public TagInstance ChangeGearSound;
             public uint Unknown;
             public uint Unknown2;
 
@@ -287,7 +287,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
             public List<Gear> Gears;
-            public HaloTag ChangeGearSound;
+            public TagInstance ChangeGearSound;
             public uint Unknown;
             public StringId Unknown2;
             public uint Unknown3;

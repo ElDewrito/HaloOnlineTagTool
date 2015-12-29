@@ -45,7 +45,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown2;
         public uint Unknown3;
         public List<PlayerRespons> PlayerResponses;
-        public HaloTag DamageResponse;
+        public TagInstance DamageResponse;
         public float Duration;
         public FadeFunctionValue FadeFunction;
         public short Unknown4;
@@ -62,7 +62,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short Unknown6;
         public float WobbleFunctionPeriod;
         public float WobbleWeight;
-        public HaloTag Sound;
+        public TagInstance Sound;
         public float ForwardVelocity;
         public float ForwardRadius;
         public float ForwardExponent;
