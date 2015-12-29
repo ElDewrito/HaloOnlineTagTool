@@ -105,7 +105,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             Console.WriteLine("CONVERTING FROM VERSION {0} TO {1}", VersionDetection.GetVersionString(_info.Version), VersionDetection.GetVersionString(destInfo.Version));
             Console.WriteLine();
 
-            HaloTag resultTag;
+            TagInstance resultTag;
             using (Stream srcStream = _info.OpenCacheRead(), destStream = destInfo.OpenCacheReadWrite())
                 resultTag = ConvertTag(srcTag, _info, srcStream, srcResources, destInfo, destStream, destResources, tagMap);
 
@@ -135,7 +135,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private static HaloTag ConvertTag(HaloTag srcTag, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private static TagInstance ConvertTag(TagInstance srcTag, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             TagPrinter.PrintTagShort(srcTag);
 
@@ -192,8 +192,8 @@ namespace HaloOnlineTagTool.Commands.Tags
                 return data;
             if (type == typeof(StringId))
                 return ConvertStringId((StringId)data, srcInfo, destInfo);
-            if (type == typeof(HaloTag))
-                return ConvertTag((HaloTag)data, srcInfo, srcStream, srcResources, destInfo, destStream, destResources, tagMap);
+            if (type == typeof(TagInstance))
+                return ConvertTag((TagInstance)data, srcInfo, srcStream, srcResources, destInfo, destStream, destResources, tagMap);
             if (type == typeof(ResourceReference))
                 return ConvertResource((ResourceReference)data, srcInfo, srcResources, destInfo, destResources);
             if (type == typeof(GeometryReference))
