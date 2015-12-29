@@ -59,7 +59,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private bool ExecuteAdd(HaloTag tag, List<string> args)
+        private bool ExecuteAdd(TagInstance tag, List<string> args)
         {
             if (args.Count != 4)
                 return false;
@@ -91,7 +91,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private bool ExecuteRemove(HaloTag tag, List<string> args)
+        private bool ExecuteRemove(TagInstance tag, List<string> args)
         {
             if (args.Count != 3)
                 return false;
@@ -122,7 +122,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private static bool ExecuteList(HaloTag tag, List<string> args)
+        private static bool ExecuteList(TagInstance tag, List<string> args)
         {
             if (args.Count != 2)
                 return false;
@@ -132,7 +132,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private static bool CheckWriteOffset(HaloTag tag, uint writeOffset)
+        private static bool CheckWriteOffset(TagInstance tag, uint writeOffset)
         {
             if (writeOffset < tag.DataSize)
                 return true;
@@ -140,7 +140,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return false;
         }
 
-        private static bool CheckTargetOffset(HaloTag tag, uint targetOffset)
+        private static bool CheckTargetOffset(TagInstance tag, uint targetOffset)
         {
             if (targetOffset < tag.DataSize)
                 return true;

@@ -29,7 +29,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float DangerExtendedShieldDamage;
             public float DangerBodyDamage;
             public float DangerExtendedBodyDamage;
-            public HaloTag GlobalDialogue;
+            public TagInstance GlobalDialogue;
             public StringId DefaultMissionDialogueSoundEffect;
             public float JumpDown;
             public float JumpStep;
@@ -100,19 +100,19 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x10)]
             public class Style
             {
-                public HaloTag Style2;
+                public TagInstance Style2;
             }
 
             [TagStructure(Size = 0x10)]
             public class Formation
             {
-                public HaloTag Formations;
+                public TagInstance Formations;
             }
 
             [TagStructure(Size = 0x10)]
             public class SquadTemplate
             {
-                public HaloTag SquadTemplate2;
+                public TagInstance SquadTemplate2;
             }
         }
     }

@@ -56,7 +56,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 foreach (var groupTag in _cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
                 {
                     TagLayoutGuess layout = null;
-                    HaloTag lastTag = null;
+                    TagInstance lastTag = null;
                     foreach (var tag in _cache.Tags.FindAllInGroup(groupTag))
                     {
                         Console.Write("Analyzing ");

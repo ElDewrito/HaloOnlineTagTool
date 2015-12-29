@@ -1,13 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using HaloOnlineTagTool.Serialization;
-using HaloOnlineTagTool.TagStructures;
 using HaloOnlineTagTool.Common;
-using System.Collections;
+using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.Commands.Editing
 {
@@ -17,13 +13,13 @@ namespace HaloOnlineTagTool.Commands.Editing
 
         public OpenTagCache Info { get; }
 
-        public HaloTag Tag { get; }
+        public TagInstance Tag { get; }
 
         public TagStructureInfo Structure { get; set; }
 
         public object Owner { get; set; }
 
-        public SetFieldCommand(CommandContextStack stack, OpenTagCache info, HaloTag tag, TagStructureInfo structure, object owner)
+        public SetFieldCommand(CommandContextStack stack, OpenTagCache info, TagInstance tag, TagStructureInfo structure, object owner)
             : base(CommandFlags.Inherit,
                   "SetField",
                   $"Sets the value of a specific field in the current {structure.Types[0].Name} definition.",
@@ -43,6 +39,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                 return false;
 
             var fieldName = args[0];
+            var fieldNameLow = fieldName.ToLower();
 
             var previousContext = Stack.Context;
             var previousOwner = Owner;
@@ -53,6 +50,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                 var lastIndex = fieldName.LastIndexOf('.');
                 var blockName = fieldName.Substring(0, lastIndex);
                 fieldName = fieldName.Substring(lastIndex + 1, (fieldName.Length - lastIndex) - 1);
+                fieldNameLow = fieldName.ToLower();
 
                 var command = new EditBlockCommand(Stack, Info, Tag, Owner);
 
@@ -79,7 +77,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             }
 
             var enumerator = new TagFieldEnumerator(Structure);
-            var field = enumerator.Find(f => f.Name == fieldName);
+            var field = enumerator.Find(f => f.Name == fieldName || f.Name.ToLower() == fieldNameLow);
 
             if (field == null)
             {
@@ -93,7 +91,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             var fieldType = field.FieldType;
             var fieldValue = ParseArgs(field.FieldType, args.Skip(1).ToList());
 
-            if (fieldValue.Equals(false))
+            if (fieldValue != null && fieldValue.Equals(false))
             {
                 while (Stack.Context != previousContext) Stack.Pop();
                 Owner = previousOwner;
@@ -217,7 +215,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                     return false;
                 output = value;
             }
-            else if (type == typeof(HaloTag))
+            else if (type == typeof(TagInstance))
             {
                 if (args.Count != 1)
                     return false;
@@ -237,6 +235,32 @@ namespace HaloOnlineTagTool.Commands.Editing
                 if (!float.TryParse(input, out value))
                     return false;
                 output = Angle.FromDegrees(value);
+            }
+            else if (type == typeof(Euler2))
+            {
+                if (args.Count != 2)
+                    return false;
+                float yaw, pitch;
+                if (!float.TryParse(args[0], out yaw) ||
+                    !float.TryParse(args[1], out pitch))
+                    return false;
+                output = new Euler2(
+                    Angle.FromDegrees(yaw),
+                    Angle.FromDegrees(pitch));
+            }
+            else if (type == typeof(Euler3))
+            {
+                if (args.Count != 2)
+                    return false;
+                float yaw, pitch, roll;
+                if (!float.TryParse(args[0], out yaw) ||
+                    !float.TryParse(args[1], out pitch) ||
+                    !float.TryParse(args[2], out roll))
+                    return false;
+                output = new Euler3(
+                    Angle.FromDegrees(yaw),
+                    Angle.FromDegrees(pitch),
+                    Angle.FromDegrees(roll));
             }
             else if (type == typeof(Vector2))
             {
@@ -276,8 +300,9 @@ namespace HaloOnlineTagTool.Commands.Editing
                 if (args.Count != 1)
                     return false;
 
-                var names = Enum.GetNames(type).ToList();
-                var found = names.Find(n => n == args[0]);
+                var nameLow = args[0].ToLower();
+                var names = Enum.GetNames(type).Select(i => i.ToLower()).ToList();
+                var found = names.Find(n => n == nameLow);
 
                 if (found == null)
                 {
@@ -292,7 +317,8 @@ namespace HaloOnlineTagTool.Commands.Editing
                     return false;
                 }
 
-                output = Enum.Parse(type, args[0]);
+                var values = Enum.GetValues(type);
+                output = values.GetValue(names.IndexOf(nameLow));
             }
             else if (type == typeof(Range<>))
             {
@@ -328,10 +354,14 @@ namespace HaloOnlineTagTool.Commands.Editing
                 type == typeof(long) ||
                 type == typeof(ulong) ||
                 type == typeof(float) ||
-                type == typeof(HaloTag) ||
+                type == typeof(TagInstance) ||
                 type == typeof(StringId) ||
                 type == typeof(Angle))
                 return 1;
+            else if (type == typeof(Euler2))
+                return 2;
+            else if (type == typeof(Euler3))
+                return 3;
             else if (type == typeof(Vector2))
                 return 2;
             else if (type == typeof(Vector3))

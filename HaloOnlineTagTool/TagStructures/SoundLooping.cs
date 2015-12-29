@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
-        public HaloTag Unused;
+        public TagInstance Unused;
         public SoundClassValue SoundClass;
         public short Unknown4;
         public List<Track> Tracks;
@@ -103,15 +103,15 @@ namespace HaloOnlineTagTool.TagStructures
             public float FadeOutDuration;
             public short Unknown2;
             public short Unknown3;
-            public HaloTag In;
-            public HaloTag Loop;
-            public HaloTag Out;
-            public HaloTag AlternateLoop;
-            public HaloTag AlternateOut;
+            public TagInstance In;
+            public TagInstance Loop;
+            public TagInstance Out;
+            public TagInstance AlternateLoop;
+            public TagInstance AlternateOut;
             public OutputEffectValue OutputEffect;
             public short Unknown4;
-            public HaloTag AlternateTransitionIn;
-            public HaloTag AlternateTransitionOut;
+            public TagInstance AlternateTransitionIn;
+            public TagInstance AlternateTransitionOut;
             public float AlternateCrossfadeDuration;
             public uint Unknown5;
             public float AlternateFadeOutDuration;
@@ -130,7 +130,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class DetailSound
         {
             public StringId Name;
-            public HaloTag Sound;
+            public TagInstance Sound;
             public float RandomPeriodBoundsMin;
             public float RandomPeriodBoundsMax;
             public uint Unknown;

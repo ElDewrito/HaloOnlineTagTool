@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace HaloOnlineTagTool.Commands.Core
 {
     class HelpCommand : Command
     {
-        private readonly CommandContextStack _contextStack;
+        private CommandContextStack ContextStack { get; }
  
         public HelpCommand(CommandContextStack contextStack) : base(
             CommandFlags.Inherit,
@@ -20,7 +19,7 @@ namespace HaloOnlineTagTool.Commands.Core
             "Displays help on how to use a command.\n" +
             "If no command is given, help will list all available commands.")
         {
-            _contextStack = contextStack;
+            ContextStack = contextStack;
         }
 
         public override bool Execute(List<string> args)
@@ -36,7 +35,7 @@ namespace HaloOnlineTagTool.Commands.Core
 
         private void ListCommands()
         {
-            ListCommands(_contextStack.Context, new HashSet<string>());
+            ListCommands(ContextStack.Context, new HashSet<string>());
             Console.WriteLine("Use \"help <command>\" for more information on how to use a command.");
             Console.WriteLine();
             Console.WriteLine("To write the output of a command to a file instead of the screen,");
@@ -71,7 +70,7 @@ namespace HaloOnlineTagTool.Commands.Core
 
         private void DisplayCommandHelp(string commandName)
         {
-            var command = _contextStack.Context.GetCommand(commandName);
+            var command = ContextStack.Context.GetCommand(commandName);
             if (command == null)
             {
                 Console.WriteLine("Unable to find command: " + commandName);
@@ -87,7 +86,7 @@ namespace HaloOnlineTagTool.Commands.Core
 
         private bool IsAvailable(CommandContext context, Command command)
         {
-            return ((command.Flags & CommandFlags.Inherit) != 0 || _contextStack.Context == context);
+            return ((command.Flags & CommandFlags.Inherit) != 0 || ContextStack.Context == context);
         }
     }
 }

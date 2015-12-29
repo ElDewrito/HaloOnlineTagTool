@@ -31,7 +31,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short Unknown6;
         public uint Unknown7;
         public byte[] Function2;
-        public HaloTag GelMap;
+        public TagInstance GelMap;
         public uint Unknown8;
         public uint Unknown9;
         public uint Unknown10;
@@ -40,7 +40,7 @@ namespace HaloOnlineTagTool.TagStructures
         public sbyte Unknown13;
         public sbyte Unknown14;
         public sbyte Unknown15;
-        public HaloTag LensFlare;
+        public TagInstance LensFlare;
 
         public enum TypeValue : short
         {

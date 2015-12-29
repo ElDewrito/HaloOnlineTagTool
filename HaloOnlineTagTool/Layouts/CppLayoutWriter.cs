@@ -64,7 +64,7 @@ namespace HaloOnlineTagTool.Layouts
                 SetIndent(indent);
             }
 
-            public void Begin(string name, uint size, MagicNumber groupTag)
+            public void Begin(string name, uint size, Tag groupTag)
             {
                 _name = name;
                 _size = size;

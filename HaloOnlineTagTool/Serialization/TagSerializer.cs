@@ -188,8 +188,8 @@ namespace HaloOnlineTagTool.Serialization
                 SerializePrimitiveValue(block.Writer, val, valueType.GetEnumUnderlyingType());
             else if (valueType == typeof(string))
                 SerializeString(block.Writer, (string)val, valueInfo);
-            else if (valueType == typeof(HaloTag))
-                SerializeTagReference(block.Writer, (HaloTag)val, valueInfo);
+            else if (valueType == typeof(TagInstance))
+                SerializeTagReference(block.Writer, (TagInstance)val, valueInfo);
             else if (valueType == typeof(ResourceAddress))
                 block.Writer.Write(((ResourceAddress)val).Value);
             else if (valueType == typeof(byte[]))
@@ -245,7 +245,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="writer">The writer to write to.</param>
         /// <param name="referencedTag">The referenced tag.</param>
         /// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
-        private static void SerializeTagReference(BinaryWriter writer, HaloTag referencedTag, TagFieldAttribute valueInfo)
+        private static void SerializeTagReference(BinaryWriter writer, TagInstance referencedTag, TagFieldAttribute valueInfo)
         {
             // Write the reference out
             if (valueInfo == null || (valueInfo.Flags & TagFieldFlags.Short) == 0)

@@ -138,7 +138,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x18)]
         public class CollisionMaterial
         {
-            public HaloTag Shader;
+            public TagInstance Shader;
             public short GlobalMaterialIndex;
             public short ConveyorSurfaceIndex;
             public short SeamIndex;
@@ -214,7 +214,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class CameraEffect
         {
             public StringId Name;
-            public HaloTag Effect;
+            public TagInstance Effect;
             public sbyte Unknown;
             public sbyte Unknown2;
             public sbyte Unknown3;
@@ -296,7 +296,7 @@ namespace HaloOnlineTagTool.TagStructures
             public int Unknown12;
             public uint Unknown13;
             public uint Unknown14;
-            public HaloTag Bsp;
+            public TagInstance Bsp;
             public int ClusterIndex;
             public int Unknown15;
             public short Size2;
@@ -382,12 +382,12 @@ namespace HaloOnlineTagTool.TagStructures
         public class BackgroundSoundEnvironmentPaletteBlock
         {
             public StringId Name;
-            public HaloTag SoundEnvironment;
+            public TagInstance SoundEnvironment;
             public uint Unknown;
             public float CutoffDistance;
             public float InterpolationSpeed;
-            public HaloTag BackgroundSound;
-            public HaloTag InsideClusterSound;
+            public TagInstance BackgroundSound;
+            public TagInstance InsideClusterSound;
             public float CutoffDistance2;
             public uint ScaleFlags;
             public float InteriorScale;
@@ -412,7 +412,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Light
         {
-            public HaloTag Light2;
+            public TagInstance Light2;
         }
 
         [TagStructure(Size = 0x2)]
@@ -440,8 +440,8 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x24)]
         public class EnvironmentObjectPaletteBlock
         {
-            public HaloTag Definition;
-            public HaloTag Model;
+            public TagInstance Definition;
+            public TagInstance Model;
             public uint ObjectType;
         }
 
@@ -545,7 +545,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Decorator
         {
-            public HaloTag Decorator2;
+            public TagInstance Decorator2;
         }
 
         [TagStructure(Size = 0x1C)]
@@ -652,7 +652,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public short Unknown;
             public short Unknown2;
-            public HaloTag LeafSystem2;
+            public TagInstance LeafSystem2;
             public uint Unknown3;
             public uint Unknown4;
             public uint Unknown5;

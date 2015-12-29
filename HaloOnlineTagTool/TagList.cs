@@ -9,15 +9,15 @@ namespace HaloOnlineTagTool
     /// <summary>
     /// Wraps a list of tags.
     /// </summary>
-    public class TagList : IEnumerable<HaloTag>
+    public class TagList : IEnumerable<TagInstance>
     {
-        private readonly IList<HaloTag> _tags;
+        private readonly IList<TagInstance> _tags;
 
         /// <summary>
         /// Constructs a tag list which wraps a list of tags.
         /// </summary>
         /// <param name="tags">The list of tags to wrap.</param>
-        public TagList(IList<HaloTag> tags)
+        public TagList(IList<TagInstance> tags)
         {
             _tags = tags;
         }
@@ -35,7 +35,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <returns><c>true</c> if the tag is in the list.</returns>
-        public bool Contains(HaloTag tag)
+        public bool Contains(TagInstance tag)
         {
             if (tag == null)
                 throw new ArgumentNullException("tag");
@@ -53,11 +53,11 @@ namespace HaloOnlineTagTool
         }
 
         /// <summary>
-        /// Gets the <see cref="HaloTag"/> with a specified index.
+        /// Gets the <see cref="TagInstance"/> with a specified index.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The corresponding tag. Can be <c>null</c>.</returns>
-        public HaloTag this[int index]
+        public TagInstance this[int index]
         {
             get { return _tags[index]; }
         }
@@ -67,7 +67,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTag">The group tag.</param>
         /// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
-        public HaloTag FindFirstInGroup(MagicNumber groupTag)
+        public TagInstance FindFirstInGroup(Tag groupTag)
         {
             return NonNull().FirstOrDefault(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
         }
@@ -77,9 +77,9 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTag">The group tag as a string.</param>
         /// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
-        public HaloTag FindFirstInGroup(string groupTag)
+        public TagInstance FindFirstInGroup(string groupTag)
         {
-            return FindFirstInGroup(new MagicNumber(groupTag));
+            return FindFirstInGroup(new Tag(groupTag));
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTag">The group tag.</param>
         /// <returns>All tags in the given group.</returns>
-        public IEnumerable<HaloTag> FindAllInGroup(MagicNumber groupTag)
+        public IEnumerable<TagInstance> FindAllInGroup(Tag groupTag)
         {
             return NonNull().Where(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
         }
@@ -97,9 +97,9 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTag">The group tag as a string.</param>
         /// <returns>All tags in the given group.</returns>
-        public IEnumerable<HaloTag> FindAllInGroup(string groupTag)
+        public IEnumerable<TagInstance> FindAllInGroup(string groupTag)
         {
-            return FindAllInGroup(new MagicNumber(groupTag));
+            return FindAllInGroup(new Tag(groupTag));
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTags">The group tags.</param>
         /// <returns>All tags which belong to at least one of the groups.</returns>
-        public IEnumerable<HaloTag> FindAllByClasses(ICollection<MagicNumber> groupTags)
+        public IEnumerable<TagInstance> FindAllByClasses(ICollection<Tag> groupTags)
         {
             return NonNull().Where(t => groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag));
         }
@@ -117,9 +117,9 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="tag">The tag to scan.</param>
         /// <returns>A set of all tags that the tag depends on.</returns>
-        public HashSet<HaloTag> FindDependencies(HaloTag tag)
+        public HashSet<TagInstance> FindDependencies(TagInstance tag)
         {
-            var result = new HashSet<HaloTag>();
+            var result = new HashSet<TagInstance>();
             FindDependencies(result, tag);
             return result;
         }
@@ -129,12 +129,12 @@ namespace HaloOnlineTagTool
         /// This should be preferred over doing this manually because it also skips tags that are in the process of being created.
         /// </summary>
         /// <returns>A collection of tags which are not null.</returns>
-        public IEnumerable<HaloTag> NonNull()
+        public IEnumerable<TagInstance> NonNull()
         {
             return _tags.Where(t => t != null && t.HeaderOffset >= 0 && t.DataOffset >= 0);
         }
 
-        private void FindDependencies(ISet<HaloTag> results, HaloTag tag)
+        private void FindDependencies(ISet<TagInstance> results, TagInstance tag)
         {
             foreach (var index in tag.Dependencies)
             {
@@ -148,7 +148,7 @@ namespace HaloOnlineTagTool
             }
         }
 
-        public IEnumerator<HaloTag> GetEnumerator()
+        public IEnumerator<TagInstance> GetEnumerator()
         {
             return _tags.GetEnumerator();
         }

@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "model_animation_graph", Class = "jmad", Size = 0x104)]
     public class ModelAnimationGraph
     {
-        public HaloTag ParentAnimationGraph;
+        public TagInstance ParentAnimationGraph;
         public byte InheritanceFlags;
         public byte PrivateFlags;
         public short AnimationCodecPack;
@@ -68,7 +68,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x14)]
         public class SoundReference
         {
-            public HaloTag Sound;
+            public TagInstance Sound;
             public ushort Flags;
             public short Unknown;
         }
@@ -76,7 +76,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x14)]
         public class EffectReference
         {
-            public HaloTag Effect;
+            public TagInstance Effect;
             public ushort Flags;
             public short Unknown;
         }
@@ -406,7 +406,7 @@ namespace HaloOnlineTagTool.TagStructures
                         public class SyncBipedBlock
                         {
                             public int Unknown;
-                            public HaloTag Biped;
+                            public TagInstance Biped;
                         }
                     }
                 }
@@ -457,7 +457,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x30)]
         public class InheritanceListBlock
         {
-            public HaloTag InheritedGraph;
+            public TagInstance InheritedGraph;
             public List<NodeMapBlock> NodeMap;
             public List<NodeMapFlag> NodeMapFlags;
             public float RootZOffset;

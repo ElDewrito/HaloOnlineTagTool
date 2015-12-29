@@ -18,7 +18,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class UiSound
         {
-            public HaloTag Sound;
+            public TagInstance Sound;
         }
     }
 }

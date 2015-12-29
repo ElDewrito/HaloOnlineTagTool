@@ -12,8 +12,8 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "render_method_template", Class = "rmt2", Size = 0x84)]
     public class RenderMethodTemplate
     {
-        public HaloTag VertexShader;
-        public HaloTag PixelShader;
+        public TagInstance VertexShader;
+        public TagInstance PixelShader;
         public uint DrawModeBitmask;
         public List<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
         public List<UnknownBlock2> Unknown3;

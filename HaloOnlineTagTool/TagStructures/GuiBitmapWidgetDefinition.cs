@@ -24,9 +24,9 @@ namespace HaloOnlineTagTool.TagStructures
         public short StandardXBoundsMin;
         public short StandardYBoundsMax;
         public short StandardXBoundsMax;
-        public HaloTag Animation;
-        public HaloTag Bitmap;
-        public HaloTag Unknown2;
+        public TagInstance Animation;
+        public TagInstance Bitmap;
+        public TagInstance Unknown2;
         public BlendMethodValue BlendMethod;
         public short Unknown3;
         public short SpriteIndex;

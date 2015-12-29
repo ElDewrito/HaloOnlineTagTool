@@ -14,13 +14,13 @@ namespace HaloOnlineTagTool.TagStructures
     {
         public uint Unknown;
         public uint Unknown2;
-        public HaloTag WidgetColor;
-        public HaloTag WidgetPosition;
-        public HaloTag WidgetRotation;
-        public HaloTag WidgetScale;
-        public HaloTag WidgetTextureCoordinate;
-        public HaloTag WidgetSprite;
-        public HaloTag WidgetFont;
+        public TagInstance WidgetColor;
+        public TagInstance WidgetPosition;
+        public TagInstance WidgetRotation;
+        public TagInstance WidgetScale;
+        public TagInstance WidgetTextureCoordinate;
+        public TagInstance WidgetSprite;
+        public TagInstance WidgetFont;
         public uint Unknown3;
         public uint Unknown4;
     }

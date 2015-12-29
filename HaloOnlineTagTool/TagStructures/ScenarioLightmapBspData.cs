@@ -70,8 +70,8 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown48;
         public uint Unknown49;
         public uint Unknown50;
-        public HaloTag PrimaryMap;
-        public HaloTag IntensityMap;
+        public TagInstance PrimaryMap;
+        public TagInstance IntensityMap;
         public List<InstancedMesh> InstancedMeshes;
         public List<UnknownBlock> Unknown51;
         public List<InstancedGeometryBlock> InstancedGeometry;

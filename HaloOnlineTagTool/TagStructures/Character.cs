@@ -13,11 +13,11 @@ namespace HaloOnlineTagTool.TagStructures
     public class Character
     {
         public uint CharacterFlags;
-        public HaloTag ParentCharacter;
-        public HaloTag Unit;
-        public HaloTag Creature;
-        public HaloTag Style;
-        public HaloTag MajorCharacter;
+        public TagInstance ParentCharacter;
+        public TagInstance Unit;
+        public TagInstance Creature;
+        public TagInstance Style;
+        public TagInstance MajorCharacter;
         public List<Variant> Variants;
         public List<UnitDialogueBlock> UnitDialogue;
         public List<GeneralProperty> GeneralProperties;
@@ -69,7 +69,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x18)]
             public class DialogueVariation
             {
-                public HaloTag Dialogue;
+                public TagInstance Dialogue;
                 public StringId Name;
                 public uint Unknown;
             }
@@ -83,7 +83,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x18)]
             public class DialogueVariation
             {
-                public HaloTag Dialogue;
+                public TagInstance Dialogue;
                 public StringId Name;
                 public uint Unknown;
             }
@@ -164,7 +164,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float SuicideRadius;
             public uint Unknown;
             public uint Unknown2;
-            public HaloTag BackupWeapon;
+            public TagInstance BackupWeapon;
         }
 
         [TagStructure(Size = 0x34)]
@@ -347,7 +347,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float StandDangerThreshold;
             public float FightDangerMoveThreshold;
             public uint Unknown2;
-            public HaloTag Unknown3;
+            public TagInstance Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
@@ -376,7 +376,7 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown3;
             public uint Unknown4;
             public uint Unknown5;
-            public HaloTag BerserkWeapon;
+            public TagInstance BerserkWeapon;
             public uint Unknown6;
             public uint Unknown7;
             public uint Unknown8;
@@ -450,7 +450,7 @@ namespace HaloOnlineTagTool.TagStructures
             public Angle ZigZagAngle;
             public float ZigZagPeriod;
             public float RetreatGrenadeChance;
-            public HaloTag BackupWeapon;
+            public TagInstance BackupWeapon;
         }
 
         [TagStructure(Size = 0x20)]
@@ -530,7 +530,7 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown7;
             public uint Unknown8;
             public uint Unknown9;
-            public HaloTag Unknown10;
+            public TagInstance Unknown10;
         }
 
         [TagStructure(Size = 0x14)]
@@ -558,7 +558,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class WeaponsProperty
         {
             public uint WeaponFlags;
-            public HaloTag Weapon;
+            public TagInstance Weapon;
             public float MaximumFiringRange;
             public float MinimumFiringRange;
             public float NormalCombatRangeMin;
@@ -606,7 +606,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float LegendaryAccuracyBoundsMax;
             public float LegendaryAccuracyTime;
             public List<FiringPattern> FiringPatterns;
-            public HaloTag WeaponMeleeDamage;
+            public TagInstance WeaponMeleeDamage;
 
             public enum SpecialFireModeValue : short
             {
@@ -648,7 +648,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x1C)]
         public class FiringPatternProperty
         {
-            public HaloTag Weapon;
+            public TagInstance Weapon;
             public List<FiringPattern> FiringPatterns;
 
             [TagStructure(Size = 0x40)]
@@ -713,8 +713,8 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0xD0)]
         public class VehicleProperty
         {
-            public HaloTag Unit;
-            public HaloTag Style;
+            public TagInstance Unit;
+            public TagInstance Style;
             public uint VehicleFlags;
             public float AiPathfindingRadius;
             public float AiDestinationRadius;
@@ -777,13 +777,13 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0xE4)]
         public class MorphProperty
         {
-            public HaloTag MorphCharacter1;
-            public HaloTag MorphCharacter2;
-            public HaloTag MorphCharacter3;
-            public HaloTag MorphMuffin;
-            public HaloTag MorphWeapon1;
-            public HaloTag MorphWeapon2;
-            public HaloTag MorphWeapon3;
+            public TagInstance MorphCharacter1;
+            public TagInstance MorphCharacter2;
+            public TagInstance MorphCharacter3;
+            public TagInstance MorphMuffin;
+            public TagInstance MorphWeapon1;
+            public TagInstance MorphWeapon2;
+            public TagInstance MorphWeapon3;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -792,7 +792,7 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown6;
             public uint Unknown7;
             public uint Unknown8;
-            public HaloTag Character;
+            public TagInstance Character;
             public uint Unknown9;
             public StringId Unknown10;
             public uint Unknown11;
@@ -815,7 +815,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x24)]
         public class EquipmentProperty
         {
-            public HaloTag Equipment;
+            public TagInstance Equipment;
             public uint Unknown;
             public float UsageChance;
             public List<UsageCondition> UsageConditions;
@@ -891,7 +891,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class ActAttachment
         {
             public StringId Name;
-            public HaloTag ChildObject;
+            public TagInstance ChildObject;
             public StringId ChildMarker;
             public StringId ParentMarker;
         }

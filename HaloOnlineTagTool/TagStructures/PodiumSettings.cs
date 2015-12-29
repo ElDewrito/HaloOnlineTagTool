@@ -20,7 +20,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown6;
         public Angle Unknown7;
         public int Unknown8;
-        public HaloTag Unknown9;
+        public TagInstance Unknown9;
         public List<UnknownBlock> Unknown10;
 
         [TagStructure(Size = 0x2C)]
@@ -33,7 +33,7 @@ namespace HaloOnlineTagTool.TagStructures
             public uint Unknown5;
             public uint Unknown6;
             public int Unknown7;
-            public HaloTag Effect;
+            public TagInstance Effect;
         }
     }
 }

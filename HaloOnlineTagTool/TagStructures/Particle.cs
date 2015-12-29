@@ -25,7 +25,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown7;
         public uint Unknown8;
         public uint Unknown9;
-        public HaloTag BaseRenderMethod;
+        public TagInstance BaseRenderMethod;
         public List<UnknownBlock2> Unknown10;
         public List<ImportDatum> ImportData;
         public List<ShaderProperty> ShaderProperties;
@@ -85,7 +85,7 @@ namespace HaloOnlineTagTool.TagStructures
         public byte[] Unknown36;
         public uint Unknown37;
         public uint Unknown38;
-        public HaloTag ParticleModel;
+        public TagInstance ParticleModel;
         public uint Unknown39;
         public uint Unknown40;
         public uint Unknown41;
@@ -98,7 +98,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x14)]
         public class UnknownBlock
         {
-            public HaloTag Unknown;
+            public TagInstance Unknown;
             public uint Unknown2;
         }
 
@@ -113,7 +113,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public StringId MaterialType;
             public int Unknown;
-            public HaloTag Bitmap;
+            public TagInstance Bitmap;
             public uint Unknown2;
             public int Unknown3;
             public short Unknown4;
@@ -139,7 +139,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x84)]
         public class ShaderProperty
         {
-            public HaloTag Template;
+            public TagInstance Template;
             public List<ShaderMap> ShaderMaps;
             public List<Argument> Arguments;
             public List<UnknownBlock> Unknown;
@@ -163,7 +163,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x18)]
             public class ShaderMap
             {
-                public HaloTag Bitmap;
+                public TagInstance Bitmap;
                 public sbyte Unknown;
                 public sbyte BitmapIndex;
                 public sbyte Unknown2;

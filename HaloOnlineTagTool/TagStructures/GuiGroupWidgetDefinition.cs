@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short StandardXOffset;
         public short StandardYUnknown;
         public short StandardXUnknown;
-        public HaloTag Animation;
+        public TagInstance Animation;
         public List<ListWidget> ListWidgets;
         public List<TextWidget> TextWidgets;
         public List<BitmapWidget> BitmapWidgets;
@@ -34,7 +34,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x80)]
         public class ListWidget
         {
-            public HaloTag Parent;
+            public TagInstance Parent;
             public uint Flags;
             public StringId Name;
             public short Unknown;
@@ -47,13 +47,13 @@ namespace HaloOnlineTagTool.TagStructures
             public short StandardXOffset;
             public short StandardYUnknown;
             public short StandardXUnknown;
-            public HaloTag Animation;
+            public TagInstance Animation;
             public StringId DataSourceName;
-            public HaloTag Skin;
+            public TagInstance Skin;
             public int RowCount;
             public List<ListWidgetItem> ListWidgetItems;
-            public HaloTag UpArrowBitmap;
-            public HaloTag DownArrowBitmap;
+            public TagInstance UpArrowBitmap;
+            public TagInstance DownArrowBitmap;
 
             [TagStructure(Size = 0x30)]
             public class ListWidgetItem
@@ -70,7 +70,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public short StandardXOffset;
                 public short StandardYUnknown;
                 public short StandardXUnknown;
-                public HaloTag Animation;
+                public TagInstance Animation;
                 public StringId Target;
             }
         }
@@ -78,7 +78,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x4C)]
         public class TextWidget
         {
-            public HaloTag Parent;
+            public TagInstance Parent;
             public uint Flags;
             public StringId Name;
             public short Unknown;
@@ -91,7 +91,7 @@ namespace HaloOnlineTagTool.TagStructures
             public short StandardXBoundsMin;
             public short StandardYBoundsMax;
             public short StandardXBoundsMax;
-            public HaloTag Animation;
+            public TagInstance Animation;
             public StringId DataSourceName;
             public StringId TextString;
             public StringId TextColor;
@@ -102,7 +102,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x6C)]
         public class BitmapWidget
         {
-            public HaloTag Parent;
+            public TagInstance Parent;
             public uint Flags;
             public StringId Name;
             public short Unknown;
@@ -115,9 +115,9 @@ namespace HaloOnlineTagTool.TagStructures
             public short StandardXBoundsMin;
             public short StandardYBoundsMax;
             public short StandardXBoundsMax;
-            public HaloTag Animation;
-            public HaloTag Bitmap;
-            public HaloTag Unknown2;
+            public TagInstance Animation;
+            public TagInstance Bitmap;
+            public TagInstance Unknown2;
             public BlendMethodValue BlendMethod;
             public short Unknown3;
             public short SpriteIndex;
@@ -147,7 +147,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x94)]
         public class ModelWidget
         {
-            public HaloTag Parent;
+            public TagInstance Parent;
             public uint Flags;
             public StringId Name;
             public short Unknown;
@@ -160,7 +160,7 @@ namespace HaloOnlineTagTool.TagStructures
             public short StandardXBoundsMin;
             public short StandardYBoundsMax;
             public short StandardXBoundsMax;
-            public HaloTag Animation;
+            public TagInstance Animation;
             public List<UnknownBlock> Unknown3;
             public uint Unknown4;
             public uint Unknown5;
@@ -220,7 +220,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public Angle Unknown30;
                 public uint Unknown31;
                 public uint Unknown32;
-                public HaloTag Unknown33;
+                public TagInstance Unknown33;
                 public uint Unknown34;
 
                 [TagStructure(Size = 0x14)]

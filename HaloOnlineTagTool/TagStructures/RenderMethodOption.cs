@@ -21,7 +21,7 @@ namespace HaloOnlineTagTool.TagStructures
             public StringId Type;
             public uint Unknown;
             public uint Unknown2;
-            public HaloTag Unknown3;
+            public TagInstance Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;

@@ -31,7 +31,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="cache">The cache file to write to.</param>
         /// <param name="stringIds">The stringID source to use.</param>
         /// <param name="tag">The tag to overwrite.</param>
-        public TagSerializationContext(Stream stream, TagCache cache, StringIdCache stringIds, HaloTag tag)
+        public TagSerializationContext(Stream stream, TagCache cache, StringIdCache stringIds, TagInstance tag)
         {
             _stream = stream;
             _cache = cache;
@@ -42,7 +42,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <summary>
         /// Gets the tag that the context is operating on.
         /// </summary>
-        public HaloTag Tag { get; private set; }
+        public TagInstance Tag { get; private set; }
 
         public void BeginSerialize(TagStructureInfo info)
         {
@@ -86,7 +86,7 @@ namespace HaloOnlineTagTool.Serialization
             return address - AddressMagic;
         }
 
-        public HaloTag GetTagByIndex(int index)
+        public TagInstance GetTagByIndex(int index)
         {
             return (index >= 0 && index < _cache.Tags.Count) ? _cache.Tags[index] : null;
         }
@@ -143,10 +143,10 @@ namespace HaloOnlineTagTool.Serialization
                 if (resource != null)
                     resource.Owner = _context.Tag;
 
-                if (type == typeof(HaloTag))
+                if (type == typeof(TagInstance))
                 {
                     // Object is a tag reference - add it as a dependency
-                    var referencedTag = obj as HaloTag;
+                    var referencedTag = obj as TagInstance;
                     if (referencedTag != null && referencedTag != _context.Tag)
                         _context._dependencies.Add(referencedTag.Index);
                 }

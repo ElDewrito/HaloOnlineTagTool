@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HaloOnlineTagTool.Commands
 {
@@ -61,18 +59,31 @@ namespace HaloOnlineTagTool.Commands
         {
             Command result;
             _commandsByName.TryGetValue(name, out result);
+
             if (result != null)
                 return result;
+            
+            // Case-insensitive lookup
+            foreach (var pair in _commandsByName)
+                if (name.ToLower() == pair.Key.ToLower())
+                    if ((pair.Value.Flags & CommandFlags.Inherit) != 0)
+                        return pair.Value;
 
             // Check parent contexts for inheritable commands
-            var parent = Parent;
-            while (parent != null)
+            for (var p = Parent; p != null; p = p.Parent)
             {
-                parent._commandsByName.TryGetValue(name, out result);
+                p._commandsByName.TryGetValue(name, out result);
+
                 if (result != null && (result.Flags & CommandFlags.Inherit) != 0)
                     return result;
-                parent = parent.Parent;
+
+                // Case-insensitive lookup
+                foreach (var pair in _commandsByName)
+                    if (name.ToLower() == pair.Key.ToLower())
+                        if ((pair.Value.Flags & CommandFlags.Inherit) != 0)
+                            return pair.Value;
             }
+
             return null;
         }
     }

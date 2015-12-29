@@ -55,7 +55,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 {
                     new TagStructures.Bitmap.Image
                     {
-                        Signature = new MagicNumber("bitm").Value,
+                        Signature = new Tag("bitm").Value,
                         Unknown28 = -1,
                     }
                 },

@@ -68,7 +68,7 @@ namespace HaloOnlineTagTool.Resources
         /// <summary>
         /// Gets or sets the tag that owns the resource.
         /// </summary>
-        public HaloTag Owner;
+        public TagInstance Owner;
 
         public ushort Salt;
 

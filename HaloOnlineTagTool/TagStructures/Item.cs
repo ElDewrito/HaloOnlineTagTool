@@ -23,13 +23,13 @@ namespace HaloOnlineTagTool.TagStructures
         public StringId SwitchToMessage;
         public StringId SwitchToFromAiMessage;
         public StringId AllWeaponsEmptyMessage;
-        public HaloTag CollisionSound;
-        public List<HaloTag> PredictedBitmaps;
-        public HaloTag DetonationDamageEffect;
+        public TagInstance CollisionSound;
+        public List<TagInstance> PredictedBitmaps;
+        public TagInstance DetonationDamageEffect;
         public float DetonationDelayMin;
         public float DetonationDelayMax;
-        public HaloTag DetonatingEffect;
-        public HaloTag DetonationEffect;
+        public TagInstance DetonatingEffect;
+        public TagInstance DetonationEffect;
         public float CampaignGroundScale;
         public float MultiplayerGroundScale;
         public float SmallHoldScale;

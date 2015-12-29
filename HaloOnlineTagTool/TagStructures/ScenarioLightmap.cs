@@ -26,13 +26,13 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class LightmapDataReference
         {
-            public HaloTag LightmapData;
+            public TagInstance LightmapData;
         }
 
         [TagStructure(Size = 0x10)]
         public class UnknownBlock
         {
-            public HaloTag Unknown;
+            public TagInstance Unknown;
         }
 
         [TagStructure(Size = 0x5C)]

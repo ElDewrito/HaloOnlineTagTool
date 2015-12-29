@@ -57,7 +57,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             // plugin into a TagLayout and then write it using the layout
             // writer for the output type. We need an actual tag reference in
             // order to look up the group name without using a static table.
-            var processedGroups = new HashSet<MagicNumber>();
+            var processedGroups = new HashSet<Tag>();
             var numConflicts = 0;
             foreach (var tag in _cache.Tags.NonNull().Where(tag => !processedGroups.Contains(tag.GroupTag)))
             {

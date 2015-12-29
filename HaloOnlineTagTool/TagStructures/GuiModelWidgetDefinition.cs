@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.TagStructures
         public short StandardXBoundsMin;
         public short StandardYBoundsMax;
         public short StandardXBoundsMax;
-        public HaloTag Animation;
+        public TagInstance Animation;
         public List<Biped> Bipeds;
         public uint Unknown2;
         public uint Unknown3;
@@ -81,7 +81,7 @@ namespace HaloOnlineTagTool.TagStructures
             public Angle Unknown30;
             public uint Unknown31;
             public uint Unknown32;
-            public HaloTag Unknown33;
+            public TagInstance Unknown33;
             public uint Unknown34;
 
             [TagStructure(Size = 0x14)]

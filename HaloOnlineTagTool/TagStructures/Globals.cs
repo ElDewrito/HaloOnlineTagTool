@@ -60,7 +60,7 @@ namespace HaloOnlineTagTool.TagStructures
         public List<HavokCleanupResource> HavokCleanupResources;
         public List<SoundGlobal> SoundGlobals;
         public List<AiGlobal> AiGlobals;
-        public HaloTag AiGlobals2;
+        public TagInstance AiGlobals2;
         public List<DamageTableBlock> DamageTable;
         public uint Unknown45;
         public uint Unknown46;
@@ -88,9 +88,9 @@ namespace HaloOnlineTagTool.TagStructures
         public List<FallingDamageBlock> FallingDamage;
         public List<UnknownBlock> Unknown60;
         public List<Material> Materials;
-        public HaloTag MultiplayerGlobals;
-        public HaloTag SurvivalGlobals;
-        [MinVersion(EngineVersion.V11_1_498295_Live)] public HaloTag ArmorGlobals;
+        public TagInstance MultiplayerGlobals;
+        public TagInstance SurvivalGlobals;
+        [MinVersion(EngineVersion.V11_1_498295_Live)] public TagInstance ArmorGlobals;
         public List<CinematicAnchor> CinematicAnchors;
         public List<MetagameGlobal> MetagameGlobals;
         public uint Unknown61;
@@ -297,19 +297,19 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown262;
         public uint Unknown263;
         public uint Unknown264;
-        public HaloTag RasterizerGlobals;
-        public HaloTag DefaultCameraEffect;
-        public HaloTag PodiumDefinition;
-        public HaloTag DefaultWind;
-        public HaloTag DefaultDamageEffect;
-        public HaloTag DefaultCollisionDamage;
+        public TagInstance RasterizerGlobals;
+        public TagInstance DefaultCameraEffect;
+        public TagInstance PodiumDefinition;
+        public TagInstance DefaultWind;
+        public TagInstance DefaultDamageEffect;
+        public TagInstance DefaultCollisionDamage;
         public StringId UnknownMaterial;
         public short UnknownGlobalMaterialIndex;
         public short Unknown265;
-        public HaloTag EffectGlobals;
-        public HaloTag GameProgressionGlobals;
-        public HaloTag AchievementGlobals;
-        public HaloTag InputGlobals;
+        public TagInstance EffectGlobals;
+        public TagInstance GameProgressionGlobals;
+        public TagInstance AchievementGlobals;
+        public TagInstance InputGlobals;
         public uint Unknown266;
         public uint Unknown267;
         public uint Unknown268;
@@ -326,18 +326,18 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class HavokCleanupResource
         {
-            public HaloTag ObjectCleanupEffect;
+            public TagInstance ObjectCleanupEffect;
         }
 
         [TagStructure(Size = 0x60)]
         public class SoundGlobal
         {
-            public HaloTag SoundClasses;
-            public HaloTag SoundEffects;
-            public HaloTag SoundMix;
-            public HaloTag SoundCombatDialogueConstants;
-            public HaloTag SoundGlobalPropagation;
-            public HaloTag GfxUiSounds;
+            public TagInstance SoundClasses;
+            public TagInstance SoundEffects;
+            public TagInstance SoundMix;
+            public TagInstance SoundCombatDialogueConstants;
+            public TagInstance SoundGlobalPropagation;
+            public TagInstance GfxUiSounds;
         }
 
         [TagStructure(Size = 0x144)]
@@ -354,7 +354,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float DangerExtendedShieldDamage;
             public float DangerBodyDamage;
             public float DangerExtendedBodyDamage;
-            public HaloTag GlobalDialogue;
+            public TagInstance GlobalDialogue;
             public float DefaultMissionDialogueSoundEffect;
             public float JumpDown;
             public float JumpStep;
@@ -429,7 +429,7 @@ namespace HaloOnlineTagTool.TagStructures
             [TagStructure(Size = 0x10)]
             public class Style
             {
-                public HaloTag Style2;
+                public TagInstance Style2;
             }
         }
 
@@ -456,13 +456,13 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x10)]
         public class Sound
         {
-            public HaloTag SoundObsolete;
+            public TagInstance SoundObsolete;
         }
 
         [TagStructure(Size = 0xA4)]
         public class CameraBlock
         {
-            public HaloTag DefaultUnitCameraTrack;
+            public TagInstance DefaultUnitCameraTrack;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
@@ -729,43 +729,43 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public short MaximumCount;
             public short Unknown;
-            public HaloTag ThrowingEffect;
+            public TagInstance ThrowingEffect;
             public uint Unknown2;
             public uint Unknown3;
             public uint Unknown4;
             public uint Unknown5;
-            public HaloTag Equipment;
-            public HaloTag Projectile;
+            public TagInstance Equipment;
+            public TagInstance Projectile;
         }
 
         [TagStructure(Size = 0x12C)]
         public class InterfaceTag
         {
-            public HaloTag Spinner;
-            public HaloTag Obsolete;
-            public HaloTag ScreenColorTable;
-            public HaloTag HudColorTable;
-            public HaloTag EditorColorTable;
-            public HaloTag DialogColorTable;
-            public HaloTag MotionSensorSweepBitmap;
-            public HaloTag MotionSensorSweepBitmapMask;
-            public HaloTag MultiplayerHudBitmap;
-            public HaloTag HudDigitsDefinition;
-            public HaloTag MotionSensorBlipBitmap;
-            public HaloTag InterfaceGooMap1;
-            public HaloTag InterfaceGooMap2;
-            public HaloTag InterfaceGooMap3;
-            public HaloTag MainMenuUiGlobals;
-            public HaloTag SinglePlayerUiGlobals;
-            public HaloTag MultiplayerUiGlobals;
-            public HaloTag HudGlobals;
+            public TagInstance Spinner;
+            public TagInstance Obsolete;
+            public TagInstance ScreenColorTable;
+            public TagInstance HudColorTable;
+            public TagInstance EditorColorTable;
+            public TagInstance DialogColorTable;
+            public TagInstance MotionSensorSweepBitmap;
+            public TagInstance MotionSensorSweepBitmapMask;
+            public TagInstance MultiplayerHudBitmap;
+            public TagInstance HudDigitsDefinition;
+            public TagInstance MotionSensorBlipBitmap;
+            public TagInstance InterfaceGooMap1;
+            public TagInstance InterfaceGooMap2;
+            public TagInstance InterfaceGooMap3;
+            public TagInstance MainMenuUiGlobals;
+            public TagInstance SinglePlayerUiGlobals;
+            public TagInstance MultiplayerUiGlobals;
+            public TagInstance HudGlobals;
             public List<GfxUiString> GfxUiStrings;
 
             [TagStructure(Size = 0x30)]
             public class GfxUiString
             {
                 [TagField(Length = 32)] public string Name;
-                public HaloTag Strings;
+                public TagInstance Strings;
             }
         }
 
@@ -792,16 +792,16 @@ namespace HaloOnlineTagTool.TagStructures
             public Range<float> FirstPersonIdleTimeRange;
             public float FirstPersonSkipFraction;
             public uint Unknown;
-            public HaloTag Unknown2;
-            public HaloTag Unknown3;
-            public HaloTag Unknown4;
+            public TagInstance Unknown2;
+            public TagInstance Unknown3;
+            public TagInstance Unknown4;
             public int BinocularsZoomCount;
             public Range<float> BinocularZoomRange;
             public uint Unknown5;
             public uint Unknown6;
-            public HaloTag FlashlightOn;
-            public HaloTag FlashlightOff;
-            public HaloTag DefaultDamageResponse;
+            public TagInstance FlashlightOn;
+            public TagInstance FlashlightOff;
+            public TagInstance DefaultDamageResponse;
         }
 
         [TagStructure(Size = 0x6C)]
@@ -809,13 +809,13 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public StringId Name;
             public uint Flags;
-            public HaloTag FirstPersonHands;
-            public HaloTag FirstPersonBody;
-            public HaloTag ThirdPersonUnit;
+            public TagInstance FirstPersonHands;
+            public TagInstance FirstPersonBody;
+            public TagInstance ThirdPersonUnit;
             public StringId ThirdPersonVariant;
-            public HaloTag BinocularsZoomInSound;
-            public HaloTag BinocularsZoomOutSound;
-            public HaloTag Unknown;
+            public TagInstance BinocularsZoomInSound;
+            public TagInstance BinocularsZoomOutSound;
+            public TagInstance Unknown;
         }
 
         [TagStructure(Size = 0x78)]
@@ -823,13 +823,13 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public float HarmfulFallingDistanceMin;
             public float HarmfulFallingDistanceMax;
-            public HaloTag FallingDamage;
-            public HaloTag Unknown;
-            public HaloTag SoftLanding;
-            public HaloTag HardLanding;
-            public HaloTag ScriptDamage;
+            public TagInstance FallingDamage;
+            public TagInstance Unknown;
+            public TagInstance SoftLanding;
+            public TagInstance HardLanding;
+            public TagInstance ScriptDamage;
             public float MaximumFallingDistance;
-            public HaloTag DistanceDamage;
+            public TagInstance DistanceDamage;
             public uint Unknown2;
             public uint Unknown3;
             public uint Unknown4;
@@ -857,26 +857,26 @@ namespace HaloOnlineTagTool.TagStructures
             public float Restitution;
             public float Density;
             public List<WaterDragProperty> WaterDragProperties;
-            public HaloTag BreakableSurface;
-            public HaloTag SoundSweetenerSmall;
-            public HaloTag SoundSweetenerMedium;
-            public HaloTag SoundSweetenerLarge;
-            public HaloTag SoundSweetenerRolling;
-            public HaloTag SoundSweetenerGrinding;
-            public HaloTag SoundSweetenerMeleeSmall;
-            public HaloTag SoundSweetenerMeleeMedium;
-            public HaloTag SoundSweetenerMeleeLarge;
-            public HaloTag EffectSweetenerSmall;
-            public HaloTag EffectSweetenerMedium;
-            public HaloTag EffectSweetenerLarge;
-            public HaloTag EffectSweetenerRolling;
-            public HaloTag EffectSweetenerGrinding;
-            public HaloTag EffectSweetenerMelee;
-            public HaloTag WaterRippleSmall;
-            public HaloTag WaterRippleMedium;
-            public HaloTag WaterRippleLarge;
+            public TagInstance BreakableSurface;
+            public TagInstance SoundSweetenerSmall;
+            public TagInstance SoundSweetenerMedium;
+            public TagInstance SoundSweetenerLarge;
+            public TagInstance SoundSweetenerRolling;
+            public TagInstance SoundSweetenerGrinding;
+            public TagInstance SoundSweetenerMeleeSmall;
+            public TagInstance SoundSweetenerMeleeMedium;
+            public TagInstance SoundSweetenerMeleeLarge;
+            public TagInstance EffectSweetenerSmall;
+            public TagInstance EffectSweetenerMedium;
+            public TagInstance EffectSweetenerLarge;
+            public TagInstance EffectSweetenerRolling;
+            public TagInstance EffectSweetenerGrinding;
+            public TagInstance EffectSweetenerMelee;
+            public TagInstance WaterRippleSmall;
+            public TagInstance WaterRippleMedium;
+            public TagInstance WaterRippleLarge;
             public uint SweetenerInheritanceFlags;
-            public HaloTag MaterialEffects;
+            public TagInstance MaterialEffects;
             public List<WaterInteractionBlock> WaterInteraction;
             public uint Unknown2;
             public short Unknown3;
@@ -910,7 +910,7 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x18)]
         public class CinematicAnchor
         {
-            public HaloTag CinematicAnchor2;
+            public TagInstance CinematicAnchor2;
             public uint Unknown;
             public uint Unknown2;
         }

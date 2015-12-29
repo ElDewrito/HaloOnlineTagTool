@@ -9,6 +9,8 @@ namespace HaloOnlineTagTool.Commands.Tags
         {
             var context = new CommandContext(null, info.CacheFile.Name);
             context.AddCommand(new HelpCommand(stack));
+            context.AddCommand(new ClearCommand());
+            context.AddCommand(new DumpLogCommand());
             context.AddCommand(new DependencyCommand(info));
             context.AddCommand(new FixupCommand(info));
             context.AddCommand(new ExtractCommand(info));
@@ -25,6 +27,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 context.AddCommand(new EditCommand(stack, info));
                 context.AddCommand(new ExtractBitmapsCommand(info));
                 context.AddCommand(new ImportBitmapCommand(info));
+                context.AddCommand(new CollisionGeometryTestCommand(info));
                 context.AddCommand(new PhysicsModelTestCommand(info));
                 context.AddCommand(new StringIdCommand(info));
                 context.AddCommand(new ListStringsCommand(info));

@@ -41,7 +41,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float ToneB;
             public float Tracing;
             public uint Unknown4;
-            public HaloTag ScreenShader;
+            public TagInstance ScreenShader;
         }
     }
 }

@@ -12,26 +12,26 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "user_interface_sounds_definition", Class = "uise", Size = 0x150)]
     public class UserInterfaceSoundsDefinition
     {
-        public HaloTag Error;
-        public HaloTag VerticalNavigation;
-        public HaloTag HorizontalNavigation;
-        public HaloTag AButton;
-        public HaloTag BButton;
-        public HaloTag XButton;
-        public HaloTag YButton;
-        public HaloTag StartButton;
-        public HaloTag BackButton;
-        public HaloTag LeftBumper;
-        public HaloTag RightBumper;
-        public HaloTag LeftTrigger;
-        public HaloTag RightTrigger;
-        public HaloTag TimerSound;
-        public HaloTag TimerSoundZero;
-        public HaloTag AltTimerSound;
-        public HaloTag SecondAltTimerSound;
-        public HaloTag MatchmakingAdvanceSound;
-        public HaloTag RankUp;
-        public HaloTag MatchmakingPartyUpSound;
+        public TagInstance Error;
+        public TagInstance VerticalNavigation;
+        public TagInstance HorizontalNavigation;
+        public TagInstance AButton;
+        public TagInstance BButton;
+        public TagInstance XButton;
+        public TagInstance YButton;
+        public TagInstance StartButton;
+        public TagInstance BackButton;
+        public TagInstance LeftBumper;
+        public TagInstance RightBumper;
+        public TagInstance LeftTrigger;
+        public TagInstance RightTrigger;
+        public TagInstance TimerSound;
+        public TagInstance TimerSoundZero;
+        public TagInstance AltTimerSound;
+        public TagInstance SecondAltTimerSound;
+        public TagInstance MatchmakingAdvanceSound;
+        public TagInstance RankUp;
+        public TagInstance MatchmakingPartyUpSound;
         public List<AtlasSound> AtlasSounds;
         public uint Unknown;
 
@@ -39,7 +39,7 @@ namespace HaloOnlineTagTool.TagStructures
         public class AtlasSound
         {
             public StringId Name;
-            public HaloTag Sound;
+            public TagInstance Sound;
         }
     }
 }

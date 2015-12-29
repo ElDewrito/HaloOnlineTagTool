@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HaloOnlineTagTool.Commands.Bitm;
-using HaloOnlineTagTool.Commands.Hlmt;
-using HaloOnlineTagTool.Commands.Rmsh;
-using HaloOnlineTagTool.Commands.Scnr;
-using HaloOnlineTagTool.Commands.Unic;
-using HaloOnlineTagTool.Commands.Vfsl;
+﻿using HaloOnlineTagTool.Commands.Bitmaps;
+using HaloOnlineTagTool.Commands.Models;
+using HaloOnlineTagTool.Commands.RenderModels;
+using HaloOnlineTagTool.Commands.RenderMethods;
+using HaloOnlineTagTool.Commands.Scenarios;
+using HaloOnlineTagTool.Commands.Unicode;
+using HaloOnlineTagTool.Commands.VFiles;
 using HaloOnlineTagTool.Serialization;
 using HaloOnlineTagTool.TagStructures;
 
@@ -16,12 +12,12 @@ namespace HaloOnlineTagTool.Commands.Editing
 {
     static class EditTagContextFactory
     {
-        public static CommandContext Create(CommandContextStack stack, OpenTagCache info, HaloTag tag)
+        public static CommandContext Create(CommandContextStack stack, OpenTagCache info, TagInstance tag)
         {
             var groupName = info.StringIds.GetString(tag.GroupName);
 
             var context = new CommandContext(stack.Context,
-                string.Format("0x{0:X8}.{1}", tag.Index, groupName));
+                string.Format("0x{0:X4}.{1}", tag.Index, groupName));
 
             switch (tag.GroupTag.ToString())
             {
@@ -39,6 +35,10 @@ namespace HaloOnlineTagTool.Commands.Editing
 
                 case "hlmt": // model
                     EditModel(context, info, tag);
+                    break;
+
+                case "mode": // render_model
+                    EditRenderModel(context, info, tag);
                     break;
 
                 case "rm  ": // render_method
@@ -72,12 +72,14 @@ namespace HaloOnlineTagTool.Commands.Editing
             context.AddCommand(new ListFieldsCommand(info, structure, value));
             context.AddCommand(new SetFieldCommand(stack, info, tag, structure, value));
             context.AddCommand(new EditBlockCommand(stack, info, tag, value));
+            context.AddCommand(new AddToBlockCommand(stack, info, tag, structure, value));
             context.AddCommand(new SaveChangesCommand(info, tag, value));
+            context.AddCommand(new ExitToCommand(stack));
 
             return context;
         }
 
-        private static void EditVFilesList(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditVFilesList(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             VFilesList vfsl;
 
@@ -85,10 +87,10 @@ namespace HaloOnlineTagTool.Commands.Editing
                 vfsl = info.Deserializer.Deserialize<VFilesList>(
                     new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
 
-            VfslContextFactory.Populate(context, info, tag, vfsl);
+            VFilesContextFactory.Populate(context, info, tag, vfsl);
         }
 
-        private static void EditMultilingualUnicodeStringList(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditMultilingualUnicodeStringList(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             MultilingualUnicodeStringList unic;
 
@@ -96,10 +98,10 @@ namespace HaloOnlineTagTool.Commands.Editing
                 unic = info.Deserializer.Deserialize<MultilingualUnicodeStringList>(
                     new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
 
-            UnicContextFactory.Populate(context, info, tag, unic);
+            UnicodeContextFactory.Populate(context, info, tag, unic);
         }
 
-        private static void EditBitmap(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditBitmap(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             Bitmap bitmap;
 
@@ -110,7 +112,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             BitmapContextFactory.Populate(context, info, tag, bitmap);
         }
 
-        private static void EditModel(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditModel(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             Model model;
 
@@ -118,15 +120,26 @@ namespace HaloOnlineTagTool.Commands.Editing
                 model = info.Deserializer.Deserialize<Model>(
                     new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
 
-            HlmtContextFactory.Populate(context, info, tag, model);
+            ModelContextFactory.Populate(context, info, tag, model);
         }
 
-        private static void EditRenderMethod(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditRenderModel(CommandContext context, OpenTagCache info, TagInstance tag)
+        {
+            RenderModel renderModel;
+
+            using (var stream = info.OpenCacheRead())
+                renderModel = info.Deserializer.Deserialize<RenderModel>(
+                    new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
+
+            RenderModelContextFactory.Populate(context, info, tag, renderModel);
+        }
+
+        private static void EditRenderMethod(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             RenderMethodContextFactory.Populate(context, info, tag);
         }
 
-        private static void EditScenario(CommandContext context, OpenTagCache info, HaloTag tag)
+        private static void EditScenario(CommandContext context, OpenTagCache info, TagInstance tag)
         {
             Scenario scenario;
 

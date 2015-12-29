@@ -17,9 +17,9 @@ namespace HaloOnlineTagTool.TagStructures
         public List<UnknownBlock> Unknown;
         public List<UnknownBlock2> Unknown2;
         public List<PlayerTrainingDatum> PlayerTrainingData;
-        public HaloTag StartMenuEmblems;
-        public HaloTag CampaignMedals;
-        public HaloTag CampaignMedalHudAnimation;
+        public TagInstance StartMenuEmblems;
+        public TagInstance CampaignMedals;
+        public TagInstance CampaignMedalHudAnimation;
         public short Unknown3;
         public short Unknown4;
         public float CampaignMedalScale;
@@ -28,7 +28,7 @@ namespace HaloOnlineTagTool.TagStructures
         public float CampaignMedalOffsetY;
         public float MetagameScoreboardTopY;
         public float MetagameScoreboardSpacing;
-        public HaloTag UnitDamageGrid;
+        public TagInstance UnitDamageGrid;
         public float MicroTextureTileAmount;
         public float MediumSensorBlipScale;
         public float SmallSensorBlipScale;
@@ -36,10 +36,10 @@ namespace HaloOnlineTagTool.TagStructures
         public float SensorBlipGlowAmount;
         public float SensorBlipGlowRadius;
         public float SensorBlipGlowOpacity;
-        public HaloTag MotionSensorBlip;
-        public HaloTag BirthdayPartyEffect;
-        public HaloTag CampaignFloodMask;
-        public HaloTag CampaignFloodMaskTile;
+        public TagInstance MotionSensorBlip;
+        public TagInstance BirthdayPartyEffect;
+        public TagInstance CampaignFloodMask;
+        public TagInstance CampaignFloodMaskTile;
         public uint Unknown5;
         public uint Unknown6;
         public uint Unknown7;
@@ -84,7 +84,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown45;
         public uint Unknown46;
         public uint Unknown47;
-        public HaloTag Unknown48;
+        public TagInstance Unknown48;
         public uint Unknown49;
         public byte[] Unknown50;
         public byte[] Unknown51;
@@ -97,7 +97,7 @@ namespace HaloOnlineTagTool.TagStructures
         public byte[] Unknown58;
         public byte[] Unknown59;
         public byte[] Unknown60;
-        public HaloTag Unknown61;
+        public TagInstance Unknown61;
         public uint Unknown62;
         public uint Unknown63;
         public uint Unknown64;
@@ -118,40 +118,40 @@ namespace HaloOnlineTagTool.TagStructures
             [TagField(Count = 37)] public RgbaColor[] Colors;
             public List<HudAttribute> HudAttributes;
             public List<HudSound> HudSounds;
-            public HaloTag Unknown;
-            public HaloTag FragGrenadeSwapSound;
-            public HaloTag PlasmaGrenadeSwapSound;
-            public HaloTag SpikeGrenadeSwapSound;
-            public HaloTag FirebombGrenadeSwapSound;
-            public HaloTag DamageMicrotexture;
-            public HaloTag DamageNoise;
-            public HaloTag DirectionalArrow;
-            public HaloTag Unknown2;
-            public HaloTag Unknown3;
+            public TagInstance Unknown;
+            public TagInstance FragGrenadeSwapSound;
+            public TagInstance PlasmaGrenadeSwapSound;
+            public TagInstance SpikeGrenadeSwapSound;
+            public TagInstance FirebombGrenadeSwapSound;
+            public TagInstance DamageMicrotexture;
+            public TagInstance DamageNoise;
+            public TagInstance DirectionalArrow;
+            public TagInstance Unknown2;
+            public TagInstance Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
             public uint Unknown7;
             public uint Unknown8;
             public uint Unknown9;
-            public HaloTag Waypoints;
-            public HaloTag Unknown10;
-            public HaloTag ScoreboardHud;
-            public HaloTag MetagameScoreboardHud;
-            public HaloTag SurvivalHud;
-            public HaloTag MetagameScoreboardHud2;
-            public HaloTag TheaterHud;
-            public HaloTag ForgeHud;
-            public HaloTag HudStrings;
-            public HaloTag Medals;
+            public TagInstance Waypoints;
+            public TagInstance Unknown10;
+            public TagInstance ScoreboardHud;
+            public TagInstance MetagameScoreboardHud;
+            public TagInstance SurvivalHud;
+            public TagInstance MetagameScoreboardHud2;
+            public TagInstance TheaterHud;
+            public TagInstance ForgeHud;
+            public TagInstance HudStrings;
+            public TagInstance Medals;
             public List<MultiplayerMedal> MultiplayerMedals;
-            public HaloTag MedalHudAnimation;
-            public HaloTag MedalHudAnimation2;
-            public HaloTag CortanaChannel;
-            public HaloTag Unknown11;
-            public HaloTag Unknown12;
-            public HaloTag Unknown13;
-            public HaloTag Unknown14;
+            public TagInstance MedalHudAnimation;
+            public TagInstance MedalHudAnimation2;
+            public TagInstance CortanaChannel;
+            public TagInstance Unknown11;
+            public TagInstance Unknown12;
+            public TagInstance Unknown13;
+            public TagInstance Unknown14;
             public uint Unknown15;
             public uint Unknown16;
             public float GrenadeScematicsSpacing;
@@ -188,10 +188,10 @@ namespace HaloOnlineTagTool.TagStructures
                 public float VerticalScale;
                 public float HorizontalStretch;
                 public float VerticalStretch;
-                public HaloTag Unknown;
-                public HaloTag Unknown2;
-                public HaloTag FirstPersonDamageBorder;
-                public HaloTag ThirdPersonDamageBorder;
+                public TagInstance Unknown;
+                public TagInstance Unknown2;
+                public TagInstance FirstPersonDamageBorder;
+                public TagInstance ThirdPersonDamageBorder;
                 public uint Unknown3;
                 public uint Unknown4;
                 public uint Unknown5;
@@ -235,7 +235,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public class UnknownBlock
                 {
                     public BipedValue Biped;
-                    public HaloTag Sound;
+                    public TagInstance Sound;
 
                     public enum BipedValue : int
                     {
@@ -256,8 +256,8 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x20)]
         public class HudShader
         {
-            public HaloTag VertexShader;
-            public HaloTag PixelShader;
+            public TagInstance VertexShader;
+            public TagInstance PixelShader;
         }
 
         [TagStructure(Size = 0x40)]
@@ -315,7 +315,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public uint Unknown23;
                 public uint Unknown24;
                 public uint Unknown25;
-                public HaloTag Sound;
+                public TagInstance Sound;
                 public uint Unknown26;
                 public uint Unknown27;
                 public uint Unknown28;
@@ -340,7 +340,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public uint Unknown47;
                 public uint Unknown48;
                 public uint Unknown49;
-                public HaloTag Sound2;
+                public TagInstance Sound2;
             }
         }
 

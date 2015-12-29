@@ -18,14 +18,14 @@ namespace HaloOnlineTagTool.TagStructures
         public float DepoweredPositionTransitionTime;
         public float DepoweredPositionAccelerationTime;
         public uint LightmapFlags;
-        public HaloTag OpenUp;
-        public HaloTag CloseDown;
-        public HaloTag Opened;
-        public HaloTag Closed;
-        public HaloTag Depowered;
-        public HaloTag Repowered;
+        public TagInstance OpenUp;
+        public TagInstance CloseDown;
+        public TagInstance Opened;
+        public TagInstance Closed;
+        public TagInstance Depowered;
+        public TagInstance Repowered;
         public float DelayTime;
-        public HaloTag DelayEffect;
+        public TagInstance DelayEffect;
         public float AutomaticActivationRadius;
     }
 }

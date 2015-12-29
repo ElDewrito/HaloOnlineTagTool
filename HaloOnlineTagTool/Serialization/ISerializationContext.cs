@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.Serialization
         /// </summary>
         /// <param name="index">The index of the tag to get.</param>
         /// <returns>The tag if it exists, or <c>null</c> otherwise.</returns>
-        HaloTag GetTagByIndex(int index);
+        TagInstance GetTagByIndex(int index);
 
         /// <summary>
         /// Creates a data block.

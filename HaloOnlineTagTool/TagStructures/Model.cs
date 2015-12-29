@@ -13,16 +13,16 @@ namespace HaloOnlineTagTool.TagStructures
     [TagStructure(Name = "model", Class = "hlmt", Size = 0x1B8, MinVersion = EngineVersion.V11_1_498295_Live)]
     public class Model
     {
-        public HaloTag RenderModel;
-        public HaloTag CollisionModel;
-        public HaloTag Animation;
-        public HaloTag PhysicsModel;
+        public TagInstance RenderModel;
+        public TagInstance CollisionModel;
+        public TagInstance Animation;
+        public TagInstance PhysicsModel;
         public float ReduceToL1SuperLow;
         public float ReduceToL2Low;
         public float ReduceToL3Medium;
         public float ReduceToL4High;
         public float ReduceToL5SuperHigh;
-        public HaloTag LodModel;
+        public TagInstance LodModel;
         public List<Variant> Variants;
         public List<UnknownBlock> Unknown;
         public List<FlairApplication> FlairApplications;
@@ -33,8 +33,8 @@ namespace HaloOnlineTagTool.TagStructures
         public List<Node> Nodes;
         public uint Unknown2;
         public List<ModelObjectDatum> ModelObjectData;
-        public HaloTag PrimaryDialogue;
-        public HaloTag SecondaryDialogue;
+        public TagInstance PrimaryDialogue;
+        public TagInstance SecondaryDialogue;
         public uint Flags;
         public StringId DefaultDialogueEffect;
         public uint RenderOnlyNodeFlags1;
@@ -63,16 +63,16 @@ namespace HaloOnlineTagTool.TagStructures
         public List<UnknownBlock2> Unknown6;
         public List<UnknownBlock3> Unknown7;
         public List<UnknownBlock4> Unknown8;
-        public HaloTag ShieldImpactThirdPerson;
-        public HaloTag ShieldImpactFirstPerson;
-        public HaloTag OvershieldThirdPerson;
-        public HaloTag OvershieldFirstPerson;
+        public TagInstance ShieldImpactThirdPerson;
+        public TagInstance ShieldImpactFirstPerson;
+        public TagInstance OvershieldThirdPerson;
+        public TagInstance OvershieldFirstPerson;
 
         [TagStructure(Size = 0x50)]
         public class Variant
         {
             public StringId Name;
-            public HaloTag VariantDialogue;
+            public TagInstance VariantDialogue;
             public StringId DefaultDialogEffect;
             public sbyte Unknown;
             public sbyte Unknown2;
@@ -133,7 +133,7 @@ namespace HaloOnlineTagTool.TagStructures
                         public sbyte Unknown;
                         public byte PropertyFlags;
                         public StateValue State2;
-                        public HaloTag LoopingEffect;
+                        public TagInstance LoopingEffect;
                         public StringId LoopingEffectMarkerName;
                         public float InitialProbability;
 
@@ -171,7 +171,7 @@ namespace HaloOnlineTagTool.TagStructures
                 public StringId ParentMarker;
                 public StringId ChildMarker;
                 public StringId ChildVariant;
-                public HaloTag ChildObject;
+                public TagInstance ChildObject;
             }
         }
 
@@ -258,9 +258,9 @@ namespace HaloOnlineTagTool.TagStructures
             public float StunTime2;
             public float ShieldRechargeTime;
             public float ShieldDamagedThreshold;
-            public HaloTag ShieldDamagedEffect;
-            public HaloTag ShieldDepletedEffect;
-            public HaloTag ShieldRechargingEffect;
+            public TagInstance ShieldDamagedEffect;
+            public TagInstance ShieldDepletedEffect;
+            public TagInstance ShieldRechargingEffect;
             public List<DamageSection> DamageSections;
             public List<Node> Nodes;
             public short GlobalShieldMaterialIndex;
@@ -434,9 +434,9 @@ namespace HaloOnlineTagTool.TagStructures
                     public StringId Trigger;
                     public uint Flags;
                     public float DamageThreshold;
-                    public HaloTag PrimaryTransitionEffect;
-                    public HaloTag SecondaryTransitionEffect;
-                    public HaloTag TransitionDamageEffect;
+                    public TagInstance PrimaryTransitionEffect;
+                    public TagInstance SecondaryTransitionEffect;
+                    public TagInstance TransitionDamageEffect;
                     public StringId Region;
                     public NewStateValue NewState;
                     public short RuntimeRegionIndex;
@@ -449,7 +449,7 @@ namespace HaloOnlineTagTool.TagStructures
                     public StringId EffectMarkerName;
                     public StringId DamageEffectMarkerName;
                     public float ResponseDelay;
-                    public HaloTag DelayEffect;
+                    public TagInstance DelayEffect;
                     public StringId DelayEffectMarkerName;
                     public StringId EjectingSeatLabel;
                     public float SkipFraction;

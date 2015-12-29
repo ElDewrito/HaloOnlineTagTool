@@ -14,18 +14,18 @@ namespace HaloOnlineTagTool.TagStructures
     {
         public List<DefaultBitmap> DefaultBitmaps;
         public List<DefaultRasterizerBitmap> DefaultRasterizerBitmaps;
-        public HaloTag VertexShaderSimple;
-        public HaloTag PixelShaderSimple;
+        public TagInstance VertexShaderSimple;
+        public TagInstance PixelShaderSimple;
         public List<DefaultShader> DefaultShaders;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
         public int Unknown4;
         public int Unknown5;
-        public HaloTag ActiveCamoDistortion;
-        public HaloTag DefaultPerformanceTemplate;
-        public HaloTag DefaultShieldImpact;
-        public HaloTag DefaultVisionMode;
+        public TagInstance ActiveCamoDistortion;
+        public TagInstance DefaultPerformanceTemplate;
+        public TagInstance DefaultShieldImpact;
+        public TagInstance DefaultVisionMode;
         public int Unknown6;
         public float Unknown7;
         public float Unknown8;
@@ -40,20 +40,20 @@ namespace HaloOnlineTagTool.TagStructures
         public class DefaultBitmap
         {
             public int Unknown;
-            public HaloTag Bitmap;
+            public TagInstance Bitmap;
         }
 
         [TagStructure(Size = 0x10)]
         public class DefaultRasterizerBitmap
         {
-            public HaloTag Bitmap;
+            public TagInstance Bitmap;
         }
 
         [TagStructure(Size = 0x20)]
         public class DefaultShader
         {
-            public HaloTag VertexShader;
-            public HaloTag PixelShader;
+            public TagInstance VertexShader;
+            public TagInstance PixelShader;
         }
     }
 }
