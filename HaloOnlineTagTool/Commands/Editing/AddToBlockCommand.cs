@@ -105,8 +105,29 @@ namespace HaloOnlineTagTool.Commands.Editing
             if (fieldValue == null)
                 field.SetValue(Owner, Activator.CreateInstance(field.FieldType));
 
+            var genericType = field.FieldType.GenericTypeArguments[0];
+
             for (var i = 0; i < count; i++)
-                fieldValue.Add(Activator.CreateInstance(field.FieldType.GenericTypeArguments[0]));
+            {
+                var element = Activator.CreateInstance(genericType);
+
+                var isTagStructure = genericType.CustomAttributes.ToList()
+                    .Find(x => x.AttributeType == typeof(TagStructureAttribute)) != null;
+
+                if (isTagStructure)
+                {
+                    var e = new TagFieldEnumerator(
+                        new TagStructureInfo(genericType));
+                    while (e.Next())
+                    {
+                        if (e.Field.GetValue(element) == null)
+                            e.Field.SetValue(element,
+                                Activator.CreateInstance(e.Field.FieldType));
+                    }
+                }
+
+                fieldValue.Add(element);
+            }
 
             field.SetValue(Owner, fieldValue);
 
