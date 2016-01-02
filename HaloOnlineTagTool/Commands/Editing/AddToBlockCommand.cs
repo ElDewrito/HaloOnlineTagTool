@@ -103,7 +103,10 @@ namespace HaloOnlineTagTool.Commands.Editing
             var blockValue = field.GetValue(Owner) as IList;
 
             if (blockValue == null)
-                field.SetValue(Owner, Activator.CreateInstance(field.FieldType));
+            {
+                blockValue = Activator.CreateInstance(field.FieldType) as IList;
+                field.SetValue(Owner, blockValue);
+            }
 
             var elementType = field.FieldType.GenericTypeArguments[0];
 
