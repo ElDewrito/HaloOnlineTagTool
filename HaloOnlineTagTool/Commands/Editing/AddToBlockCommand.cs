@@ -100,36 +100,17 @@ namespace HaloOnlineTagTool.Commands.Editing
                 return false;
             }
 
-            var fieldValue = field.GetValue(Owner) as IList;
+            var blockValue = field.GetValue(Owner) as IList;
 
-            if (fieldValue == null)
+            if (blockValue == null)
                 field.SetValue(Owner, Activator.CreateInstance(field.FieldType));
 
-            var genericType = field.FieldType.GenericTypeArguments[0];
+            var elementType = field.FieldType.GenericTypeArguments[0];
 
             for (var i = 0; i < count; i++)
-            {
-                var element = Activator.CreateInstance(genericType);
+                blockValue.Add(CreateElement(elementType));
 
-                var isTagStructure = genericType.CustomAttributes.ToList()
-                    .Find(x => x.AttributeType == typeof(TagStructureAttribute)) != null;
-
-                if (isTagStructure)
-                {
-                    var e = new TagFieldEnumerator(
-                        new TagStructureInfo(genericType));
-                    while (e.Next())
-                    {
-                        if (e.Field.GetValue(element) == null)
-                            e.Field.SetValue(element,
-                                Activator.CreateInstance(e.Field.FieldType));
-                    }
-                }
-
-                fieldValue.Add(element);
-            }
-
-            field.SetValue(Owner, fieldValue);
+            field.SetValue(Owner, blockValue);
 
             var typeString =
                 fieldType.IsGenericType ?
@@ -139,8 +120,8 @@ namespace HaloOnlineTagTool.Commands.Editing
             var itemString = count < 2 ? "element" : "elements";
 
             var valueString =
-                ((IList)fieldValue).Count != 0 ?
-                    $"{{...}}[{((IList)fieldValue).Count}]" :
+                ((IList)blockValue).Count != 0 ?
+                    $"{{...}}[{((IList)blockValue).Count}]" :
                 "null";
 
             Console.WriteLine($"Successfully added {count} {itemString} to {field.Name}: {typeString}");
@@ -151,6 +132,25 @@ namespace HaloOnlineTagTool.Commands.Editing
             Structure = previousStructure;
 
             return true;
+        }
+
+        private object CreateElement(Type elementType)
+        {
+            var element = Activator.CreateInstance(elementType);
+
+            var isTagStructure = Attribute.IsDefined(elementType, typeof(TagStructureAttribute));
+
+            if (isTagStructure)
+            {
+                var enumerator = new TagFieldEnumerator(
+                    new TagStructureInfo(elementType));
+
+                while (enumerator.Next())
+                    if (enumerator.Field.GetValue(element) == null)
+                        enumerator.Field.SetValue(element, CreateElement(enumerator.Field.FieldType));
+            }
+
+            return element;
         }
     }
 }
