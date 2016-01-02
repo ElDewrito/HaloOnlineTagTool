@@ -146,8 +146,22 @@ namespace HaloOnlineTagTool.Commands.Editing
                     new TagStructureInfo(elementType));
 
                 while (enumerator.Next())
-                    if (enumerator.Field.GetValue(element) == null)
+                {
+                    var fieldType = enumerator.Field.FieldType;
+
+                    if (fieldType.IsArray && enumerator.Attribute.Count > 0)
+                    {
+                        var array = (IList)Activator.CreateInstance(enumerator.Field.FieldType,
+                            new object[] { enumerator.Attribute.Count });
+
+                        for (var i = 0; i < enumerator.Attribute.Count; i++)
+                            array[i] = CreateElement(fieldType.GetElementType());
+                    }
+                    else
+                    {
                         enumerator.Field.SetValue(element, CreateElement(enumerator.Field.FieldType));
+                    }
+                }
             }
 
             return element;
