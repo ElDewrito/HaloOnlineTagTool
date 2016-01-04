@@ -240,7 +240,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
             reader.BaseStream.Position = originalPos + BSP_VERTICES_OFFSET;
             int n_vertices = BitConverter.ToInt32(reader.ReadBytes(4).Reverse().ToArray(), 0);
-            
+
             reader.BaseStream.Position = originalPos + BSP_SIZE;
             reader.BaseStream.Position = ParseBSP3DNodes(bsp, reader, n_3dnodes);
             reader.BaseStream.Position = ParsePlanes(bsp, reader, n_planes);
@@ -292,7 +292,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
                 bsp3dNode.FrontChildLower = (byte)(front_child_trun & 0xff);
                 bsp3dNode.FrontChildMid = (byte)((front_child_trun >> 8) & 0xff);
                 bsp3dNode.FrontChildUpper = (byte)((front_child_trun >> 16) & 0xff);
-                
+
                 bsp.Bsp3dNodes.Add(bsp3dNode);
             }
 
@@ -335,13 +335,15 @@ namespace HaloOnlineTagTool.Resources.Geometry
                 reader.BaseStream.Position = originalPos + (i * LEAF_SIZE);
                 var flags = BitConverter.ToInt16(reader.ReadBytes(2).Reverse().ToArray(), 0);
                 var bsp2dRefCount = BitConverter.ToUInt16(reader.ReadBytes(2).Reverse().ToArray(), 0);
-                var first2dRef = BitConverter.ToInt32(reader.ReadBytes(4).Reverse().ToArray(), 0);
+                var Unknown = BitConverter.ToInt32(reader.ReadBytes(4).Reverse().ToArray(), 0);
+                var first2dRef = BitConverter.ToInt16(reader.ReadBytes(2).Reverse().ToArray(), 0);
 
                 var leaf = new BSP.Leaf();
 
                 leaf.Flags = flags;
                 leaf.Bsp2dReferenceCount = (short)bsp2dRefCount;
-                leaf.FirstBsp2dReference = (short)first2dRef;
+                leaf.Unknown = (short)Unknown;
+                leaf.FirstBsp2dReference = first2dRef;
 
                 bsp.Leaves.Add(leaf);
             }
@@ -380,7 +382,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
             return originalPos + (count * BSP2DREFERENCE_SIZE);
         }
-        
+
         public long ParseBSP2DNodes(BSP bsp, BinaryReader reader, int count)
         {
             bsp.Bsp2dNodes = new List<BSP.Bsp2dNode>();
@@ -446,7 +448,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
                 surface.Material = material;
                 surface.BreakableSurface = breakable_surface;
                 surface.Unknown2 = flags;
-                
+
                 bsp.Surfaces.Add(surface);
             }
             return originalPos + (count * SURFACE_SIZE);
@@ -590,7 +592,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
 
             // h1 ce tags will have a 64 byte header. The main struct is immediately after.
 
-            var  len = reader.BaseStream.Length;
+            var len = reader.BaseStream.Length;
             reader.BaseStream.Position = MAIN_STRUCT_OFFSET;
             var size = ParseMain(coll, reader);
 
