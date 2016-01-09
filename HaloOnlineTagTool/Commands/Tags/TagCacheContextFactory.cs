@@ -12,7 +12,6 @@ namespace HaloOnlineTagTool.Commands.Tags
             context.AddCommand(new ClearCommand());
             context.AddCommand(new DumpLogCommand());
             context.AddCommand(new DependencyCommand(info));
-            context.AddCommand(new FixupCommand(info));
             context.AddCommand(new ExtractCommand(info));
             context.AddCommand(new ImportCommand(info));
             context.AddCommand(new InfoCommand(info));
@@ -21,7 +20,6 @@ namespace HaloOnlineTagTool.Commands.Tags
             context.AddCommand(new DuplicateTagCommand(info));
             context.AddCommand(new AddressCommand());
             context.AddCommand(new ResourceDataCommand());
-            context.AddCommand(new TagBlockCommand(info));
             if (info.StringIds != null)
             {
                 context.AddCommand(new EditCommand(stack, info));

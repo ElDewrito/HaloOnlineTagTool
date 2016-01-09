@@ -1,6 +1,4 @@
-﻿// See http://pastebin.com/D3dgTqMR for structure definitions.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,8 +13,6 @@ namespace HaloOnlineTagTool
     public class TagCache
     {
         private const uint CacheHeaderSize = 0x20;
-        private const uint TagHeaderSize = 0x24;
-        private const uint FixupPointerBase = 0x40000000;
 
         private readonly List<TagInstance> _tags = new List<TagInstance>();
 
@@ -33,7 +29,7 @@ namespace HaloOnlineTagTool
         /// <summary>
         /// Gets the tags in the file.
         /// </summary>
-        public TagList Tags { get; private set; }
+        public TagList Tags { get; }
 
         /// <summary>
         /// Gets the timestamp stored in the file (as a FILETIME value).
@@ -41,52 +37,39 @@ namespace HaloOnlineTagTool
         public long Timestamp { get; private set; }
 
         /// <summary>
-        /// Saves any changes made to a tag's properties.
+        /// Allocates a new tag at the end of the tag list without updating the file.
+        /// You can give the tag data by using one of the overwrite functions.
         /// </summary>
-        /// <param name="stream">The stream to write to.</param>
-        /// <param name="tag">The tag to update.</param>
-        public void UpdateTag(Stream stream, TagInstance tag)
+        /// <returns>The allocated tag.</returns>
+        public TagInstance AllocateTag()
         {
-            if (tag == null)
-                throw new ArgumentNullException("tag");
-            if (tag.HeaderOffset < 0)
-                throw new ArgumentException("The tag is not in the cache file");
-            var writer = new BinaryWriter(stream);
-            UpdateTagHeader(writer, tag);
-            UpdateTagFixups(writer, tag);
-            UpdateTagOffsets(writer);
+            return AllocateTag(null);
         }
 
         /// <summary>
-        /// Reads a tag's data from the file, not including its header.
-        /// Any pointers in the tag will be adjusted to be relative to the start of the tag's data.
+        /// Allocates a new tag at the end of the tag list without updating the file.
+        /// You can give the tag data by using one of the overwrite functions.
+        /// </summary>
+        /// <param name="type">The tag's type information. Can be <c>null</c> if the type is not known yet.</param>
+        /// <returns>The allocated tag.</returns>
+        public TagInstance AllocateTag(TagTypeDescriptor type)
+        {
+            var tagIndex = _tags.Count;
+            var tag = new TagInstance(tagIndex, type);
+            _tags.Add(tag);
+            return tag;
+        }
+
+        /// <summary>
+        /// Reads a tag's raw data from the file, including its header.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
         /// <param name="tag">The tag to read.</param>
         /// <returns>The data that was read.</returns>
-        public byte[] ExtractTagData(Stream stream, TagInstance tag)
+        public byte[] ExtractTagRaw(Stream stream, TagInstance tag)
         {
             if (tag == null)
-                throw new ArgumentNullException("tag");
-            if (tag.HeaderOffset < 0)
-                throw new ArgumentException("The tag is not in the cache file");
-            stream.Position = tag.DataOffset;
-            var result = new byte[tag.DataSize];
-            stream.Read(result, 0, result.Length);
-            RebasePointers(tag, result, 0);
-            return result;
-        }
-
-        /// <summary>
-        /// Reads a tag's data from the file, including its header.
-        /// </summary>
-        /// <param name="stream">The stream to read from.</param>
-        /// <param name="tag">The tag to read.</param>
-        /// <returns>The data that was read.</returns>
-        public byte[] ExtractFullTag(Stream stream, TagInstance tag)
-        {
-            if (tag == null)
-                throw new ArgumentNullException("tag");
+                throw new ArgumentNullException(nameof(tag));
             if (tag.HeaderOffset < 0)
                 throw new ArgumentException("The tag is not in the cache file");
             stream.Position = tag.HeaderOffset;
@@ -96,72 +79,103 @@ namespace HaloOnlineTagTool
         }
 
         /// <summary>
-        /// Allocates a new tag at the end of the tag list without updating the file.
-        /// You can give the tag data by using one of the overwrite functions.
+        /// Reads a tag's data from the file.
         /// </summary>
-        /// <returns>The allocated tag.</returns>
-        public TagInstance AllocateTag()
-        {
-            var tagIndex = _tags.Count;
-            var tag = new TagInstance { Index = tagIndex };
-            _tags.Add(tag);
-            return tag;
-        }
-
-        /// <summary>
-        /// Overwrites a tag's data, not including its header.
-        /// Any pointers in the data to write will be adjusted to be relative to the start of the tag's header.
-        /// Make sure that fixups are set correctly before calling this.
-        /// </summary>
-        /// <param name="stream">The stream to write to.</param>
-        /// <param name="tag">The tag to overwrite.</param>
-        /// <param name="data">The data to write.</param>
-        public void OverwriteTagData(Stream stream, TagInstance tag, byte[] data)
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="tag">The tag to read.</param>
+        /// <returns>The data that was read.</returns>
+        public TagData ExtractTag(Stream stream, TagInstance tag)
         {
             if (tag == null)
-                throw new ArgumentNullException("tag");
-
-            // Ensure the data fits
-            var newHeaderSize = CalculateNewHeaderSize(tag);
+                throw new ArgumentNullException(nameof(tag));
             if (tag.HeaderOffset < 0)
-                tag.HeaderOffset = GetNewTagOffset(tag.Index);
-            var alignedLength = (data.Length + 0xF) & ~0xF;
-            ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, newHeaderSize + alignedLength);
-            tag.DataOffset = tag.HeaderOffset + newHeaderSize;
-            tag.DataSize = alignedLength;
-                
-            // Write it in and then update
-            stream.Position = tag.DataOffset;
-            stream.Write(data, 0, data.Length);
-            StreamUtil.Fill(stream, 0, alignedLength - data.Length);
-            UpdateTag(stream, tag);
+                throw new ArgumentException("The tag is not in the cache file");
+
+            // Build the description info and get the data offset
+            uint dataOffset;
+            var data = BuildTagDescription(stream, tag, out dataOffset);
+
+            // Read the tag data
+            stream.Position = tag.HeaderOffset + dataOffset;
+            data.Data = new byte[tag.TotalSize - dataOffset];
+            stream.Read(data.Data, 0, data.Data.Length);
+
+            // Correct pointers
+            using (var dataWriter = new BinaryWriter(new MemoryStream(data.Data)))
+            {
+                foreach (var fixup in data.PointerFixups)
+                {
+                    dataWriter.BaseStream.Position = fixup.WriteOffset;
+                    dataWriter.Write(tag.OffsetToPointer(fixup.TargetOffset));
+                }
+            }
+            return data;
         }
 
         /// <summary>
-        /// Overwrites a tag's data, including its header.
+        /// Overwrites a tag's raw data, including its header.
         /// </summary>
         /// <param name="stream">The stream to write to.</param>
         /// <param name="tag">The tag to overwrite.</param>
         /// <param name="data">The data to overwrite the tag with.</param>
         /// <exception cref="System.ArgumentNullException">tag</exception>
-        public void OverwriteFullTag(Stream stream, TagInstance tag, byte[] data)
+        public void SetTagDataRaw(Stream stream, TagInstance tag, byte[] data)
         {
             if (tag == null)
-                throw new ArgumentNullException("tag");
+                throw new ArgumentNullException(nameof(tag));
 
             // Ensure the data fits
             if (tag.HeaderOffset < 0)
                 tag.HeaderOffset = GetNewTagOffset(tag.Index);
             ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, data.Length);
-            
+            tag.TotalSize = data.Length;
+
             // Write the data
             stream.Position = tag.HeaderOffset;
             stream.Write(data, 0, data.Length);
 
-            // Re-parse it and update tag offsets
+            // Re-parse it
             stream.Position = tag.HeaderOffset;
-            ReadTagHeader(new BinaryReader(stream), tag);
-            UpdateTagOffsets(new BinaryWriter(stream));
+            tag.ReadHeader(new BinaryReader(stream));
+        }
+
+        /// <summary>
+        /// Overwrites a tag's data.
+        /// </summary>
+        /// <param name="stream">The stream to write to.</param>
+        /// <param name="tag">The tag to overwrite.</param>
+        /// <param name="data">The data to store.</param>
+        public void SetTagData(Stream stream, TagInstance tag, TagData data)
+        {
+            if (tag == null)
+                throw new ArgumentNullException(nameof(tag));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            // Ensure the data fits
+            var headerSize = TagInstance.CalculateHeaderSize(data);
+            var alignedHeaderSize = (uint)((headerSize + 0xF) & ~0xF);
+            if (tag.HeaderOffset < 0)
+                tag.HeaderOffset = GetNewTagOffset(tag.Index);
+            var alignedLength = (data.Data.Length + 0xF) & ~0xF;
+            ResizeBlock(stream, tag, tag.HeaderOffset, tag.TotalSize, alignedHeaderSize + alignedLength);
+            tag.TotalSize = alignedHeaderSize + alignedLength;
+            tag.Update(data, alignedHeaderSize);
+
+            // Write in the new header and data
+            stream.Position = tag.HeaderOffset;
+            var writer = new BinaryWriter(stream);
+            tag.WriteHeader(writer);
+            StreamUtil.Fill(stream, 0, (int)(alignedHeaderSize - headerSize));
+            stream.Write(data.Data, 0, data.Data.Length);
+            StreamUtil.Fill(stream, 0, alignedLength - data.Data.Length);
+
+            // Correct pointers
+            foreach (var fixup in data.PointerFixups)
+            {
+                writer.BaseStream.Position = tag.HeaderOffset + alignedHeaderSize + fixup.WriteOffset;
+                writer.Write(tag.OffsetToPointer(alignedHeaderSize + fixup.TargetOffset));
+            }
         }
 
         /// <summary>
@@ -173,65 +187,59 @@ namespace HaloOnlineTagTool
         public TagInstance DuplicateTag(Stream stream, TagInstance tag)
         {
             if (tag == null)
-                throw new ArgumentNullException("tag");
+                throw new ArgumentNullException(nameof(tag));
 
             // Just extract the tag and add it back
             var result = AllocateTag();
-            OverwriteFullTag(stream, result, ExtractFullTag(stream, tag));
+            SetTagDataRaw(stream, result, ExtractTagRaw(stream, tag));
             return result;
         }
 
         /// <summary>
-        /// Resizes a block of tag data, updating relative pointers which do not point into the block.
+        /// Builds a description for a tag's data without extracting anything.
         /// </summary>
-        /// <param name="stream">The stream to write to.</param>
-        /// <param name="tag">The tag.</param>
-        /// <param name="startOffset">The offset, from the start of the tag's data, where the block to resize begins at.</param>
-        /// <param name="oldSize">The current size of the block to resize.</param>
-        /// <param name="newSize">The new size of the block.</param>
-        /// <param name="origin">The origin where data should be inserted or removed.</param>
-        public void ResizeTagData(Stream stream, TagInstance tag, long startOffset, long oldSize, long newSize, ResizeOrigin origin)
+        /// <param name="stream">The stream to read from.</param>
+        /// <param name="tag">The tag to read.</param>
+        /// <param name="dataOffset">On return, this will contain the offset of the tag's data relative to its header.</param>
+        /// <returns>The description that was built. </returns>
+        private static TagData BuildTagDescription(Stream stream, TagInstance tag, out uint dataOffset)
         {
-            if (tag == null)
-                throw new ArgumentNullException("tag");
-            if (tag.HeaderOffset < 0)
-                throw new ArgumentException("The tag is not in the cache file");
-            if (oldSize < 0)
-                throw new ArgumentException("The old block size cannot be negative");
-            if (newSize < 0)
-                throw new ArgumentException("Cannot resize a block to a negative size");
-            if (newSize == tag.DataSize)
-                return;
-
-            // Correct offsets pointing after the block
-            var sizeDelta = newSize - oldSize;
-            var blockEndOffset = startOffset + oldSize;
-            tag.DataSize += sizeDelta;
-            foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
+            var data = new TagData
             {
-                if (fixup.WriteOffset >= blockEndOffset)
-                    fixup.WriteOffset = (uint)(fixup.WriteOffset + sizeDelta);
-                if (fixup.TargetOffset >= blockEndOffset)
-                    fixup.TargetOffset = (uint)(fixup.TargetOffset + sizeDelta);
-            }
-            if (tag.MainStructOffset >= blockEndOffset)
-                tag.MainStructOffset = (uint)(tag.MainStructOffset + sizeDelta);
-            FixTagOffsets(tag.DataOffset + blockEndOffset, sizeDelta, tag);
+                Type = tag.GetTypeDescriptor(),
+                MainStructOffset = tag.MainStructOffset,
+            };
+            foreach (var dependency in tag.Dependencies)
+                data.Dependencies.Add(dependency);
 
-            // Insert/remove the data
-            long editOffset;
-            if (origin == ResizeOrigin.Beginning)
-                editOffset = startOffset;
-            else if (sizeDelta > 0)
-                editOffset = blockEndOffset;
-            else
-                editOffset = blockEndOffset + sizeDelta;
-            stream.Position = tag.DataOffset + editOffset;
-            if (sizeDelta > 0)
-                StreamUtil.Insert(stream, (int)sizeDelta, 0);
-            else
-                StreamUtil.Remove(stream, (int)-sizeDelta);
-            UpdateTag(stream, tag);
+            // Read pointer fixups
+            var reader = new BinaryReader(stream);
+            foreach (var pointerOffset in tag.PointerOffsets)
+            {
+                reader.BaseStream.Position = tag.HeaderOffset + pointerOffset;
+                data.PointerFixups.Add(new TagPointerFixup
+                {
+                    WriteOffset = pointerOffset,
+                    TargetOffset = tag.PointerToOffset(reader.ReadUInt32()),
+                });
+            }
+
+            // Find the start of the tag's data by finding the offset of the first block which is pointed to by something
+            // We CAN'T just calculate a header size here because we don't know for sure if there's padding and how big it is
+            var startOffset = tag.MainStructOffset;
+            foreach (var fixup in data.PointerFixups)
+                startOffset = Math.Min(startOffset, Math.Min(fixup.WriteOffset, fixup.TargetOffset));
+
+            // Now convert all offsets into relative ones
+            foreach (var fixup in data.PointerFixups)
+            {
+                fixup.WriteOffset -= startOffset;
+                fixup.TargetOffset -= startOffset;
+            }
+            data.ResourcePointerOffsets.AddRange(tag.ResourcePointerOffsets.Select(offset => offset - startOffset));
+            data.MainStructOffset -= startOffset;
+            dataOffset = startOffset;
+            return data;
         }
 
         /// <summary>
@@ -247,10 +255,13 @@ namespace HaloOnlineTagTool
         {
             if (newSize < 0)
                 throw new ArgumentException("Cannot resize a block to a negative size");
+            if (oldSize == newSize)
+                return;
             var oldEndOffset = startOffset + oldSize;
             var sizeDelta = newSize - oldSize;
             StreamUtil.Copy(stream, oldEndOffset, oldEndOffset + sizeDelta, stream.Length - oldEndOffset);
             FixTagOffsets(oldEndOffset, sizeDelta, tag);
+            UpdateTagOffsets(new BinaryWriter(stream));
         }
 
         /// <summary>
@@ -262,10 +273,7 @@ namespace HaloOnlineTagTool
         private void FixTagOffsets(long startOffset, long sizeDelta, TagInstance ignore)
         {
             foreach (var adjustTag in _tags.Where(t => t != null && t != ignore && t.HeaderOffset >= startOffset))
-            {
                 adjustTag.HeaderOffset += sizeDelta;
-                adjustTag.DataOffset += sizeDelta;
-            }
         }
 
         /// <summary>
@@ -296,157 +304,10 @@ namespace HaloOnlineTagTool
                     _tags.Add(null);
                     continue;
                 }
-                var tag = new TagInstance { Index = i, HeaderOffset = headerOffsets[i] };
+                var tag = new TagInstance(i) { HeaderOffset = headerOffsets[i] };
                 _tags.Add(tag);
                 reader.BaseStream.Position = tag.HeaderOffset;
-                ReadTagHeader(reader, tag);
-            }
-        }
-
-        /// <summary>
-        /// Reads a tag's header.
-        /// </summary>
-        /// <param name="reader">The stream to read from.</param>
-        /// <param name="resultTag">The tag to update.</param>
-        private static void ReadTagHeader(BinaryReader reader, TagInstance resultTag)
-        {
-            resultTag.Checksum = reader.ReadUInt32();                            // 0x00 uint32 checksum
-            var totalSize = reader.ReadUInt32();                                 // 0x04 uint32 total size
-            var numDependencies = reader.ReadInt16();                            // 0x08 int16  dependencies count
-            var numDataFixups = reader.ReadInt16();                              // 0x0A int16  data fixup count
-            var numResourceFixups = reader.ReadInt16();                          // 0x0C int16  resource fixup count
-            reader.BaseStream.Position += 2;                                     // 0x0E int16  (padding)
-            var mainStructOffset = reader.ReadUInt32();                          // 0x10 uint32 main struct offset
-            resultTag.GroupTag = new Tag(reader.ReadInt32());            // 0x14 int32  group tag
-            resultTag.ParentGroupTag = new Tag(reader.ReadInt32());      // 0x18 int32  parent group tag
-            resultTag.GrandparentGroupTag = new Tag(reader.ReadInt32()); // 0x1C int32  grandparent group tag
-            resultTag.GroupName = new StringId(reader.ReadUInt32());             // 0x20 uint32 group name stringid
-
-            // Read dependencies
-            resultTag.Dependencies.Clear();
-            for (var j = 0; j < numDependencies; j++)
-                resultTag.Dependencies.Add(reader.ReadInt32());
-
-            // Read fixup pointers
-            resultTag.DataFixups.Clear();
-            for (var j = 0; j < numDataFixups; j++)
-                resultTag.DataFixups.Add(new TagFixup { WriteOffset = reader.ReadUInt32() - FixupPointerBase });
-            resultTag.ResourceFixups.Clear();
-            for (var j = 0; j < numResourceFixups; j++)
-                resultTag.ResourceFixups.Add(new TagFixup { WriteOffset = reader.ReadUInt32() - FixupPointerBase });
-
-            // Read fixup destinations
-            foreach (var fixup in resultTag.DataFixups)
-                fixup.TargetOffset = ReadFixupTarget(reader, fixup.WriteOffset, resultTag.HeaderOffset);
-            foreach (var fixup in resultTag.ResourceFixups)
-                fixup.TargetOffset = ReadFixupTarget(reader, fixup.WriteOffset, resultTag.HeaderOffset);
-
-            // Compute the data offset based on the smallest offset into the tag
-            var smallestOffset = mainStructOffset;
-            foreach (var fixup in resultTag.DataFixups.Concat(resultTag.ResourceFixups))
-            {
-                if (fixup.WriteOffset < smallestOffset)
-                    smallestOffset = fixup.WriteOffset;
-                if (fixup.TargetOffset < smallestOffset)
-                    smallestOffset = fixup.TargetOffset;
-            }
-            resultTag.MainStructOffset = mainStructOffset - smallestOffset;
-            resultTag.DataOffset = resultTag.HeaderOffset + smallestOffset;
-            resultTag.DataSize = totalSize - smallestOffset;
-
-            // Make fixups relative to the data offset
-            foreach (var fixup in resultTag.DataFixups.Concat(resultTag.ResourceFixups))
-            {
-                fixup.TargetOffset -= smallestOffset;
-                fixup.WriteOffset -= smallestOffset;
-            }
-        }
-
-        /// <summary>
-        /// Reads the target offset (relative to the start of the header) of a fixup pointer.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="fixupOffset">The offset, relative to the start of the tag's header, of the fixup.</param>
-        /// <param name="headerOffset">The offset of the tag's header.</param>
-        /// <returns>The read fixup information.</returns>
-        private static uint ReadFixupTarget(BinaryReader reader, uint fixupOffset, long headerOffset)
-        {
-            // Seek to the offset and read and adjust the target
-            reader.BaseStream.Position = headerOffset + fixupOffset;
-            return reader.ReadUInt32() - FixupPointerBase;
-        }
-
-        /// <summary>
-        /// Writes a tag's header back to the file, resizing it if necessary.
-        /// </summary>
-        /// <param name="writer">The stream to write to.</param>
-        /// <param name="tag">The tag.</param>
-        private void UpdateTagHeader(BinaryWriter writer, TagInstance tag)
-        {
-            // Resize the header if necessary
-            var newHeaderSize = CalculateNewHeaderSize(tag);
-            if (newHeaderSize != tag.HeaderSize)
-                ResizeBlock(writer.BaseStream, tag, tag.HeaderOffset, tag.HeaderSize, newHeaderSize);
-            tag.DataOffset = tag.HeaderOffset + newHeaderSize;
-
-            // Write the tag header
-            writer.BaseStream.Position = tag.HeaderOffset;
-            writer.Write(tag.Checksum);
-            writer.Write((uint)(tag.DataSize + newHeaderSize));
-            writer.Write((short)tag.Dependencies.Count);
-            writer.Write((short)tag.DataFixups.Count);
-            writer.Write((short)tag.ResourceFixups.Count);
-            writer.Write((short)0);
-            writer.Write(tag.MainStructOffset + newHeaderSize);
-            writer.Write(tag.GroupTag.Value);
-            writer.Write(tag.ParentGroupTag.Value);
-            writer.Write(tag.GrandparentGroupTag.Value);
-            writer.Write(tag.GroupName.Value);
-
-            // Write dependencies
-            foreach (var dependency in tag.Dependencies)
-                writer.Write(dependency);
-
-            // Write fixup pointers
-            foreach (var fixup in tag.DataFixups.Concat(tag.ResourceFixups))
-                writer.Write(fixup.WriteOffset + newHeaderSize + FixupPointerBase);
-
-            // Padding
-            var paddingSize = (tag.HeaderSize - (writer.BaseStream.Position - tag.HeaderOffset)) & 0xF;
-            for (var i = 0; i < paddingSize; i += 4)
-                writer.Write(0);
-        }
-
-        /// <summary>
-        /// Rebases fixup pointers in tag data.
-        /// </summary>
-        /// <param name="tag">The tag.</param>
-        /// <param name="data">The data.</param>
-        /// <param name="newBase">The new base offset to use.</param>
-        private static void RebasePointers(TagInstance tag, byte[] data, uint newBase)
-        {
-            using (var writer = new BinaryWriter(new MemoryStream(data)))
-            {
-                foreach (var fixup in tag.DataFixups)
-                {
-                    writer.BaseStream.Position = fixup.WriteOffset;
-                    writer.Write(newBase + fixup.TargetOffset + FixupPointerBase);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Updates a tag's fixup information.
-        /// </summary>
-        /// <param name="writer">The stream to write to.</param>
-        /// <param name="tag">The tag.</param>
-        private static void UpdateTagFixups(BinaryWriter writer, TagInstance tag)
-        {
-            var totalHeaderSize = CalculateNewHeaderSize(tag);
-            foreach (var fixup in tag.DataFixups)
-            {
-                writer.BaseStream.Position = tag.DataOffset + fixup.WriteOffset;
-                writer.Write(fixup.TargetOffset + totalHeaderSize + FixupPointerBase);
+                tag.ReadHeader(reader);
             }
         }
 
@@ -464,7 +325,7 @@ namespace HaloOnlineTagTool
             for (var i = index - 1; i >= 0; i--)
             {
                 var tag = _tags[i];
-                if (tag != null && tag.HeaderOffset >= 0 && tag.DataOffset >= 0)
+                if (tag != null && tag.HeaderOffset >= 0)
                     return tag.HeaderOffset + tag.TotalSize;
             }
             return CacheHeaderSize;
@@ -492,7 +353,7 @@ namespace HaloOnlineTagTool
             writer.BaseStream.Position = offsetTableOffset;
             foreach (var tag in _tags)
             {
-                if (tag != null && tag.HeaderOffset >= 0 && tag.DataOffset >= 0)
+                if (tag != null && tag.HeaderOffset >= 0)
                     writer.Write((uint)tag.HeaderOffset);
                 else
                     writer.Write(0);
@@ -517,46 +378,5 @@ namespace HaloOnlineTagTool
             writer.Write(0);                       // 0x18 uint32 unknown
             writer.Write(0);                       // 0x1C uint32 unknown
         }
-
-        /// <summary>
-        /// Calculates the size of a tag's header after it will be updated in the file.
-        /// </summary>
-        /// <param name="tag">The tag.</param>
-        /// <returns>The new size of the tag's header.</returns>
-        private static uint CalculateNewHeaderSize(TagInstance tag)
-        {
-            return CalculateHeaderSize(tag.Dependencies.Count, tag.DataFixups.Count, tag.ResourceFixups.Count);
-        }
-
-        /// <summary>
-        /// Calculates the size of a tag header.
-        /// </summary>
-        /// <param name="numRequiredTags">The number of required tags.</param>
-        /// <param name="numDataFixups">The number of fixups.</param>
-        /// <param name="numResourceFixups">The number of resource fixups.</param>
-        /// <returns>The size of the tag header.</returns>
-        private static uint CalculateHeaderSize(int numRequiredTags, int numDataFixups, int numResourceFixups)
-        {
-            // After the static header, there's 4 bytes per required tag index and 4 bytes per fixup pointer
-            var size = (uint)(TagHeaderSize + numRequiredTags * 4 + numDataFixups * 4 + numResourceFixups * 4);
-            size = (size + 0xF) & ~0xFU; // Align the header size to 16 bytes
-            return size;
-        }
-    }
-
-    /// <summary>
-    /// Block resizing origins.
-    /// </summary>
-    public enum ResizeOrigin
-    {
-        /// <summary>
-        /// Data will be added or removed at the beginning of the block.
-        /// </summary>
-        Beginning,
-
-        /// <summary>
-        /// Data will be added or removed at the end of the block.
-        /// </summary>
-        End
     }
 }

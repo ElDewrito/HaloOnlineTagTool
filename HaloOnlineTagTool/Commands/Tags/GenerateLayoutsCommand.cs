@@ -63,8 +63,8 @@ namespace HaloOnlineTagTool.Commands.Tags
                         TagPrinter.PrintTagShort(tag);
 
                         lastTag = tag;
-                        var analyzer = new TagAnalyzer(_cache, tag);
-                        var data = _cache.ExtractTagData(stream, tag);
+                        var analyzer = new TagAnalyzer(_cache);
+                        var data = _cache.ExtractTag(stream, tag);
                         var tagLayout = analyzer.Analyze(data);
                         if (layout != null)
                             layout.Merge(tagLayout);

@@ -107,7 +107,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="groupTags">The group tags.</param>
         /// <returns>All tags which belong to at least one of the groups.</returns>
-        public IEnumerable<TagInstance> FindAllByClasses(ICollection<Tag> groupTags)
+        public IEnumerable<TagInstance> FindAllInGroups(ICollection<Tag> groupTags)
         {
             return NonNull().Where(t => groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag));
         }
@@ -131,7 +131,7 @@ namespace HaloOnlineTagTool
         /// <returns>A collection of tags which are not null.</returns>
         public IEnumerable<TagInstance> NonNull()
         {
-            return _tags.Where(t => t != null && t.HeaderOffset >= 0 && t.DataOffset >= 0);
+            return _tags.Where(t => t != null && t.HeaderOffset >= 0);
         }
 
         private void FindDependencies(ISet<TagInstance> results, TagInstance tag)

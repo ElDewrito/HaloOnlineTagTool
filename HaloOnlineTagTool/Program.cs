@@ -27,7 +27,6 @@ namespace HaloOnlineTagTool
             if (autoexecCommand == null)
             {
                 Console.WriteLine("Halo Online Tag Tool [{0}]", Assembly.GetExecutingAssembly().GetName().Version);
-                Console.WriteLine("Written by Shockfire");
                 Console.WriteLine();
                 Console.WriteLine("Please report any bugs and feature requests at");
                 Console.WriteLine("<https://github.com/ElDewrito/HaloOnlineTagTool/issues>.");
