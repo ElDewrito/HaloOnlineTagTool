@@ -59,16 +59,16 @@ namespace HaloOnlineTagTool.Commands.Tags
             // order to look up the group name without using a static table.
             var processedGroups = new HashSet<Tag>();
             var numConflicts = 0;
-            foreach (var tag in _cache.Tags.NonNull().Where(tag => !processedGroups.Contains(tag.GroupTag)))
+            foreach (var tag in _cache.Tags.NonNull().Where(tag => !processedGroups.Contains(tag.Group.Tag)))
             {
-                processedGroups.Add(tag.GroupTag);
+                processedGroups.Add(tag.Group.Tag);
 
                 // Get the plugin path and skip it if it doesn't exist
-                var pluginFileName = SanitizeGroupTagName(tag.GroupTag.ToString()) + ".xml";
+                var pluginFileName = SanitizeGroupTagName(tag.Group.Tag.ToString()) + ".xml";
                 var pluginPath = Path.Combine(inDir, pluginFileName);
                 if (!File.Exists(pluginPath))
                 {
-                    Console.Error.WriteLine("WARNING: No plugin found for the '{0}' tag group", tag.GroupTag);
+                    Console.Error.WriteLine("WARNING: No plugin found for the '{0}' tag group", tag.Group.Tag);
                     continue;
                 }
 
@@ -76,9 +76,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 
                 // Load the plugin into a layout
                 AssemblyPluginLoadResults loadedPlugin;
-                var groupName = _info.StringIds.GetString(tag.GroupName);
+                var groupName = _info.StringIds.GetString(tag.Group.Name);
                 using (var reader = XmlReader.Create(pluginPath))
-                    loadedPlugin = AssemblyPluginLoader.LoadPlugin(reader, groupName, tag.GroupTag);
+                    loadedPlugin = AssemblyPluginLoader.LoadPlugin(reader, groupName, tag.Group.Tag);
 
                 // Warn the user about conflicts
                 numConflicts += loadedPlugin.Conflicts.Count;

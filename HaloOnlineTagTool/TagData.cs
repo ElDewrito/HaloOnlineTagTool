@@ -12,9 +12,9 @@ namespace HaloOnlineTagTool
     public class TagData
     {
         /// <summary>
-        /// Gets or sets the tag data's type descriptor.
+        /// Gets or sets the tag data's group.
         /// </summary>
-        public TagTypeDescriptor Type { get; set; }
+        public TagGroup Group { get; set; } = TagGroup.Null;
 
         /// <summary>
         /// Gets or sets the offset of the main structure in the tag data.
@@ -40,32 +40,6 @@ namespace HaloOnlineTagTool
         /// Gets or sets the serialized tag data.
         /// </summary>
         public byte[] Data { get; set; }
-    }
-
-    /// <summary>
-    /// Describes the type of data in a tag.
-    /// </summary>
-    public class TagTypeDescriptor
-    {
-        /// <summary>
-        /// Gets or sets the tag data's group tag.
-        /// </summary>
-        public Tag GroupTag { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tag data's parent group tag. Can be -1.
-        /// </summary>
-        public Tag ParentGroupTag { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tag data's grandparent group tag. Can be -1.
-        /// </summary>
-        public Tag GrandparentGroupTag { get; set; }
-
-        /// <summary>
-        /// Gets or sets the stringID for the tag data's group.
-        /// </summary>
-        public StringId GroupName { get; set; }
     }
 
     /// <summary>

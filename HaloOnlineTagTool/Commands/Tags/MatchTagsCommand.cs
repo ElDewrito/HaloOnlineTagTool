@@ -101,20 +101,20 @@ namespace HaloOnlineTagTool.Commands.Tags
                             {
                                 // No data yet - deserialize it
                                 var context = new TagSerializationContext(stream, info.Cache, info.StringIds, tag.Tag);
-                                var type = TagStructureTypes.FindByGroupTag(tag.Tag.GroupTag);
+                                var type = TagStructureTypes.FindByGroupTag(tag.Tag.Group.Tag);
                                 data = info.Deserializer.Deserialize(context, type);
                             }
 
                             // Now get the data for the base tag
                             var baseTag = result.Translate(info.Version, tag.Tag.Index, baseVersion);
-                            if (baseTag == -1 || _info.Cache.Tags[baseTag].GroupTag != tag.Tag.GroupTag)
+                            if (baseTag == -1 || _info.Cache.Tags[baseTag].Group.Tag != tag.Tag.Group.Tag)
                                 continue;
                             object baseData;
                             if (!baseTagData.TryGetValue(baseTag, out baseData))
                             {
                                 // No data yet - deserialize it
                                 var context = new TagSerializationContext(baseStream, _info.Cache, _info.StringIds, _info.Cache.Tags[baseTag]);
-                                var type = TagStructureTypes.FindByGroupTag(tag.Tag.GroupTag);
+                                var type = TagStructureTypes.FindByGroupTag(tag.Tag.Group.Tag);
                                 baseData = _info.Deserializer.Deserialize(context, type);
                                 baseTagData[baseTag] = baseData;
                             }
@@ -145,7 +145,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 // If the objects are tags, then we've found a match
                 var leftTag = (TagInstance)leftData;
                 var rightTag = (TagInstance)rightData;
-                if (leftTag.GroupTag != rightTag.GroupTag)
+                if (leftTag.Group.Tag != rightTag.Group.Tag)
                     return;
                 if (leftTag.IsInGroup("rmt2") || leftTag.IsInGroup("rmdf") || leftTag.IsInGroup("vtsh") || leftTag.IsInGroup("pixl") || leftTag.IsInGroup("rm  ") || leftTag.IsInGroup("bitm"))
                     return;

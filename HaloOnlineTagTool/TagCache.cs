@@ -38,21 +38,22 @@ namespace HaloOnlineTagTool
 
         /// <summary>
         /// Allocates a new tag at the end of the tag list without updating the file.
+        /// The tag's group will be null until it is assigned data.
         /// You can give the tag data by using one of the overwrite functions.
         /// </summary>
         /// <returns>The allocated tag.</returns>
         public TagInstance AllocateTag()
         {
-            return AllocateTag(null);
+            return AllocateTag(TagGroup.Null);
         }
 
         /// <summary>
         /// Allocates a new tag at the end of the tag list without updating the file.
         /// You can give the tag data by using one of the overwrite functions.
         /// </summary>
-        /// <param name="type">The tag's type information. Can be <c>null</c> if the type is not known yet.</param>
+        /// <param name="type">The tag's type information.</param>
         /// <returns>The allocated tag.</returns>
-        public TagInstance AllocateTag(TagTypeDescriptor type)
+        public TagInstance AllocateTag(TagGroup type)
         {
             var tagIndex = _tags.Count;
             var tag = new TagInstance(tagIndex, type);
@@ -151,6 +152,10 @@ namespace HaloOnlineTagTool
                 throw new ArgumentNullException(nameof(tag));
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
+            if (data.Group == TagGroup.Null)
+                throw new ArgumentException("Cannot assign a tag to a null tag group");
+            if (data.Data == null)
+                throw new ArgumentException("The tag data buffer is null");
 
             // Ensure the data fits
             var headerSize = TagInstance.CalculateHeaderSize(data);
@@ -206,7 +211,7 @@ namespace HaloOnlineTagTool
         {
             var data = new TagData
             {
-                Type = tag.GetTypeDescriptor(),
+                Group = tag.Group,
                 MainStructOffset = tag.MainStructOffset,
             };
             foreach (var dependency in tag.Dependencies)

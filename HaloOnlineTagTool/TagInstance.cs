@@ -27,16 +27,10 @@ namespace HaloOnlineTagTool
             Index = index;
         }
 
-        internal TagInstance(int index, TagTypeDescriptor type)
+        internal TagInstance(int index, TagGroup group)
         {
             Index = index;
-            if (type != null)
-            {
-                GroupTag = type.GroupTag;
-                ParentGroupTag = type.ParentGroupTag;
-                GrandparentGroupTag = type.GrandparentGroupTag;
-                GroupName = type.GroupName;
-            }
+            Group = group;
         }
 
         /// <summary>
@@ -55,24 +49,9 @@ namespace HaloOnlineTagTool
         public long TotalSize { get; internal set; } = -1;
 
         /// <summary>
-        /// Gets the tag's group tag.
+        /// Gets the tag's group.
         /// </summary>
-        public Tag GroupTag { get; private set; }
-
-        /// <summary>
-        /// Gets the tag's parent group tag. Can be -1.
-        /// </summary>
-        public Tag ParentGroupTag { get; private set; }
-
-        /// <summary>
-        /// Gets the tag's grandparent group tag. Can be -1.
-        /// </summary>
-        public Tag GrandparentGroupTag { get; private set; }
-
-        /// <summary>
-        /// Gets the stringID for the tag's group.
-        /// </summary>
-        public StringId GroupName { get; private set; }
+        public TagGroup Group { get; private set; }
 
         /// <summary>
         /// Gets the offset of the tag's main structure from the start of its header.
@@ -113,9 +92,7 @@ namespace HaloOnlineTagTool
         /// <returns><c>true</c> if the tag belongs to the group.</returns>
         public bool IsInGroup(Tag groupTag)
         {
-            if (groupTag.Value == -1)
-                return false;
-            return (GroupTag == groupTag || ParentGroupTag == groupTag || GrandparentGroupTag == groupTag);
+            return Group.BelongsTo(groupTag);
         }
 
         /// <summary>
@@ -125,7 +102,17 @@ namespace HaloOnlineTagTool
         /// <returns><c>true</c> if the tag belongs to the group.</returns>
         public bool IsInGroup(string groupTag)
         {
-            return IsInGroup(new Tag(groupTag));
+            return Group.BelongsTo(groupTag);
+        }
+
+        /// <summary>
+        /// Determines whether the tag belongs to a tag group.
+        /// </summary>
+        /// <param name="group">The tag group.</param>
+        /// <returns><c>true</c> if the tag belongs to the group.</returns>
+        public bool IsInGroup(TagGroup group)
+        {
+            return Group.BelongsTo(group);
         }
 
         /// <summary>
@@ -142,21 +129,6 @@ namespace HaloOnlineTagTool
         /// <returns>The pointer.</returns>
         public uint OffsetToPointer(uint offset) => offset + FixupPointerBase;
 
-        /// <summary>
-        /// Gets a type descriptor for the tag.
-        /// </summary>
-        /// <returns>A type descriptor for the tag.</returns>
-        public TagTypeDescriptor GetTypeDescriptor()
-        {
-            return new TagTypeDescriptor
-            {
-                GroupTag = GroupTag,
-                ParentGroupTag = ParentGroupTag,
-                GrandparentGroupTag = GrandparentGroupTag,
-                GroupName = GroupName,
-            };
-        }
-
         public override string ToString() => $"0x{Index:X8}";
 
         /// <summary>
@@ -165,17 +137,18 @@ namespace HaloOnlineTagTool
         /// <param name="reader">The stream to read from.</param>
         internal void ReadHeader(BinaryReader reader)
         {
-            Checksum = reader.ReadUInt32();                    // 0x00 uint32 checksum
-            TotalSize = reader.ReadUInt32();                   // 0x04 uint32 total size
-            var numDependencies = reader.ReadInt16();          // 0x08 int16  dependencies count
-            var numDataFixups = reader.ReadInt16();            // 0x0A int16  data fixup count
-            var numResourceFixups = reader.ReadInt16();        // 0x0C int16  resource fixup count
-            reader.BaseStream.Position += 2;                   // 0x0E int16  (padding)
-            MainStructOffset = reader.ReadUInt32();            // 0x10 uint32 main struct offset
-            GroupTag = new Tag(reader.ReadInt32());            // 0x14 int32  group tag
-            ParentGroupTag = new Tag(reader.ReadInt32());      // 0x18 int32  parent group tag
-            GrandparentGroupTag = new Tag(reader.ReadInt32()); // 0x1C int32  grandparent group tag
-            GroupName = new StringId(reader.ReadUInt32());     // 0x20 uint32 group name stringid
+            Checksum = reader.ReadUInt32();                        // 0x00 uint32 checksum
+            TotalSize = reader.ReadUInt32();                       // 0x04 uint32 total size
+            var numDependencies = reader.ReadInt16();              // 0x08 int16  dependencies count
+            var numDataFixups = reader.ReadInt16();                // 0x0A int16  data fixup count
+            var numResourceFixups = reader.ReadInt16();            // 0x0C int16  resource fixup count
+            reader.BaseStream.Position += 2;                       // 0x0E int16  (padding)
+            MainStructOffset = reader.ReadUInt32();                // 0x10 uint32 main struct offset
+            var groupTag = new Tag(reader.ReadInt32());            // 0x14 int32  group tag
+            var parentGroupTag = new Tag(reader.ReadInt32());      // 0x18 int32  parent group tag
+            var grandparentGroupTag = new Tag(reader.ReadInt32()); // 0x1C int32  grandparent group tag
+            var groupName = new StringId(reader.ReadUInt32());     // 0x20 uint32 group name stringid
+            Group = new TagGroup(groupTag, parentGroupTag, grandparentGroupTag, groupName);
 
             // Read dependencies
             _dependencies = new HashSet<int>();
@@ -204,10 +177,10 @@ namespace HaloOnlineTagTool
             writer.Write((short)ResourcePointerOffsets.Count);
             writer.Write((short)0);
             writer.Write(MainStructOffset);
-            writer.Write(GroupTag.Value);
-            writer.Write(ParentGroupTag.Value);
-            writer.Write(GrandparentGroupTag.Value);
-            writer.Write(GroupName.Value);
+            writer.Write(Group.Tag.Value);
+            writer.Write(Group.ParentTag.Value);
+            writer.Write(Group.GrandparentTag.Value);
+            writer.Write(Group.Name.Value);
 
             // Write dependencies
             foreach (var dependency in _dependencies)
@@ -233,10 +206,7 @@ namespace HaloOnlineTagTool
         /// <param name="dataOffset">The offset of the tag data relative to the tag instance's header.</param>
         internal void Update(TagData data, uint dataOffset)
         {
-            GroupTag = data.Type.GroupTag;
-            ParentGroupTag = data.Type.ParentGroupTag;
-            GrandparentGroupTag = data.Type.GrandparentGroupTag;
-            GroupName = data.Type.GroupName;
+            Group = data.Group;
             MainStructOffset = data.MainStructOffset + dataOffset;
             _dependencies = new HashSet<int>(data.Dependencies);
             _pointerOffsets = data.PointerFixups.Select(fixup => fixup.WriteOffset + dataOffset).ToList();

@@ -44,13 +44,13 @@ namespace HaloOnlineTagTool.Serialization
         {
             _data = new TagData
             {
-                Type = new TagTypeDescriptor
-                {
-                    GroupTag = info.GroupTag,
-                    ParentGroupTag = info.ParentGroupTag,
-                    GrandparentGroupTag = info.GrandparentGroupTag,
-                    GroupName = (info.Structure.Name != null) ? _stringIds.GetStringId(info.Structure.Name) : StringId.Null,
-                },
+                Group = new TagGroup
+                (
+                    tag: info.GroupTag,
+                    parentTag: info.ParentGroupTag,
+                    grandparentTag: info.GrandparentGroupTag,
+                    name: (info.Structure.Name != null) ? _stringIds.GetStringId(info.Structure.Name) : StringId.Null
+                ),
             };
         }
 

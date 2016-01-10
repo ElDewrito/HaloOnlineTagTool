@@ -53,7 +53,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             var count = 0;
             using (var stream = _info.OpenCacheRead())
             {
-                foreach (var groupTag in _cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
+                foreach (var groupTag in _cache.Tags.NonNull().Select(t => t.Group.Tag).Distinct())
                 {
                     TagLayoutGuess layout = null;
                     TagInstance lastTag = null;
@@ -74,7 +74,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                     if (layout != null && lastTag != null)
                     {
                         Console.WriteLine("Writing {0} layout", groupTag);
-                        var name = _info.StringIds.GetString(lastTag.GroupName);
+                        var name = _info.StringIds.GetString(lastTag.Group.Name);
                         var tagLayout = LayoutGuessFinalizer.MakeLayout(layout, name, groupTag);
                         var path = Path.Combine(outDir, writer.GetSuggestedFileName(tagLayout));
                         writer.WriteLayout(tagLayout, path);

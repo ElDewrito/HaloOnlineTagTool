@@ -19,7 +19,7 @@ namespace HaloOnlineTagTool.Analysis
         public TagAnalyzer(TagCache cache)
         {
             _cache = cache;
-            foreach (var group in cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
+            foreach (var group in cache.Tags.NonNull().Select(t => t.Group.Tag).Distinct())
                 _tagGroups.Add(group);
         }
 
@@ -85,7 +85,7 @@ namespace HaloOnlineTagTool.Analysis
                     if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
                     {
                         var referencedTag = _cache.Tags[(int)val];
-                        if (referencedTag != null && referencedTag.GroupTag.Value == (int)lookBehind[2])
+                        if (referencedTag != null && referencedTag.Group.Tag.Value == (int)lookBehind[2])
                             result.Add(offset - 0xC, new TagReferenceGuess());
                     }
                 }

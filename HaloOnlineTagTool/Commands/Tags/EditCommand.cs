@@ -47,7 +47,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
             _stack.Push(EditTagContextFactory.Create(_stack, _info, tag));
 
-            Console.WriteLine("Tag 0x{0:X8}.{1} has been opened for editing.", tag.Index, _info.StringIds.GetString(tag.GroupName));
+            Console.WriteLine("Tag 0x{0:X8}.{1} has been opened for editing.", tag.Index, _info.StringIds.GetString(tag.Group.Name));
             Console.WriteLine("New commands are now available. Enter \"help\" to view them.");
             Console.WriteLine("Use \"exit\" to return to {0}.", oldContext.Name);
 

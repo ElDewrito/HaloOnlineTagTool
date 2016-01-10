@@ -250,7 +250,7 @@ namespace HaloOnlineTagTool.Serialization
             // Write the reference out
             if (valueInfo == null || (valueInfo.Flags & TagFieldFlags.Short) == 0)
             {
-                writer.Write((referencedTag != null) ? referencedTag.GroupTag.Value : -1);
+                writer.Write((referencedTag != null) ? referencedTag.Group.Tag.Value : -1);
                 writer.Write(0);
                 writer.Write(0);
             }
