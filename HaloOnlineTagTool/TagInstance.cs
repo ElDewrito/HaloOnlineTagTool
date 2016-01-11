@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HaloOnlineTagTool.Common;
 
 namespace HaloOnlineTagTool
 {
@@ -12,7 +13,6 @@ namespace HaloOnlineTagTool
     /// </summary>
     public class TagInstance
     {
-        private HashSet<int> _dependencies = new HashSet<int>();
         private List<uint> _pointerOffsets = new List<uint>();
         private List<uint> _resourceOffsets = new List<uint>();
 
@@ -66,7 +66,7 @@ namespace HaloOnlineTagTool
         /// <summary>
         /// Gets the indices of tags that this tag depends on.
         /// </summary>
-        public IReadOnlyCollection<int> Dependencies => _dependencies;
+        public ReadOnlySet<int> Dependencies { get; private set; } = new ReadOnlySet<int>(new HashSet<int>());
 
         /// <summary>
         /// Gets a list of offsets to each pointer in the tag, relative to the beginning of the tag's header.
@@ -151,9 +151,10 @@ namespace HaloOnlineTagTool
             Group = new TagGroup(groupTag, parentGroupTag, grandparentGroupTag, groupName);
 
             // Read dependencies
-            _dependencies = new HashSet<int>();
+            var dependencies = new HashSet<int>();
             for (var j = 0; j < numDependencies; j++)
-                _dependencies.Add(reader.ReadInt32());
+                dependencies.Add(reader.ReadInt32());
+            Dependencies = new ReadOnlySet<int>(dependencies);
 
             // Read offsets
             _pointerOffsets = new List<uint>(numDataFixups);
@@ -183,7 +184,7 @@ namespace HaloOnlineTagTool
             writer.Write(Group.Name.Value);
 
             // Write dependencies
-            foreach (var dependency in _dependencies)
+            foreach (var dependency in Dependencies)
                 writer.Write(dependency);
 
             // Write offsets
@@ -208,7 +209,7 @@ namespace HaloOnlineTagTool
         {
             Group = data.Group;
             MainStructOffset = data.MainStructOffset + dataOffset;
-            _dependencies = new HashSet<int>(data.Dependencies);
+            Dependencies = new ReadOnlySet<int>(new HashSet<int>(data.Dependencies));
             _pointerOffsets = data.PointerFixups.Select(fixup => fixup.WriteOffset + dataOffset).ToList();
             _resourceOffsets = data.ResourcePointerOffsets.Select(offset => offset + dataOffset).ToList();
         }

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HaloOnlineTagTool</RootNamespace>
     <AssemblyName>HaloOnlineTagTool</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -120,6 +120,7 @@
     <Compile Include="Common\Euler2.cs" />
     <Compile Include="Common\Euler3.cs" />
     <Compile Include="Common\NamingConvention.cs" />
+    <Compile Include="Common\ReadOnlySet.cs" />
     <Compile Include="Common\SimpleJson.cs" />
     <Compile Include="Common\TagReferenceBlock.cs" />
     <Compile Include="ConsoleHistory.cs" />
