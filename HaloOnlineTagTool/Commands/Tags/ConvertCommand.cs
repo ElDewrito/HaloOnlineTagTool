@@ -152,7 +152,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
 
             // Deserialize the tag from the source cache
-            var structureType = TagStructureTypes.FindByGroupTag(srcTag.GroupTag);
+            var structureType = TagStructureTypes.FindByGroupTag(srcTag.Group.Tag);
             var srcContext = new TagSerializationContext(srcStream, srcInfo.Cache, srcInfo.StringIds, srcTag);
             var tagData = srcInfo.Deserializer.Deserialize(srcContext, structureType);
 
@@ -168,11 +168,8 @@ namespace HaloOnlineTagTool.Commands.Tags
             }*/
 
             // Allocate a new tag and create a mapping for it
-            var newTag = destInfo.Cache.AllocateTag();
+            var newTag = destInfo.Cache.AllocateTag(srcTag.Group);
             tagMap.Add(srcInfo.Version, srcTag.Index, destInfo.Version, newTag.Index);
-            newTag.GroupTag = srcTag.GroupTag;
-            newTag.ParentGroupTag = srcTag.ParentGroupTag;
-            newTag.GrandparentGroupTag = srcTag.GrandparentGroupTag;
 
             // Convert it
             tagData = Convert(tagData, srcInfo, srcStream, srcResources, destInfo, destStream, destResources, tagMap);
