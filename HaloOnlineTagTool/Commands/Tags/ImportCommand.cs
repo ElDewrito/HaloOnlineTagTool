@@ -40,7 +40,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 inStream.Read(data, 0, data.Length);
             }
             using (var stream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
-                _cache.OverwriteFullTag(stream, tag, data);
+                _cache.SetTagDataRaw(stream, tag, data);
 
             Console.WriteLine("Imported 0x{0:X} bytes.", data.Length);
             return true;

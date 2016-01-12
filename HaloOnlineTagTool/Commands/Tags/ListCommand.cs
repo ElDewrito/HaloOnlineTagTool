@@ -32,7 +32,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
             TagInstance[] tags;
             if (args.Count > 0)
-                tags = _cache.Tags.FindAllByClasses(searchClasses).ToArray();
+                tags = _cache.Tags.FindAllInGroups(searchClasses).ToArray();
             else
                 tags = _cache.Tags.NonNull().ToArray();
 

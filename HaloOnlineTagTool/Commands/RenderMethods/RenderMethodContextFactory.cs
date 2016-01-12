@@ -8,7 +8,7 @@ namespace HaloOnlineTagTool.Commands.RenderMethods
     {
         public static CommandContext Create(CommandContext parent, OpenTagCache info, TagInstance tag)
         {
-            var groupName = info.StringIds.GetString(tag.GroupName);
+            var groupName = info.StringIds.GetString(tag.Group.Name);
 
             var context = new CommandContext(parent,
                 string.Format("{0:X8}.{1}", tag.Index, groupName));
@@ -26,7 +26,7 @@ namespace HaloOnlineTagTool.Commands.RenderMethods
             {
                 var tagContext = new TagSerializationContext(cacheStream, info.Cache, info.StringIds, tag);
 
-                switch (tag.GroupTag.ToString())
+                switch (tag.Group.Tag.ToString())
                 {
                     case "rm  ": // render_method
                         renderMethod = info.Deserializer.Deserialize<RenderMethod>(tagContext);

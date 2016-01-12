@@ -27,7 +27,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             "modeltest",
             "Model injection test",
 
-            "modeltest <model file>",
+            "modeltest [tag index] <model file>",
 
             "Injects the model over the traffic cone.\n" +
             "The model must only have a single material and no nodes.")
@@ -40,8 +40,23 @@ namespace HaloOnlineTagTool.Commands.Tags
 
         public override bool Execute(List<string> args)
         {
-            if (args.Count != 1)
+            if (args.Count < 1 || args.Count > 2)
                 return false;
+
+            TagInstance destination = _cache.Tags[0x3317];
+
+            if (args.Count == 2)
+            {
+                destination = ArgumentParser.ParseTagIndex(_cache, args[0]);
+
+                if (!destination.IsInGroup("mode"))
+                {
+                    Console.WriteLine("Specified tag is not a render_model: " + args[0]);
+                    return false;
+                }
+
+                args = args.Skip(1).ToList();
+            }
 
             var builder = new RenderModelBuilder(_info.Version);
 
@@ -149,7 +164,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
             using (var cacheStream = _fileInfo.Open(FileMode.Open, FileAccess.ReadWrite))
             {
-                var tag = _cache.Tags[0x3317];
+                var tag = destination;
                 var context = new TagSerializationContext(cacheStream, _cache, _stringIds, tag);
                 _info.Serializer.Serialize(context, renderModel);
             }

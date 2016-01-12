@@ -68,28 +68,33 @@ namespace HaloOnlineTagTool.Commands.Tags
             var dependencies = args.Skip(2).Select(a => ArgumentParser.ParseTagIndex(_cache, a)).ToList();
             if (dependencies.Count == 0 || dependencies.Any(d => d == null))
                 return false;
-            if (args[0] == "add")
-            {
-                foreach (var dependency in dependencies)
-                {
-                    if (tag.Dependencies.Add(dependency.Index))
-                        Console.WriteLine("Added dependency on tag {0:X8}.", dependency.Index);
-                    else
-                        Console.Error.WriteLine("Tag {0:X8} already depends on tag {1:X8}.", tag.Index, dependency.Index);
-                }
-            }
-            else
-            {
-                foreach (var dependency in dependencies)
-                {
-                    if (tag.Dependencies.Remove(dependency.Index))
-                        Console.WriteLine("Removed dependency on tag {0:X8}.", dependency.Index);
-                    else
-                        Console.Error.WriteLine("Tag {0:X8} does not depend on tag {1:X8}.", tag.Index, dependency.Index);
-                }
-            }
             using (var stream = _info.OpenCacheReadWrite())
-                _cache.UpdateTag(stream, tag);
+            {
+                var data = _cache.ExtractTag(stream, tag);
+                if (args[0] == "add")
+                {
+                    foreach (var dependency in dependencies)
+                    {
+                        if (data.Dependencies.Add(dependency.Index))
+                            Console.WriteLine("Added dependency on tag {0:X8}.", dependency.Index);
+                        else
+                            Console.Error.WriteLine("Tag {0:X8} already depends on tag {1:X8}.", tag.Index,
+                                dependency.Index);
+                    }
+                }
+                else
+                {
+                    foreach (var dependency in dependencies)
+                    {
+                        if (data.Dependencies.Remove(dependency.Index))
+                            Console.WriteLine("Removed dependency on tag {0:X8}.", dependency.Index);
+                        else
+                            Console.Error.WriteLine("Tag {0:X8} does not depend on tag {1:X8}.", tag.Index,
+                                dependency.Index);
+                    }
+                }
+                _cache.SetTagData(stream, tag, data);
+            }
             return true;
         }
 

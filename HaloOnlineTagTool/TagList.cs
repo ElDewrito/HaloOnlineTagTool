@@ -25,10 +25,7 @@ namespace HaloOnlineTagTool
         /// <summary>
         /// Gets the number of tags in the list.
         /// </summary>
-        public int Count
-        {
-            get { return _tags.Count; }
-        }
+        public int Count => _tags.Count;
 
         /// <summary>
         /// Determines whether a tag is in the list.
@@ -57,10 +54,7 @@ namespace HaloOnlineTagTool
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The corresponding tag. Can be <c>null</c>.</returns>
-        public TagInstance this[int index]
-        {
-            get { return _tags[index]; }
-        }
+        public TagInstance this[int index] => _tags[index];
 
         /// <summary>
         /// Finds the first tag in a given group.
@@ -69,7 +63,7 @@ namespace HaloOnlineTagTool
         /// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
         public TagInstance FindFirstInGroup(Tag groupTag)
         {
-            return NonNull().FirstOrDefault(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
+            return NonNull().FirstOrDefault(t => t.IsInGroup(groupTag));
         }
 
         /// <summary>
@@ -83,13 +77,23 @@ namespace HaloOnlineTagTool
         }
 
         /// <summary>
+        /// Finds the first tag in a given group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns>The first tag in the given group, or <c>null</c> otherwise.</returns>
+        public TagInstance FindFirstInGroup(TagGroup group)
+        {
+            return FindFirstInGroup(group.Tag);
+        }
+
+        /// <summary>
         /// Finds all tags in a given group.
         /// </summary>
         /// <param name="groupTag">The group tag.</param>
         /// <returns>All tags in the given group.</returns>
         public IEnumerable<TagInstance> FindAllInGroup(Tag groupTag)
         {
-            return NonNull().Where(t => t.GroupTag == groupTag || t.ParentGroupTag == groupTag || t.GrandparentGroupTag == groupTag);
+            return NonNull().Where(t => t.IsInGroup(groupTag));
         }
 
         /// <summary>
@@ -103,13 +107,23 @@ namespace HaloOnlineTagTool
         }
 
         /// <summary>
+        /// Finds all tags in a given group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns>All tags in the given group.</returns>
+        public IEnumerable<TagInstance> FindAllInGroup(TagGroup group)
+        {
+            return FindAllInGroup(group.Tag);
+        }
+
+        /// <summary>
         /// Finds all tags belonging to at least one group in a collection of groups.
         /// </summary>
         /// <param name="groupTags">The group tags.</param>
         /// <returns>All tags which belong to at least one of the groups.</returns>
-        public IEnumerable<TagInstance> FindAllByClasses(ICollection<Tag> groupTags)
+        public IEnumerable<TagInstance> FindAllInGroups(ICollection<Tag> groupTags)
         {
-            return NonNull().Where(t => groupTags.Contains(t.GroupTag) || groupTags.Contains(t.ParentGroupTag) || groupTags.Contains(t.GrandparentGroupTag));
+            return NonNull().Where(t => groupTags.Contains(t.Group.Tag) || groupTags.Contains(t.Group.ParentTag) || groupTags.Contains(t.Group.GrandparentTag));
         }
 
         /// <summary>
@@ -131,7 +145,7 @@ namespace HaloOnlineTagTool
         /// <returns>A collection of tags which are not null.</returns>
         public IEnumerable<TagInstance> NonNull()
         {
-            return _tags.Where(t => t != null && t.HeaderOffset >= 0 && t.DataOffset >= 0);
+            return _tags.Where(t => t != null && t.HeaderOffset >= 0);
         }
 
         private void FindDependencies(ISet<TagInstance> results, TagInstance tag)

@@ -34,7 +34,7 @@ namespace HaloOnlineTagTool.Commands.Tags
 
             byte[] data;
             using (var stream = _fileInfo.OpenRead())
-                data = _cache.ExtractFullTag(stream, tag);
+                data = _cache.ExtractTagRaw(stream, tag);
 
             using (var outStream = File.Open(file, FileMode.Create, FileAccess.Write))
             {

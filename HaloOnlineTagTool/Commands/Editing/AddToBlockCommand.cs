@@ -100,15 +100,20 @@ namespace HaloOnlineTagTool.Commands.Editing
                 return false;
             }
 
-            var fieldValue = field.GetValue(Owner) as IList;
+            var blockValue = field.GetValue(Owner) as IList;
 
-            if (fieldValue == null)
-                field.SetValue(Owner, Activator.CreateInstance(field.FieldType));
+            if (blockValue == null)
+            {
+                blockValue = Activator.CreateInstance(field.FieldType) as IList;
+                field.SetValue(Owner, blockValue);
+            }
+
+            var elementType = field.FieldType.GenericTypeArguments[0];
 
             for (var i = 0; i < count; i++)
-                fieldValue.Add(Activator.CreateInstance(field.FieldType.GenericTypeArguments[0]));
+                blockValue.Add(CreateElement(elementType));
 
-            field.SetValue(Owner, fieldValue);
+            field.SetValue(Owner, blockValue);
 
             var typeString =
                 fieldType.IsGenericType ?
@@ -118,8 +123,8 @@ namespace HaloOnlineTagTool.Commands.Editing
             var itemString = count < 2 ? "element" : "elements";
 
             var valueString =
-                ((IList)fieldValue).Count != 0 ?
-                    $"{{...}}[{((IList)fieldValue).Count}]" :
+                ((IList)blockValue).Count != 0 ?
+                    $"{{...}}[{((IList)blockValue).Count}]" :
                 "null";
 
             Console.WriteLine($"Successfully added {count} {itemString} to {field.Name}: {typeString}");
@@ -130,6 +135,39 @@ namespace HaloOnlineTagTool.Commands.Editing
             Structure = previousStructure;
 
             return true;
+        }
+
+        private object CreateElement(Type elementType)
+        {
+            var element = Activator.CreateInstance(elementType);
+
+            var isTagStructure = Attribute.IsDefined(elementType, typeof(TagStructureAttribute));
+
+            if (isTagStructure)
+            {
+                var enumerator = new TagFieldEnumerator(
+                    new TagStructureInfo(elementType));
+
+                while (enumerator.Next())
+                {
+                    var fieldType = enumerator.Field.FieldType;
+
+                    if (fieldType.IsArray && enumerator.Attribute.Count > 0)
+                    {
+                        var array = (IList)Activator.CreateInstance(enumerator.Field.FieldType,
+                            new object[] { enumerator.Attribute.Count });
+
+                        for (var i = 0; i < enumerator.Attribute.Count; i++)
+                            array[i] = CreateElement(fieldType.GetElementType());
+                    }
+                    else
+                    {
+                        enumerator.Field.SetValue(element, CreateElement(enumerator.Field.FieldType));
+                    }
+                }
+            }
+
+            return element;
         }
     }
 }

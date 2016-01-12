@@ -12,7 +12,7 @@ namespace HaloOnlineTagTool
     /// </summary>
     public class StringIdCache
     {
-        private readonly List<string> _strings = new List<string>();
+        private List<string> _strings;
 
         /// <summary>
         /// Loads a stringID cache from a string_ids.dat file.
@@ -22,7 +22,6 @@ namespace HaloOnlineTagTool
         public StringIdCache(Stream stream, StringIdResolverBase resolver)
         {
             Resolver = resolver;
-            Strings = _strings.AsReadOnly();
             Load(stream);
         }
 
@@ -138,41 +137,31 @@ namespace HaloOnlineTagTool
             var stringCount = reader.ReadInt32();  // int32 string count
             var dataSize = reader.ReadInt32();     // int32 string data size
 
-            // Read string offsets
-            var stringOffsets = new int[stringCount];
+            // Read the string offsets into a list of (index, offset) pairs, and then sort by offset
+            // This lets us know the length of each string without scanning for a null terminator
+            var stringOffsets = new List<Tuple<int, int>>(stringCount);
             for (var i = 0; i < stringCount; i++)
-                stringOffsets[i] = reader.ReadInt32();
+            {
+                var offset = reader.ReadInt32();
+                if (offset >= 0 && offset < dataSize)
+                    stringOffsets.Add(Tuple.Create(i, offset));
+            }
+            stringOffsets.Sort((x, y) => x.Item2 - y.Item2);
 
             // Seek to each offset and read each string
             var dataOffset = reader.BaseStream.Position;
-            foreach (var offset in stringOffsets)
+            var strings = new string[stringCount];
+            for (var i = 0; i < stringOffsets.Count; i++)
             {
-                if (offset == -1 || offset >= dataSize)
-                {
-                    _strings.Add(null);
-                    continue;
-                }
+                var index = stringOffsets[i].Item1;
+                var offset = stringOffsets[i].Item2;
+                var nextOffset = (i < stringOffsets.Count - 1) ? stringOffsets[i + 1].Item2 : dataSize;
+                var length = Math.Max(0, nextOffset - offset - 1); // Subtract 1 for null terminator
                 reader.BaseStream.Position = dataOffset + offset;
-                _strings.Add(ReadString(reader));
+                strings[index] = Encoding.ASCII.GetString(reader.ReadBytes(length));
             }
-        }
-
-        /// <summary>
-        /// Reads a null-terminated ASCII string from a stream.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The string.</returns>
-        private static string ReadString(BinaryReader reader)
-        {
-            var result = new StringBuilder();
-            while (true)
-            {
-                var ch = reader.ReadByte();
-                if (ch == 0)
-                    break;
-                result.Append((char)ch);
-            }
-            return result.ToString();
+            _strings = strings.ToList();
+            Strings = _strings.AsReadOnly();
         }
     }
 }

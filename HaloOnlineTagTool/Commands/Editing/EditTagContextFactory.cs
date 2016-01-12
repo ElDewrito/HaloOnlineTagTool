@@ -14,12 +14,12 @@ namespace HaloOnlineTagTool.Commands.Editing
     {
         public static CommandContext Create(CommandContextStack stack, OpenTagCache info, TagInstance tag)
         {
-            var groupName = info.StringIds.GetString(tag.GroupName);
+            var groupName = info.StringIds.GetString(tag.Group.Name);
 
             var context = new CommandContext(stack.Context,
                 string.Format("0x{0:X4}.{1}", tag.Index, groupName));
 
-            switch (tag.GroupTag.ToString())
+            switch (tag.Group.Tag.ToString())
             {
                 case "vfsl": // vfiles_list
                     EditVFilesList(context, info, tag);
@@ -64,10 +64,10 @@ namespace HaloOnlineTagTool.Commands.Editing
             using (var stream = info.OpenCacheRead())
                 value = info.Deserializer.Deserialize(
                     new TagSerializationContext(stream, info.Cache, info.StringIds, tag),
-                    TagStructureTypes.FindByGroupTag(tag.GroupTag));
+                    TagStructureTypes.FindByGroupTag(tag.Group.Tag));
 
             var structure = new TagStructureInfo(
-                TagStructureTypes.FindByGroupTag(tag.GroupTag));
+                TagStructureTypes.FindByGroupTag(tag.Group.Tag));
 
             context.AddCommand(new ListFieldsCommand(info, structure, value));
             context.AddCommand(new SetFieldCommand(stack, info, tag, structure, value));

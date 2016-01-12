@@ -111,7 +111,8 @@ namespace HaloOnlineTagTool.Commands.Models
                             if (region.Permutations.Count == 0)
                                 continue;
                             var permutation = region.Permutations[0];
-                            if (permutation.RenderModelPermutationIndex >= renderModelRegion.Permutations.Count)
+                            if (permutation.RenderModelPermutationIndex < 0 ||
+                                permutation.RenderModelPermutationIndex >= renderModelRegion.Permutations.Count)
                                 continue;
                             var renderModelPermutation = renderModelRegion.Permutations[permutation.RenderModelPermutationIndex];
 

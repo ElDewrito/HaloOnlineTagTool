@@ -14,6 +14,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>dfd87735</NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -95,7 +96,6 @@
     <Compile Include="Commands\Tags\EditCommand.cs" />
     <Compile Include="Commands\Tags\ExtractBitmapsCommand.cs" />
     <Compile Include="Commands\Tags\ExtractCommand.cs" />
-    <Compile Include="Commands\Tags\FixupCommand.cs" />
     <Compile Include="Commands\Tags\GenerateLayoutsCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
     <Compile Include="Commands\Tags\ImportCommand.cs" />
@@ -108,7 +108,6 @@
     <Compile Include="Commands\Tags\PhysicsModelTestCommand.cs" />
     <Compile Include="Commands\Tags\ResourceDataCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
-    <Compile Include="Commands\Tags\TagBlockCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
     <Compile Include="Commands\Unicode\ListCommand.cs" />
     <Compile Include="Commands\Unicode\SetCommand.cs" />
@@ -122,6 +121,7 @@
     <Compile Include="Common\Euler2.cs" />
     <Compile Include="Common\Euler3.cs" />
     <Compile Include="Common\NamingConvention.cs" />
+    <Compile Include="Common\ReadOnlySet.cs" />
     <Compile Include="Common\SimpleJson.cs" />
     <Compile Include="Common\TagReferenceBlock.cs" />
     <Compile Include="ConsoleHistory.cs" />
@@ -166,6 +166,8 @@
     <Compile Include="Serialization\TagFieldEnumerator.cs" />
     <Compile Include="Serialization\TagStructureInfo.cs" />
     <Compile Include="StringIdResolverFactory.cs" />
+    <Compile Include="TagData.cs" />
+    <Compile Include="TagGroup.cs" />
     <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -11,28 +11,26 @@ namespace HaloOnlineTagTool.Analysis
     public class TagAnalyzer
     {
         private readonly TagCache _cache;
-        private readonly TagInstance _tag;
-        private readonly MemoryMap _tagMap;
+        private MemoryMap _tagMap;
         private readonly HashSet<Tag> _tagGroups = new HashSet<Tag>();
-        private readonly Dictionary<uint, TagFixup> _dataFixupsByWriteOffset;
-        private readonly Dictionary<uint, TagFixup> _resourceFixupsByWriteOffset;
+        private Dictionary<uint, TagPointerFixup> _dataFixupsByWriteOffset;
+        private HashSet<uint> _resourceFixupsByWriteOffset;
 
-        public TagAnalyzer(TagCache cache, TagInstance tag)
+        public TagAnalyzer(TagCache cache)
         {
             _cache = cache;
-            _tag = tag;
-            _tagMap = BuildTagMap(tag);
-            _dataFixupsByWriteOffset = _tag.DataFixups.ToDictionary(f => f.WriteOffset);
-            _resourceFixupsByWriteOffset = _tag.ResourceFixups.ToDictionary(f => f.WriteOffset);
-            foreach (var group in cache.Tags.NonNull().Select(t => t.GroupTag).Distinct())
+            foreach (var group in cache.Tags.NonNull().Select(t => t.Group.Tag).Distinct())
                 _tagGroups.Add(group);
         }
 
-        public TagLayoutGuess Analyze(byte[] tagData)
+        public TagLayoutGuess Analyze(TagData data)
         {
-            using (var reader = new BinaryReader(new MemoryStream(tagData)))
+            _tagMap = BuildTagMap(data);
+            _dataFixupsByWriteOffset = data.PointerFixups.ToDictionary(f => f.WriteOffset);
+            _resourceFixupsByWriteOffset = new HashSet<uint>(data.ResourcePointerOffsets);
+            using (var reader = new BinaryReader(new MemoryStream(data.Data)))
             {
-                reader.BaseStream.Position = _tag.MainStructOffset;
+                reader.BaseStream.Position = data.MainStructOffset;
                 return AnalyzeStructure(reader, 1);
             }
         }
@@ -62,12 +60,12 @@ namespace HaloOnlineTagTool.Analysis
         private void AnalyzeStructure(BinaryReader reader, uint baseOffset, uint size, TagLayoutGuess result)
         {
             var lookBehind = new uint[4];
-            TagFixup potentialGuess = null;
+            TagPointerFixup potentialGuess = null;
             for (uint offset = 0; offset < size; offset += 4)
             {
                 var val = reader.ReadUInt32();
-                TagFixup fixup;
-                if (_resourceFixupsByWriteOffset.TryGetValue(baseOffset + offset, out fixup))
+                TagPointerFixup fixup;
+                if (_resourceFixupsByWriteOffset.Contains(baseOffset + offset))
                 {
                     // Value is a resource reference
                     result.Add(offset, new ResourceReferenceGuess());
@@ -87,7 +85,7 @@ namespace HaloOnlineTagTool.Analysis
                     if (val != 0xFFFFFFFF && val < _cache.Tags.Count)
                     {
                         var referencedTag = _cache.Tags[(int)val];
-                        if (referencedTag != null && referencedTag.GroupTag.Value == (int)lookBehind[2])
+                        if (referencedTag != null && referencedTag.Group.Tag.Value == (int)lookBehind[2])
                             result.Add(offset - 0xC, new TagReferenceGuess());
                     }
                 }
@@ -133,15 +131,15 @@ namespace HaloOnlineTagTool.Analysis
         /// <summary>
         /// Builds a memory map for a tag.
         /// </summary>
-        /// <param name="tag">The tag to build a memory map for.</param>
+        /// <param name="data">The tag data to build a memory map for.</param>
         /// <returns>The built map.</returns>
-        private static MemoryMap BuildTagMap(TagInstance tag)
+        private static MemoryMap BuildTagMap(TagData data)
         {
             // Create a memory map with a boundary at each fixup target
             // and at the main structure
-            var result = new MemoryMap(0, (uint)tag.DataSize);
-            result.AddBoundary(tag.MainStructOffset);
-            result.AddBoundaries(tag.DataFixups.Select(f => f.TargetOffset));
+            var result = new MemoryMap(0, (uint)data.Data.Length);
+            result.AddBoundary(data.MainStructOffset);
+            result.AddBoundaries(data.PointerFixups.Select(f => f.TargetOffset));
             return result;
         }
     }
