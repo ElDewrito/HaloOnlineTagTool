@@ -138,6 +138,7 @@ namespace HaloOnlineTagTool
             // Re-parse it
             stream.Position = tag.HeaderOffset;
             tag.ReadHeader(new BinaryReader(stream));
+            UpdateTagOffsets(new BinaryWriter(stream));
         }
 
         /// <summary>
@@ -181,6 +182,7 @@ namespace HaloOnlineTagTool
                 writer.BaseStream.Position = tag.HeaderOffset + alignedHeaderSize + fixup.WriteOffset;
                 writer.Write(tag.OffsetToPointer(alignedHeaderSize + fixup.TargetOffset));
             }
+            UpdateTagOffsets(writer);
         }
 
         /// <summary>
@@ -248,7 +250,7 @@ namespace HaloOnlineTagTool
         }
 
         /// <summary>
-        /// Resizes a block of data in the file and updates tag offsets.
+        /// Resizes a block of data in the file.
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <param name="tag">The tag that the block belongs to, if any.</param>
@@ -266,7 +268,6 @@ namespace HaloOnlineTagTool
             var sizeDelta = newSize - oldSize;
             StreamUtil.Copy(stream, oldEndOffset, oldEndOffset + sizeDelta, stream.Length - oldEndOffset);
             FixTagOffsets(oldEndOffset, sizeDelta, tag);
-            UpdateTagOffsets(new BinaryWriter(stream));
         }
 
         /// <summary>
