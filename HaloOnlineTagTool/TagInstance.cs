@@ -44,9 +44,9 @@ namespace HaloOnlineTagTool
         public long HeaderOffset { get; internal set; } = -1;
 
         /// <summary>
-        /// Gets the total size of the tag (including both its header and data), or -1 if the tag is not in a file.
+        /// Gets the total size of the tag (including both its header and data), or 0 if the tag is not in a file.
         /// </summary>
-        public long TotalSize { get; internal set; } = -1;
+        public long TotalSize { get; internal set; }
 
         /// <summary>
         /// Gets the tag's group.
