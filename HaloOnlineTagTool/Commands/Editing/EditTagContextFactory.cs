@@ -73,6 +73,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             context.AddCommand(new SetFieldCommand(stack, info, tag, structure, value));
             context.AddCommand(new EditBlockCommand(stack, info, tag, value));
             context.AddCommand(new AddToBlockCommand(stack, info, tag, structure, value));
+            context.AddCommand(new RemoveFromBlockCommand(stack, info, tag, structure, value));
             context.AddCommand(new SaveChangesCommand(info, tag, value));
             context.AddCommand(new ExitToCommand(stack));
 

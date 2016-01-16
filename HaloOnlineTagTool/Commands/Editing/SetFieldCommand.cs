@@ -215,6 +215,12 @@ namespace HaloOnlineTagTool.Commands.Editing
                     return false;
                 output = value;
             }
+            else if (type == typeof(string))
+            {
+                if (args.Count != 1)
+                    return false;
+                output = input;
+            }
             else if (type == typeof(TagInstance))
             {
                 if (args.Count != 1)
@@ -354,6 +360,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                 type == typeof(long) ||
                 type == typeof(ulong) ||
                 type == typeof(float) ||
+                type == typeof(string) ||
                 type == typeof(TagInstance) ||
                 type == typeof(StringId) ||
                 type == typeof(Angle))

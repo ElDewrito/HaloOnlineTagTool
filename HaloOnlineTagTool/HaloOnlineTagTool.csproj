@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Analysis\DataReferenceGuess.cs" />
     <Compile Include="Analysis\ITagElementGuessVisitor.cs" />
-    <Compile Include="Commands\Tags\ConvertCommand.cs" />
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\Bitmaps\BitmapContextFactory.cs" />
     <Compile Include="Commands\Bitmaps\ImportCommand.cs" />
@@ -73,6 +72,7 @@
     <Compile Include="Commands\Editing\EditTagContextFactory.cs" />
     <Compile Include="Commands\Editing\ExitToCommand.cs" />
     <Compile Include="Commands\Editing\ListFieldsCommand.cs" />
+    <Compile Include="Commands\Editing\RemoveFromBlockCommand.cs" />
     <Compile Include="Commands\Editing\SaveChangesCommand.cs" />
     <Compile Include="Commands\Editing\SetFieldCommand.cs" />
     <Compile Include="Commands\LocalizedStringPrinter.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="Commands\TagPrinter.cs" />
     <Compile Include="Commands\Tags\AddressCommand.cs" />
     <Compile Include="Commands\Tags\CollisionGeometryTestCommand.cs" />
+    <Compile Include="Commands\Tags\ConvertCommand.cs" />
     <Compile Include="Commands\Tags\ConvertPluginsCommand.cs" />
     <Compile Include="Commands\Tags\DependencyCommand.cs" />
     <Compile Include="Commands\Tags\DuplicateTagCommand.cs" />
