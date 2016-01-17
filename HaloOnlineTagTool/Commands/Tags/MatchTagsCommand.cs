@@ -101,7 +101,8 @@ namespace HaloOnlineTagTool.Commands.Tags
                         for (var i = 0; i < scenarios.Count; i++)
                         {
                             tagsToCompare.Enqueue(scenarios[i]);
-                            result.Add(baseVersion, baseScenarios[i].Tag.Index, info.Version, scenarios[i].Tag.Index);
+                            if (i < baseScenarios.Count)
+                                result.Add(baseVersion, baseScenarios[i].Tag.Index, info.Version, scenarios[i].Tag.Index);
                         }
 
                         // Process each tag in the queue, enqueuing all of its dependencies as well
