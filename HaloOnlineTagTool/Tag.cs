@@ -9,6 +9,11 @@ namespace HaloOnlineTagTool
     public struct Tag : IComparable<Tag>
     {
         /// <summary>
+        /// The null tag representation.
+        /// </summary>
+        public static Tag Null { get; } = new Tag("ÿÿÿÿ");
+
+        /// <summary>
         /// Constructs a magic number from an integer.
         /// </summary>
         /// <param name="val">The integer.</param>
