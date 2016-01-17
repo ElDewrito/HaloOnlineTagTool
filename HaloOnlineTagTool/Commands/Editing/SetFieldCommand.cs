@@ -81,7 +81,7 @@ namespace HaloOnlineTagTool.Commands.Editing
 
             if (field == null)
             {
-                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Structure.Types[0].Name, args[1]);
+                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Structure.Types[0].Name, fieldName);
                 while (Stack.Context != previousContext) Stack.Pop();
                 Owner = previousOwner;
                 Structure = previousStructure;
