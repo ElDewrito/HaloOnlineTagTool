@@ -66,6 +66,7 @@
     <Compile Include="Commands\CommandContextStack.cs" />
     <Compile Include="Commands\Core\ClearCommand.cs" />
     <Compile Include="Commands\Core\DumpLogCommand.cs" />
+    <Compile Include="Commands\Core\EchoCommand.cs" />
     <Compile Include="Commands\Core\HelpCommand.cs" />
     <Compile Include="Commands\Editing\AddToBlockCommand.cs" />
     <Compile Include="Commands\Editing\EditBlockCommand.cs" />

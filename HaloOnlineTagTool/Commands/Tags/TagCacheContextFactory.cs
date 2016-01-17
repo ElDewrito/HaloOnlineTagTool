@@ -11,6 +11,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             context.AddCommand(new HelpCommand(stack));
             context.AddCommand(new ClearCommand());
             context.AddCommand(new DumpLogCommand());
+            context.AddCommand(new EchoCommand());
             context.AddCommand(new DependencyCommand(info));
             context.AddCommand(new ExtractCommand(info));
             context.AddCommand(new ImportCommand(info));

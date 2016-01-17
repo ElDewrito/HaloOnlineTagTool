@@ -13,7 +13,21 @@ namespace HaloOnlineTagTool.Commands.Tags
     // TODO: This code is shit, clean it up
     class MatchTagsCommand : Command
     {
-        private static readonly int[] MapIdsToCompare = { 320, 340 }; // 320 = guardian, 340 = riverworld
+        private static readonly int[] MapIdsToCompare = {
+            0,   // mainmenu
+            320, // guardian
+            340, // riverworld
+            705, // s3d_avalanche
+            703, // s3d_edge
+            700, // s3d_reactor
+            31,  // s3d_turf
+            390, // cyberdyne
+            380, // chill
+            410, // bunkerworld
+            30,  // zanzibar
+            310, // deadlock
+            400, // shrine
+        };
 
         private readonly OpenTagCache _info;
 
@@ -228,9 +242,12 @@ namespace HaloOnlineTagTool.Commands.Tags
                 var scenario = info.Deserializer.Deserialize<Scenario>(context);
                 scenarios[scenario.MapId] = new QueuedTag { Tag = scenarioTag, Data = scenario };
             }
+            
+            var tags = from id in MapIdsToCompare
+                       where scenarios.ContainsKey(id)
+                       select scenarios[id];
 
-            // Get the ones to actually compare
-            return MapIdsToCompare.Select(id => scenarios[id]).ToList();
+            return tags.ToList();
         }
 
         private class QueuedTag
