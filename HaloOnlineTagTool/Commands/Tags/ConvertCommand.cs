@@ -17,6 +17,7 @@ namespace HaloOnlineTagTool.Commands.Tags
     class ConvertCommand : Command
     {
         private readonly OpenTagCache _info;
+        private static bool _isDecalShader = false;
 
         public ConvertCommand(OpenTagCache info) : base(
             CommandFlags.None,
@@ -171,8 +172,14 @@ namespace HaloOnlineTagTool.Commands.Tags
             var newTag = destInfo.Cache.AllocateTag(srcTag.Group);
             tagMap.Add(srcInfo.Version, srcTag.Index, destInfo.Version, newTag.Index);
 
+            if (srcTag.IsInGroup("decs") || srcTag.IsInGroup("rmd "))
+                _isDecalShader = true;
+
             // Convert it
             tagData = Convert(tagData, srcInfo, srcStream, srcResources, destInfo, destStream, destResources, tagMap);
+
+            if (srcTag.IsInGroup("decs") || srcTag.IsInGroup("rmd "))
+                _isDecalShader = false;
 
             // Re-serialize into the destination cache
             var destContext = new TagSerializationContext(destStream, destInfo.Cache, destInfo.StringIds, newTag);
@@ -619,11 +626,14 @@ namespace HaloOnlineTagTool.Commands.Tags
                 var mode = ps.DrawModes[i];
                 for (var j = 0; j < mode.Count; j++)
                 {
-                    Console.WriteLine("- Recompiling pixel shader {0}...", mode.Index + j);
-                    var shader = ps.PixelShaders[mode.Index + j];
-                    var newBytecode = ShaderConverter.ConvertNewPixelShaderToOld(shader.Unknown2, i);
-                    if (newBytecode != null)
-                        shader.Unknown2 = newBytecode;
+                    if (i != 0 || _isDecalShader)
+                    {
+                        Console.WriteLine("- Recompiling pixel shader {0}...", mode.Index + j);
+                        var shader = ps.PixelShaders[mode.Index + j];
+                        var newBytecode = ShaderConverter.ConvertNewPixelShaderToOld(shader.Unknown2, i);
+                        if (newBytecode != null)
+                            shader.Unknown2 = newBytecode;
+                    }
                     usedShaders[mode.Index + j] = true;
                 }
             }

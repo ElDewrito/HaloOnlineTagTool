@@ -299,50 +299,41 @@ namespace HaloOnlineTagTool.Resources.Shaders
             // Default pixel shaders need to have their inputs remapped (see
             // the vertex shader converter for more info).
             //
-            // Albedo pixel shaders need to be fixed to have additional color
-            // correction code added. I don't really know why and the way I do
-            // it is pretty hacky, but it works so whatever. The code is based
-            // off of the shader for the street cone.
+            // Albedo pixel shaders need to have sRGB color correction added.
+            // The code is based off of the shader for the street cone.
 
             var highestConstant = -1;
             var addedConstants = false;
             var addedColorFix = false;
+            var highestTexcoord = -1;
+            var highestInput = -1;
             var wIn = -1;
             for (var i = 0; i < lines.Count; i++)
             {
                 if (mode == 0)
                 {
                     // Default fixes
-                    var match = Regex.Match(lines[i], @"dcl_texcoord(\d*) v(\d+)");
+                    var match = Regex.Match(lines[i], @"dcl_texcoord(\d*)");
                     if (match.Success)
                     {
                         var texGroup = match.Groups[1];
-                        var outGroup = match.Groups[2];
-                        var outIndex = int.Parse(outGroup.Value);
-                        if (texGroup.Length == 0)
-                        {
-                            wIn = outIndex + 1;
-                            lines.Insert(++i, string.Format("    dcl_texcoord1 v{0}.x", wIn));
-                            lines.Add(string.Format("    mov oC2, v{0}.x", wIn));
-                            continue;
-                        }
-                        var texIndex = int.Parse(texGroup.Value);
-                        lines[i] = lines[i].Remove(texGroup.Index, texGroup.Length).Insert(texGroup.Index, (texIndex + 1).ToString());
-                        lines[i] = lines[i].Remove(outGroup.Index, outGroup.Length).Insert(outGroup.Index, (outIndex + 1).ToString());
-                        continue;
+                        var index = (texGroup.Length > 0) ? int.Parse(texGroup.Value) : 0;
+                        highestTexcoord = Math.Max(highestTexcoord, index);
+                        if (index >= 1)
+                            lines[i] = lines[i].Remove(texGroup.Index, texGroup.Length).Insert(texGroup.Index, (index + 1).ToString());
                     }
-
-                    if (wIn >= 0 && i < lines.Count - 1)
+                    match = Regex.Match(lines[i], @"dcl_\S+ v(\d+)");
+                    if (match.Success)
                     {
-                        foreach (Match m in Regex.Matches(lines[i], @"v(\d+)"))
-                        {
-                            var group = m.Groups[1];
-                            var index = int.Parse(group.Value);
-                            if (index < wIn)
-                                continue;
-                            index++;
-                            lines[i] = lines[i].Remove(group.Index, group.Length).Insert(group.Index, index.ToString());
-                        }
+                        var inGroup = match.Groups[1];
+                        highestInput = Math.Max(highestInput, int.Parse(inGroup.Value));
+                    }
+                    else if (highestTexcoord >= 1 && highestInput >= 0)
+                    {
+                        wIn = highestInput + 1;
+                        lines.Insert(i, string.Format("    dcl_texcoord1 v{0}.x", wIn));
+                        lines.Add(string.Format("    mov oC2, v{0}.x", wIn));
+                        break;
                     }
                 }
                 else if (mode == 1)
