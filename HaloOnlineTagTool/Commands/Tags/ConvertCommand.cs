@@ -17,7 +17,7 @@ namespace HaloOnlineTagTool.Commands.Tags
     class ConvertCommand : Command
     {
         private readonly OpenTagCache _info;
-        private static bool _isDecalShader = false;
+        private bool _isDecalShader = false;
 
         public ConvertCommand(OpenTagCache info) : base(
             CommandFlags.None,
@@ -136,7 +136,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return true;
         }
 
-        private static TagInstance ConvertTag(TagInstance srcTag, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private TagInstance ConvertTag(TagInstance srcTag, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             TagPrinter.PrintTagShort(srcTag);
 
@@ -187,7 +187,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return newTag;
         }
 
-        private static object Convert(object data, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private object Convert(object data, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             if (data == null)
                 return null;
@@ -211,7 +211,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return data;
         }
 
-        private static Array ConvertArray(Array array, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private Array ConvertArray(Array array, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             if (array.GetType().GetElementType().IsPrimitive)
                 return array;
@@ -224,7 +224,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return array;
         }
 
-        private static object ConvertList(object list, Type type, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private object ConvertList(object list, Type type, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             if (type.GenericTypeArguments[0].IsPrimitive)
                 return list;
@@ -240,7 +240,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return list;
         }
 
-        private static object ConvertStructure(object data, Type type, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
+        private object ConvertStructure(object data, Type type, OpenTagCache srcInfo, Stream srcStream, ResourceDataManager srcResources, OpenTagCache destInfo, Stream destStream, ResourceDataManager destResources, TagVersionMap tagMap)
         {
             // Convert each field
             var enumerator = new TagFieldEnumerator(new TagStructureInfo(type, destInfo.Version));
@@ -261,7 +261,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return data;
         }
 
-        private static StringId ConvertStringId(StringId stringId, OpenTagCache srcInfo, OpenTagCache destInfo)
+        private StringId ConvertStringId(StringId stringId, OpenTagCache srcInfo, OpenTagCache destInfo)
         {
             if (stringId == StringId.Null)
                 return stringId;
@@ -274,7 +274,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return destStringId;
         }
 
-        private static ResourceReference ConvertResource(ResourceReference resource, OpenTagCache srcInfo, ResourceDataManager srcResources, OpenTagCache destInfo, ResourceDataManager destResources)
+        private ResourceReference ConvertResource(ResourceReference resource, OpenTagCache srcInfo, ResourceDataManager srcResources, OpenTagCache destInfo, ResourceDataManager destResources)
         {
             if (resource == null)
                 return null;
@@ -285,7 +285,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return resource;
         }
 
-        private static ResourceLocation FixResourceLocation(ResourceLocation location, EngineVersion srcVersion, EngineVersion destVersion)
+        private ResourceLocation FixResourceLocation(ResourceLocation location, EngineVersion srcVersion, EngineVersion destVersion)
         {
             if (VersionDetection.Compare(destVersion, EngineVersion.V1_235640_cert_ms25) >= 0)
                 return location;
@@ -299,7 +299,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return location;
         }
 
-        private static GeometryReference ConvertGeometry(GeometryReference geometry, OpenTagCache srcInfo, ResourceDataManager srcResources, OpenTagCache destInfo, ResourceDataManager destResources)
+        private GeometryReference ConvertGeometry(GeometryReference geometry, OpenTagCache srcInfo, ResourceDataManager srcResources, OpenTagCache destInfo, ResourceDataManager destResources)
         {
             if (geometry == null || geometry.Resource == null || geometry.Resource.Index < 0)
                 return geometry;
@@ -356,7 +356,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             return geometry;
         }
 
-        private static void ConvertVertexBuffer(VertexBufferDefinition buffer, MemoryStream inStream, IVertexStream inVertexStream, MemoryStream outStream, IVertexStream outVertexStream)
+        private void ConvertVertexBuffer(VertexBufferDefinition buffer, MemoryStream inStream, IVertexStream inVertexStream, MemoryStream outStream, IVertexStream outVertexStream)
         {
             if (buffer.Data.Size == 0)
                 return;
@@ -422,13 +422,13 @@ namespace HaloOnlineTagTool.Commands.Tags
             buffer.VertexSize = (short)(buffer.Data.Size / buffer.Count);
         }
 
-        private static void ConvertVertices<T>(int count, Func<T> readFunc, Action<T> writeFunc)
+        private void ConvertVertices<T>(int count, Func<T> readFunc, Action<T> writeFunc)
         {
             for (var i = 0; i < count; i++)
                 writeFunc(readFunc());
         }
 
-        private static void FixObjectTypes(object data, Type type, OpenTagCache srcInfo)
+        private void FixObjectTypes(object data, Type type, OpenTagCache srcInfo)
         {
             // The object type enum changed in 11.1.498295 because a new armor type was added at value 3.
             // These are a bunch of hacks to fix this in most cases.
@@ -458,7 +458,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 chmt.LightingVariables.RemoveAt(3); // Remove armor data from chmt
         }
 
-        private static void FixScenario(Scenario data)
+        private void FixScenario(Scenario data)
         {
             FixSandboxMenu(data.SandboxVehicles);
             FixSandboxMenu(data.SandboxWeapons);
@@ -470,7 +470,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             FixScripts(data);
         }
 
-        private static void FixSandboxMenu(List<Scenario.SandboxObject> menu)
+        private void FixSandboxMenu(List<Scenario.SandboxObject> menu)
         {
             for (var i = 0; i < menu.Count; i++)
             {
@@ -479,7 +479,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixScripts(Scenario data)
+        private void FixScripts(Scenario data)
         {
             foreach (var expr in data.ScriptExpressions)
             {
@@ -491,7 +491,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static ushort FixOpcode(ushort opcode)
+        private ushort FixOpcode(ushort opcode)
         {
             // ZBT -> 1.106708
             // thanks zedd <3
@@ -518,8 +518,11 @@ namespace HaloOnlineTagTool.Commands.Tags
             return opcode;
         }
 
-        private static void FixShaders(object data)
+        private void FixShaders(object data)
         {
+            if (_info.Version <= EngineVersion.V1_235640_cert_ms25)
+                return;
+
             var template = data as RenderMethodTemplate;
             if (template != null)
                 FixRenderMethodTemplate(template);
@@ -543,7 +546,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 FixDrawModeList(property.DrawModes);
         }
 
-        private static void FixRenderMethodTemplate(RenderMethodTemplate template)
+        private void FixRenderMethodTemplate(RenderMethodTemplate template)
         {
             FixDrawModeList(template.DrawModes);
             if (template.DrawModes.Count > 18)
@@ -558,7 +561,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixRenderMethodDefinition(RenderMethodDefinition definition)
+        private void FixRenderMethodDefinition(RenderMethodDefinition definition)
         {
             for (var i = definition.DrawModes.Count - 1; i >= 0; i--)
             {
@@ -572,13 +575,13 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixGlobalPixelShader(GlobalPixelShader glps)
+        private void FixGlobalPixelShader(GlobalPixelShader glps)
         {
             FixDrawModeList(glps.DrawModes);
             // glps tags don't appear to need recompilation?
         }
 
-        private static void FixGlobalVertexShader(GlobalVertexShader glvs)
+        private void FixGlobalVertexShader(GlobalVertexShader glvs)
         {
             var usedShaders = new bool[glvs.VertexShaders.Count];
             for (var i = 0; i < glvs.VertexTypes.Count; i++)
@@ -609,7 +612,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixPixelShader(PixelShader ps)
+        private void FixPixelShader(PixelShader ps)
         {
             FixDrawModeList(ps.DrawModes);
 
@@ -646,14 +649,14 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixVertexShader(VertexShader vs)
+        private void FixVertexShader(VertexShader vs)
         {
             foreach (var unk in vs.Unknown2)
                 FixDrawModeList(unk.DrawModes);
             // We don't need to recompile these because vtsh tags will never actually be used in a ported map
         }
 
-        private static void FixDrawModeList<T>(IList<T> modes)
+        private void FixDrawModeList<T>(IList<T> modes)
         {
             if (modes.Count > 12)
                 modes.RemoveAt(12);
@@ -665,7 +668,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 modes.RemoveAt(2);
         }
 
-        private static ObjectTypeValueOld ConvertObjectType(ObjectTypeValueNew type)
+        private ObjectTypeValueOld ConvertObjectType(ObjectTypeValueNew type)
         {
             switch (type)
             {
@@ -690,7 +693,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static ObjectTypeValueNew ConvertObjectType(ObjectTypeValueOld type)
+        private ObjectTypeValueNew ConvertObjectType(ObjectTypeValueOld type)
         {
             switch (type)
             {
@@ -715,7 +718,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             }
         }
 
-        private static void FixDecalSystems(OpenTagCache destInfo, int firstNewIndex)
+        private void FixDecalSystems(OpenTagCache destInfo, int firstNewIndex)
         {
             // decs tags need to be updated to use the old rmdf for decals,
             // because the decal planes seem to be generated by the engine and
