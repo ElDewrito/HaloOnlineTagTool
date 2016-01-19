@@ -99,6 +99,7 @@
     <Compile Include="Commands\Tags\ExtractBitmapsCommand.cs" />
     <Compile Include="Commands\Tags\ExtractCommand.cs" />
     <Compile Include="Commands\Tags\GenerateLayoutsCommand.cs" />
+    <Compile Include="Commands\Tags\GenerateTagNamesCommand.cs" />
     <Compile Include="Commands\Tags\ImportBitmapCommand.cs" />
     <Compile Include="Commands\Tags\ImportCommand.cs" />
     <Compile Include="Commands\Tags\InfoCommand.cs" />
