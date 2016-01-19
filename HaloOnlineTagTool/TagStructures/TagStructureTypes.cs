@@ -34,6 +34,7 @@ namespace HaloOnlineTagTool.TagStructures
             { "adlg", typeof(AiDialogueGlobals) },
             { "aigl", typeof(AiGlobals) },
             { "ant!", typeof(Antenna) },
+            { "armr", typeof(Armor) },
             { "arms", typeof(ArmorSounds) },
             { "beam", typeof(BeamSystem) },
             { "bink", typeof(Bink) },

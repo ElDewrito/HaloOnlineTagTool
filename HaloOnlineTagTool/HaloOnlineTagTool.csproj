@@ -171,6 +171,7 @@
     <Compile Include="StringIdResolverFactory.cs" />
     <Compile Include="TagData.cs" />
     <Compile Include="TagGroup.cs" />
+    <Compile Include="TagStructures\Armor.cs" />
     <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>
     </Compile>

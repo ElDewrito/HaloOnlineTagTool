@@ -69,7 +69,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                     if (value.StartsWith("0x"))
                         writer.WriteLine($"0x{entry.Key:X8},{value}");
                     else
-                        writer.WriteLine($"0x{entry.Key:X8},0x{entry.Key:X4} {value}");
+                        writer.WriteLine($"0x{entry.Key:X8},{value}");
                 }
 
                 writer.Close();
@@ -226,7 +226,70 @@ namespace HaloOnlineTagTool.Commands.Tags
             {
                 var weapon = (Weapon)definition;
 
-                objectName = $"objects\\weapons\\{objectName}\\{objectName}";
+                var weaponClassName =
+                    // HUNTER WEAPONS
+                    objectName.StartsWith("flak_cannon") ?
+                        "hunter\\hunter_flak_cannon" :
+                    // MELEE WEAPONS
+                    objectName.StartsWith("energy_blade") ?
+                        "melee\\energy_blade" :
+                    objectName.StartsWith("gravity_hammer") ?
+                        "melee\\gravity_hammer" :
+                    // MULTIPLAYER WEAPONS
+                    objectName.StartsWith("assault_bomb") ?
+                        "multiplayer\\assault_bomb" :
+                    objectName.StartsWith("ball") ?
+                        "multiplayer\\ball" :
+                    objectName.StartsWith("flag") ?
+                        "multiplayer\\flag" :
+                    // PISTOL WEAPONS
+                    objectName.StartsWith("excavator") ?
+                        "pistol\\excavator" :
+                    objectName.StartsWith("magnum") ?
+                        "pistol\\magnum" :
+                    objectName.StartsWith("needler") ?
+                        "pistol\\needler" :
+                    objectName.StartsWith("plasma_pistol") ?
+                        "pistol\\plasma_pistol" :
+                    // RIFLE WEAPONS
+                    (objectName.StartsWith("assault_rifle") || objectName.StartsWith("ar_variant")) ?
+                        "rifle\\assault_rifle" :
+                    (objectName.StartsWith("battle_rifle") || objectName.StartsWith("br_variant")) ?
+                        "rifle\\battle_rifle" :
+                    objectName.StartsWith("beam_rifle") ?
+                        "rifle\\beam_rifle" :
+                    objectName.StartsWith("covenant_carbine") ?
+                        "rifle\\covenant_carbine" :
+                    objectName.StartsWith("dmr") ?
+                        "rifle\\dmr" :
+                    objectName.StartsWith("needle_rifle") ?
+                        "rifle\\needle_rifle" :
+                    objectName.StartsWith("plasma_rifle") ?
+                        "rifle\\plasma_rifle" :
+                    objectName.StartsWith("shotgun") ?
+                        "rifle\\shotgun" :
+                    objectName.StartsWith("smg") ?
+                        "rifle\\smg" :
+                    objectName.StartsWith("sniper_rifle") ?
+                        "rifle\\sniper_rifle" :
+                    objectName.StartsWith("spike_rifle") ?
+                        "rifle\\spike_rifle" :
+                    // SUPPORT WEAPONS
+                    objectName.StartsWith("rocket_launcher") ?
+                        "support_high\\rocket_launcher" :
+                    objectName.StartsWith("spartan_laser") ?
+                        "support_high\\spartan_laser" :
+                    objectName.StartsWith("brute_shot") ?
+                        "support_low\\brute_shot" :
+                    objectName.StartsWith("sentinel_gun") ?
+                        "support_low\\sentinel_gun" :
+                    // OTHER WEAPONS
+                    objectName;
+
+                objectName = $"objects\\weapons\\{weaponClassName}\\{objectName}";
+
+                if (objectName.EndsWith("energy_blade") && definition.WaterDensity == GameObject.WaterDensityValue.Default)
+                    objectName += "_useless";
 
                 tagNames[definition.Model.Index] = objectName;
 
@@ -241,10 +304,9 @@ namespace HaloOnlineTagTool.Commands.Tags
 
                 if (modelDefinition.Animation != null)
                     tagNames[modelDefinition.Animation.Index] = objectName;
-
-                var hudInterface = weapon.HudInterface;
-                if (hudInterface != null)
-                    tagNames[hudInterface.Index] = $"ui\\chud\\{objectName}";
+                
+                if (weapon.HudInterface != null && !tagNames.ContainsKey(weapon.HudInterface.Index))
+                    tagNames[weapon.HudInterface.Index] = $"ui\\chud\\{objectName}";
 
                 if (weapon.FirstPerson.Count < 1)
                     return;
@@ -259,6 +321,21 @@ namespace HaloOnlineTagTool.Commands.Tags
                 var eliteJmadTag = weapon.FirstPerson[1].FirstPersonAnimations;
                 if (eliteJmadTag != null)
                     tagNames[eliteJmadTag.Index] = $"objects\\characters\\mp_elite\\fp\\weapons\\fp_{objectName}\\fp_{objectName}";
+            }
+            else if (tag.Group.Tag == new Tag("eqip"))
+            {
+                var equipment = (Equipment)definition;
+
+                var equipmentClassName =
+                    (objectName.StartsWith("health_pack") || objectName.EndsWith("ammo")) ?
+                        $"powerups\\{objectName}" :
+                    objectName.StartsWith("powerup") ?
+                        $"multi\\powerups\\{objectName}" :
+                    objectName.EndsWith("grenade") ?
+                        $"weapons\\grenade\\{objectName}" :
+                    $"equipment\\{objectName}";
+
+                objectName = $"objects\\{equipmentClassName}\\{objectName}";
             }
             else if (tag.Group.Tag == new Tag("armr"))
             {
