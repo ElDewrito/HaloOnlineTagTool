@@ -226,6 +226,23 @@ namespace HaloOnlineTagTool.Commands.Tags
             {
                 var weapon = (Weapon)definition;
 
+                if (weapon.HudInterface != null && !tagNames.ContainsKey(weapon.HudInterface.Index))
+                    tagNames[weapon.HudInterface.Index] = $"ui\\chud\\{objectName}";
+
+                if (weapon.FirstPerson.Count > 0)
+                {
+                    var spartanJmadTag = weapon.FirstPerson[0].FirstPersonAnimations;
+                    if (spartanJmadTag != null)
+                        tagNames[spartanJmadTag.Index] = $"objects\\characters\\mp_masterchief\\fp\\weapons\\fp_{objectName}\\fp_{objectName}";
+                }
+
+                if (weapon.FirstPerson.Count > 1)
+                {
+                    var eliteJmadTag = weapon.FirstPerson[1].FirstPersonAnimations;
+                    if (eliteJmadTag != null)
+                        tagNames[eliteJmadTag.Index] = $"objects\\characters\\mp_elite\\fp\\weapons\\fp_{objectName}\\fp_{objectName}";
+                }
+
                 var weaponClassName =
                     // HUNTER WEAPONS
                     objectName.StartsWith("flak_cannon") ?
@@ -304,23 +321,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 
                 if (modelDefinition.Animation != null)
                     tagNames[modelDefinition.Animation.Index] = objectName;
-                
-                if (weapon.HudInterface != null && !tagNames.ContainsKey(weapon.HudInterface.Index))
-                    tagNames[weapon.HudInterface.Index] = $"ui\\chud\\{objectName}";
-
-                if (weapon.FirstPerson.Count < 1)
-                    return;
-
-                var spartanJmadTag = weapon.FirstPerson[0].FirstPersonAnimations;
-                if (spartanJmadTag != null)
-                    tagNames[spartanJmadTag.Index] = $"objects\\characters\\mp_masterchief\\fp\\weapons\\fp_{objectName}\\fp_{objectName}";
-
-                if (weapon.FirstPerson.Count < 2)
-                    return;
-
-                var eliteJmadTag = weapon.FirstPerson[1].FirstPersonAnimations;
-                if (eliteJmadTag != null)
-                    tagNames[eliteJmadTag.Index] = $"objects\\characters\\mp_elite\\fp\\weapons\\fp_{objectName}\\fp_{objectName}";
             }
             else if (tag.Group.Tag == new Tag("eqip"))
             {
@@ -336,6 +336,10 @@ namespace HaloOnlineTagTool.Commands.Tags
                     $"equipment\\{objectName}";
 
                 objectName = $"objects\\{equipmentClassName}\\{objectName}";
+            }
+            else if (tag.Group.Tag == new Tag("vehi"))
+            {
+
             }
             else if (tag.Group.Tag == new Tag("armr"))
             {
@@ -356,7 +360,6 @@ namespace HaloOnlineTagTool.Commands.Tags
 
                 if (modelDefinition.Animation != null)
                     tagNames[modelDefinition.Animation.Index] = objectName;
-
             }
 
             tagNames[tag.Index] = objectName;
