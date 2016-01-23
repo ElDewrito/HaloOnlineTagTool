@@ -81,7 +81,7 @@ namespace HaloOnlineTagTool.Commands.Editing
 
             if (field == null)
             {
-                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Structure.Types[0].Name, args[1]);
+                Console.WriteLine("ERROR: {0} does not contain a field named \"{1}\".", Structure.Types[0].Name, fieldName);
                 while (Stack.Context != previousContext) Stack.Pop();
                 Owner = previousOwner;
                 Structure = previousStructure;
@@ -215,6 +215,12 @@ namespace HaloOnlineTagTool.Commands.Editing
                     return false;
                 output = value;
             }
+            else if (type == typeof(string))
+            {
+                if (args.Count != 1)
+                    return false;
+                output = input;
+            }
             else if (type == typeof(TagInstance))
             {
                 if (args.Count != 1)
@@ -300,25 +306,31 @@ namespace HaloOnlineTagTool.Commands.Editing
                 if (args.Count != 1)
                     return false;
 
-                var nameLow = args[0].ToLower();
-                var names = Enum.GetNames(type).Select(i => i.ToLower()).ToList();
-                var found = names.Find(n => n == nameLow);
+                var query = args[0];
+
+                var found = Enum.Parse(type, query);
 
                 if (found == null)
                 {
-                    Console.WriteLine("Invalid {0} enum option: {1}", type.Name, args[0]);
-                    Console.WriteLine("");
+                    var nameLow = query.ToLower();
+                    var names = Enum.GetNames(type).Select(i => i.ToLower()).ToList();
+                    found = names.Find(n => n == nameLow);
 
-                    Console.WriteLine("Valid options:");
-                    foreach (var name in names)
-                        Console.WriteLine("\t{0}", name);
-                    Console.WriteLine();
+                    if (found == null)
+                    {
+                        Console.WriteLine("Invalid {0} enum option: {1}", type.Name, args[0]);
+                        Console.WriteLine("");
 
-                    return false;
+                        Console.WriteLine("Valid options:");
+                        foreach (var name in Enum.GetNames(type))
+                            Console.WriteLine("\t{0}", name);
+                        Console.WriteLine();
+
+                        return false;
+                    }
                 }
-
-                var values = Enum.GetValues(type);
-                output = values.GetValue(names.IndexOf(nameLow));
+                
+                output = found;
             }
             else if (type == typeof(Range<>))
             {
@@ -354,6 +366,7 @@ namespace HaloOnlineTagTool.Commands.Editing
                 type == typeof(long) ||
                 type == typeof(ulong) ||
                 type == typeof(float) ||
+                type == typeof(string) ||
                 type == typeof(TagInstance) ||
                 type == typeof(StringId) ||
                 type == typeof(Angle))

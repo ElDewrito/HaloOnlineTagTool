@@ -22,7 +22,11 @@ namespace HaloOnlineTagTool
         public StringIdCache(Stream stream, StringIdResolverBase resolver)
         {
             Resolver = resolver;
-            Load(stream);
+
+            if (stream.Length != 0)
+                Load(stream);
+            else
+                _strings = new List<string>();
         }
 
         /// <summary>

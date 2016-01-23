@@ -10,6 +10,8 @@ using HaloOnlineTagTool.Serialization;
 
 namespace HaloOnlineTagTool.TagStructures
 {
+    [TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3AC, MaxVersion = EngineVersion.V1_106708_cert_ms23)]
+    [TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3A8, MaxVersion = EngineVersion.V1_235640_cert_ms25)]
     [TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3AC, MaxVersion = EngineVersion.V10_1_449175_Live)]
     [TagStructure(Name = "scenario_structure_bsp", Class = "sbsp", Size = 0x3B8, MinVersion = EngineVersion.V11_1_498295_Live)]
     public class ScenarioStructureBsp
@@ -133,7 +135,12 @@ namespace HaloOnlineTagTool.TagStructures
         public int Unknown91;
         public uint Unknown92;
         public uint Unknown93;
+        [MinVersion(EngineVersion.V1_106708_cert_ms23)]
+        [MaxVersion(EngineVersion.V1_106708_cert_ms23)]
         public uint Unknown94;
+        [MinVersion(EngineVersion.V0_0_1_301003_cert_MS26_new)]
+        [MaxVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)]
+        public uint Unknown98;
 
         [TagStructure(Size = 0x18)]
         public class CollisionMaterial

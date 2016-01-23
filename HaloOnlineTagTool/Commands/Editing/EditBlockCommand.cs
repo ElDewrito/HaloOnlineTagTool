@@ -101,9 +101,16 @@ namespace HaloOnlineTagTool.Commands.Editing
                 }
 
                 int blockIndex = 0;
-                if (!int.TryParse(args[1], out blockIndex) ||
-                    blockIndex >= fieldValue.Count ||
-                    blockIndex < 0)
+
+                if (args[1] == "*")
+                    blockIndex = fieldValue.Count - 1;
+                else if (!int.TryParse(args[1], out blockIndex))
+                {
+                    Console.WriteLine("Invalid index requested from block {0}: {1}", blockName, blockIndex);
+                    return false;
+                }
+
+                if (blockIndex >= fieldValue.Count || blockIndex < 0)
                 {
                     Console.WriteLine("Invalid index requested from block {0}: {1}", blockName, blockIndex);
                     return false;
@@ -120,6 +127,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             blockContext.AddCommand(new SetFieldCommand(Stack, Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new EditBlockCommand(Stack, Info, Tag, blockValue));
             blockContext.AddCommand(new AddToBlockCommand(Stack, Info, Tag, blockStructure, blockValue));
+            blockContext.AddCommand(new RemoveFromBlockCommand(Stack, Info, Tag, blockStructure, blockValue));
             blockContext.AddCommand(new ExitToCommand(Stack));
             Stack.Push(blockContext);
 

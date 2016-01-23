@@ -35,7 +35,16 @@ namespace HaloOnlineTagTool.TagStructures
         [TagStructure(Size = 0x1C)]
         public class Light
         {
+            [MaxVersion(EngineVersion.V11_1_571627_Live)]
             public List<UnknownBlock> Unknown;
+
+            [MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)]
+            public uint U1;
+            [MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)]
+            public uint U2;
+            [MinVersion(EngineVersion.V12_1_700123_cert_ms30_oct19)]
+            public uint U3;
+
             public float Unknown2;
             public float Unknown3;
             public float Unknown4;

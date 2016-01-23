@@ -113,7 +113,7 @@ namespace HaloOnlineTagTool.TagStructures
                 /// <summary>
                 /// Gets or sets the index of the first mesh belonging to the permutation.
                 /// </summary>
-                public ushort MeshIndex;
+                public short MeshIndex;
 
                 /// <summary>
                 /// Gets or sets the number of meshes belonging to the permutation.

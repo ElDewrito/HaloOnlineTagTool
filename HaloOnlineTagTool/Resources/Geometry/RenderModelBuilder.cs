@@ -127,7 +127,7 @@ namespace HaloOnlineTagTool.Resources.Geometry
             _currentPermutation = new RenderModel.Region.Permutation
             {
                 Name = name,
-                MeshIndex = (ushort)_meshes.Count,
+                MeshIndex = (short)_meshes.Count,
             };
         }
 
