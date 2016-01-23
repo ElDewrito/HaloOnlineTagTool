@@ -112,7 +112,6 @@
     <Compile Include="Commands\Tags\ResourceDataCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
-    <Compile Include="Commands\Tags\TestCommand.cs" />
     <Compile Include="Commands\Unicode\ListCommand.cs" />
     <Compile Include="Commands\Unicode\SetCommand.cs" />
     <Compile Include="Commands\Unicode\UnicodeContextFactory.cs" />
