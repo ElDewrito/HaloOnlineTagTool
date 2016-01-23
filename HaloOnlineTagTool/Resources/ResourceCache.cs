@@ -197,7 +197,7 @@ namespace HaloOnlineTagTool.Resources
         {
             var resource = _resources[resourceIndex];
             var roundedSize = ((minSize + 0xF) & ~0xFU); // Round up to a multiple of 0x10
-            var sizeDelta = (long)(roundedSize - resource.Size);
+            var sizeDelta = (int)(roundedSize - resource.Size);
             var endOffset = resource.Offset + resource.Size;
             StreamUtil.Copy(writer.BaseStream, endOffset, endOffset + sizeDelta, writer.BaseStream.Length - endOffset);
             resource.Size = roundedSize;
