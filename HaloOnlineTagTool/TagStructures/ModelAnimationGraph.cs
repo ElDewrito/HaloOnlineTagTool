@@ -17,8 +17,8 @@ namespace HaloOnlineTagTool.TagStructures
         public byte PrivateFlags;
         public short AnimationCodecPack;
         public List<SkeletonNode> SkeletonNodes;
-        public List<SoundReference> SoundReferences;
-        public List<EffectReference> EffectReferences;
+        public List<AnimationTagReference> SoundReferences;
+        public List<AnimationTagReference> EffectReferences;
         public List<BlendScreen> BlendScreens;
         public List<Leg> Legs;
         public List<Animation> Animations;
@@ -66,21 +66,35 @@ namespace HaloOnlineTagTool.TagStructures
         }
 
         [TagStructure(Size = 0x14)]
-        public class SoundReference
+        public class AnimationTagReference
         {
-            public TagInstance Sound;
-            public ushort Flags;
+            public TagInstance Reference;
+            public AnimationTagReferenceFlags Flags;
             public short Unknown;
         }
 
-        [TagStructure(Size = 0x14)]
-        public class EffectReference
+        [Flags]
+        public enum AnimationTagReferenceFlags : ushort
         {
-            public TagInstance Effect;
-            public ushort Flags;
-            public short Unknown;
+            None = 0,
+            AllowOnPlayer = 1 << 0,
+            LeftArmOnly = 1 << 1,
+            RightArmOnly = 1 << 2,
+            FirstPersonOnly = 1 << 3,
+            ForwardOnly = 1 << 4,
+            ReverseOnly = 1 << 5,
+            Bit6 = 1 << 6,
+            Bit7 = 1 << 7,
+            Bit8 = 1 << 8,
+            Bit9 = 1 << 9,
+            Bit10 = 1 << 10,
+            Bit11 = 1 << 11,
+            Bit12 = 1 << 12,
+            Bit13 = 1 << 13,
+            Bit14 = 1 << 14,
+            Bit15 = 1 << 15
         }
-
+        
         [TagStructure(Size = 0x1C)]
         public class BlendScreen
         {
@@ -122,8 +136,8 @@ namespace HaloOnlineTagTool.TagStructures
             public short LoopFrameIndex;
             public ushort PlaybackFlags;
             public sbyte BlendScreen;
-            public DesiredCompressionValue DesiredCompression;
-            public CurrentCompressionValue CurrentCompression;
+            public CompressionValue DesiredCompression;
+            public CompressionValue CurrentCompression;
             public sbyte NodeCount;
             public short FrameCount;
             public TypeValue Type;
@@ -136,8 +150,8 @@ namespace HaloOnlineTagTool.TagStructures
             public short Unknown2;
             public short PreviousVariantSibling;
             public short NextVariantSibling;
-            public short RawInformationGroupIndex;
-            public short RawInformationMemberIndex;
+            public short ResourceGroupIndex;
+            public short ResourceGroupMemberIndex;
             public List<FrameEvent> FrameEvents;
             public List<SoundEvent> SoundEvents;
             public List<EffectEvent> EffectEvents;
@@ -150,17 +164,7 @@ namespace HaloOnlineTagTool.TagStructures
             public float Unknown7;
             public float Unknown8;
 
-            public enum DesiredCompressionValue : sbyte
-            {
-                BestScore,
-                BestCompression,
-                BestAccuracy,
-                BestFullframe,
-                BestSmallKeyframe,
-                BestLargeKeyframe,
-            }
-
-            public enum CurrentCompressionValue : sbyte
+            public enum CompressionValue : sbyte
             {
                 BestScore,
                 BestCompression,
@@ -235,13 +239,8 @@ namespace HaloOnlineTagTool.TagStructures
             {
                 public short NodeIndex;
                 public ushort ComponentFlags;
-                public short RotationX;
-                public short RotationY;
-                public short RotationZ;
-                public short RotationW;
-                public float DefaultTranslationX;
-                public float DefaultTranslationY;
-                public float DefaultTranslationZ;
+                public Vector4 Rotation;
+                public Vector3 DefaultTranslation;
                 public float DefaultScale;
             }
 
@@ -488,7 +487,7 @@ namespace HaloOnlineTagTool.TagStructures
         {
             public int MemberCount;
             public ResourceReference Resource;
-            public int UselessPadding;
+            public int UnusedPadding;
         }
     }
 }

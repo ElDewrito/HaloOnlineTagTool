@@ -23,7 +23,10 @@ namespace HaloOnlineTagTool.Resources
         /// <param name="stream">The stream to read from.</param>
         public ResourceCache(Stream stream)
         {
-            Load(stream);
+            if (stream.Length != 0)
+                Load(stream);
+            else
+                _resources = new List<Resource>();
         }
 
         /// <summary>
@@ -214,6 +217,9 @@ namespace HaloOnlineTagTool.Resources
             var tableOffset = reader.ReadUInt32();
             var resourceCount = reader.ReadInt32();
 
+            if (resourceCount == 0)
+                return;
+
             // Read each resource pointer
             reader.BaseStream.Position = tableOffset;
             for (var i = 0; i < resourceCount; i++)
@@ -230,11 +236,17 @@ namespace HaloOnlineTagTool.Resources
             _resources[resourceCount - 1].Size = tableOffset - _resources[resourceCount - 1].Offset;
         }
 
-        private void UpdateResourceTable(BinaryWriter writer)
+        public void UpdateResourceTable(BinaryWriter writer)
         {
             // Assume the table is past the last resource
-            var lastResource = _resources[_resources.Count - 1];
-            var tableOffset = lastResource.Offset + lastResource.Size;
+            uint tableOffset = 0xC;
+
+            if (_resources.Count != 0)
+            {
+                var lastResource = _resources[_resources.Count - 1];
+                tableOffset = lastResource.Offset + lastResource.Size;
+            }
+
             writer.BaseStream.Position = tableOffset;
 
             // Write each resource offset

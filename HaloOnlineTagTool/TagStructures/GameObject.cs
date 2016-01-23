@@ -13,7 +13,7 @@ namespace HaloOnlineTagTool.TagStructures
         [MaxVersion(EngineVersion.V10_1_449175_Live)] public ObjectTypeValueOld ObjectTypeOld;
         [MinVersion(EngineVersion.V11_1_498295_Live)] public ObjectTypeValueNew ObjectTypeNew;
         public byte Padding;
-        public ushort Flags;
+        public FlagsValue Flags;
         public float BoundingRadius;
         public float BoundingOffsetX;
         public float BoundingOffsetY;
@@ -50,6 +50,28 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown4;
         public uint Unknown5;
         public List<ModelObjectDatum> ModelObjectData;
+
+        [Flags]
+        public enum FlagsValue : ushort
+        {
+            None = 0,
+            DoesNotCastShadow = 1 << 0,
+            SearchCardinalDirectionMaps = 1 << 1,
+            Bit2 = 1 << 2,
+            NotAPathfindingObstacle = 1 << 3,
+            ExtensionOfParent = 1 << 4,
+            DoesNotCauseCollisionDamage = 1 << 5,
+            EarlyMover = 1 << 6,
+            EarlyMoverLocalizedPhysics = 1 << 7,
+            UseStaticMassiveLightmapSample = 1 << 8,
+            ObjectScalesAttachments = 1 << 9,
+            InheritsPlayersAppearance = 1 << 10,
+            DeadBipedsCantLocalize = 1 << 11,
+            AttachToClustersByDynamicSphere = 1 << 12,
+            EffectsDoNotSpawnObjectsInMultiplayer = 1 << 13,
+            Bit14 = 1 << 14,
+            Bit15 = 1 << 15
+        }
 
         public enum LightmapShadowModeSizeValue : short
         {

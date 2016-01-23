@@ -112,6 +112,7 @@
     <Compile Include="Commands\Tags\ResourceDataCommand.cs" />
     <Compile Include="Commands\Tags\StringIdCommand.cs" />
     <Compile Include="Commands\Tags\TagCacheContextFactory.cs" />
+    <Compile Include="Commands\Tags\TestCommand.cs" />
     <Compile Include="Commands\Unicode\ListCommand.cs" />
     <Compile Include="Commands\Unicode\SetCommand.cs" />
     <Compile Include="Commands\Unicode\UnicodeContextFactory.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="StringIdResolverFactory.cs" />
     <Compile Include="TagData.cs" />
     <Compile Include="TagGroup.cs" />
+    <Compile Include="TagStructures\AiMissionDialogue.cs" />
     <Compile Include="TagStructures\Armor.cs" />
     <Compile Include="TagStructures\BreakableSurface.cs">
       <SubType>Code</SubType>

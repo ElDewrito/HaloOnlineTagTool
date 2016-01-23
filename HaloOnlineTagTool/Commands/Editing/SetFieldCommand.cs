@@ -306,25 +306,31 @@ namespace HaloOnlineTagTool.Commands.Editing
                 if (args.Count != 1)
                     return false;
 
-                var nameLow = args[0].ToLower();
-                var names = Enum.GetNames(type).Select(i => i.ToLower()).ToList();
-                var found = names.Find(n => n == nameLow);
+                var query = args[0];
+
+                var found = Enum.Parse(type, query);
 
                 if (found == null)
                 {
-                    Console.WriteLine("Invalid {0} enum option: {1}", type.Name, args[0]);
-                    Console.WriteLine("");
+                    var nameLow = query.ToLower();
+                    var names = Enum.GetNames(type).Select(i => i.ToLower()).ToList();
+                    found = names.Find(n => n == nameLow);
 
-                    Console.WriteLine("Valid options:");
-                    foreach (var name in names)
-                        Console.WriteLine("\t{0}", name);
-                    Console.WriteLine();
+                    if (found == null)
+                    {
+                        Console.WriteLine("Invalid {0} enum option: {1}", type.Name, args[0]);
+                        Console.WriteLine("");
 
-                    return false;
+                        Console.WriteLine("Valid options:");
+                        foreach (var name in Enum.GetNames(type))
+                            Console.WriteLine("\t{0}", name);
+                        Console.WriteLine();
+
+                        return false;
+                    }
                 }
-
-                var values = Enum.GetValues(type);
-                output = values.GetValue(names.IndexOf(nameLow));
+                
+                output = found;
             }
             else if (type == typeof(Range<>))
             {

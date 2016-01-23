@@ -23,7 +23,9 @@ namespace HaloOnlineTagTool
         public TagCache(Stream stream)
         {
             Tags = new TagList(_tags);
-            Load(new BinaryReader(stream));
+
+            if (stream.Length != 0)
+                Load(new BinaryReader(stream));
         }
 
         /// <summary>
@@ -34,7 +36,7 @@ namespace HaloOnlineTagTool
         /// <summary>
         /// Gets the timestamp stored in the file (as a FILETIME value).
         /// </summary>
-        public long Timestamp { get; private set; }
+        public long Timestamp { get; set; }
 
         /// <summary>
         /// Allocates a new tag at the end of the tag list without updating the file.
@@ -353,7 +355,7 @@ namespace HaloOnlineTagTool
         /// Updates the tag offset table in the file.
         /// </summary>
         /// <param name="writer">The stream to write to.</param>
-        private void UpdateTagOffsets(BinaryWriter writer)
+        public void UpdateTagOffsets(BinaryWriter writer)
         {
             var offsetTableOffset = GetTagDataEndOffset();
             writer.BaseStream.Position = offsetTableOffset;

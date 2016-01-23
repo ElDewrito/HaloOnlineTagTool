@@ -69,7 +69,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                     if (value.StartsWith("0x"))
                         writer.WriteLine($"0x{entry.Key:X8},{value}");
                     else
-                        writer.WriteLine($"0x{entry.Key:X8},{value}");
+                        writer.WriteLine($"0x{entry.Key:X8},0x{entry.Key:X4} {value}");
                 }
 
                 writer.Close();

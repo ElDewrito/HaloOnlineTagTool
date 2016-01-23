@@ -24,7 +24,7 @@ namespace HaloOnlineTagTool.Commands.Editing
             : base(CommandFlags.Inherit,
                   "AddTo",
                   $"Adds block element(s) to the end of a specific tag block in the current {structure.Types[0].Name} definition.",
-                  "AddTo <tag block name> [amount = 1]",
+                  "AddTo <tag block name> [amount = 1] [index = *]",
                   $"Adds block element(s) to the end of a specific tag block in the current {structure.Types[0].Name} definition.")
         {
             Stack = stack;
@@ -36,7 +36,7 @@ namespace HaloOnlineTagTool.Commands.Editing
 
         public override bool Execute(List<string> args)
         {
-            if (args.Count < 1 || args.Count > 2)
+            if (args.Count < 1 || args.Count > 3)
                 return false;
 
             var fieldName = args[0];
@@ -79,10 +79,21 @@ namespace HaloOnlineTagTool.Commands.Editing
 
             var count = 1;
 
-            if ((args.Count == 2 && !int.TryParse(args[1], out count)) || count < 1)
+            if ((args.Count > 1 && !int.TryParse(args[1], out count)) || count < 1)
             {
-                Console.WriteLine($"Invalid number specified: {args[1]}");
+                Console.WriteLine($"Invalid amount specified: {args[1]}");
                 return false;
+            }
+
+            var index = -1;
+
+            if (args.Count > 2)
+            {
+                if (args[2] != "*" && (!int.TryParse(args[2], out index) || index < 0))
+                {
+                    Console.WriteLine($"Invalid index specified: {args[2]}");
+                    return false;
+                }
             }
 
             var enumerator = new TagFieldEnumerator(Structure);
@@ -107,11 +118,24 @@ namespace HaloOnlineTagTool.Commands.Editing
                 blockValue = Activator.CreateInstance(field.FieldType) as IList;
                 field.SetValue(Owner, blockValue);
             }
+            
+            if (index > blockValue.Count)
+            {
+                Console.WriteLine($"Invalid index specified: {args[2]}");
+                return false;
+            }
 
             var elementType = field.FieldType.GenericTypeArguments[0];
-
+            
             for (var i = 0; i < count; i++)
-                blockValue.Add(CreateElement(elementType));
+            {
+                var element = CreateElement(elementType);
+
+                if (index == -1)
+                    blockValue.Add(element);
+                else
+                    blockValue.Insert(index + i, element);
+            }
 
             field.SetValue(Owner, blockValue);
 

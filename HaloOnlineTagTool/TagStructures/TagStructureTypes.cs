@@ -93,6 +93,7 @@ namespace HaloOnlineTagTool.TagStructures
             { "mach", typeof(DeviceMachine) },
             { "matg", typeof(Globals) },
             { "mdl3", typeof(GuiModelWidgetDefinition) },
+            { "mdlg", typeof(AiMissionDialogue) },
             { "mffn", typeof(Muffin) },
             { "mode", typeof(RenderModel) },
             { "mulg", typeof(MultiplayerGlobals) },

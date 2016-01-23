@@ -36,6 +36,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 context.AddCommand(new GenerateTagNamesCommand(info));
                 context.AddCommand(new MatchTagsCommand(info));
                 context.AddCommand(new ConvertCommand(info));
+                context.AddCommand(new TestCommand(info));
             }
             return context;
         }

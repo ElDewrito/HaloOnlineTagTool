@@ -10,7 +10,8 @@ using HaloOnlineTagTool.Serialization;
 namespace HaloOnlineTagTool.TagStructures
 {
     [TagStructure(Name = "globals", Class = "matg", Size = 0x608, MaxVersion = EngineVersion.V10_1_449175_Live)]
-    [TagStructure(Name = "globals", Class = "matg", Size = 0x618, MinVersion = EngineVersion.V11_1_498295_Live)]
+    [TagStructure(Name = "globals", Class = "matg", Size = 0x618, MinVersion = EngineVersion.V11_1_498295_Live, MaxVersion = EngineVersion.V11_1_571627_Live)]
+    [TagStructure(Name = "globals", Class = "matg", Size = 0x614, MinVersion = EngineVersion.V12_1_700123_cert_ms30_oct19)]
     public class Globals
     {
         public uint Unknown;
@@ -321,6 +322,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown274;
         public uint Unknown275;
         public List<DamageReportingType> DamageReportingTypes;
+        [MaxVersion(EngineVersion.V11_1_571627_Live)]
         public uint Unknown276;
 
         [TagStructure(Size = 0x10)]
