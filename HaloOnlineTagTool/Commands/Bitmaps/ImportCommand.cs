@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using HaloOnlineTagTool.Resources;
 using HaloOnlineTagTool.Resources.Bitmaps;
 using HaloOnlineTagTool.Serialization;
@@ -11,9 +14,9 @@ namespace HaloOnlineTagTool.Commands.Bitmaps
 {
     class ImportCommand : Command
     {
-        private OpenTagCache Info { get; }
-        private TagInstance Tag { get; }
-        private Bitmap Definition { get; set; }
+        private readonly OpenTagCache _info;
+        private readonly TagInstance _tag;
+        private readonly Bitmap _bitmap;
 
         public ImportCommand(OpenTagCache info, TagInstance tag, Bitmap bitmap) : base(
             CommandFlags.None,
@@ -27,34 +30,30 @@ namespace HaloOnlineTagTool.Commands.Bitmaps
             "No conversion will be done on the data in the DDS file.\n" +
             "The pixel format must be supported by the game.")
         {
-            Info = info;
-            Tag = tag;
-            Definition = bitmap;
+            _info = info;
+            _tag = tag;
+            _bitmap = bitmap;
         }
 
         public override bool Execute(List<string> args)
         {
             if (args.Count != 2)
                 return false;
-
             int imageIndex;
             if (!int.TryParse(args[0], NumberStyles.HexNumber, null, out imageIndex))
                 return false;
-
-            if (imageIndex < 0 || imageIndex >= Definition.Images.Count)
+            if (imageIndex < 0 || imageIndex >= _bitmap.Images.Count)
             {
-                Console.WriteLine("Invalid image index.");
+                Console.Error.WriteLine("Invalid image index.");
                 return true;
             }
-
             var imagePath = args[1];
 
             Console.WriteLine("Loading resource caches...");
             var resourceManager = new ResourceDataManager();
-
             try
             {
-                resourceManager.LoadCachesFromDirectory(Info.CacheFile.DirectoryName);
+                resourceManager.LoadCachesFromDirectory(_info.CacheFile.DirectoryName);
             }
             catch
             {
@@ -62,46 +61,18 @@ namespace HaloOnlineTagTool.Commands.Bitmaps
                 Console.WriteLine("Make sure that they all exist and are valid.");
                 return true;
             }
-
             Console.WriteLine("Importing image data...");
-
             try
             {
-                Definition = new Bitmap
-                {
-                    Flags = Bitmap.RuntimeFlags.UseResource,
-                    Sequences = new List<Bitmap.Sequence>
-                    {
-                        new Bitmap.Sequence
-                        {
-                            FirstBitmapIndex = 0,
-                            BitmapCount = 1
-                        }
-                    },
-                    Images = new List<Bitmap.Image>
-                    {
-                        new Bitmap.Image
-                        {
-                            Signature = new Tag("bitm").Value,
-                            Unknown28 = -1
-                        }
-                    },
-                    Resources = new List<Bitmap.BitmapResource>
-                    {
-                        new Bitmap.BitmapResource()
-                    }
-                };
-
                 using (var imageStream = File.OpenRead(imagePath))
                 {
                     var injector = new BitmapDdsInjector(resourceManager);
-                    injector.InjectDds(Info.Serializer, Info.Deserializer, Definition, imageIndex, imageStream);
+                    injector.InjectDds(_info.Serializer, _info.Deserializer, _bitmap, imageIndex, imageStream);
                 }
-
-                using (var tagsStream = Info.OpenCacheReadWrite())
+                using (var tagsStream = _info.OpenCacheReadWrite())
                 {
-                    var tagContext = new TagSerializationContext(tagsStream, Info.Cache, Info.StringIds, Tag);
-                    Info.Serializer.Serialize(tagContext, Definition);
+                    var tagContext = new TagSerializationContext(tagsStream, _info.Cache, _info.StringIds, _tag);
+                    _info.Serializer.Serialize(tagContext, _bitmap);
                 }
             }
             catch (Exception ex)
@@ -109,7 +80,6 @@ namespace HaloOnlineTagTool.Commands.Bitmaps
                 Console.WriteLine("Importing image data failed: " + ex.Message);
                 return true;
             }
-
             Console.WriteLine("Done!");
             return true;
         }
