@@ -72,8 +72,9 @@ namespace HaloOnlineTagTool.Commands.RenderMethods
                         throw new NotImplementedException();
                 }
             }
-
+            
             context.AddCommand(new ListArgumentsCommand(info, tag, renderMethod));
+            context.AddCommand(new ListBitmapsCommand(info, tag, renderMethod));
             context.AddCommand(new SpecifyBitmapsCommand(info, tag, renderMethod));
         }
     }

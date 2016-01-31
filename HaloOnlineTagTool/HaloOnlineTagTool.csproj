@@ -82,6 +82,7 @@
     <Compile Include="Commands\Models\ModelContextFactory.cs" />
     <Compile Include="Commands\OpenTagCache.cs" />
     <Compile Include="Commands\RenderMethods\ListArgumentsCommand.cs" />
+    <Compile Include="Commands\RenderMethods\ListBitmapsCommand.cs" />
     <Compile Include="Commands\RenderMethods\RenderMethodContextFactory.cs" />
     <Compile Include="Commands\RenderMethods\SpecifyBitmapsCommand.cs" />
     <Compile Include="Commands\RenderModels\RenderModelContextFactory.cs" />
