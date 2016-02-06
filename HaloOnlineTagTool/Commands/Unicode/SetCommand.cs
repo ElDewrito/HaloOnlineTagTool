@@ -60,7 +60,7 @@ namespace HaloOnlineTagTool.Commands.Unicode
             if (localizedStr == null)
             {
                 // Add a new string
-                localizedStr = new LocalizedString {StringId = stringId};
+                localizedStr = new LocalizedString { StringId = stringId, StringIdStr = stringIdStr };
                 Definition.Strings.Add(localizedStr);
                 added = true;
             }
