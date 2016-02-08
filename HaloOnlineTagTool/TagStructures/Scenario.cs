@@ -93,9 +93,7 @@ namespace HaloOnlineTagTool.TagStructures
         public uint Unknown29;
         public uint Unknown30;
         public uint Unknown31;
-        public uint Unknown32;
-        public uint Unknown33;
-        public uint Unknown34;
+        public List<UnknownBlock> Unknown32;
         public uint Unknown35;
         public uint Unknown36;
         public uint Unknown37;
