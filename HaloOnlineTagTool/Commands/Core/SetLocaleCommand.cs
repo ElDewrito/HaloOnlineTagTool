@@ -11,6 +11,7 @@ namespace HaloOnlineTagTool.Commands.Core
                   "SetLocale",
                   "Changes the parsing locale of numbers to the specified locale.",
                   "SetLocale <locale>",
+                  "Use a culture name from https://msdn.microsoft.com/en-us/library/system.globalization.cultureinfo(vs.71).aspx")
         {
         }
 
