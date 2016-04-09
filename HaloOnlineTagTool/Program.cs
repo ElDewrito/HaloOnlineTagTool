@@ -6,6 +6,7 @@ using System.Reflection;
 using HaloOnlineTagTool.Commands;
 using HaloOnlineTagTool.Commands.Tags;
 using HaloOnlineTagTool.Serialization;
+using System.Globalization;
 
 namespace HaloOnlineTagTool
 {
@@ -14,6 +15,8 @@ namespace HaloOnlineTagTool
         static void Main(string[] args)
         {
             ConsoleHistory.Initialize();
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.GetCultureInfo("en-US");
 
             // Get the file path from the first argument
             // If no argument is given, load tags.dat

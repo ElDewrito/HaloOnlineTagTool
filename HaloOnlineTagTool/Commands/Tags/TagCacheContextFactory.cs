@@ -21,6 +21,7 @@ namespace HaloOnlineTagTool.Commands.Tags
             context.AddCommand(new DuplicateTagCommand(info));
             context.AddCommand(new AddressCommand());
             context.AddCommand(new ResourceDataCommand());
+            context.AddCommand(new SetLocaleCommand());
             if (info.StringIds != null)
             {
                 context.AddCommand(new EditCommand(stack, info));
