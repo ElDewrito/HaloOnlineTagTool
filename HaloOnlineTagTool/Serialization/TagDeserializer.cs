@@ -15,7 +15,7 @@ namespace HaloOnlineTagTool.Serialization
     /// </summary>
     public class TagDeserializer
     {
-        private readonly EngineVersion _version;
+        public readonly EngineVersion _version;
 
         /// <summary>
         /// Constructs a tag deserializer for a specific engine version.
@@ -61,7 +61,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="info">Information about the structure to deserialize.</param>
         /// <returns>The deserialized structure.</returns>
         /// <exception cref="System.InvalidOperationException">Target type must have TagStructureAttribute</exception>
-        private object DeserializeStruct(BinaryReader reader, ISerializationContext context, TagStructureInfo info)
+        public object DeserializeStruct(BinaryReader reader, ISerializationContext context, TagStructureInfo info)
         {
             var baseOffset = reader.BaseStream.Position;
             var instance = Activator.CreateInstance(info.Types[0]);
@@ -82,7 +82,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="enumerator">The active element enumerator.</param>
         /// <param name="baseOffset">The offset of the start of the structure.</param>
         /// <exception cref="System.InvalidOperationException">Offset for property is outside of its structure</exception>
-        private void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagFieldEnumerator enumerator, long baseOffset)
+        public void DeserializeProperty(BinaryReader reader, ISerializationContext context, object instance, TagFieldEnumerator enumerator, long baseOffset)
         {
             // Seek to the value if it has an offset specified and then read it
             if (enumerator.Attribute.Offset >= 0)
@@ -101,7 +101,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized value.</returns>
-        private object DeserializeValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
+        public object DeserializeValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
         {
             if (valueType.IsPrimitive)
                 return DeserializePrimitiveValue(reader, valueType);
@@ -115,7 +115,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized value.</returns>
         /// <exception cref="System.ArgumentException">Unsupported type</exception>
-        private static object DeserializePrimitiveValue(BinaryReader reader, Type valueType)
+        public static object DeserializePrimitiveValue(BinaryReader reader, Type valueType)
         {
             switch (Type.GetTypeCode(valueType))
             {
@@ -154,7 +154,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized value.</returns>
-        private object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
+        public object DeserializeComplexValue(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
         {
             // Indirect objects
             // TODO: Remove ResourceReference hax, the Indirect flag wasn't available when I generated the tag structures
@@ -237,7 +237,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="context">The serialization context to use.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized tag block.</returns>
-        private object DeserializeTagBlock(BinaryReader reader, ISerializationContext context, Type valueType)
+        public object DeserializeTagBlock(BinaryReader reader, ISerializationContext context, Type valueType)
         {
             var elementType = valueType.GenericTypeArguments[0];
             var result = Activator.CreateInstance(valueType);
@@ -272,7 +272,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="context">The serialization context to use.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized value.</returns>
-        private object DeserializeIndirectValue(BinaryReader reader, ISerializationContext context, Type valueType)
+        public object DeserializeIndirectValue(BinaryReader reader, ISerializationContext context, Type valueType)
         {
             // Read the pointer
             var pointer = reader.ReadUInt32();
@@ -294,7 +294,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="context">The serialization context to use.</param>
         /// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
         /// <returns>The deserialized tag reference.</returns>
-        private static TagInstance DeserializeTagReference(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo)
+        public static TagInstance DeserializeTagReference(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo)
         {
             if (valueInfo == null || (valueInfo.Flags & TagFieldFlags.Short) == 0)
                 reader.BaseStream.Position += 0xC; // Skip the class name and zero bytes, it's not important
@@ -308,7 +308,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="reader">The reader.</param>
         /// <param name="context">The serialization context to use.</param>
         /// <returns>The deserialized data reference.</returns>
-        private static byte[] DeserializeDataReference(BinaryReader reader, ISerializationContext context)
+        public static byte[] DeserializeDataReference(BinaryReader reader, ISerializationContext context)
         {
             // Read size and pointer
             var startOffset = reader.BaseStream.Position;
@@ -338,7 +338,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized array.</returns>
-        private Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
+        public Array DeserializeInlineArray(BinaryReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
         {
             if (valueInfo == null || valueInfo.Count == 0)
                 throw new ArgumentException("Cannot deserialize an inline array with no count set");
@@ -358,7 +358,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="reader">The reader.</param>
         /// <param name="valueInfo">The value information.</param>
         /// <returns>The deserialized string.</returns>
-        private static string DeserializeString(BinaryReader reader, TagFieldAttribute valueInfo)
+        public static string DeserializeString(BinaryReader reader, TagFieldAttribute valueInfo)
         {
             if (valueInfo == null || valueInfo.Length == 0)
                 throw new ArgumentException("Cannot deserialize a string with no length set");
@@ -384,7 +384,7 @@ namespace HaloOnlineTagTool.Serialization
         /// <param name="context">The serialization context to use.</param>
         /// <param name="rangeType">The range's type.</param>
         /// <returns>The deserialized range.</returns>
-        private object DeserializeRange(BinaryReader reader, ISerializationContext context, Type rangeType)
+        public object DeserializeRange(BinaryReader reader, ISerializationContext context, Type rangeType)
         {
             var boundsType = rangeType.GenericTypeArguments[0];
             var min = DeserializeValue(reader, context, null, boundsType);

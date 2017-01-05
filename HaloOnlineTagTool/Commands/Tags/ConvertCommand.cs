@@ -69,13 +69,7 @@ namespace HaloOnlineTagTool.Commands.Tags
                 return true;
             }
             Console.WriteLine("- Detected version {0}", VersionDetection.GetVersionString(destInfo.Version));
-
-            if (_info.Version != EngineVersion.V11_1_498295_Live && destInfo.Version != EngineVersion.V1_106708_cert_ms23)
-            {
-                Console.Error.WriteLine("Conversion is only supported from 11.1.498295 Live to 1.106708 cert_ms23.");
-                return true;
-            }
-
+            
             // Set up version-specific objects
             destInfo.Serializer = new TagSerializer(destInfo.Version);
             destInfo.Deserializer = new TagDeserializer(destInfo.Version);

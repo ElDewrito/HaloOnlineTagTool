@@ -1,4 +1,5 @@
 ﻿using HaloOnlineTagTool.Commands.Bitmaps;
+using HaloOnlineTagTool.Commands.BSP;
 using HaloOnlineTagTool.Commands.Models;
 using HaloOnlineTagTool.Commands.RenderModels;
 using HaloOnlineTagTool.Commands.RenderMethods;
@@ -56,6 +57,10 @@ namespace HaloOnlineTagTool.Commands.Editing
 
                 case "scnr":
                     EditScenario(context, info, tag);
+                    break;
+
+                case "sbsp":
+                    EditBSP(context, info, tag);
                     break;
             }
 
@@ -149,6 +154,17 @@ namespace HaloOnlineTagTool.Commands.Editing
                     new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
 
             ScnrContextFactory.Populate(context, info, tag, scenario);
+        }
+
+        private static void EditBSP(CommandContext context, OpenTagCache info, TagInstance tag)
+        {
+            ScenarioStructureBsp bsp;
+
+            using (var stream = info.OpenCacheRead())
+                bsp = info.Deserializer.Deserialize<ScenarioStructureBsp>(
+                    new TagSerializationContext(stream, info.Cache, info.StringIds, tag));
+
+            BSPContextFactory.Populate(context, info, tag, bsp);
         }
     }
 }

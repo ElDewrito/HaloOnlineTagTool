@@ -61,6 +61,8 @@
     <Compile Include="Commands\ArgumentParser.cs" />
     <Compile Include="Commands\Bitmaps\BitmapContextFactory.cs" />
     <Compile Include="Commands\Bitmaps\ImportCommand.cs" />
+    <Compile Include="Commands\BSP\BSPContextFactory.cs" />
+    <Compile Include="Commands\BSP\CollisionCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\CommandContextStack.cs" />
@@ -158,12 +160,14 @@
     <Compile Include="Common\Vector2.cs" />
     <Compile Include="Common\Vector4.cs" />
     <Compile Include="Layouts\TagLayoutField.cs" />
+    <Compile Include="Resources\Geometry\CollisionBspResourceDefinition.cs" />
     <Compile Include="Resources\Geometry\CollisionGeometryBuilder.cs" />
     <Compile Include="Resources\Geometry\GeometryReference.cs" />
     <Compile Include="Resources\Geometry\BlenderPhmoReader.cs" />
     <Compile Include="Resources\Geometry\PhysicsModelBuilder.cs" />
     <Compile Include="Resources\Geometry\RenderMaterial.cs" />
     <Compile Include="Resources\Geometry\VertexStreamFactory.cs" />
+    <Compile Include="Resources\ResourceBlockReference.cs" />
     <Compile Include="Resources\Shaders\ShaderCompiler.cs" />
     <Compile Include="Resources\Shaders\ShaderConverter.cs" />
     <Compile Include="Serialization\MaxVersionAttribute.cs" />
